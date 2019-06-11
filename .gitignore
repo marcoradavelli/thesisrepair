@@ -3,3 +3,10 @@
 /*.sav
 /*.bak
 /*.log
+/*.pdf
+/*.gz
+/*.bbl
+/*.log
+/*.out
+/*.blg
+!/images/*.pdf
