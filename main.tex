@@ -24,7 +24,7 @@
 
 \documentclass[
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
-%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -86,6 +86,142 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
+
+
+
+\usepackage{color}
+\usepackage{amsthm}
+\usepackage{stfloats}
+\usepackage{paralist}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\newcommand{\dom}{\ensuremath{\mathit{Dom}}\xspace}
+\newcommand{\oracle}{\ensuremath{\mathit{oracle}}\xspace}
+\newcommand{\oraclet}{\ensuremath{\mathit{oracle(t)}}\xspace}
+\newcommand{\allTestsTrue}{\ensuremath{\mathit{allTestsTrue(c)}}\xspace}
+\newcommand{\allTestsFalse}{\ensuremath{\mathit{allTestsFalse(c)}}\xspace}
+\newcommand{\fcc}{\ensuremath{\mathit{fcc}}\xspace}
+\newcommand{\fccs}{\ensuremath{\mathit{fccs}}\xspace}
+\newcommand{\features}{\ensuremath{\mathit{features}}\xspace}
+\newcommand{\overConstr}{over-constraining\xspace}
+\newcommand{\underConstr}{under-constraining\xspace}
+\newcommand{\true}{\ensuremath{\mathit{true}}\xspace}
+\newcommand{\false}{\ensuremath{\mathit{false}}\xspace}
+\newcommand{\sat}{\ensuremath{\mathit{isSAT}}\xspace}
+\newcommand{\unsat}{\ensuremath{\mathit{UNSAT}}\xspace}
+\newcommand{\fccSet}{\ensuremath{\mathit{FCC}}\xspace}
+\newcommand{\testSuite}{\ensuremath{T}\xspace}
+\newcommand{\exTestSuite}{\ensuremath{\mathit{\testSuite_e}}\xspace}
+
+\newcommand{\m}{\ensuremath{\mathcal{M}}\xspace}
+\newcommand{\mfU}{\ensuremath{\m_{\mathit{f1}}}\xspace}
+\newcommand{\mfO}{\ensuremath{\m_{\mathit{f2}}}\xspace}
+\newcommand{\mO}{\ensuremath{\m_o}\xspace}
+\newcommand{\mRep}{\ensuremath{\m^\prime}\xspace}
+
+\newcommand{\benchReal}{\ensuremath{\mathtt{BENCH_{REAL}}}\xspace}
+\newcommand{\benchMut}{\ensuremath{\mathtt{BENCH_{MUT}}}\xspace}
+
+\newcommand{\onlySelection}{onlySelection\xspace}
+\newcommand{\atgt}{\textsf{ATGT}\xspace}
+\newcommand{\espresso}{\textsf{Espresso}\xspace}
+\newcommand{\jbool}{\textsf{JBool}\xspace}
+\newcommand{\qm}{\textsf{QM}\xspace}
+
+\newcommand{\exampleM}{\textsf{example}\xspace}
+\newcommand{\register}{\textsf{register}\xspace}
+\newcommand{\django}{\textsf{django}\xspace}
+\newcommand{\tightVnc}{\textsf{tight\_vnc}\xspace}
+\newcommand{\rhiscom}{\textsf{rhiscom}\xspace}
+\newcommand{\erpSpl}{\textsf{ERP-SPL}\xspace}
+\newcommand{\windows}{\textsf{windows}\xspace}
+\newcommand{\cg}{\cellcolor{lightgray}}
+
+%\usepackage[bookmarks=false]{hyperref}
+%\hypersetup{
+%colorlinks = true, % false: boxed links; true: colored links
+%linkcolor=black, % color of internal links
+%citecolor=black, % color of links to bibliography
+%urlcolor=black % color of external links
+%}
+
+\usepackage{makecell}
+
+%\usepackage{algorithmicx}
+\usepackage{algorithm} % http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode} % http://ctan.org/pkg/algorithmicx
+%\usepackage{algorithmic}
+%\algsetup{linenosize=\small}
+\algrenewcommand\algorithmicindent{0.6em}
+\makeatletter
+\renewcommand{\ALG@beginalgorithmic}{\footnotesize}
+\makeatother
+
+\usepackage{bibentry}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}
+\theoremstyle{definition}
+\newtheorem{defn}{\protect\definitionname}
+\theoremstyle{remark}
+\newtheorem{example}{\protect\examplename}
+\theoremstyle{remark}
+\newtheorem{observation}{\protect\observationname}
+\theoremstyle{plain}
+\newtheorem{assumption}{\protect\assumptionname}
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}
+
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\observationname}{Observation}
+\providecommand{\theoremname}{Theorem}
+\providecommand{\assumptionname}{Assumption}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newenvironment{nscenter} % https://tex.stackexchange.com/questions/98839/center-and-centering-both-add-space-above-centerline-does-not
+{\parskip=0pt\par\nopagebreak\centering}
+{\par\noindent\ignorespacesafterend}
+
+\usepackage{xcolor,colortbl}
+\definecolor{light-gray}{gray}{0.8}
+
+\usepackage{multirow}
+
+\usepackage{xspace}
+
+\usepackage{centernot}
+%\usepackage[numbers,super]{natbib}
+
+\usepackage{listings}
+\lstset{
+	columns=fullflexible,
+	showstringspaces=false,
+	numberbychapter=false,
+	captionpos=b
+}
+\renewcommand{\lstlistingname}{Code}% Listing -> Code
+
+\newcounter{researchquestionCount}
+\newcommand{\researchquestion}[1]{\stepcounter{researchquestionCount}\begin{itemize}\item [\textbf{RQ\arabic{researchquestionCount}:}] \emph{#1}\end{itemize}}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=normalsize,backgroundcolor=blue!10]{todonotes}
+%\presetkeys{todonotes}{inline}{}
+\usepackage{comment}
+\usepackage{tikz}
+
+\usepackage{bm}
+
 
 \begin{document}
 
@@ -211,8 +347,8 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 
-\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere\\
-\textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
+\textbf{SPL} & \textbf{S}oftware \textbf{P}roduct \textbf{L}ine(s)\\
+\textbf{CIT} & \textbf{C}ombinatorial \textbf{I}nteraction \textbf{T}esting\\
 
 \end{abbreviations}
 
@@ -274,12 +410,30 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \subsection{Black-box software testing}
 
 \section{Motivation}
+%Rationale
+Traditional testing techniques provide test generation, fault localization and program repair. %, but \textit{model} repair is  % of \textit{code} artifacts. 
+If we assume a \textit{fault} to be a discrepancy between a model (\textit{problem space}) and the system implementation (\textit{solution space}) for a particular test case, we can distinguish two scenarios: (1) the model is correct and the implementation is faulty, and (2) the implementation is correct and the model is faulty.
+While the most common case is that the model reflects the specification, and the error resides in the system implementation, this is not always the case.
+The specification may change throughout the software system life cycle, and it may happen that the implementation is updated but the model(s) remain(s) outdated, leading to inconsistencies that reduce system maintainability \cite{rost2013software}. %that increase the effort for project stakeholders to understand the system, and for software engineers to modify it, in case new functionalities shall be added, or an update is needed. 
+Such inconsistencies are often due to budget constraints, as updating models is a difficult and error-prone activity to perform manually. % In such cases, only the system code is updated as it is the only artifact that strictly needs to be modified to meet the new requirements.
+In other cases, the model is derived from the software implementation, often even long time after the program is put in operation. 
+Moreover, with the increase of complexity of software systems, also their models are becoming larger: the Linux Kernel, for instance, has currently more than 13,000 features (in release 3.9) \cite{passos2018study}. %, describing only partial aspect of the system, at a specific level of abstraction. 
+%\todo{aclune volte perchè il modello è derivato dal sw, magari anche dopo.}
+The goal of this research proposal is to study how software testing techniques can be applied to drive automatic repair of software models.
+Model \textit{repair} can be useful whenever the model is outdated w.r.t. the implementation, or a defined oracle or the specification.
+Sometimes an engineer also wants to detect which is a model of a current aspect of an implemented system, and can use testing techniques not only to find bugs in a system, but also to \textit{repair} or to entirely \textit{learn} a model from the system implementation. 
+Outcomes of this project may have an impact in reducing the effort of software maintenance, which is one of the costliest phases in software life cycle \cite{zarnekow2005distribution}.
 
 \section{Research Questions and Objective}
 
 
 
 \chapter{State of the Art}
+There are several works on automated program repair \cite{nguyen_semfix:_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
+In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo:2013:MRT:3107656.3107752}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,abukwaik_extracting_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
+%\todo{to describe why there is repair only for code and not for models}.
+A quality-based model refactoring framework assessing quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents an approach to model repair, although it is specific to one kind of models.
+The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
 
 \section{Software Testing}
 \subsection{Combinatorial Testing}
@@ -302,12 +456,114 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 
 \chapter{Approach and Uniqueness}
+%The research approach consists of two stages: the reviewing stage, and the formulation stage.
+%In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
+%In the formulation stage, for each scenario, we \textit{decline} the repair problem to that particular kind of model, and apply or tailor existing techniques to propose a solution to the model repair problem.
+
+We devise an iterative process to automatically repair models: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:approach} shows an overview of such test-driven repair approach. 
+Among testing techniques to be employed, black-box testing is an effective technique to detect faults in a system focusing on the inputs, without needing access to the code, but requiring simply an oracle that states if a particular test %(i.e., a system configuration)
+passes or fails. 
+Combinatorial Interaction Testing (CIT), in particular, has shown to achieve high coverage in software systems for which a parametric, configurable model can be defined. Moreover, we use mutation analysis and search-based methods for \textit{feature models}, a model that has also a graphical tree representation, and these methods tend to apply \textit{small} edits to the model, helping preserve domain knowledge.
+%Benchmarks should be selected for evaluation, and tools to implement the repair process should be reused if existing, or customized or built if needed.
+
+Unlike processes that detect faults and repair code, %the proposed repair process targets models and is based on the assumption that the fault resides in the model, and the implementation is correct. %, the rationale that drives this PhD proposal is the investigation of software testing techniques to automatically \textit{repair} models.
+the main hypothesis of this project is that testing techniques can be used not only for fault detection and localization, but also for model repair.
+This methodology aims at changing the model \textit{with less impact as possible} (to preserve domain knowledge) to \textit{repair} the non-conformance w.r.t. the \textit{solution space} (it can be the current implementation, a new specification, or an available \textit{oracle}).
+The applied repairs are local and little, based on the \textit{competent modeler} assumption, that the model is \textit{a little} outdated, and minimal changes are enough. 
+
+\begin{figure}[!tb]
+	\centering
+	\includegraphics[width=.8\columnwidth]{images/repair.png}
+	\caption{Test-Driven process to repair models}
+	\label{fig:approach}
+\end{figure}
+
+%We plan to evaluate effectiveness and efficiency of the test-driven repair techniques on different applications, with real-world models and systems: from literature and from industrial cases. Apart from the already investigated applications to combinatorial and feature models, we plan to study a scenario of repair of 
+%timed automata (TA), high order logic expressions, and finite state machines, for example. % they all have
+%Timed automata are mainly used to describe the behavior of communication protocols, real-time systems and cyber-physical systems.
+%The model could be abstracted to obtain parameters representing timing constraints in the guards or in the locations, resulting in a Parametric Timed Automata (PTA), and tests drive the detection of a configuration for such parameters, that reflects the \textit{updated} system.
+%Each test, in this case, could be an \textit{execution trace}.%, that can happen or not in a given system, or according to the new specification.
+
+%The dissemination plan consists in applying test-driven repair to real-world software systems, and possibly release tools, in addition to publishing papers to venues related to software testing or to the particular application for which test-driven repair has been applied.
+%If real-world case studies coming from collaborations with industries in the sector are found, it would be an added value.
+
 
 \chapter{Request-Driven Repair}
+Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
+%In order to keep an SPL and its feature model aligned, feature models must be changed by including/excluding new features and products, either because faults in the model are found or to reflect the normal evolution of the SPL.
+%Such changes can be complex and error-prone due to the size of the feature model.
+%Therefore, 
+We developed an approach that \textit{repairs} a feature model w.r.t. a given update request in the form of combinations representing a set of configurations to be accepted or rejected, that may be detected by \textit{failing} test cases, or directly by engineer domain knowledge. % from a change in the specification.
+The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled.
+We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini2018evolutionary}.
+% \cite{arcaini2018evolutionary,ARCAINI201964}.
+We generate faults between two real versions of feature models of the {\tt MobileMedia}, {\tt HelpSystem},  {\tt SmartHome}, and {\tt ERP\_SPL} systems in the SPLOT repository\footnote{\url{http://52.32.1.180:8080/SPLOT/feature_model_repository.html}}, and we notice that although our approach does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, with minimal edits.%, helping in preserving domain knowledge.
 
+%\subsection{Test generation and fault localization}
+%The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
+%To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
 
 \chapter{Failure-Driven Repair}
 \section{Repair of Configuration Constraints}
+A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
+%Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
+%Therefore, in \cite{gargantini_combinatorial_2017}
+The devised iterative approach uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and CIT policies introduced in \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
+The model is then repaired \textit{logically}, by translating such failure-inducing combinations into expressions in propositional logic.
+The repairs are of two types, depending on whether the model is true and the system (i.e., the oracle) false for a given test case (in this case, the model is \textit{under-constrained}) or vice-versa (in this case, the model is \textit{over-constrained}). Tab. \ref{table:testsandfaults} reports possible scenarios in which such condition may occur in a system with three boolean parameters A, B, C, that map to directives in a C program in which both B and C can be enabled only if also A is activated.
+\begin{table}[!tb]
+	\caption{Test suites with faults (in gray)}\label{table:testsandfaults}
+	\begin{comment}
+	\begin{tabular}{c|c|c||c|c|c}
+	A & B & C & oracle & \mfU & \mfO\\
+	& & & $A \rightarrow B$,$ A \rightarrow C$ & $A \rightarrow B$ & $A \rightarrow B$,$C$\\
+	\hline 
+	T & T & T & T & T & T \\
+	T & T & F & F & \cg T & F \\
+	T & F & T & F & F & F \\
+	F & T & T & T & T & T \\% & \underConstr fault\\
+	F & T & F & T & T & \cg F\\
+	F & F & T & T & T & T\\
+	F & F & F & T & T & \cg F\\
+	\end{tabular}
+	\end{comment}
+	\resizebox{.8\columnwidth}{!}{
+		\begin{subtable}[t]{.5\columnwidth}
+			\centering
+			\caption{\underConstr fault}
+			\label{table:underConstrFault}
+			\begin{tabular}{c|c|c||c|c}
+				A & B & C & \mfU & oracle\\
+				\hline 
+				T & T & F & \cg T & \cg F\\% & \underConstr fault\\
+				T & F & F & F & F\\
+			\end{tabular}
+		\end{subtable}%
+		\begin{subtable}[t]{.5\columnwidth}
+			\centering
+			\caption{\overConstr fault}
+			\label{table:overConstrFault}
+			\begin{tabular}{c|c|c||c|c}
+				A & B & C & \mfO & oracle\\
+				\hline 
+				F & T & T & T & T\\
+				F & F & T & T & T\\
+				F & T & F & \cg F & \cg T\\% & \overConstr fault\\
+				F & F & F & \cg F & \cg T\\% & \overConstr fault\\
+			\end{tabular}
+		\end{subtable}%
+	}
+\end{table}
+
+
+Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency, and Django) show that our approach can repair on average 37\% of conformance faults. Moreover, we also notice that it can infer and repair parameter constraints for the configurations that lead to a successful startup of Django, a well-known open source web application framework written in Python.
+
+%For test generation we used a framework called CTWedge
+
+%\subsubsection{XSS Vulnerabilities Constraints}
+%Combinatorial models are also suitable to model parts of XSS attack vectors, with a limited number of possible values.
+%We applied our iterative approach also to such models, using as oracle a script that runs the web application under test, inject the attack vector in a particular input field in a form, and checks wether the injected Javascript code has been present in the response page.  We evaluated our approach empirically on four systems from the Web Application Vulnerability Scanner Evaluation Project (WAVSEP), and on two real-world web applications, obtaining an accurate model of the constraints among parameters that cause an attack vector to break the sanitization function of the system.
+
 \section{Test-Driven Model Evolution in XSS Vulnerability Detection}
 \section{Repairing Timed Automata Clock Guards through Abstraction and Testing}
 
@@ -317,7 +573,13 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \section{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
 
 \chapter{Conclusions and Future Work}
+We illustrated the research project of using software testing techniques to drive the inference and repair of models of software systems.
+It is a novel application of software testing that goes beyond detecting and localizing faults in code, and that performs little repairs to preserves domain knowledge and support engineers in maintaining consistency between all the software artifacts, and localizing faults also in the model. 
+We presented applications to combinatorial and feature models. As future work, we plan to apply test-driven repair of other model types, namely timed automata, and abstract state machines. Furthermore, we plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.%, for instance with MixTgTe 
 
+%\section{Acknowledgment}
+%\todo{}
+%I would like to thank my supervisor Angelo Gargantini for his advice, support and help in my research, and also thank the other collaborators in the research activity so far, for their precious contribution.
 
 %\chapter{Bibliography}
 
@@ -327,12 +589,12 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
 
-\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+%\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
-\include{Appendices/AppendixA}
+%\include{Appendices/AppendixA}
 %\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 

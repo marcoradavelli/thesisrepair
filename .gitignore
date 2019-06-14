@@ -10,3 +10,12 @@
 /*.out
 /*.blg
 !/images/*.pdf
+*.lof
+
+*.lot
+
+*.toc
+
+Appendices/AppendixA\.aux
+
+*.xml
