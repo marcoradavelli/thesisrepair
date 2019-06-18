@@ -43,9 +43,9 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage{mathpazo} % Use the Palatino font by default
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+%\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
-\addbibresource{example.bib} % The filename of the bibliography
+%\addbibresource{thesis.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 
@@ -99,8 +99,98 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{subcaption}
 \usepackage{amssymb}% http://ctan.org/pkg/amssymb
 \usepackage{pifont}% http://ctan.org/pkg/pifont
-\newcommand{\cmark}{\ding{51}}%
-\newcommand{\xmark}{\ding{55}}%
+%\usepackage[numbers,super]{natbib}
+%\usepackage{bibentry}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+%\usepackage{algorithmic}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{xspace}
+\usepackage{verbatim}
+\usepackage{xcolor,colortbl}
+\usepackage[unicode=true,
+%bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,pdfauthor={Angelo Gargantini},
+%breaklinks=false,backref=false,
+pdfborder={0 0 0},colorlinks=false]{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{comment}
+\usepackage{array} % for centering in tables: https://tex.stackexchange.com/questions/157389/how-to-center-column-values-in-a-table
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{makecell}
+%\usepackage{algorithmicx}
+\usepackage{algorithm} % http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode} % http://ctan.org/pkg/algorithmicx
+\usepackage{xcolor,colortbl}
+\usepackage{xspace}
+\usepackage{centernot}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\lstdefinelanguage{ctwedge}{
+	morekeywords={Model, Parameters, Boolean, Enumerative, Constraints,:, AND, OR, or, and, not, =>, implies, false, true, =, <, >},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[s]{'}{'},
+	morestring=[s]{"}{"},
+	escapechar={@},
+	tabsize=2, columns=fullflexible,basicstyle=\sffamily\footnotesize
+}
+\lstdefinelanguage{Xtext}{
+	morekeywords={grammar, with, hidden, generate, as, import, returns, current, terminal, enum},
+	keywordstyle=[2]{\textbf},
+	morecomment=[l]{//}, 
+	morecomment=[s]{/*}{*/}, 
+	morestring=[b]",
+	tabsize=4}
+\newcommand{\lstXtext}[1]{\lstinline[breaklines=true,language=Xtext,basicstyle=\listingsfontinline,mathescape,literate={\-}{}{0\discretionary{-}{}{}}]\S#1\S}
+
+\definecolor{color1}{rgb}{0.0,  0.0,0.6}
+\definecolor{color2}{rgb}{0.29, 0,  0.29}
+\definecolor{color3}{rgb}{0.25, 0.5,0.5}
+
+\lstdefinelanguage{url}{
+	moredelim=[is][\ProcessAmpersand]{\&}{=},
+	moredelim=[is][\ProcessQM]{?}{=},
+	moredelim=[l][\color{color1}]{http://},
+	alsoletter={0,1,2,3,4,5,6,7,8,9,.,/,:},
+	showstringspaces=true,
+	identifierstyle=\color{color3},
+	literate = |{{\textcolor{color1}{|}}}1,
+}
+
+\def\ProcessAmpersand%
+{%
+	\lst@CalcLostSpaceAndOutput%
+	\textcolor{color1}{\&}%
+	\color{color2}%
+	\aftergroup\ProcessClosingEq%
+}
+
+\def\ProcessQM%
+{%
+	\lst@CalcLostSpaceAndOutput%
+	\textcolor{color1}{?}%
+	\color{color2}%
+	\aftergroup\ProcessClosingEq%
+}
+
+\def\ProcessClosingEq{\textcolor{color1}{=}}
+
+
+\definecolor{light-gray}{gray}{0.8}
+
+\newcommand{\ctwedge}{\textsc{ctwedge}\xspace}
+\newcommand{\citlab}{\textsc{CitLab}\xspace}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\red}[1]{#1}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+\newcommand{\cmark}{\ding{51}}%for checkmark: http://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\newcommand{\xmark}{\ding{55}}%for xmark
 
 \newcommand{\dom}{\ensuremath{\mathit{Dom}}\xspace}
 \newcommand{\oracle}{\ensuremath{\mathit{oracle}}\xspace}
@@ -152,11 +242,6 @@ headsepline, % Uncomment to get a line under the header
 %urlcolor=black % color of external links
 %}
 
-\usepackage{makecell}
-
-%\usepackage{algorithmicx}
-\usepackage{algorithm} % http://ctan.org/pkg/algorithms
-\usepackage{algpseudocode} % http://ctan.org/pkg/algorithmicx
 %\usepackage{algorithmic}
 %\algsetup{linenosize=\small}
 \algrenewcommand\algorithmicindent{0.6em}
@@ -164,7 +249,6 @@ headsepline, % Uncomment to get a line under the header
 \renewcommand{\ALG@beginalgorithmic}{\footnotesize}
 \makeatother
 
-\usepackage{bibentry}
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -187,23 +271,11 @@ headsepline, % Uncomment to get a line under the header
 \providecommand{\theoremname}{Theorem}
 \providecommand{\assumptionname}{Assumption}
 
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-
 \newenvironment{nscenter} % https://tex.stackexchange.com/questions/98839/center-and-centering-both-add-space-above-centerline-does-not
 {\parskip=0pt\par\nopagebreak\centering}
 {\par\noindent\ignorespacesafterend}
 
-\usepackage{xcolor,colortbl}
-\definecolor{light-gray}{gray}{0.8}
 
-\usepackage{multirow}
-
-\usepackage{xspace}
-
-\usepackage{centernot}
-%\usepackage[numbers,super]{natbib}
-
-\usepackage{listings}
 \lstset{
 	columns=fullflexible,
 	showstringspaces=false,
@@ -429,8 +501,8 @@ Outcomes of this project may have an impact in reducing the effort of software m
 
 
 \chapter{State of the Art}
-There are several works on automated program repair \cite{nguyen_semfix:_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
-In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo:2013:MRT:3107656.3107752}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,abukwaik_extracting_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
+There are several works on automated program repair \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
+In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo_2013}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,Abukwaik_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
 %\todo{to describe why there is repair only for code and not for models}.
 A quality-based model refactoring framework assessing quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents an approach to model repair, although it is specific to one kind of models.
 The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
@@ -569,8 +641,584 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 
 
 \chapter{Tools}
-\section{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}
-\section{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
+\chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}
+Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
+The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
+%
+Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{czerwonka_pairwise_2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
+In~\cite{citlab12} we have presented a plugin for the eclipse IDE that helps the user in writing CIT models with constraints by leveraging all the expected features of a modern IDE, and it generates combinatorial test suites by using third party programs (like CASA or ACTS).
+
+However, this classical approach poses some challenges. First, the user must install the chosen CIT tool, which in turn may require some dependencies, like java, or in case of plugin, it requires the installation of another program or application like eclipse, excel and so on. Then the user must use his/her machine for running the test generation algorithms. For experienced users with powerful machines they can administer, this is not a real problem. However, for novice users with not so powerful computer, or students that are just learning the CIT principles, or software developers using computer they cannot administer, this can become a cost to be considered and it may be an obstacle for the use of CIT.
+
+Second, from the point of view of tool developers, the distribution of programs means that they have little or no control on the software once is installed: when a bug is discovered the developer has to fix the bug, publish a new version of the tool and hope that the users will update their software. Moreover, the developer has no idea about how the software is used: what are the typical scenarios of use (big or small models, for example), what are the features that are mostly used (for example, what modeling features are more used). Furthermore, it is difficult for tool developers to apply a cost model able to reward their effort in developing and deploying the CIT tool. Indeed, most of the tools are given away for free by researchers supported by their own organization.
+
+A possible solution of these problems could be the offer of CIT features as software as a service (SaaS). SaaS is software that is accessed through Internet by using a classical web browser.  The SaaS software is actually hosted on the vendor’s servers, and the customers log in and perform tasks as necessary.  The 
+vendor is the one who is ultimately responsible for hosting, upgrading and maintaining the program as needed.  There is an extensive literature about SaaS and the advantages (together with limitations) are well known~\cite{Menken:2008}. 
+
+There are already experiences in using the web for CIT. For instance, CTWeb Classic~\cite{usaolaframework}, CTWeb Plus~\cite{ctwebplus}, TestCover~\cite{testcover}, Hexawise~\cite{hexawise}, and PairWiser~\cite{pairwiser}. 
+
+However, as we will discuss in the related work section, each tool has its own specific language to define combinatorial models, with its own predefined output formats and a (limited) set of supported existing or in-house algorithms for test case generation. Not all those tools are equally powerful or easy to use, and many of them are commercial or require registration.
+
+%However, as we will discuss in the related work section, they lack of some features: very limited editing capabilities, little support for constraints, test generation using in-house algorithms, and limited export formats.
+
+For this reason, starting from our experience with \citlab~\cite{citlab12}, we have worked on a web based application that allows the user to write CIT models in a similar way he/she would do in a classical IDE and it offers test suite generation by means of   server using known and community evaluated test generation algorithms. 
+Our system, called \ctwedge (Combinatorial Testing Web EDiting and GEneration), introduces a rich language for combinatorial models, offers a powerful web editor, and allows the user to generate the CIT test suites on a server. The only software needed to use \ctwedge is a modern web browser.
+
+The paper is organized as follows. In Sect. \ref{sec:language} we present the modeling language (in an abstract way) we use to define CIT models. In Sect. \ref{sec:ctwedge} we introduce our tool, its architecture, its web editing capabilities, and the generator engine. A detailed comparison with other similar web based tools is presented in  Sect. \ref{sec:related}. Future works and possible directions of extension are presented in Sect. \ref{sec:futurework}. Sect. \ref{sec:conclusions} concludes the paper.
+
+
+\section{A simple language for CIT models}\label{sec:language}
+
+We have devised a simple textual language for CIT models which is suitable to be used in web editors. It allows the definition of parameters, each with its name and (finite) domain, and it is based on our previous language defined for \citlab \cite{citlab12}. We allow the following parameter types: 
+
+\begin{enumerate}
+	\item \textsf{Boolean} with only two possible values \textsf{true} and \textsf{false}
+	\red{ (all lower or all upper case).}
+	%(which can be written also all uppercase). 
+	The two boolean constants are \red{ also }considered of Boolean type.
+	\item \textsf{Ranges} that are integer intervals defined by their lower bound $l$ and upper bound $u$. With $[l..u]$ we denote all the integers between $l$ and $u$ included.
+	\item \textsf{Enumerative} that are a list of possible values between \{\}. We are rather liberal about the elements and we allow identifier starting also with a number, natural numbers, and strings. For example, one could define a  enumerative \textsf{values} in this way:
+	\begin{lstlisting}[language=ctwedge]
+	values : {100, 1M, "my name", cit}
+	\end{lstlisting}
+\end{enumerate}
+
+A simple example of combinatorial model with three parameters is shown in Fig. \ref{fig:ctexample}. 
+
+\begin{figure}[tb]
+	\centering
+	\begin{lstlisting}[language=ctwedge,frame= single]
+	Model Phone
+	Parameters:
+	emailViewer : Boolean
+	textLines:  [ 25 .. 30 ]
+	display : {16MC, 8MC, BW}
+	\end{lstlisting}
+	\caption{A smartphone example}
+	\label{fig:ctexample}
+\end{figure}
+
+There are some semantic rules about the parameters and their definitions, defined as follows:
+\begin{enumerate}
+	\item The name of each parameter must be unique.
+	\item In \textsf{Ranges}, the lower bound $l$ must be less than the upper bound $u$.
+	\item The elements in each \textsf{Enumerative} must be distinct. We allow two enumerative parameters to share some elements, though.
+\end{enumerate}
+
+
+\subsection{Constraints}
+
+A distinctive feature of our langauge is the support of modeling constraints among parameters. 
+In most configurable systems, constraints or dependencies exist between
+parameters. Constraints may be introduced for several reasons, for example, to
+model inconsistencies between certain hardware components, limitations of the
+possible system configurations, or simply design choices~\cite{CohenISSTA07}.
+In our approach, tests that
+do not satisfy the constraints are considered \emph{invalid} and do not need to
+be produced. For this reason, the presence of constraints may reduce the number
+of tests of the final test suite (but it may also increase it
+~\cite{CohenISSTA07}). However, the generation of tests considering constraints
+is generally more challenging than the generation without them, and several test generation techniques still do not support constraints, at least not in a direct manner. In \ctwedge we decided to focus more on techniques supporting constraints.
+
+In \ctwedge, we adopt the language of propositional logic (with the usual logical operators) with equality and arithmetic to express constraints. To be more precise, we use propositional calculus, enriched by the arithmetic over the integers and enumerative symbols. As operators, we admit the use of equality and inequality for any variable, the usual Boolean operators for Boolean terms, and the relational and arithmetic operators for numeric terms. To be more precise, Table \ref{tab:validity} reports all the rules we have defined to check if a constraint is semantically correct.
+
+\begin{table*}
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline 
+		\textbf{Expression}	& \textbf{Case} & \textbf{Correct iff}\\\hline
+		\multirow{7}{*}{\shortstack{$e_1\ op\ e_2$	with $op \in \{=, \neq \}$ $\rightarrow boolean$ \\ $ e_2\ op\ e_1$ with $op \in \{=, \neq \}$ $ \rightarrow boolean$ }}  & $e_1$ enumerative, $e_2$ element& $e_2$ belongs to $e_1$ elements \\\cline{2-3}
+		
+		& $e_1$ enumerative, $e_2$  enumerative& $e_1$ and $e_2$ share at least one element \\\cline{2-3} 
+		&  $e_1$ range, $e_2$ range & $e_1$ and $e_2$ share at least one number \\\cline{2-3}
+		& $e_1$ range, $e_2$ number & always \\\cline{2-3}
+		& $e_1$ number, $e_2$ number & always \\\cline{2-3}
+		& $e_1$ boolean, $e_2$ boolean & always\\\cline{2-3}
+		%& $e_1$ boolean, $e_2$ boolean constant & always \\\cline{2-3}
+		\hline 
+		
+		\multirow{3}{*}{\shortstack{$e_1\ op\ e_2$	with $op \in \{<, \le, >, \ge \}$ $\rightarrow boolean$ \\ $ e_2\ op\ e_1$ with $op \in \{<, \le, >, \ge \}$ $ \rightarrow boolean$ }}  &  $e_1$ range, $e_2$ range & $e_1$ and $e_2$ share at least one number \\\cline{2-3}
+		& $e_1$ range, $e_2$ number & always \\\cline{2-3}
+		& $e_1$ number, $e_2$ number & always \\\cline{2-3}
+		%& $e_1$ boolean, $e_2$ boolean & always \red{sicuro???}\\\cline{2-3}
+		%& $e_1$ boolean, $e_2$ boolean constant & always \\\cline{2-3}
+		\hline 
+		
+		\multirow{3}{*}{\shortstack{$e_1\ op\ e_2$	with $op \in \{\wedge, \vee, \rightarrow\}$ $\rightarrow boolean$ \\ $ e_2\ op\ e_1$ with $op \in \{ \wedge, \vee, \rightarrow \}$ $ \rightarrow boolean$ }}  & \multirow{3}{*}{$e_1$ boolean, $e_2$ boolean} & \multirow{3}{*}{always} \\ %\cline{2-3}
+		& & \\
+		& & \\ 
+		
+		%& $e_1$ boolean, $e_2$  boolean constant & always \\\cline{2-3} 
+		%& $e_1$ not a boolean or $e_2$ not a boolean & never \red{skip?} \\\cline{2-3}
+		\hline
+		
+		%\multirow{2}{*}{\shortstack{$e$ $ \rightarrow boolean$ \\ $\neg e$ $ \rightarrow boolean$ }}  & $e$ boolean & always \\\cline{2-3}
+		%& $e$ boolean constant & always \\\cline{2-3} 
+		%\hline
+		
+		\multirow{1}{*}{$\neg e$ $ \rightarrow boolean$}  & $e$ boolean & always \\\cline{2-3}
+		%& $e$ boolean constant & always \\\cline{2-3} 
+		%& $e$ not a boolean& never\\\cline{2-3} 
+		\hline
+		
+		\multirow{4}{*}{$e_1\ op\ e_2$	with $op \in \{+, -, *, /, \%\}$ $\rightarrow number$}  & $e_1$ number, $e_2$ number & $e_2 \neq 0$ if $op=/$ or $op=\%$ \\\cline{2-3}
+		& $e_1$ range, $e_2$  range & always \\\cline{2-3} 
+		&  $e_1$ range, $e_2$ number & $e_2 \neq 0$ if $op=/$ or $op=\%$ \\\cline{2-3}
+		&  $e_1$ number, $e_2$ range & always \\\cline{2-3}
+		\hline
+	\end{tabular} 
+	\caption{Rules of \ctwedge Language Validator for Constraints}\label{tab:validity}
+\end{table*}
+
+For example, we can write constraints in this way:
+
+\begin{lstlisting}[language=ctwedge,frame= single]
+Model Phone
+..
+Constraints:
+# emailViewer => textLines > 28 #
+# emailViewer and display != 16MC => textLines > 28 + 3#
+\end{lstlisting}
+
+Many test suite generation tools provide a limited support for constraints. For instance, AETG \cite{605761,Lott:2005:MRC:1083274.1083281} allows only simple constraints of type \textsf{if then else} or \textsf{requires}. The language of \ctwedge is in this aspect more expressive, as it is targeted to be more general than existing tools. In the specific case of AETG, the translation of those templates into our logic is straightforward. For example the \textsf{if then else} constraint can be translated by two implications.
+Other tools \cite{CohenISSTA07} allow constraints only in the form of forbidden combinations \cite{Golumbic:2011:GTC:2028636}. Our language is more general, as a forbidden tuple would be translated as a \textit{not} statement. For instance, a forbidden pair \textsf{emailViewer = false; display = 16MC} would be represented by the following constraint:
+$$\textsf{\#\ not\ (emailViewer = false\ and\ display = 16MC)\ \#}$$
+However, the explicit list of the forbidden combinations may explode and it may become impractical and error-prone to represent it. For example, if the model of mobile phones presented in Fig. 1 had a constraint that
+
+\emph{"A front video camera requires also a 16MC display"}. This constraint would be translated into two forbidden tuples:
+
+$$\textsf{(emailViewer = true, display = 8MC);}$$
+$$\textsf{(emailViewer = true, display = BW);}$$
+However, the translation as constraint in general form would be simply:
+$$\textsf{\#\ emailViewer =\textgreater\ display = 16MC\ \#}$$
+which is more compact and more similar to the informal requirement.
+
+In our language semantics, a test case is valid only if it does not contradict any constraint in the specification. Others \cite{BRYCE2006960} distinguish between combinations to be avoided \textit{if possible} (soft constraints), and the forbidden combinations (hard constraints), which must always be avoided (our case). %We consider only hard constraints, for now.
+
+Other tools, like CASA \cite{CASA}, support only constraints in conjunctive normal form, without arithmetic or relational operators.
+
+
+\subsection{Xtext}
+
+There are countless ways to define a language together with its parser. One emerging technique for Domain Specific Language modeling is the use of Xtext~\cite{Eysholdt:2010}. By defining the grammar of the DSL of choice by means of a Xtext grammar, the language designer obtains a parser, APIs to programmatically access models, a serializer and a smart editor for it. The editor provides many features out-of-the-box, such as syntax highlighting, content-assist, folding, jump-to-declaration and reverse-reference lookup across multiple files.  We had already used Xtext for defining the language in \citlab~\cite{citlab12}. Xtext support also the generation of a web editor, as we present in the following section.
+
+Grammar rules written in Xtext are very close to the standard (E)BNF production rules. For instance, the main grammar rule that defines the whole CIT model is defined as follows:
+
+% uso matlab per via delle single quote
+\begin{lstlisting}[language=Matlab,columns=fullflexible,basicstyle=\small\ttfamily,stringstyle=\ttfamily\color{blue},upquote=true]  
+CitModel:
+'Model' name=ID 
+'Parameters' ':' (parameters+=Parameter)+ 
+('Constraints' ':' (constraints+=Constraint)+)?
+\end{lstlisting}
+
+Xtext can display the production rules by means of syntax diagrams, also known as railroad diagrams. For example, the rule presented before for {\small\ttfamily CitModel} is shown in Fig. \ref{fig:grammarrule}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{images/grammar_rule}
+	\caption{{\small\ttfamily CitModel} rule diagram}
+	\label{fig:grammarrule}
+\end{figure}
+
+Because Xtext is based on ANTLR, it does not allow left recursive parser rules and parsing nested expressions is not as simple as writing a EBNF rule. The \ctwedge language parses the constraints by defining the precedence among operators implicitly by left-factoring expression definitions. For example, in order to parse the AND operators before the OR operators,  \ctwedge  introduces the following two rules that are not left recursive:
+
+\begin{lstlisting}[language=Matlab,columns=fullflexible,basicstyle=\small\ttfamily,stringstyle=\ttfamily\color{blue},upquote=true,morekeywords={returns}]  
+OrExpression returns Expression:
+AndExpression ({OrExpression.left=current} 
+OR_OPERATOR (right=AndExpression))*;
+
+AndExpression returns Expression:
+EqualExpression ({AndExpression.left=current}
+AND_OPERATOR (right=EqualExpression))*;
+\end{lstlisting}
+
+
+
+The definitions of semantic constraints in Xtext is performed by user-defined validator classes written in Java or in Xtend containing methods annotated by {\small\ttfamily @Check}. For instance, to check that in the definition of any range domain of our CIT models  the upper bound is greater than the lower bound, we have introduced the following checking method:
+
+\begin{lstlisting}[language=Java,morekeywords={def},basicstyle=\small\ttfamily]
+@Check
+def checkRangeIsCorrect(Range range) {
+if (range.getBegin() >= range.getEnd())
+error("The second term must be greater ...");
+}
+\end{lstlisting}
+
+\section{\ctwedge: CT Web Editor and Generator}\label{sec:ctwedge}
+
+In this section, we present our tool \ctwedge. 
+As we can see in Fig.~\ref{fig:architecture}, the tool is composed by a language definition component (with its Xtext parser and validator), a web-based editor for the \ctwedge language, with some options for test generation and a test suite visualizer and exporter, and a test suite generator that exploits third-party test generation tools.
+
+The tool is written in Java and Xtext, and can be deployed on any Web-application server, such as Apache Tomcat. It is publicly available at: \url{http://foselab.unibg.it/ctwedge/}.
+
+
+
+\begin{figure}[bt!]
+	\centering
+	\includegraphics[width=\columnwidth]{images/architecture.png}
+	\caption{\ctwedge architecture}\label{fig:architecture}
+\end{figure}
+
+
+
+%\section{CTWedge: Combinatorial Testing Web Editor and GEnarator}
+\subsection{Combinatorial Testing Web Editor}
+%\subsection{Editing}
+
+In order to implement a web-based editor, we can leverage the Xtext framework, since Xtext starting from version 2.9 offers an interface for integration of text editors in web applications. The text editors are implemented in JavaScript, and language-related services such as code completion are realized through HTTP requests to a server-side component.
+
+The Xtext web-based editor provides several features, like content assist to help the user to complete the models, validation to check the correctness, syntax coloring, and formatting.
+
+The \ctwedge web editor is based on Ace (Ajax.org Cloud9 Editor)\footnote{See \url{https://ace.c9.io/}}, but other web editors (like Orion and CodeMirror) are available. Xtext does not yet provide support for the recently standardized Language Server Protocol
+%\footnote{See \url{https://github.com/Microsoft/language-server-protocol}}
+\cite{lsp}, which we plan to include in our tool as a future work.  A screenshot of the \ctwedge web editor is shown in Fig. \ref{fig:editor}. The web editor provides an immediate feedback while writing by means of syntax highlighting, auto completion, and errors markings. 
+
+The validation of the model is performed run-time while the user writes it. If the validator finds an error in the model, it generates an error message. The nature of the error is indicated in the pop-up box appearing when positioning the cursor over the error sign, and the point in which the error occurs is marked in the editor. Fig. \ref{fig:validation} shows how model validation errors are displayed to the test engineer.
+
+
+
+\begin{figure*}[bt!]
+	\centering
+	\includegraphics[width=\textwidth,trim={0 10cm 0 0},clip]{images/editor2.png}
+	\caption{\ctwedge web editor}\label{fig:editor}
+\end{figure*}
+
+The editor allows to load predefined examples of combinatorial models, selected from literature \cite{segall_using_2011} and converted into \ctwedge language format (with extension \textit{.ctw}).
+
+\red{Graphical components (buttons and option selectors) are built using the JavaScript frameworks JQuery}\footnote{JQuery: \url{https://jquery.com/}} 
+and Bootstrap\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
+\red{ The web application is fully compatible also with mobile devices (Android and iOS), from any recent Web browser with JavaScript enabled.}
+
+%\red{screenshot validazione per face vedere che l'editor mostra errori. MARCO}
+
+\begin{figure}[bt!]
+	\begin{subfigure}{\columnwidth}
+		\includegraphics[width=.8\columnwidth]{images/validation1.png}\caption{Validation of Range parameter}
+	\end{subfigure}
+	
+	\begin{subfigure}{\columnwidth}
+		\includegraphics[width=\columnwidth]{images/validation2.png}\caption{Code recommender. Unknown symbol error.}
+	\end{subfigure}
+	
+	\begin{subfigure}{\columnwidth}
+		\includegraphics[width=1\columnwidth]{images/validation3.png}\caption{Validation of relational operations}
+	\end{subfigure}
+	\caption{Examples of \ctwedge validation errors}\label{fig:validation}
+\end{figure}
+
+
+\subsection{Test generator web service}
+
+%\red{cosa is questo modulo}
+
+The function of actually generating a test suite from the test model and option parameter is web-served and performed by the test generation service which is the component of \ctwedge.
+The test generation service is composed by two modules: a REST\footnote{REST: Representational State Transfer} service and a language translator.
+
+The REST service handles input model and option parameters for the generation, calls the generators from which it gets back the tests and it is responsible to deliver them to the web browser. 
+
+The test generator acts as a \textit{driver} between \ctwedge and the various third party combinatorial test generation tools, which are usually accessible via their own APIs, or via command line. The test generator exports the combinatorial model along with the generator options, into the the specific language of the external tool, or directly into the tool's APIs. Then, it waits for the generator to compute the test suite, and once ready, it passes it back to the REST service. If necessary, the generator also maps any parameter values back to the original \ctwedge model format. Each external program needs its own translator.
+
+\begin{table}[!tb]
+	\caption{Request parameters to \ctwedge generation service}
+	\centering
+	\resizebox{0.5\textwidth}{!}{%
+		\centering
+		\begin{tabular}{l l p{2.55cm} p{3.35cm}}
+			\toprule
+			\textbf{Parameter} & \textbf{type} & \textbf{description} & \textbf{values} \\
+			\midrule
+			model & String & the combinatorial model & as written and validated by the editor (see Sec. \ref{sec:language}) \\ 
+			strength & Int & the combinatorial interaction strength & any integer above 1 (default is 2: pairwise) \\ 
+			generator & Enum & the tool to be used & ["acts", "casa"] (so far) \\
+			ignConstr & Boolean & if constraints should be ignored in test generation & ["true", "false"] (default is false) \\ 
+			\bottomrule
+		\end{tabular}
+	}
+	\label{tab:parameters}
+\end{table}
+
+The REST service accepts an HTTP GET or POST request with parameters as described in Tab. \ref{tab:parameters}.
+For sake of brevity, an example URL request to the web generator service is shown in Fig. \ref{fig:urlexample}.
+
+\begin{figure}[tb!] % https://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping
+	\centering
+	\lstset{
+		basicstyle=\ttfamily\small,
+		columns=fullflexible,
+		frame=single,
+		breaklines=true,
+		postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+		language=url
+	}
+	\begin{lstlisting}
+	http://foselab.unibg.it/ctwedge.generator?model=Model%20Phone%20Parameter:%20...>28%20#&strength=2&generator=acts&ignConstr=false	
+	\end{lstlisting}
+	\caption{Generator URL example}
+	\label{fig:urlexample}
+\end{figure}
+
+So far, we interfaced \ctwedge with ACTS~\cite{ACTS} and CASA~\cite{CASA}. ACTS is accessed  via it internal APIs whereas CASA is called via command line.
+
+The resulting test suite is returned in CSV\footnote{CSV: Comma Separated Values} format. The header line contains the parameter names, and each following line represents a single test, with parameter values.
+%\red{Note that for coverage evaluation, the first line with the parameter names may need to later be removed, in order to not miscalculate coverage.}
+The web front-end allows to download CSV file to further local use, and shows the test suite in the browser by converting it into an HTML table. Conversion is straightforward and done client-side via Javascript.
+
+Arithmetic operations and relational operators ($>$, $<$, $\le$, $\ge$) are not natively supported by CASA, and in presence of such constraints, an error is reported to the user, as in Fig. \ref{fig:casaError}.
+% \red{aggiungere errore CASA?}
+
+\begin{figure}[bt!]
+	\centering
+	\includegraphics[width=\columnwidth]{images/casaError.png}
+	\caption{Message of operations not supported in constraints for CASA generator tool}\label{fig:casaError}
+\end{figure}
+
+\begin{figure}[bt!]
+	\centering
+	\includegraphics[width=\columnwidth,trim={0 0 7cm 0},clip]{images/generatedTable.png}
+	\caption{\ctwedge visualization of the generated test suite}\label{fig:generated}
+\end{figure}
+
+The HTML table showing the generated test cases is located below the editor on the same window. This location is less invasive than a brand new tab as it does not hide or replace the current combinatorial model in the editor. Despite it is not immediately visible to the user, who may think the output is hidden, we believe that it preserving the access to the current screen is the most important aspect to be preserved.
+
+The generator is called by the editor by AJAX, with an asynchronous XmlHttpRequest.
+
+
+
+
+A screenshot of how the generated test suite is presented to the user is shown in Fig. \ref{fig:generated}. 
+It is shown as plain HTML table, with the possibility to download the data as CSV. %\red{considerare ideaa di mettere tabella sotto con indice - MARCO} \blue{updated screenshot}
+%\red{da mettere errore per alcuni constraint usando CASA}
+
+
+
+
+%\subsection{Test generation}
+
+\section{Related Work}\label{sec:related}
+
+
+
+With the success of the SaaS pattern, web-based tools have rapidly gained popularity due to their portability and ease of use. There exist some web-based services also for combinatorial test case generation, each with its own peculiarities. SaaS tools, however, still represents a small number of all the available tools for test case generation: IDE plugins and desktop applications represent almost the totality of the current tools. We looked for tools from the pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} and softwaretesters.net\footnote{See \url{https://softwaretesters.net/zbxe/index.php?mid=downloadtool&category=4258006&sort_index=readed_count&order_type=desc}} tool catalogs, and from the web, to the best of our searching skills. 
+
+
+\begin{table}[bt!]
+	\centering
+	\setlength\tabcolsep{2pt}
+	\begin{tabular}{l P{52mm} P{52mm}}
+		Tool & URL & Documentation \\
+		\toprule
+		TestCover & \url{https://testcover.com} & \url{https://testcover.com/sub/instructions.php} (visible after registration) \\
+		\midrule
+		CTWebClassic & \url{http://alarcostest.esi.uclm.es/CombTestWeb/combinatorial.jsp} & \url{http://alarcostest.esi.uclm.es/CombTestWeb/stuff/usersManual.pdf} \\
+		\midrule
+		CTWebPlus & \url{http://www.testcasegeneration.com} or \url{http://www.ctwebplus.com/} & \url{http://www.ctwebplus.com/stuff/userManual.pdf} \\
+		\midrule
+		HexaWise & \url{https://hexawise.com/} & \url{https://hexawise.com/Hexawise_Introduction.pdf} \\
+		\midrule
+		PairWiser & \url{https://inductive.no/pairwiser/} & \url{https://inductive.no/pairwiser/knowledge-base/} \\
+		\bottomrule
+	\end{tabular}\caption{Tool resource links}\label{tab:docs}
+\end{table}
+
+We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
+\begin{itemize}
+	\item TestCover~\cite{testcover} is a commercial web-based combinatorial test case generator supported by Testcover.com, LLC, founded in 2003. The tool was also presented at IWCT 2016~\cite{sherwood2016embedded}.
+	\item CTWeb Classic~\cite{usaolaframework} is a free online tool for combinatorial testing and state machine test case generation,  developed at University of Castilla-La Mancha (Spain).
+	\item CTWeb Plus~\cite{ctwebplus}, an academic combinatorial test generation tool developed as improvement of CTWeb Classic. CTWeb Plus is now commercially supported.
+	\item HexaWise~\cite{hexawise}, a commercial combinatorial test case editor and generator, launched in 2009 by Hexawise, Inc.
+	%\item PairWiser~\cite{pairwiser}, a free web-based tool provided by Inductive AS. It will be shut down January 15th, 2018, replaced by a desktop, standalone application.
+	\item PairWiser~\cite{pairwiser}, a \red{commercial web-based tool provided by Inductive AS. The online version was shut down January 15th, 2018. After that date, only the standalone application, for own-server installation, is available.}
+\end{itemize}
+
+%shown in Tab. \ref{tab:comparison}
+
+\red{All tools are well documented, with examples and tutorials. Links of on-line editors and official documentation resources of these tools are shown in Tab. \ref{tab:docs}}
+%Documentation about how to input a combinatorial model is not rich in many of the tools, which provide only a limited set of examples to copy/paste, or to load into the graphical interface, whereas \ctwedge also provides the language grammar definition.
+
+%Very few of them have editor-support, either on-line or off-line, and even the only tool with a web-based editor, has no highlighting nor recommendation support.
+
+%All of the 4 compared web-based tools are present in the pairwise.org list of CIT tools, in which, however, plugins and desktop tools represents almost the totality of the available tools.
+
+\begin{table*}[bt!]
+	\resizebox{\textwidth}{!}{%
+	\centering
+	\setlength\tabcolsep{2pt}
+	\begin{tabular}{p{1mm}lP{24mm}P{24mm}P{24mm}P{24mm}P{24mm}P{24mm}}
+		\hline
+		& & \centering\textbf{TestCover}~\cite{testcover} & \centering\textbf{CTWeb Classic}~\cite{usaolaframework} & \centering\textbf{CTWeb Plus}~\cite{ctwebplus} & \centering\textbf{HexaWise}~\cite{hexawise} & \centering\textbf{PairWiser}~\cite{pairwiser} & {\textbf{\centering \ctwedge}} \\\toprule
+		%& \textbf{URL}  & \textbf{Editing} & \textbf{Generation} &  \textbf{other infor}\\ 
+		\hline 
+		%URL & TestCover \url{http://testcover.com} & \url{http://www.testcasegeneration.com/} & \url{https://hexawise.com/} &  \url{https://inductive.no/pairwiser/} \\ 
+		\multicolumn{2}{l}{\textbf{Language}} & & & & & & \\ 	
+		%Enumeratives & & & & & \\
+		%\red{Input type} & single text area & single text area & wizard process & wizard process & single text area \\
+		%	\red{\shortstack{Define parameter values\\as range}} & \xmark & \xmark & \xmark & \xmark & \cmark \\
+		&	Parameter Definition & Enumerative & Enumerative & Enumerative & Enumerative, Ranges (via value expansion) & Enumerative & Boolean, Enumerative, Ranges \\\midrule
+		&	Constraints format & in DPB notation: via \emph{blocks} (i.e., sets of allowed combinations) & as \emph{if-then-else} & AND, OR, Else operators, not nested & invalid pairs (\emph{if..then..}) & guided by select boxes with rich choice of operators & arbitrary formula \\\midrule
+		
+		&	Numeric operators & \cmark (in PHP functions) & \xmark & \cmark & \cmark & \xmark & \cmark \\\midrule
+		
+		&	State Machine support & \cmark & \cmark & \cmark & \xmark & \xmark & \xmark \\\toprule % when they support Abstract State Machines
+		%Verbosity & &  & high (GUI based) & & low \\\midrule
+		%	Documentation & description, examples & examples & video tutorial & tutorial, examples & language grammar, examples \\
+		\textbf{Editing} & & & & & & \\
+		&	Web-based editor & text area & text fields and buttons + file upload & text fields, buttons, drawing area & text fields and buttons & text fields and buttons & text area \\\midrule
+		&	Model Import/Export	& \cmark (Copy\&Paste as text) & \cmark & \xmark & \xmark & \xmark & \cmark   (Copy\&Paste as text)\\\midrule	
+		&	Helping facilities & \xmark & button-guided (no facilities to build input file to upload) & button-guided & button-guided & button-guided & content-assist, syntax highlight, in-line error reporting \\\midrule 
+		%Content Assist & \xmark & \xmark & \xmark & \xmark & \cmark \\\midrule 
+		%		\red{REMOVE: LSP} & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\\midrule
+		&	Example Models & \cmark & \cmark & to be rebuilt from documentation file, not one-click loadable & \cmark & in the documentation & \cmark \\\toprule
+		
+		\multicolumn{2}{l}{\textbf{Generation}} & & & &  & & \\\midrule 
+		&	n-wise & pairwise & pairwise & pairwise & up to 6-way interaction + mixed strength & up to 3-way interaction + mixed strength & \cmark \\\midrule
+		&	Supported generators & All-pairs & AETG, PROW, All combinations, Each choice, Random, Bacteriologic & AETG, Pairwise, All-combinations, Each-choice, Comb, Random & not specified & not specified & ACTS, CASA \\\midrule
+		%Random test generation & \xmark & \cmark & \xmark & \xmark & \xmark \\\midrule
+		&	Export formats & HTML, WSDL interface & HTML, CSV & HTML & HTML, Excel, CSV, OPML & Excel, Jira issues & CSV, HTML \\\midrule
+		&	Generate test scripts & \cmark (for Selenium) & \cmark (custom) & \cmark (custom) & \xmark & \cmark (custom) & \xmark \\\midrule
+		&	Coverage visualization & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark \\\toprule 
+		\multicolumn{2}{l}{\textbf{Other information}} & & & & & & \\\midrule
+		&	License & Commercial & Free & Commercial & Commercial & Commercial & Free \\\midrule
+		&	Registration & subscription required &  optional & subscription required & subscription required & own-server installation & \xmark \\\midrule
+		&	Online storage & \cmark & \xmark & \cmark & \cmark & \cmark (on own server) &\xmark  \\\midrule
+		&	Additional notes & Functions in PHP into constraints. Also accessible via WSDL interface. %\red{TOREMOVE: Outputs also the number of pairs remaining uncovered after each test} 
+		& Registration required for models with more than 5 parameters & Features a drawing area to represent states and transition of a state machine. The combinatorial model must be in the form of a state machine. & Has also a chart showing the interaction coverage after each test & Pairwiser online was shut down January 15, 2018. Available only for own-server installation. Allows to specify combinations to include in test suite. & -- \\\bottomrule 
+		%URL & & \url{http://alarcostest.esi.uclm.es/CombTestWeb/combinatorial.jsp} &  \url{http://www.testcasegeneration.com} and \url{http://www.ctwebplus.com/}  & & & \\\midrule
+		%Documentation & & \url{http://alarcostest.esi.uclm.es/CombTestWeb/stuff/usersManual.pdf} & \url{http://www.ctwebplus.com/stuff/userManual.pdf} & & \url{https://testcover.com/sub/instructions.php} (accessible via registration) & \\\midrule
+	\end{tabular}
+	}
+	\caption{A comparison with other SaaS for CT}\label{tab:comparison}
+\end{table*}
+
+\red{To compare the SaaS tools among them and w.r.t. \ctwedge, we consider the following aspects, that we believe to be among the most relevant for a test engineer interested in using a web-based combinatorial test generation tool:}
+
+\begin{itemize}
+	\item \textbf{Language}. We look into the expressiveness of the accepted format for the combinatorial model in input. This evaluation includes:
+	\begin{itemize}
+		\item Parameter definition: how the parameter types and values  can be defined. For instance, a tool may support Boolean parameters or ranges of integers to express an enumerative made of all integers between two numbers. %, or Strings.
+		\item Constraint format: if the constraints can be expressed as free combinations of logical and arithmetic operations among parameters, or have special formats, such as a set of forbidden tuples, a set of implications, or a set of if-then-else conditions. 
+		%\item Functions: if generic, user-defined functions over parameters in the model, are allowed in the constraints.
+		\item Numeric Operations: if constant numbers and basic numeric operations (+, -, *, /) are allowed in the constraints and/or in the generated code of test cases.
+		\item State Machine support: if the language supports an easy input of state machines, to generate combinatorial tests for their execution.
+	\end{itemize} 
+	\item \textbf{Editing}. We evaluate how simple is for the test-engineer to input the combinatorial model into the tool. This category includes the following aspects:
+	\begin{itemize}
+		\item Web-based editor structure: how is the GUI of the web editor for writing the combinatorial model to be given in input to the tool; for example, if it is made by a single text area, or some buttons and text fields. Some tools use a single text area for the whole model, whereas some other tools use text inputs for individual parameters, reducing the need for parsing and text-highlighting.
+		
+		\item Import and export models: how the models can be exported to the file system and imported. For example, a tool may allow importing a text file written with another editor.
+		
+		\item Helping facilities: how the test engineer is guided in the input of the model in the web editor; for example with syntax highlighting, content assist, in-line error reporting, warning messages, or single text input fields to fill, and self-explanatory buttons to click.
+		%		\item \red{TOREMOVE: LSP: If the back-end of the editor provides an API compatible with the Language Server Protocol standard, to make it easily extensible for usage with other tools.}
+		\item Predefined example models: if there are examples of combinatorial models that can be easily loaded into the tool and executed to generate a test suite.
+	\end{itemize} 
+	\item \textbf{Generation}. We evaluate how the test suite generation is performed and how the output is presented to the user. This category includes the following aspects:
+	\begin{itemize}
+		\item n-wise: which interaction strengths of the generated test suite are allowed
+		\item supported generators: which existing combinatorial test generation algorithms are supported
+		\item export formats: in which formats the output is made available to the test-engineer
+		\item Test-script generation: if there is a mechanism to allow the generated test vectors to be directly inserted into test cases written in custom code.
+		\item Coverage visualization: if there is indication (textual or with charts) of the coverage reached after the execution of each test in the generated test suite.
+	\end{itemize} 
+	\item \textbf{Other information}. We consider aspects about the accessibility of the tool, and related features. We look the following aspects
+	\begin{itemize}
+		\item License: if commercial, free, or open source.
+		\item Registration: if it is mandatory, optional or not made available.
+		\item Online storage: if any data (input models, or output test suites) can be stored online.
+		\item Additional notes: any other additional information that we consider worth being noted.
+	\end{itemize} 
+\end{itemize}
+
+
+
+%Concerning language and editor support, HexaWise and PairWiser feature a completely graphical-based composer of combinatorial model: they do not allow scripting nor they feature a script editor. Input is only possible through buttons and text fields. Although this approach has the advantage of a quicker learning curve, it lacks all the features of a textual language, i.e., speed of writing and editing models, portability (possibility to edit and save models off-line or with other tools), expressiveness.
+
+
+Table \ref{tab:comparison} compares the five tools and \ctwedge according to all these aspects.
+
+\red{Concerning the web editor, while TestCover uses, as \ctwedge, a single text area for combinatorial model input,  all the others (CTWeb Classic, CTWeb Plus, HexaWise and PairWiser) feature a composer of combinatorial model guided by multiple selectors, text fields, and buttons. This approach of using buttons and text input fields, has the advantage of a quicker learning curve, and it does not need a language grammar, nor a parser, nor the helping facilities typical of text-based editors, such as auto-completion and syntax highlighting. However, it is not always the preferable way to input combinatorial models in the tool. In fact, the availability of a domain-specific language makes it possible to quickly and easily write, edit and copy-paste combinatorial input models, and export, translate or port them to other platforms and tools.} % (possibility to edit and save models off-line or with other tools).}
+
+
+\red{CTWeb Classic comes both with a guided editor and a form to upload a text file containing the input of the tool, written in a domain specific language. Regarding the textual way of proving input for test case generation, however, although CTWeb Classic and TestCover have a good documentation, they have no facilities to help the test engineer in writing models. CTWeb Classic does not have an online editor for its own language (as it comes with just a file upload button), and TestCover has a simple text area, lacking support for auto-completion, syntax-highlighting and all the features proper of an IDE.}
+
+\red{All the tried tools offer support for test case generation with constraints, to be specified in their specific formats.  TestCover even allows to specify custom functions - in PHP code - to express constraints~\cite{sherwood2016embedded}.}
+%CTWeb is the only tool that supports test case generation with constraints. Other tools, except TestCover, do not allow the engineer to specify numerical operations and complexity of constraints is limited. TestCover, on the other side, even allows to specify custom functions - in PHP code - to output constraints.
+
+%The graphical based tools, despite having a poor editor, have support for multiple output formats.
+
+\red{TestCover and CTWeb (Classic and Plus) offer pairwise test case generation, that is very often the chosen interaction strength by test-engineers. For some applications, however, higher interaction strength is preferred. HexaWise supports up to 6-way interaction strength, while PairWiser up to 3-way. \ctwedge is, instead, the only tool that does not pose limitation (in theory) on the interaction strength of the test suite. However, HexaWise and PairWiser come with the additional possibility to specify a mixed test suite strength, i.e., values of each single parameter may be covered with different strength.} 
+
+
+Still none of the tools supports the Microsoft Language Server Protocol \cite{lsp}, a new common open protocol for language servers which provides programming language-specific features to source code editors or integrated development environments (IDEs). The main goal of the standard is to support programming in any given language independently of editors or IDEs. We plan to extend \ctwedge in order to support LSP.
+
+%\subsection{Comparison with other web-based tools}
+
+\begin{comment}
+\begin{table*}[t]
+\begin{tabular}{|l|l|c|c|p{5cm}|}
+\hline 
+\textbf{Tool} & \textbf{URL}  & \textbf{Editing} & \textbf{Generation} &  \textbf{other infor}\\ 
+\hline 
+& TestCover \url{http://testcover.com} &  &  &  Commercial/subscription required\\ 
+\hline 
+&\url{http://www.testcasegeneration.com/} &  &  &  \\ 
+\hline 
+&\url{https://hexawise.com/} &  &  &  \\ 
+\hline 
+Pairwiser & \url{https://inductive.no/pairwiser/} &  &  &  Pairwiser online will shut down Januar 15th 2018.\\ 
+\hline 
+\end{tabular}
+\caption{A comparison with other SaaS for CT}
+\end{table*}
+\end{comment}
+
+\section{Future Work}\label{sec:futurework}
+
+There are several directions in which we plan to work. 
+
+\paragraph{Language extensions}
+Adding expressive power to the language for combinatorial models, in particular to express test seeds and goals, represents a direction for future work.
+Test seeds allow a tester to force the inclusion of certain test cases in the generated test suite \cite{BRYCE2006960}. Test seeds may be complete or partial. 
+Test goals are extra-constraints: relations among parameters to be satisfied by at least one test in the generated test suites. %Test goals can be used to represent partial seeds, used for instance by AETG.
+
+Some CIT approaches \cite{segall_using_2011} introduce weights for parameter values. Weights reflect the importance of different values for a given parameter. The user can express further requirements over the solution involving weights. Even if the same constraints may be expressed in our language, it may become impractical. We plan to extend the \ctwedge language in order to include user defined functions depending on parameter values. A possible function could be the weight of a parameter. Constraints and test goals could use such functions to express complex testing requirements.
+
+\paragraph{Combinatorial model editor}
+To make the transition to \ctwedge easier, a possible direction for future improvement is an importer that translates models written in other generator formats, into \ctwedge language format.
+
+Secondly, although \ctwedge already follows the SaaS approach, there are still several features that could be added in order to offer new cloud-based services. 
+The web site could offer a storage and persistence service, and the logged user could save his/her models on the \ctwedge server and later recall the saved files and export/import them in other formats.
+The \ctwedge could offer analysis services, like those presented in~\cite{iwct2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also \red{coverage measurement} and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
+
+\red{Another future direction is the visualization of the individual t-tuples, as covered by each test in the test suite.}
+
+%Another direction regards the way tests are generated. \ctwedge produces the tests in a synchronous mode: when the user calls the generator, the service starts producing the tests. This approach is not feasible in case there are many requests or the models become big. We plan to move to an asynchronous approach, in which the user requests the test generation, the server queues all the requests and make available on the server the test suites when they are generated. 
+
+\paragraph{Test case generation}
+Another direction for future work regards test case generation. The server is configured to run \ctwedge generator in a synchronous mode: the generator starts producing the test suite immediately, trying to serve all the requests.
+The server could have performance issues due to overloading in case for example there are many requests with large models. The web service could be improved by attaching a process scheduler and a load balancer. Test suite generation becomes therefore asynchronous also on the server, which queues the requests and makes the test suites available as soon as they are generated.
+
+\paragraph{External generation tool support}
+An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{NieXSW06}, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
+\cite{ipog}, IPOG-D \cite{ipog}, IPOG-F \cite{forbes2008refining}, IPOG-F2 \cite{forbes2008refining} and PaintBall \cite{318466}. 
+The possibility to download the translated input file along with the executable command parameters for each of the generators allows further customization and therefore can be an interesting future extension of the tool.
+
+\paragraph{Offline extensions}
+Combinatorial test case generation is used as a part of an automated process for application testing. Thus  running the test generation tool off-line is needed, in certain scenarios, to ease interfacing with automated tools or with IDEs during development process. We therefore plan to release a version of the \ctwedge editor as Eclipse plugin.
+Xtext, already generates an eclipse-based development environment providing editing experience known from modern IDEs, featuring a content assist, quick fixes, a project wizard, template proposal, outline view, hyperlinking, and syntax coloring.
+
+
+\section{Conclusion} \label{sec:conclusions}
+
+Generation of combinatorial test suites via web offers great advantages w.r.t. classical desktop applications. It is nowadays supported by a pool of tools, both open source and commercial. However, to the best of our knowledge, none of them has an integrated web editor support and a complete support of constraints. To work, they have their own language, with often just examples as unique description, and expect the user to write a file locally before uploading to the web-based tool. This process requires the test engineer to use another tool, may it be just a stand-alone text editor, with no auto-completion for that particular language, or a custom stand-alone editor with some grade of code recommendation.
+
+To offer a complete SaaS environment for CIT, we have developed and deployed \ctwedge. 
+\ctwedge was designed with three principles in mind: (1) installation-free and download-free, (2) ease of use, and (3) extensibility to support more generators. By using Xtext, we have defined a simple textual language which includes also the possibility to define complex constraints. Thanks to Xtext, a web editor can be easily deployed and it offers classical editing features like syntax highlighting and coloring, syntax validation, auto completion, and error messages. We have also developed a REST service that is able to generate CIT test suites exploiting third-party test generator programs. This test generators runs on the server and it can be called from the editor, thus providing a complete SaaS experience to the tester. %We have also presented several directions for future research.
+
+%??? Even though the ability to integrate generated test cases into unit test templates, and out-of-the box support for many famous test-case generators were given less emphasis, applicability of this tool is comparable with other known web-based test generation tools (see Tab. \ref{tab:comparison}).
+
+
+
+\chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
 
 \chapter{Conclusions and Future Work}
 We illustrated the research project of using software testing techniques to drive the inference and repair of models of software systems.
@@ -581,7 +1229,7 @@ We presented applications to combinatorial and feature models. As future work, w
 %\todo{}
 %I would like to thank my supervisor Angelo Gargantini for his advice, support and help in my research, and also thank the other collaborators in the research activity so far, for their precious contribution.
 
-%\chapter{Bibliography}
+\chapter{Bibliography}
 
  
 
@@ -602,8 +1250,10 @@ We presented applications to combinatorial and feature models. As future work, w
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\printbibliography[heading=bibintoc]
+%\printbibliography[heading=bibintoc,title=Bibliography]
 
+\bibliographystyle{IEEEtran}
+\bibliography{thesis}
 %----------------------------------------------------------------------------------------
 
 \end{document}  
