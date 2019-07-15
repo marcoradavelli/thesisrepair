@@ -35,7 +35,7 @@ singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespac
 %nohyperref, % Uncomment to not load the hyperref package
 headsepline, % Uncomment to get a line under the header
 %chapterinoneline, % Uncomment to place the chapter title next to the number on one line
-%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
 ]{MastersDoctoralThesis} % The class file specifying the document structure
 
 \usepackage[utf8]{inputenc} % Required for inputting international characters
@@ -68,7 +68,7 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \thesistitle{Using Software Testing to Repair Models} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{Dr. James \textsc{Smith}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\supervisor{Prof. Angelo \textsc{Gargantini}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
 \degree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
 \author{Marco \textsc{Radavelli}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
@@ -127,6 +127,7 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 \usepackage{xcolor,colortbl}
 \usepackage{xspace}
 \usepackage{centernot}
+\usepackage{bookmark} %https://tex.stackexchange.com/questions/33277/pdf-bookmark-customization
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \lstdefinelanguage{ctwedge}{
@@ -159,6 +160,65 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 	showstringspaces=true,
 	identifierstyle=\color{color3},
 	literate = |{{\textcolor{color1}{|}}}1,
+}
+\lstset{ %
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+%  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=false              % adds a frame around the code
+  %rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{blue},   % comment style
+  stringstyle=\color{gray},      % string literal style
+  escapeinside={\%*}{*)},         % if you want to add a comment within your code
+  morekeywords={*,...}            % if you want to add more keywords to the set
+} 
+
+
+\lstdefinelanguage{comb}{  
+  morekeywords={Model, Parameters, Boolean, Numbers, Enumerative, type, Constraints, Definitions
+Enumerative, Types, step,
+EnumerativeType, Number, Range, TestGoals,
+  Logic, Seeds, end, :, AND, OR, or, and, not, =>, false, true, =, <, >},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[s]{'}{'},
+  morestring=[s]{"}{"},
+  escapechar={@},
+  % required for use with UTF-8
+  literate={«}{\guillemotleft}{1}
+           {»}{\guillemotright}{1}
+           {~}{\textasciitilde}{1},
+           tabsize=2, columns=fullflexible,basicstyle=\sffamily\small
+}
+\lstdefinelanguage{xtend}{
+  morekeywords={import, this, create, let, then, Void, extension, JAVA,
+  IMPORT, DEFINE, ENDDEFINE, LET, ENDLET, FOR, FILE, ENDFILE, ITERATOR, FOREACH,
+  AS, IF, ENDFOREACH, ENDIF, EXPAND, INSTANCEOF, USING, SEPARATOR, CSTART, CEND, 
+  PROTECT, ENDPROTECT, ID, EXTENSION, switch, case, if, else, as, def,  
+  context, ERROR, WARNING, INFO, enum},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[s]{'}{'},
+  morestring=[s]{"}{"},
+  escapechar={@},
+  % required for use with UTF-8
+  literate={«}{\guillemotleft}{1}
+           {»}{\guillemotright}{1}
 }
 
 \def\ProcessAmpersand%
@@ -305,44 +365,69 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
+\frontmatter
 \begin{titlepage}
-\begin{center}
+  \begin{center}
+    \includegraphics[scale=0.5]{images/sigillo.png}
+    
+    \vspace{1cm}
+    
+    %{\large Licentiate's Thesis}\\[1mm]
+    %{\large Mathematics}
+    
+    \vspace{1cm}
+    
+    %{\Huge \citlab, a laboratory for combinatorial interaction testing}
+	{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+	
+    \vspace{1.5cm}
+    
+    {\huge \authorname}
+    
+    \vspace{.2cm}
+    
+    {\large Ph.D. course in Mechatronics, Information Technology,
 
-\vspace*{.06\textheight}
-{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-\textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
+	New Technologies and Mathematical Methods}
 
-\HRule \\[0.4cm] % Horizontal line
-{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
-\HRule \\[1.5cm] % Horizontal line
- 
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-\href{http://www.johnsmith.com}{\authorname} % Author name - remove the \href bracket to remove the link
-\end{flushleft}
-\end{minipage}
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:} \\
-\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
-\end{flushright}
-\end{minipage}\\[3cm]
- 
-\vfill
-
-\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
-\textit{in the}\\[0.4cm]
-\groupname\\\deptname\\[2cm] % Research group name and department name
- 
-\vfill
-
-{\large \today}\\[4cm] % Date
-%\includegraphics{Logo} % University/department logo - uncomment to place it
- 
-\vfill
-\end{center}
+	XXXII Cycle
+    
+    \vspace{\fill}
+    
+    {\large Advisor: Prof. Angelo Gargantini \\}
+    
+   
+    
+    \vspace{0.3cm}
+    
+    \vspace{\fill}
+    
+    {\large Universit\`a degli Studi di Bergamo, Italy
+    
+   Department of Management, Information and \\Production Engineering\\}
+    
+    \vspace{.5cm}
+    %\vspace{\fill}
+    
+    {\large
+    	\ifcase\month\or
+    	January\or February\or March\or April\or May\or June\or
+    	July\or August\or September\or October\or November\or December\fi,
+    	\number\year
+    }
+    
+   
+    
+    %P.O.Box 68 (Gustaf 2b)
+    
+    %00014 University of Helsinki, Finland
+    
+  \end{center}
 \end{titlepage}
+
+
+
+\clearpage
 
 %----------------------------------------------------------------------------------------
 %	DECLARATION PAGE
@@ -478,10 +563,10 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \chapter{Introduction}
 
-\section{Software Testing}
-\subsection{Black-box software testing}
+%\section{Software Testing}
+%\subsection{Black-box software testing}
 
-\section{Motivation}
+%\section{Motivation}
 %Rationale
 Traditional testing techniques provide test generation, fault localization and program repair. %, but \textit{model} repair is  % of \textit{code} artifacts. 
 If we assume a \textit{fault} to be a discrepancy between a model (\textit{problem space}) and the system implementation (\textit{solution space}) for a particular test case, we can distinguish two scenarios: (1) the model is correct and the implementation is faulty, and (2) the implementation is correct and the model is faulty.
@@ -497,37 +582,52 @@ Sometimes an engineer also wants to detect which is a model of a current aspect 
 Outcomes of this project may have an impact in reducing the effort of software maintenance, which is one of the costliest phases in software life cycle \cite{zarnekow2005distribution}.
 
 \section{Research Questions and Objective}
+The goal of this thesis is to study how software testing techniques can be applied to drive automatic repair of software models.
+The thesis is divided into seven chapters, and each of these chapters (introduction excluded) try to answer to a research question (RQ).
+\researchquestion{RQ1 What are the main application of software testing?}
+This is shown in Chapter 2 in which relevant books, papers and standards are analysed. The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied. 
+\researchquestion{RQ2 What are the main applications and tools for program repair and model repair?}
+This is shown in Chapter 3 in which currently available tools and techniques to support engineers in automatically update and repair programs and models are analysed. In particular, SAT and SMT solvers, model checkers, evolutionary algorithms, and mutations, are presented.
+\researchquestion{RQ3 How to increase software engineer productivity by automatically repair non-conformant models?}
+In different cases during software development lifecycle, models become non-confmant w.r.t. the code.
+Automatically restore conformance of the model, by applying only edits as small as possible to it, is the goal of the approach. Chapter 5 describes an approach to this problem using information coming from tests on the real system, and a framework for the development of approaches to repair different types of models. 
+\researchquestion{RQ4 How to improve the readability and understandability of ASM specifications?}
+When the system is complex and the textual model consists of several lines of code, for the user it would be difficult to understand the behaviour of the model. A tool for the visualization of the ASMs automatically translates the textual model
+  3
+Chapter 1. Introduction
+in the corresponding graphical notation. The graphical representation helps the user to easily understand the ASM specification.
+RQ6 Is it possible to automatically translate a formal specification to code automatically?
+In Chapter 7, a tool for code generation is shown. The tool translates automat- ically UASM models into C++ code for Arduino platform. The translation tries to keeping true the system behaviour and the properties verified during validation and verification.
+RQ7 Are the tools applicable to real case studies?
+In Part III, the Asmeta tools are applied to two two case studies. The first is a software to detect visual diseases developed within the 3D4Amb2 (3D for the diagnosis and treatment of AMBlyopia) project (see Chapter 8). The second case study is the hemodialysis machine case study (see Chapter 9).
 
 
-
-\chapter{State of the Art}
+\part{State of the Art}
 There are several works on automated program repair \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
 In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo_2013}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,Abukwaik_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
 %\todo{to describe why there is repair only for code and not for models}.
 A quality-based model refactoring framework assessing quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents an approach to model repair, although it is specific to one kind of models.
 The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
 
-\section{Software Testing}
-\subsection{Combinatorial Testing}
-\subsection{The Oracle Problem}
+\chapter{Software Testing}
+\section{Combinatorial Testing}
+\section{The Oracle Problem}
 
-\section{Manipulation Techniques}
-\subsection{SAT and SMT solvers}
-\subsection{Search-based Software Engineering}
-\subsection{Model Checkers}
-
-\section{Automated Program Repair}
-
-\section{Model Transformations}
+\chapter{Software Artifact Manipulation Techniques}
+\section{Software Artifacts}
+\subsection{Code} //talk also about configuration mining
 \subsection{Software Product Lines}
 \subsection{Timed Automata}
 \subsection{Abstract State Machines}
+\section{SAT and SMT solvers}
+\section{Search-based Software Engineering}
+\section{Model Checkers}
+\section{Automated Program Repair}
+\section{Model Transformations}
+\section{Automated Model Repair}
 
-\section{Systematic Literature Review - Model Repair}
-
-
-
-\chapter{Approach and Uniqueness}
+\part{Approach and Uniqueness}
+\chapter{Automated Model Repair}
 %The research approach consists of two stages: the reviewing stage, and the formulation stage.
 %In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
 %In the formulation stage, for each scenario, we \textit{decline} the repair problem to that particular kind of model, and apply or tailor existing techniques to propose a solution to the model repair problem.
@@ -560,7 +660,8 @@ The applied repairs are local and little, based on the \textit{competent modeler
 %If real-world case studies coming from collaborations with industries in the sector are found, it would be an added value.
 
 
-\chapter{Request-Driven Repair}
+\part{Request-Driven Repair}
+\chapter{Repair of Feature Models}
 Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
 %In order to keep an SPL and its feature model aligned, feature models must be changed by including/excluding new features and products, either because faults in the model are found or to reflect the normal evolution of the SPL.
 %Such changes can be complex and error-prone due to the size of the feature model.
@@ -575,8 +676,8 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 %The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
 %To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
 
-\chapter{Failure-Driven Repair}
-\section{Repair of Configuration Constraints}
+\part{Failure-Driven Repair}
+\chapter{Repair of Configuration Constraints}
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 %Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
 %Therefore, in \cite{gargantini_combinatorial_2017}
@@ -636,11 +737,10 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 %Combinatorial models are also suitable to model parts of XSS attack vectors, with a limited number of possible values.
 %We applied our iterative approach also to such models, using as oracle a script that runs the web application under test, inject the attack vector in a particular input field in a form, and checks wether the injected Javascript code has been present in the response page.  We evaluated our approach empirically on four systems from the Web Application Vulnerability Scanner Evaluation Project (WAVSEP), and on two real-world web applications, obtaining an accurate model of the constraints among parameters that cause an attack vector to break the sanitization function of the system.
 
-\section{Test-Driven Model Evolution in XSS Vulnerability Detection}
-\section{Repairing Timed Automata Clock Guards through Abstraction and Testing}
+\section{Using Iterative Constraint Repair to Detect XSS Vulnerabilities}
+\chapter{Repairing Timed Automata Clock Guards through Abstraction and Testing}
 
-
-\chapter{Tools}
+\part{Tools to Support Model Repair}
 \chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
@@ -1220,7 +1320,9 @@ To offer a complete SaaS environment for CIT, we have developed and deployed \ct
 
 \chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
 
-\chapter{Conclusions and Future Work}
+
+\bookmarksetup{startatroot}
+\chapter{Conclusion}
 We illustrated the research project of using software testing techniques to drive the inference and repair of models of software systems.
 It is a novel application of software testing that goes beyond detecting and localizing faults in code, and that performs little repairs to preserves domain knowledge and support engineers in maintaining consistency between all the software artifacts, and localizing faults also in the model. 
 We presented applications to combinatorial and feature models. As future work, we plan to apply test-driven repair of other model types, namely timed automata, and abstract state machines. Furthermore, we plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.%, for instance with MixTgTe 
@@ -1229,8 +1331,8 @@ We presented applications to combinatorial and feature models. As future work, w
 %\todo{}
 %I would like to thank my supervisor Angelo Gargantini for his advice, support and help in my research, and also thank the other collaborators in the research activity so far, for their precious contribution.
 
-\chapter{Bibliography}
-
+%\chapter{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
  
 
 %----------------------------------------------------------------------------------------
