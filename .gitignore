@@ -26,3 +26,5 @@ main-blx\.bib
 *.fdb_latexmk
 *.fls
 *.synctex(busy)
+
+__latexindent_temp\.tex

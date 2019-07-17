@@ -24,7 +24,7 @@
 
 \documentclass[
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
-oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -128,6 +128,20 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 \usepackage{xspace}
 \usepackage{centernot}
 \usepackage{bookmark} %https://tex.stackexchange.com/questions/33277/pdf-bookmark-customization
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=normalsize,backgroundcolor=blue!10]{todonotes}
+%\presetkeys{todonotes}{inline}{}
+\usepackage{comment}
+\usepackage{tikz}
+
+\usepackage{bm}
+
+%\usepackage[a5paper,rmargin=4cm]{geometry}
+\usepackage{atbegshi}
+\usepackage{refcount}
+\usepackage{setspace}
+\usepackage{tikzpagenodes}
+\usetikzlibrary{calc}
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \lstdefinelanguage{ctwedge}{
@@ -347,13 +361,107 @@ EnumerativeType, Number, Range, TestGoals,
 \newcounter{researchquestionCount}
 \newcommand{\researchquestion}[1]{\stepcounter{researchquestionCount}\begin{itemize}\item [\textbf{RQ\arabic{researchquestionCount}:}] \emph{#1}\end{itemize}}
 
-\usepackage[colorinlistoftodos,prependcaption,textsize=normalsize,backgroundcolor=blue!10]{todonotes}
-%\presetkeys{todonotes}{inline}{}
-\usepackage{comment}
-\usepackage{tikz}
-
-\usepackage{bm}
-
+% ******* BEGIN margin notes copied from https://tex.stackexchange.com/questions/118682/side-notes-marking-multiple-lines-of-text ****
+	\newcounter{bordercntr}
+	\newcounter{borderpages}
+	
+	\newcommand\AnnAnchor{north west}
+	\newcommand\AnnMargin{east}
+	\newcommand\AnnAlign{\raggedright}
+	\newlength\AnnSep
+	\setlength\AnnSep{\marginparsep}
+	
+	\newcommand\tikzmark[1]{%
+		\tikz[overlay,remember picture] \node[inner xsep=0pt] (#1) {};}
+	
+	\newenvironment{tikzborder}[1]
+	{%
+	\checkoddpage
+	\ifoddpage
+	\renewcommand\AnnAnchor{north west}%
+	\renewcommand\AnnMargin{east}%
+	\setlength\AnnSep{\marginparsep}%
+	\else
+	\renewcommand\AnnAnchor{north east}%
+	\renewcommand\AnnMargin{west}%
+	\setlength\AnnSep{-\marginparsep}%
+	\renewcommand\AnnAlign{\raggedleft}
+	\fi%
+		\stepcounter{bordercntr}%
+		\tikzmark{start-border}\label{start-border\thebordercntr}%
+		\tikz[remember picture,overlay]
+			\node[anchor=\AnnAnchor,inner sep=0pt,text=gray,font=\footnotesize] at 
+		([xshift=\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north)
+		{\parbox{\marginparwidth}{\begin{spacing}{0.8}\AnnAlign#1\end{spacing}}};%
+		% if the marks are in the same page, nothing is done
+		% otherwise, the decoration is drawn from the starting point to the page bottom
+		% and, if necessary, intermediate pages will also receive the decoration
+		\ifnum\getpagerefnumber{start-border\thebordercntr}=\getpagerefnumber{end-border\thebordercntr}\else
+			\begin{tikzpicture}[overlay, remember picture]
+			\draw [ultra thick,gray]
+					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
+					 ([xshift=0.5\AnnSep]current page text area.south \AnnMargin);
+			\end{tikzpicture}%
+	\setcounter{borderpages}{\numexpr\getpagerefnumber{end-border\thebordercntr}-\getpagerefnumber{start-border\thebordercntr}}%
+			\ifnum\value{borderpages}>1\relax
+				\AtBeginShipoutNext{\tikzborderpage[#1]}%
+			\fi%
+		\fi%
+	\ignorespaces%
+	}
+	{\checkoddpage%
+	\ifoddpage
+	\setlength\AnnSep{\marginparsep}%
+	\renewcommand\AnnAnchor{north west}%
+	\renewcommand\AnnMargin{east}%
+	\else
+	\setlength\AnnSep{-\marginparsep}%
+	\renewcommand\AnnAnchor{north east}%
+	\renewcommand\AnnMargin{west}%
+	\fi%
+	\tikzmark{end-border}\label{end-border\thebordercntr}%
+		% if the marks are in the same page, the decoration is drawn
+		% otherwise, the decoration is drawn from the top of the page to the end mark
+		\ifnum\getpagerefnumber{start-border\thebordercntr}=\getpagerefnumber{end-border\thebordercntr}%
+			\begin{tikzpicture}[overlay, remember picture]
+		\draw [ultra thick,gray]
+					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
+					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
+			\end{tikzpicture}%
+		\else
+			\begin{tikzpicture}[overlay, remember picture]
+			\draw [ultra thick,gray]
+					 ([xshift=0.5\AnnSep]current page text area.north \AnnMargin) --  
+					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
+			\end{tikzpicture}%
+		\fi%
+	}
+% *************** END  margin notes  **************
+	
+	% the command to draw the decoration in intermediate pages from the top
+	% to the bottom of the page
+	\newcommand\tikzborderpage[1][0pt]{%
+	\checkoddpage%
+	\ifoddpage
+	\setlength\AnnSep{\marginparsep}%
+	\renewcommand\AnnAnchor{north west}%
+	\renewcommand\AnnMargin{east}%
+	\else
+	\setlength\AnnSep{-\marginparsep}%
+	\renewcommand\AnnAnchor{north east}%
+	\renewcommand\AnnMargin{west}%
+	\fi%
+		\begin{tikzpicture}[overlay, remember picture]
+			\draw[ultra thick,gray]
+					 ([xshift=0.5\AnnSep,yshift=-\baselineskip]current page text area.north \AnnMargin) --  
+					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.south \AnnMargin);
+		\end{tikzpicture}
+		\addtocounter{borderpages}{-1}%
+		\ifnum\value{borderpages}>1
+			\AtBeginShipoutNext{\tikzborderpage[#1]}%
+		\fi%
+	}
+	
 
 \begin{document}
 
@@ -589,8 +697,8 @@ This is shown in Chapter 2 in which relevant books, papers and standards are ana
 \researchquestion{RQ2 What are the main applications and tools for program repair and model repair?}
 This is shown in Chapter 3 in which currently available tools and techniques to support engineers in automatically update and repair programs and models are analysed. In particular, SAT and SMT solvers, model checkers, evolutionary algorithms, and mutations, are presented.
 \researchquestion{RQ3 How to increase software engineer productivity by automatically repair non-conformant models?}
-In different cases during software development lifecycle, models become non-confmant w.r.t. the code.
-Automatically restore conformance of the model, by applying only edits as small as possible to it, is the goal of the approach. Chapter 5 describes an approach to this problem using information coming from tests on the real system, and a framework for the development of approaches to repair different types of models. 
+Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
+Automatically repair the model so that it maintains conformance, by applying small edits to it, is the goal of the approach. Chapter 5 describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
 \researchquestion{RQ4 How to improve the readability and understandability of ASM specifications?}
 When the system is complex and the textual model consists of several lines of code, for the user it would be difficult to understand the behaviour of the model. A tool for the visualization of the ASMs automatically translates the textual model
   3
@@ -615,10 +723,15 @@ The need of a fault-driven constraint repair process was already envisioned in~\
 
 \chapter{Software Artifact Manipulation Techniques}
 \section{Software Artifacts}
-\subsection{Code} //talk also about configuration mining
 \subsection{Software Product Lines}
+%// TODO change because copied from Oster's PhD thesis introduction
+\blue{Software Product Line (SPL) engineering is a popular approach for the systematic reuse of software artifacts across a very large number of similar products. SPLs are gaining widespread acceptance and various domains already apply SPL engineering successfully to address the well-known needs of the Software Engineering community, including increasing quality, saving costs for development and maintenance, and decreasing time-to-market \cite{bookSPL2001}. SPLs offer a systematic reuse of software artifacts within a range of products sharing a common set of features (i.e., units of functionality) \cite{Griss2000}. According to IEEE a feature is a distinguishing characteristic of a software item (e.g. concerning its performance, portability, or functionality) [ANS83].
+The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features [CE00, pages 93-95]. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate. Variability leads to a combinatorial explosion of possible products from one SPL. For instance, an SPL with around 200 optional features may lead to over 1060 different products.
+The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software [Bos05].
+Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.}
+
 \subsection{Timed Automata}
-\subsection{Abstract State Machines}
+
 \section{SAT and SMT solvers}
 \section{Search-based Software Engineering}
 \section{Model Checkers}
@@ -626,7 +739,7 @@ The need of a fault-driven constraint repair process was already envisioned in~\
 \section{Model Transformations}
 \section{Automated Model Repair}
 
-\part{Approach and Uniqueness}
+\part{Test-Driven Model Repair Framework}
 \chapter{Automated Model Repair}
 %The research approach consists of two stages: the reviewing stage, and the formulation stage.
 %In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
@@ -660,8 +773,8 @@ The applied repairs are local and little, based on the \textit{competent modeler
 %If real-world case studies coming from collaborations with industries in the sector are found, it would be an added value.
 
 
-\part{Request-Driven Repair}
-\chapter{Repair of Feature Models}
+\part{Failure-Driven Model Repair}
+\chapter{Evolutionary Approach for Feature Model Repair}
 Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
 %In order to keep an SPL and its feature model aligned, feature models must be changed by including/excluding new features and products, either because faults in the model are found or to reflect the normal evolution of the SPL.
 %Such changes can be complex and error-prone due to the size of the feature model.
@@ -676,7 +789,7 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 %The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
 %To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
 
-\part{Failure-Driven Repair}
+\part{Test-Driven Model Repair}
 \chapter{Repair of Configuration Constraints}
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 %Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
@@ -745,14 +858,16 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
 %
+%\begin{mdframed}
 Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{czerwonka_pairwise_2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
 In~\cite{citlab12} we have presented a plugin for the eclipse IDE that helps the user in writing CIT models with constraints by leveraging all the expected features of a modern IDE, and it generates combinatorial test suites by using third party programs (like CASA or ACTS).
-
+%\end{mdframed}
+\begin{tikzborder}{Hello}
 However, this classical approach poses some challenges. First, the user must install the chosen CIT tool, which in turn may require some dependencies, like java, or in case of plugin, it requires the installation of another program or application like eclipse, excel and so on. Then the user must use his/her machine for running the test generation algorithms. For experienced users with powerful machines they can administer, this is not a real problem. However, for novice users with not so powerful computer, or students that are just learning the CIT principles, or software developers using computer they cannot administer, this can become a cost to be considered and it may be an obstacle for the use of CIT.
 
 Second, from the point of view of tool developers, the distribution of programs means that they have little or no control on the software once is installed: when a bug is discovered the developer has to fix the bug, publish a new version of the tool and hope that the users will update their software. Moreover, the developer has no idea about how the software is used: what are the typical scenarios of use (big or small models, for example), what are the features that are mostly used (for example, what modeling features are more used). Furthermore, it is difficult for tool developers to apply a cost model able to reward their effort in developing and deploying the CIT tool. Indeed, most of the tools are given away for free by researchers supported by their own organization.
-
-A possible solution of these problems could be the offer of CIT features as software as a service (SaaS). SaaS is software that is accessed through Internet by using a classical web browser.  The SaaS software is actually hosted on the vendor’s servers, and the customers log in and perform tasks as necessary.  The 
+\end{tikzborder}
+A possible solution of these problems could be the offer of CIT features as software as a service (SaaS). SaaS is software that is accessed t+hrough Internet by using a classical web browser.  The SaaS software is actually hosted on the vendor’s servers, and the customers log in and perform tasks as necessary.  The 
 vendor is the one who is ultimately responsible for hosting, upgrading and maintaining the program as needed.  There is an extensive literature about SaaS and the advantages (together with limitations) are well known~\cite{Menken:2008}. 
 
 There are already experiences in using the web for CIT. For instance, CTWeb Classic~\cite{usaolaframework}, CTWeb Plus~\cite{ctwebplus}, TestCover~\cite{testcover}, Hexawise~\cite{hexawise}, and PairWiser~\cite{pairwiser}. 
