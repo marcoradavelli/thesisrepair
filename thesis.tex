@@ -24,7 +24,7 @@
 
 \documentclass[
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
-%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -142,6 +142,62 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 \usepackage{setspace}
 \usepackage{tikzpagenodes}
 \usetikzlibrary{calc}
+\usepackage{lineno,hyperref}
+\hypersetup{
+colorlinks = false, % false: boxed links; true: colored links
+hidelinks = true,
+linkcolor=black, % color of internal links
+citecolor=black, % color of links to bibliography
+urlcolor=black, % color of external links
+filecolor=black
+}
+\usepackage{subcaption}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{units}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,positioning,patterns}
+\usetikzlibrary{decorations,decorations.text,backgrounds}
+\tikzset{
+    feature/.style={draw, inner sep=1.5mm, font=\small\sffamily, fill=white},
+    opt/.style={fill=white}}
+
+% Code from Christian Feuersänger
+% http://tex.stackexchange.com/questions/54794/using-a-pgfplots-style-legend-in-a-plain-old-tikzpicture#54834
+
+% argument #1: any options
+\newenvironment{customlegend}[1][]{%
+    \begingroup
+    % inits/clears the lists (which might be populated from previous
+    % axes):
+    \csname pgfplots@init@cleared@structures\endcsname
+    \pgfplotsset{#1}%
+}{%
+    % draws the legend:
+    \csname pgfplots@createlegend\endcsname
+    \endgroup
+}%
+
+% makes \addlegendimage available (typically only available within an
+% axis environment):
+\def\addlegendimage{\csname pgfplots@addlegendimage\endcsname}
+
+%%--------------------------------
+
+% definition to insert numbers
+\pgfkeys{/pgfplots/number in legend/.style={%
+        /pgfplots/legend image code/.code={%
+            \node at (0.125,-0.0225){#1}; % <= changed x value
+        },%
+    },
+}
+\pgfplotsset{
+every legend to name picture/.style={west}
+}
+
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \lstdefinelanguage{ctwedge}{
@@ -256,6 +312,8 @@ EnumerativeType, Number, Range, TestGoals,
 
 \definecolor{light-gray}{gray}{0.8}
 
+\graphicspath{ {images/} }
+
 \newcommand{\ctwedge}{\textsc{ctwedge}\xspace}
 \newcommand{\citlab}{\textsc{CitLab}\xspace}
 
@@ -308,6 +366,78 @@ EnumerativeType, Number, Range, TestGoals,
 \newcommand{\windows}{\textsf{windows}\xspace}
 \newcommand{\cg}{\cellcolor{lightgray}}
 
+\newcommand{\fmToBool}{\ensuremath{\textsc{bof}}\xspace}
+\newcommand{\fm}{\ensuremath{\mathit{fm}}\xspace}
+\newcommand{\fmp}{\ensuremath{\fm^\prime}\xspace}
+\newcommand{\initFm}{\ensuremath{\fm_i}\xspace}
+%\newcommand{\overlineFm}{\ensuremath{\fm_x}\xspace}
+\newcommand{\fmrenamed}{\ensuremath{\fm_{\mathit{ren}}}\xspace}
+\newcommand{\validity}{\ensuremath{\mathit{val}}\xspace}
+
+\newcommand{\fitness}{\ensuremath{\mathit{fitness_t}}\xspace}
+
+\newcommand{\Fadd}{\ensuremath{\mathit{F_{add}}}\xspace}
+%\newcommand{\URFadd}{\ensuremath{\UR_{\Fadd}}\xspace}
+\newcommand{\Frem}{\ensuremath{\mathit{F_{rem}}}\xspace}
+%\newcommand{\CFadd}{\ensuremath{\mathit{CF_{add}}}\xspace}
+\newcommand{\CFrelax}{\ensuremath{\mathit{C_{relax}}}\xspace}
+\newcommand{\CFrem}{\ensuremath{\mathit{C_{rem}}}\xspace}
+%\newcommand{\Frename}{\ensuremath{\mathit{F_{rename}}}\xspace}
+\newcommand{\Ftbr}{\ensuremath{\mathit{F_{TBR}}}\xspace}
+\newcommand{\rename}{\ensuremath{\mathit{ren}}\xspace}
+\newcommand{\renamedFeatures}{\ensuremath{\mathit{F_R}}\xspace}
+\newcommand{\parent}[1]{\ensuremath{\mathit{parent(#1)}}\xspace}
+\newcommand{\parentna}{\ensuremath{\mathit{parent}}\xspace}
+
+%\usepackage{xargs}
+%\newcommandx{\filter}[2]{\ensuremath{\mathit{filter(#1,#2)}}\xspace}
+\newcommand{\filter}{\ensuremath{\mathit{filter}}\xspace}
+
+\newcommand{\PAR}{\ensuremath{\mathit{PAR}}\xspace}
+
+
+\newcommand{\UR}{\ensuremath{\mathit{UR}}\xspace}
+\newcommand{\FR}{\ensuremath{\mathit{FR}}\xspace}
+\newcommand{\AlToOr}{\texttt{AlToOr}\xspace}
+\newcommand{\AlToAnd}{\ensuremath{\texttt{AlToAnd}}\xspace}
+\newcommand{\AlToAndOpt}{\ensuremath{\texttt{AlToAndOpt}}\xspace}
+\newcommand{\OrToAl}{\ensuremath{\texttt{OrToAl}}\xspace}
+\newcommand{\OrToAnd}{\ensuremath{\texttt{OrToAnd}}\xspace}
+\newcommand{\OrToAndOpt}{\ensuremath{\texttt{OrToAndOpt}}\xspace}
+\newcommand{\AndToOr}{\ensuremath{\texttt{AndToOr}}\xspace}
+\newcommand{\AndToAl}{\ensuremath{\texttt{AndToAl}}\xspace}
+\newcommand{\ManToOpt}{\ensuremath{\texttt{ManToOpt}}\xspace}
+\newcommand{\OptToMan}{\ensuremath{\texttt{OptToMan}}\xspace}
+\newcommand{\PullUp}{\ensuremath{\texttt{PullUp}}\xspace}
+\newcommand{\PushDown}{\ensuremath{\texttt{PushDown}}\xspace}
+\newcommand{\PullUpChildren}{\ensuremath{\texttt{PullUpCh}}\xspace}
+\newcommand{\PushDownSiblings}{\ensuremath{\texttt{PushDownSibl}}\xspace}
+\newcommand{\Creq}{\ensuremath{\texttt{AddReq}}\xspace}
+\newcommand{\Cexc}{\ensuremath{\texttt{AddExc}}\xspace}
+
+%only used to refer to the constraint in the ICST paper
+\newcommand{\MC}{\ensuremath{\texttt{MC}}\xspace}
+%this is the same operator in this paper
+\newcommand{\DelConstr}{\ensuremath{\texttt{DelConstr}}\xspace}
+
+%\newcommand{\Dexc}{\ensuremath{\texttt{Dexc}}\xspace}
+\newcommand{\ReqToExcl}{\ensuremath{\texttt{ReqToExcl}}\xspace}
+\newcommand{\ExclToReq}{\ensuremath{\texttt{ExclToReq}}\xspace}
+
+\newcommand{\thNI}{\ensuremath{\mathit{Th_{NI}}}\xspace}
+\newcommand{\thF}{\ensuremath{\mathit{Th_f}}\xspace}
+\newcommand{\thI}{\ensuremath{\mathit{Th_i}}\xspace}
+\newcommand{\thT}{\ensuremath{\mathit{Th_t}}\xspace}
+\newcommand{\CarBody}{{\tt Car\-Body}\xspace}
+\newcommand{\MultimediaDevices}{{\tt Multi\-media\-Devices}\xspace}
+\newcommand{\OtherFeatures}{{\tt Other\-Features}\xspace}
+\newcommand{\Radio}{{\tt Radio}\xspace}
+\newcommand{\Navigation}{{\tt Nav\-i\-ga\-tion}\xspace}
+\newcommand{\MonochromeRadioDisplay}{{\tt Mono\-chrome\-Radio\-Display}\xspace}
+\newcommand{\MonochromeNavigationDisplay}{{\tt Mono\-chrome\-Nav\-i\-gation\-Display}\xspace}
+\newcommand{\ColorNavigationDisplay}{{\tt Color\-Nav\-i\-gation\-Display}\xspace}
+\newcommand{\RadioDisplay}{{\tt Radio\-Display}\xspace}
+\newcommand{\DVDEntertainment}{{\tt DVD\-En\-ter\-tain\-ment}\xspace}
 %\usepackage[bookmarks=false]{hyperref}
 %\hypersetup{
 %colorlinks = true, % false: boxed links; true: colored links
@@ -349,6 +479,9 @@ EnumerativeType, Number, Range, TestGoals,
 {\parskip=0pt\par\nopagebreak\centering}
 {\par\noindent\ignorespacesafterend}
 
+\newtheorem{mydef}{Definition}
+\theoremstyle{remark}
+\newtheorem{exmp}{Example}
 
 \lstset{
 	columns=fullflexible,
@@ -390,17 +523,17 @@ EnumerativeType, Number, Range, TestGoals,
 		\stepcounter{bordercntr}%
 		\tikzmark{start-border}\label{start-border\thebordercntr}%
 		\tikz[remember picture,overlay]
-			\node[anchor=\AnnAnchor,inner sep=0pt,text=gray,font=\footnotesize] at 
-		([xshift=\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north)
+			\node[anchor=\AnnAnchor,inner sep=0pt,text=lightgray,font=\normalsize] at 
+		([xshift=2.0\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north)
 		{\parbox{\marginparwidth}{\begin{spacing}{0.8}\AnnAlign#1\end{spacing}}};%
 		% if the marks are in the same page, nothing is done
 		% otherwise, the decoration is drawn from the starting point to the page bottom
 		% and, if necessary, intermediate pages will also receive the decoration
 		\ifnum\getpagerefnumber{start-border\thebordercntr}=\getpagerefnumber{end-border\thebordercntr}\else
 			\begin{tikzpicture}[overlay, remember picture]
-			\draw [ultra thick,gray]
-					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
-					 ([xshift=0.5\AnnSep]current page text area.south \AnnMargin);
+			\draw [ultra thick,lightgray]
+					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
+					 ([xshift=1.5\AnnSep]current page text area.south \AnnMargin);
 			\end{tikzpicture}%
 	\setcounter{borderpages}{\numexpr\getpagerefnumber{end-border\thebordercntr}-\getpagerefnumber{start-border\thebordercntr}}%
 			\ifnum\value{borderpages}>1\relax
@@ -424,15 +557,15 @@ EnumerativeType, Number, Range, TestGoals,
 		% otherwise, the decoration is drawn from the top of the page to the end mark
 		\ifnum\getpagerefnumber{start-border\thebordercntr}=\getpagerefnumber{end-border\thebordercntr}%
 			\begin{tikzpicture}[overlay, remember picture]
-		\draw [ultra thick,gray]
-					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
-					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
+		\draw [ultra thick,lightgray]
+					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-start-border.north) --  
+					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
 			\end{tikzpicture}%
 		\else
 			\begin{tikzpicture}[overlay, remember picture]
-			\draw [ultra thick,gray]
-					 ([xshift=0.5\AnnSep]current page text area.north \AnnMargin) --  
-					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
+			\draw [ultra thick,lightgray]
+					 ([xshift=1.5\AnnSep]current page text area.north \AnnMargin) --  
+					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.\AnnMargin|-end-border.south);
 			\end{tikzpicture}%
 		\fi%
 	}
@@ -452,9 +585,9 @@ EnumerativeType, Number, Range, TestGoals,
 	\renewcommand\AnnMargin{west}%
 	\fi%
 		\begin{tikzpicture}[overlay, remember picture]
-			\draw[ultra thick,gray]
-					 ([xshift=0.5\AnnSep,yshift=-\baselineskip]current page text area.north \AnnMargin) --  
-					 ([xshift=0.5\AnnSep,yshift=0.65ex]current page text area.south \AnnMargin);
+			\draw[ultra thick,lightgray]
+					 ([xshift=1.5\AnnSep,yshift=-\baselineskip]current page text area.north \AnnMargin) --  
+					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.south \AnnMargin);
 		\end{tikzpicture}
 		\addtocounter{borderpages}{-1}%
 		\ifnum\value{borderpages}>1
@@ -692,14 +825,14 @@ Outcomes of this project may have an impact in reducing the effort of software m
 \section{Research Questions and Objective}
 The goal of this thesis is to study how software testing techniques can be applied to drive automatic repair of software models.
 The thesis is divided into seven chapters, and each of these chapters (introduction excluded) try to answer to a research question (RQ).
-\researchquestion{RQ1 What are the main application of software testing?}
+\researchquestion{What are the main application of software testing?}
 This is shown in Chapter 2 in which relevant books, papers and standards are analysed. The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied. 
-\researchquestion{RQ2 What are the main applications and tools for program repair and model repair?}
+\researchquestion{What are the main applications and tools for program repair and model repair?}
 This is shown in Chapter 3 in which currently available tools and techniques to support engineers in automatically update and repair programs and models are analysed. In particular, SAT and SMT solvers, model checkers, evolutionary algorithms, and mutations, are presented.
-\researchquestion{RQ3 How to increase software engineer productivity by automatically repair non-conformant models?}
+\researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
-Automatically repair the model so that it maintains conformance, by applying small edits to it, is the goal of the approach. Chapter 5 describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
-\researchquestion{RQ4 How to improve the readability and understandability of ASM specifications?}
+Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter 5 describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
+\researchquestion{How to improve the readability and understandability of ASM specifications?}
 When the system is complex and the textual model consists of several lines of code, for the user it would be difficult to understand the behaviour of the model. A tool for the visualization of the ASMs automatically translates the textual model
   3
 Chapter 1. Introduction
@@ -774,6 +907,7 @@ The applied repairs are local and little, based on the \textit{competent modeler
 
 
 \part{Failure-Driven Model Repair}
+% in this part, there are the papers that do NOT focus on test generation, but start from UPDATE REQUEST, or FAILING COMBINATIONS
 \chapter{Evolutionary Approach for Feature Model Repair}
 Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
 %In order to keep an SPL and its feature model aligned, feature models must be changed by including/excluding new features and products, either because faults in the model are found or to reflect the normal evolution of the SPL.
@@ -788,6 +922,646 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 %\subsection{Test generation and fault localization}
 %The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
 %To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
+
+\begin{tikzborder}{\cite{arcaini2018evolutionary}}
+\section{Basic definitions}\label{sec:basic}
+
+In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
+%
+\begin{compactitem}
+\item \textit{Or}: at least one of the sub-features must be selected if the parent is selected.
+\item \textit{Alternative} (xor): exactly one of the children must be selected whenever the parent feature is selected.
+\item \textit{And}: if the relation between a feature and its children is neither an \textit{Or} nor an \textit{Alternative}, it is called \textit{and}. Each child of an \textit{and} must be either:
+\begin{compactitem}
+\item \textit{Mandatory}: the child feature is selected whenever its respective parent feature is selected.
+\item \textit{Optional}: the child feature may or may not be selected if its parent feature is selected.
+\end{compactitem}
+\end{compactitem}
+
+Only one feature in $F$ has no parent and it is the \emph{root} of \fm.
+
+In addition to the parental relations, it is possible to add \emph{cross-tree constraints}, i.e., relations that cross-cut hierarchy dependencies. {\it Simple} cross-tree constraints are:
+%
+\begin{compactitem}
+\item A {\it requires} B: the selection of feature A in a product implies the selection of feature B. We also indicate it as $A \rightarrow B$.
+\item A {\it excludes} B: A and B cannot be part of the same product. We also indicate it as $A \rightarrow \neg B$.
+\end{compactitem}
+
+Some frameworks for feature models also support {\it complex} cross-tree constraints~\cite{knuppel_is_2017} through {\it general} propositional formulas. In our approach, we allow feature models to contain complex cross-tree constraints.
+
+Feature models can be visually represented by means of feature diagrams, and their semantics can be expressed by using propositional logic~\cite{batory2005feature,benavides2010automated}: features are represented by propositional variables, and relations among features by propositional formulae. We identify with $\fmToBool(\fm)$ the \textsc{BO}olean \textsc{F}ormula representing a feature model \fm.
+
+\begin{mydef}[\textbf{Configuration}]\label{def:configuration}
+A \emph{configuration} $c$ of a feature model \fm is a subset of the features $F$ of \fm (i.e., $c \subseteq F$).
+\end{mydef}
+
+If \fm has $n$ features, there are $2^n$ possible configurations.
+
+\begin{mydef}[\textbf{Validity}]\label{def:validity}
+Given a feature model \fm, a configuration $c$ is \emph{valid} if it contains the \emph{root} and respects the constraints of \fm. A valid configuration is called \emph{product}.
+\end{mydef}
+
+For our purposes, we exploit the propositional representation of feature models for giving an alternative definition of configuration as a set of $n$ literals $c = \{l_1, \ldots, l_n\}$ (with $n = |F|$), where a positive literal $l_i=f_i$ means that feature $f_i$ belongs to the configuration, while a negative literal $l_i=\neg f_i$ means that $f_i$ does not belong to the configuration. We will also represent a configuration as a BOolean Formula as follows: $\fmToBool(c) = \bigwedge_{i=1}^n l_i$.
+
+Furthermore, since in the proposed approach we need to evaluate a feature model over a possibly wider set of features $U$, we introduce $\fmToBool(\fm, U) = \fmToBool(\fm) \wedge \bigwedge_{f \in U \setminus F} \neg f$, where \fm explicitly refuses all the configurations containing a feature not belonging to its set of features $F$; such technique has been already employed by different approaches that need to compare feature models defined over different sets of features~\cite{thum_reasoning_2009,icst2015}.
+
+\begin{exmp}\label{ex:initialFM}
+Let's consider the feature model shown in Fig.~\ref{fig:fmExample}.
+%
+\begin{figure}[!tb]
+\centering
+\includegraphics[height=3.5cm]{car2011}
+\caption{Example of feature model (taken from~\cite{Pleuss2012})}
+\label{fig:fmExample}
+\end{figure}
+%
+It is the third version of the CAR SPL described in~\cite{Pleuss2012}. It is composed of eight features $F$ = \{\CarBody, \MultimediaDevices, \OtherFeatures, \Radio, \Navigation, \MonochromeRadioDisplay, \MonochromeNavigationDisplay, \ColorNavigationDisplay{}\}. \CarBody is the root feature; its children \MultimediaDevices and \OtherFeatures are respectively optional and mandatory. \MultimediaDevices has two optional children: \Radio that is the father of the mandatory feature \MonochromeRadioDisplay, and \Navigation that is the father of the alternative group between \MonochromeNavigationDisplay and \ColorNavigationDisplay.
+\end{exmp}
+
+\section{Specifying an update request}\label{sec:updateRequest}
+
+We suppose that the product line engineer wants to update an existing feature model \initFm ({\it initial feature model}); although (s)he knows which are the desired updates in terms of products and features to add or remove, (s)he does not know how to write a feature model \fmp that satisfies all these updates.
+
+In this section, we describe how the user can specify her/his {\it change requirements}.
+By analysing existing evolutions of feature models described in literature~\cite{Pleuss2012,Burdek2016,smartHomePaper,helpSystemPaper,multimediaPaper}, we identified the following five types of change requirements: 
+%
+\begin{compactitem}
+\item a feature must be identified with a new name. Although this change requirement is straightforward to achieve, it is widely used (e.g., for the Smart\-Home SPL~\cite{smartHomePaper} considered in the Ample Project, we have observed 12 feature renames) and it is important to keep track of it, otherwise someone reading the updated feature model may have the impression that one feature has been added and one removed (in particular, if also other changes have been done on the feature model and, therefore, spotting the renamed feature is not easy).
+\item a feature must be added to the feature model. This change requirement occurs when a new feature must now be supported by the SPL. For example, in the CAR SPL~\cite{Pleuss2012}, the support for {\it DVD entertainment} has been introduced in 2012 (documented in the fourth version of the SPL feature model).
+\item a feature must be removed from the feature model. This change requirement occurs when a feature is no more supported by the SPL.\footnote{Note that this change requirement could be achieved by removing all the products containing the feature (see last change requirement), but not removing the feature from the feature model. However, in this way, the feature would become {\it dead}~\cite{benavides2010automated}, making the feature model less readable.} For example, in the CAR SPL~\cite{Pleuss2012}, feature {\it Color Radio Display} has been removed in 2011 (third version of the SPL feature model).
+\item some products must now be accepted by the SPL. This change requirement occurs when some constraints existing on the SPL (due to technical reasons or regulations) do not hold anymore and so some configurations that were forbidden in the past can now be accepted. For example, in the second version of the Pick-\&-Place (PPU) Unit SPL~\cite{Burdek2016}, the system is able to process either {\it plastic} or {\it metal} workpieces; in the third version of the SPL, instead, a technical improvement has allowed to handle plastic and metal workpieces in combination.
+\item some products cannot be accepted anymore by the SPL. This change requirement happens when some constraints over the SPL emerge (e.g., due to new regulations). For example, in the {HelpSystem} SPL~\cite{helpSystemPaper}, the second version of the SPL does not allow anymore that the sensor only detects either {\it pressure} or {\it not pressure}, i.e., the products with only {\it pressure} or {\it not pressure} are not allowed and have been removed.
+\end{compactitem}
+
+In the following, we provide the formal definition of update request. We assume that the initial feature model does not contain any dead feature or redundant constraint~\cite{benavides2010automated,Duran2017FLAME}; in case it has any, we can remove them using standard techniques, as, for example, that provided by FeatureIDE~\cite{FeatureIDEbook}.
+
+\begin{mydef}[\textbf{Update request}]\label{def:fic}
+Given an initial feature model \initFm defined over a set of features $F$, we call \emph{update request} \UR the modifications a user wants to apply to \initFm in order to obtain the desired updated model \fmp. An update request is composed of five change requirements, three regarding the features of the feature model, and two the configurations/products. The first \emph{feature-based} change requirement regards the features names:
+%
+\begin{compactitem}
+\item {\bf Rename features}: $\Ftbr = \{f_1,$ $\ldots,$ $f_m\}$ is a subset of features of $F$ that must be renamed and \rename a renaming function; \renamedFeatures is the set obtained by replacing every feature $f_i \in \Ftbr$ with $\mathit{ren}(f_i)$, i.e., $\renamedFeatures = (F \setminus \Ftbr) \cup \bigcup_{f_i \in \Ftbr} \{\rename(f_i)\}$. We identify with \fmrenamed the feature model obtained by renaming the features according to \Ftbr and \rename.\footnote{Note that feature renaming is already supported by feature model editors, such as FeatureIDE. We keep it among our change requirements for completeness with respect to the feature model evolutions observed in literature.}
+\end{compactitem}
+The other two \emph{feature-based} change requirements over the features of \fmrenamed are:
+\begin{compactitem}
+\item {\bf Add features}: \Fadd is a set of features the user wants to add to \fmrenamed. For each $e$ in \Fadd, the user has to define in $F_R \cup \Fadd$ the parent of $e$, denoted by \parent{e}. By adding a feature $e$ with parent $p$, we assume that the user wants to duplicate all the products that contain $p$ by adding also $e$.\footnote{Note that this corresponds to have $e$ as optional feature of $p$. However, this could not be always achievable, as explained in Sect.~\ref{sec:featBasedChangeReqs} (unless abstract features~\cite{thum_abstract_2011} are used); therefore, we define the change requirement in this more general form, in order to keep the semantics of change requirement and the way to achieve it clearly distinguished.} 
+\item {\bf Remove features}: \Frem is a subset of the features of $F_R$ to remove; by removing a feature $f$, we assume that the user wants to remove $f$ from all the existing products and prohibit its selection in new products.
+\end{compactitem}
+%
+We identify with $F^\prime$ the new set of features that must be used in the updated feature model \fmp, namely $(\renamedFeatures \cup \Fadd) \setminus \Frem$.
+
+Two \emph{product-based} change requirements, instead, are related to the products/configurations of the feature model (over the new set of features $F^\prime$):
+%
+\begin{compactitem}
+\item {\bf Add products}: \CFrelax is a set of predicates $\{ \rho_1, \ldots, \rho_n\}$ over $F^\prime$ that denote conditions that must be allowed in \fmp. The logical models satisfying $\rho_i$ are products that must be added to the feature model, provided that they do not violate feature model constraints defined over features not included in $\rho_i$.
+\item {\bf Remove products}: \CFrem is a set of predicates $\{ \gamma_1 \ldots, \gamma_m\}$ over $F^\prime$ that denote a set of products to be removed. Each product (i.e., logical model) satisfying a $\gamma_i$ must be removed from the valid product set.
+\end{compactitem}
+\end{mydef}
+
+The meaning of \CFrelax and \CFrem is to modify the set of valid products, as depicted in Fig.~\ref{fig:cremcrelax}.
+%
+\begin{figure}[tb!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/CremCrelax}
+\end{center}
+\caption{Added and removed products}
+\label{fig:cremcrelax}
+\end{figure}
+%
+The new product set (in dotted line) is enriched by configurations identified by \CFrelax but deprived of the products identified by \CFrem; note that \CFrem could also remove some products added by \CFrelax.
+
+If the user wants to include/exclude a specific configuration $c$, then (s)he simply adds $\fmToBool(c)$ to \CFrelax/\CFrem.\footnote{This is what we actually do in the experiments in Sect.~\ref{sec:experiments} where update requests are computed as differences between different versions of feature models, and \CFrelax and \CFrem can only be identified in terms of sets of configurations.}
+
+
+
+\subsection{Well-formedness of an update request}\label{sec:wfUpdReq}
+
+We impose some constraints on the update request to be sure that the different change requirements are not contradictory and useful (i.e., they actually affect the product set):
+%
+\begin{compactenum}
+\item \label{item:notCicleParentAndNotRemPar} Each added feature in \Fadd must have an ancestor in $\renamedFeatures\setminus\Frem$. This implies that it is not possible to remove by \Frem the parents $p$ of features added in \Fadd, i.e., $\Frem \cap (\bigcup_{f \in \Fadd} \{\parent{f}\}) = \emptyset$.
+\item \label{item:notRemRen} It is not possible to remove features that have been renamed, i.e., $\Frem \cap (\bigcup_{f_i \in \Ftbr} \{\rename(f_i)\}) = \emptyset$.
+\item \label{item:relaxNotRemFeat} Predicates in \CFrelax cannot predicate over features that have been removed in \Frem.
+\item \label{item:relaxEffective} \CFrelax actually increases the set of products: for each $\rho_i$ in \CFrelax, there exists at least one non-valid configuration that satisfies $\rho_i$.
+\item \label{item:remEffective} \CFrem actually deletes some products: for each $\gamma_i$ in \CFrem, there exists at least one product that satisfies $\gamma_i$.
+\item \label{item:remNotBossy} \CFrem does not remove all the configurations that must be added by \CFrelax, i.e., for each $\rho_i$ and $\gamma_j$ there exists a configuration that satisfies $\rho_i$ (it must be added) and it does not satisfy $\gamma_j$.
+\item \label{item:notIncons} The update request should be achievable by a consistent feature model (i.e., accepting at least one product) without dead features (i.e., each feature is selected in at least one model).
+\end{compactenum}
+
+Constraints
+%\ref{item:notCicleParent}, \ref{item:notRemPar},
+\ref{item:notCicleParentAndNotRemPar},
+\ref{item:notRemRen}, and \ref{item:relaxNotRemFeat} can be easily checked directly at the syntactical level on the update request. If one of these constraints is not satisfied, the update request cannot be applied and we ask the user to fix it.
+
+Checking constraints \ref{item:relaxEffective}, \ref{item:remEffective}, and \ref{item:remNotBossy}, instead, requires to reason over the propositional representation of \fmrenamed (i.e., $\fmToBool(\fmrenamed)$) and the predicates in \CFrelax and \CFrem; for example, checking constraint \ref{item:relaxEffective} consists in verifying that, for each $\rho_i \in \CFrelax$, $\neg \fmToBool(\fmrenamed) \wedge \rho_i$ is satisfiable. If one of these constraints is not satisfied, the update request is still consistent, although the corresponding change requirement is useless; in case of constraint violation, we warn the user about the useless change requirement and, if (s)he confirms that the change requirement is indeed not necessary, we continue the updating process without that requirement.
+
+Checking constraint \ref{item:notIncons}, instead, requires to reason about the interaction of the different change requirements and can only be done after we define the target, as explained in the next section.
+
+\begin{exmp}\label{ex:updReq}
+Given the CAR SPL model shown in Fig.~\ref{fig:fmExample} and described in Ex.~\ref{ex:initialFM}, an update request could be the following\footnote{Note that the change requirement \Fadd is the same reported in~\cite{Pleuss2012} for the evolution from the third version (shown in Fig.~\ref{fig:fmExample}) to the fourth version of the CAR SPL; \CFrem, instead, is taken from the evolution from the first to the second version of the same SPL. In order to have a complete example, the other three change requirements have been identified by us; \Ftbr and \Frem resemble similar change requirements observed in literature, respectively in the SmartHome SPL~\cite{smartHomePaper} and in the CAR SPL~\cite{Pleuss2012}.}:
+%
+\begin{compactitem}
+\item \textbf{Rename features} \Ftbr = \{\MonochromeRadioDisplay{}\} and \rename(\MonochromeRadioDisplay) = \RadioDisplay.
+\item \textbf{Add features} \Fadd = \{\DVDEntertainment{}\} and \parent{\DVDEntertainment} = \MultimediaDevices.
+\item \textbf{Remove features} \Frem = \{\OtherFeatures{}\}.
+\item \textbf{Add products} \CFrelax = \{\MultimediaDevices $\wedge$ \Navigation $\wedge$ (\MonochromeNavigationDisplay $\leftrightarrow$ \ColorNavigationDisplay{})\}. We also want to allow products with support for navigation, and having both displays or having no display at all. 
+\item \textbf{Remove products} \CFrem = \{$\Navigation \wedge \neg \Radio$\}. We want to exclude that navigation is present when the radio is not.
+\end{compactitem}
+\end{exmp}
+
+
+\subsection{Update request semantics}\label{sec:target}
+
+We here precisely define the semantics of an update request \UR. In order to do this, we define a formula that accepts and rejects configurations as the updated feature model should do.
+
+In order to define the semantics of \Frem and \CFrelax, we need to be able to represent the feature model without some features. We exploit the approach used in~\cite{thum_abstract_2011} to remove features from feature models. To eliminate a feature $f$ from a propositional formula, we substitute $f$ by its possible values (true or false). 
+
+\begin{mydef}[Features removal]\label{def:featuresRem}
+Given a feature model \fm and a set of features $K = \{f_1,$ $\ldots,$ $f_k\}$ to remove, we recursively define $\filter(\fm, K)$ as follows:
+%
+\begin{equation*}
+\filter(\fm, K) =\begin{cases}
+\fmToBool(\fm) & {\rm if} \; K = \emptyset\\
+\filter(\fm, K^\prime)[f \leftarrow \top] \vee \filter(\fm, K^\prime)[f \leftarrow \bot] & {\rm if} \; K = K^\prime \cup \{f\}\\
+\end{cases}
+\end{equation*}
+%
+\end{mydef}
+
+The formula $\filter(\fm, K)$ has as logical models the same models as $\fmToBool(\fm)$ except that all the features in $K$ have been removed.
+
+Exploiting Def.~\ref{def:featuresRem}, the semantics of \Frem is captured by the formula
+%
+\[\phi_{\mathit{rem}} = \filter(\fmrenamed, \Frem)\] 
+%
+whose logical models (i.e., products) are those of \fmrenamed without the removed features.
+
+In order to capture the semantics of a $\rho_i \in \CFrelax$, we need to characterize the set of configurations to add. These are those that satisfy $\rho_i$ but still respect the constraints of $\phi_{\mathit{rem}}$, except for those involving the features of $\rho_i$. This is captured by
+%
+\[\phi^i_{\mathit{relax}} = \filter(\phi_{\mathit{rem}}, \mathit{features}(\rho_i)) \wedge \rho_i\]
+%
+being $\mathit{features}$ a function returning the features (i.e., propositional variables) contained in a formula. The {\it filter} on $\phi_{\mathit{rem}}$ has the effect of making the features in $\rho_i$ unconstrained, i.e., it keeps only the constraints of $\phi_{\mathit{rem}}$ that do not {\it interfere} with $\rho_i$.
+
+We can now build the formula that defines the semantics of the whole update request. We name the formula as {\it target} as it will be used as oracle to guide the proposed updating process (see Sect.~\ref{sec:process}).
+
+\begin{mydef}[\textbf{Target}]\label{def:target}
+The target $t$ is a propositional formula whose models exactly correspond to the products of the desired updated feature model. Assume an update request $\UR = \{\rename, \parentna, \Frem, \CFrelax, \CFrem{}\}$ defined over a feature model \fm, with the functions \rename defined over \Ftbr and \parentna defined over \Fadd. Let \fmrenamed be the feature model renamed according to \rename; the target is defined as:
+%
+\begin{align*} 
+t = & (\overbrace{\;\phi_{\mathit{rem}}\;}^{\parbox{18mm}{\footnotesize remove \Frem\\from products}} \vee \overbrace{\bigvee_{\rho_i \in \CFrelax} \phi^i_{\mathit{relax}}}^{\parbox{17mm}{\footnotesize add products}}) & \wedge
+& \overbrace{\bigwedge_{f \in \Fadd} f \rightarrow \parent{f}}^{\parbox{24mm}{\footnotesize add \Fadd features only when possible}} \wedge \overbrace{\bigwedge_{f \in \Frem} \neg f}^{\parbox{17mm}{\footnotesize disable \Frem\\ features}} \wedge \overbrace{\bigwedge_{\gamma \in \CFrem} \neg \gamma}^{\parbox{12mm}{\footnotesize remove products}}
+\end{align*}
+\end{mydef}
+
+The target correctly rejects all the configurations of \CFrem and those containing a removed feature in \Frem; the accepted configurations are those in \CFrelax, plus those of $\phi_{\mathit{rem}}$ (i.e., the original feature model without the removed features) possibly extended with each added feature $f$ of \Fadd only when \parent{f} is present.
+
+Note that the target correctly predicates over all the features $F_U = F^\prime \cup \Frem$: those of the original feature model (after renaming), those added, and those removed.
+
+\paragraph{Checking the target}
+On the target, we can finally check constraint \ref{item:notIncons} described in Sect.~\ref{sec:wfUpdReq}, requiring that the update request does not produce anomalies.
+
+First of all, we check that the target accepts at least one product (i.e., it is satisfiable); if not, we warn the user that the update request cannot be applied.
+
+Moreover, we also check that each feature $f \in F^\prime$ can be actually selected in at least one product; it this is not possible, it means that $f$ is required to be dead in the final model. If this is the case, we warn the user about this and, if this is the intended behavior, we move $f$ in \Frem, so that we can directly try to remove it during the repairing process.
+
+
+\section{Evolutionary updating process}\label{sec:process}
+
+Modifying the initial feature model \initFm such that it satisfies the update request as specified by the target is a challenging task. Note that, in general, there could be no \fmp that exactly adds and removes the specified configurations and features, unless {\it complex} cross-tree constraints are used. However, we claim that the usage of these constraints should be discouraged. Urli et al.~\cite{visualSupport} observe that ``they make FMs complex to understand and maintain'', Reinhartz-Berger et al.~\cite{ComprehendingFeatureModels} experimentally assessed that they are more difficult to understand than parent-child relationships (at least, by modelers who are unfamiliar with feature modeling), and Berger et al.~\cite{Berger2013} report that ``they are known to critically influence reasoners''. Also the authors of FeatureIDE noted that cross-tree constraints ``are harder to comprehend than simple tree constraints" and that ``relations among features should be rather expressed using the tree structure if possible''~\cite{FeatureIDEbook}. In this paper, we therefore avoid the addition of complex cross-tree constraints, as we not only aim at correctness (i.e., full achievement of the update request), but also at readability of the final model.
+Some approaches that aim at simplifying complex constraints exist~\cite{knuppel_is_2017,vonRhein2015}, but they may diminish readability and other qualities, such as compactness, traceability, and maintainability.\footnote{In Sect.~\ref{sec:conclusions}, we discuss how complex cross-tree constraints could be used to achieve all the change requirements and the issues that could be related to that approach.}
+
+This paper proposes a heuristic approach that tries to achieve the update request {\it as much as possible}. In order to do this, we use the target as {\it oracle} to compute the {\it fault ratio}. The fault ratio tells how close we are to the correct solution. In Sect.~\ref{sec:correctness}, we give the definition of fault ratio and then, in Sect.~\ref{sec:updatingProcess}, we describe the updating process we propose.
+
+\subsection{Correctness}\label{sec:correctness}
+
+We can use the target to evaluate whether a feature model \fmp captures the desired change requirements, i.e., \fmp is equivalent to the target ($\models t \leftrightarrow \fmToBool(\fmp, F_U)$). In the following, we will only compare feature models \fmp whose features $F_{\fmp}$ are, at most, those in $F_U$, i.e., $F_{\fmp} \subseteq F_U$.
+
+Although a feature model could not fulfill all the change requirements, it could satisfy them partially. We give a measure of the \emph{difference} between a feature model \fm (either the initial one \initFm or a modified one \fmp) and the target as follows.
+
+\begin{mydef}[\textbf{Fault ratio}]\label{def:faultratio}
+Given a feature model \fm and a target $t$, the \emph{fault ratio} of \fm w.r.t. $t$ is defined as follows:
+%
+\begin{equation*}
+\FR(\fm, t) = \frac{|\mathit{AllConfs}(\fmToBool(\fm, F_U) \neq t, F_U)|}{2^{|F_U|}}
+\end{equation*}
+%
+where $\mathit{AllConfs}(\varphi, V)$ returns all the logical models of formula $\varphi$, i.e., all the truth assignments $m$ to propositional variables $V$, such that $m \models \varphi$.\footnote{In our approach, we represent formulas as Binary Decision Diagrams (BDDs) in JavaBDD that implements $|\mathit{AllConfs}|$ by means of the method $\mathtt{satCount}$ that directly computes the cardinality of the set without enumerating all the models.}
+\end{mydef}
+
+If the fault ratio is equal to 0, it means that \fm accepts as products the same configurations that are logical models of $t$; otherwise, there are some configurations that are wrongly evaluated by \fm, as shown in Fig.~\ref{fig:faults}: \fm could wrongly accept some configurations and/or wrongly refuse some others.
+%
+\begin{figure}[!tb]
+\def\languageAll{(-1.2,-1.2) rectangle (2.2cm,1.2cm)}
+\def\firstcircle{(0,0) circle (1cm)}
+\def\circleS{(0:1cm) circle (1cm)}
+\colorlet{circle edge}{black}
+\tikzset{
+filled1/.style={draw=circle edge},
+filled2/.style={pattern=north east lines, pattern color=gray},
+outline/.style={draw=circle edge, thick}}
+\centering
+\begin{tikzpicture}
+\begin{scope}
+\draw[filled2, even odd rule] \firstcircle \circleS;
+\end{scope}
+\begin{scope}
+\end{scope}
+\draw[outline] \firstcircle node [left=0mm] {\fm};
+\draw[outline] \circleS node [right=2mm] {$t$};
+\draw[outline] \languageAll node [right=0mm] {$2^{\mid F_U\mid}$};
+\begin{customlegend}[legend cell align=left, %<= to align cells
+legend entries={ % <= in the following there are the entries
+{correct configurations}, 
+{wrong configurations}
+},
+legend style={at={(6.5, 0.5)},font=\footnotesize}] % <= to define position and font legend
+% the following are the "images" and numbers in the legend
+\addlegendimage{area legend,filled1}
+\addlegendimage{area legend,filled2}
+\end{customlegend}
+\end{tikzpicture}
+\caption{Faults}
+\label{fig:faults}
+\end{figure}
+
+\begin{exmp}
+Fig.~\ref{fig:exampleUpdatedFM} shows a possible updated model that exactly satisfies all the change requirements reported in Ex.~\ref{ex:updReq} for the model in Fig.~\ref{fig:fmExample}.
+%
+\begin{figure}[tb!]
+\centering
+\includegraphics[height=5cm]{car2011_4paper}
+\caption{Updated feature model}
+\label{fig:exampleUpdatedFM}
+\end{figure}
+%
+Note that the fault ratio of the initial renamed feature model \initFm w.r.t. to the target $t$ (that corresponds to the final feature model) is $\frac{20}{2^9}$, as \initFm wrongly accepts all its 7 products and wrongly rejects all the 13 products of the target.
+\end{exmp}
+
+
+\subsection{Updating process}\label{sec:updatingProcess}
+
+The process we propose to update an initial feature model \initFm, given an update request \UR, is depicted in Fig.~\ref{fig:approach}.
+%
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{evolutionaryApproach}
+\caption{Proposed evolutionary approach}
+\label{fig:approach}
+\end{figure*}
+%
+As initial step, we generate the target $t$ as a Binary Decision Diagram (BDD), as described in Def.~\ref{def:target}. Then, we start the updating process, that is composed of two consecutive macro-phases. We first try to deal with the feature-based change requirements (see Sect.~\ref{sec:featBasedChangeReqs}) and then with the product-based ones (see Sect.~\ref{sec:prodBasedChangeReqs}).
+
+\subsubsection{Dealing with feature-based change requirements}\label{sec:featBasedChangeReqs}
+
+First of all, we apply \Ftbr to rename features, obtaining the feature model \fmrenamed.
+
+Then, we modify \fmrenamed in order to try to achieve the change requirements of \Fadd and \Frem. For each $f \in \Fadd$, we add $f$ as child of \parent{f} as follows: if \parent{f} is the father of an {\it Or} or an {\it Alternative} group, $f$ is added to the group; in all the other cases, it is added as {\it Optional} child of \parent{f}. We name as $\fm_{A}$ the feature model obtained after this step. Then, for each feature $f \in \Frem$, $f$ is removed from $\fm_{A}$ and replaced by its children $\mathit{Ch_f}$ (if any). The relation of the moved children $\mathit{Ch_f}$ of $f$ with their new parent $p$ is set according to the way FeatureIDE removes features~\cite{FeatureIDEbook}:
+%
+\begin{compactenum}
+\item If $f$ was the only child of $p$, $p$ takes the group type of $f$. 
+\item If $p$ has group type {\it And}, 
+\begin{inparaenum}
+\item if the children $\mathit{Ch_f}$ are in {\it And} relationship, they keep their type (either {\it Mandatory} or {\it Optional})
+\item otherwise (they are in {\it Alternative} or {\it Or}), they are set to {\it Optional}.
+\end{inparaenum}
+\item Otherwise, if $p$ has group type {\it Alternative} or {\it Or}, features in $\mathit{Ch_f}$ are simply added to the group (regardless of their type).
+\end{compactenum}
+
+
+We name as $\fm_{\mathit{AR}}$ the feature model obtained after this step.
+
+Note that the model $\fm_{\mathit{AR}}$ could still be not equivalent to the target, i.e., $\not \models t = \fmToBool(\fm_{\mathit{AR}}, F_U)$. This could be due to two reasons. First of all, the update request could also require to add as products configurations described by constraints in \CFrelax and/or remove configurations described by constraints in \CFrem. Moreover, the two previous transformations do not guarantee to precisely implement the required change requirements \Fadd and \Frem, and they could introduce some wrong configurations (either wrongly accepted or rejected). For example, in order to implement the addition of a feature $f$ with $\parent{f} = p$ and $p$ father of an alternative group, we add $f$ to the group; however, this is not the exact semantics of \Fadd that requires to duplicate the products containing $p$ and adding $f$ to them.
+
+
+\subsubsection{Dealing with product-based change requirements}\label{sec:prodBasedChangeReqs}
+
+Starting from $\fm_{\mathit{AR}}$, we apply an evolutionary updating approach to try to obtain an updated feature model equivalent to the target. The process is an instance of classical evolutionary algorithms~\cite{Eiben2003}; an evolutionary algorithm can be understood (in a metaphor-free language~\cite{metaheuristicsMetaphor}) as an optimization problem in which different solutions are modified by random changes and their quality is checked by an objective function. Precisely, the steps are as follows:
+%
+\begin{compactenum}
+\item \textbf{Initial population}: at the beginning, a population $P$ is created. $P$ is a set of candidate solutions.
+\item \textbf{Iteration}: the following steps are repeatedly executed:
+\begin{compactenum}
+\item \textbf{Evaluation}: each member of the population $P$ is evaluated using a given \emph{fitness function}, representing the objective function.
+\item \textbf{Termination}: a termination condition is checked in order to decide whether to start the next iteration. If the termination condition holds, the candidate with the best \emph{fitness value} is returned as final model.
+\item \textbf{Selection} (\emph{Survival of the Fittest}): some members of $P$ having the best values of the fitness function are selected as parents of the next generation and collected in the set \PAR.
+\item \textbf{Evolution}: parents \PAR are mutated to obtain the \emph{offspring} to be used as population in the next iteration. The mutation performs random changes suitable to improve the existing solutions.
+\end{compactenum}
+\end{compactenum}
+
+In our approach, we assume that the population $P$ is a multiset (i.e., possibly containing duplicated elements) with fixed size $M$ equal to $H \cdot |F^\prime|$, where $H$ is a parameter of the process. In the following, we describe each step in details.
+
+
+\paragraph{\bf Initial population}%\label{sec:initPopulation}
+
+As initial population, we generate the set $P$ by cloning $\fm_{\mathit{AR}}$ $M$ times (step 1 in Fig.~\ref{fig:approach}). In this way, if $\fm_{\mathit{AR}}$ is already correct, it will be returned as final model in the \emph{termination condition} phase.
+
+\paragraph{\bf Evaluation}%\label{sec:evaluation}
+As first step of each iteration (step 2 in Fig.~\ref{fig:approach}), each candidate member \fmp of the population $P$ is evaluated using a \emph{fitness function} that tells how \emph{good} the member is in achieving the overall goal. We define the fitness function both in terms of fault ratio (see Def.~\ref{def:faultratio}) and of {\it complexity} of the model structure. Indeed, we would like to avoid that, during the updating process, the feature model becomes unreadable, unnecessarily complex, and difficult to maintain~\cite{Berger2013,visualSupport,ComprehendingFeatureModels,FeatureIDEbook}. We have decided to consider, at least initially, the number of cross-tree constraints as indicator of complexity, since the constraints among features should be expressed by structural relationships and cross-tree constraints should be used only when really necessary. We introduce the following fitness function:
+%
+\begin{equation}\label{eq:fitness}
+\fitness(\fmp) = 1 - \FR(\fmp, t) - k \times \mathit{ctc}(\fmp)
+\end{equation}
+%
+where $\mathit{ctc}$ is a function returning the number of cross-tree constraints of a feature model and $k$ a constant. In our approach, the quality of a candidate must be mainly given by the percentage of configurations that it evaluates correctly, i.e., $1 - \FR(\fmp, t)$; if a candidate $c_1$ evaluates correctly more configurations than a candidate $c_2$, its fitness should be guaranteed to be greater than that of $c_2$. However, for models having the same fault ratio, the fitness should penalize those that are structurally more complex. In order to obtain this effect, we use as $k$:
+%
+\begin{equation}\label{eq:kFitness}
+k = \frac{1}{{2^{|F_U|} \times 2|F_U|^2}}
+\end{equation}
+
+Note that $2 |F_U|^2$ is a safe strict upper bound on the number of cross-tree constraints among the features of the feature model. Indeed, among the possible $2|F_U|^2$ cross-tree constraints, some of them are not introduced because redundant (e.g., two {\it excludes} constraints between $(a,b)$ and $(b,a)$ are redundant and only one is necessary). Therefore, the term $\frac{\mathit{ctc}(\fmp)}{2^{|F_U|} \times 2|F_U|^2}$ is guaranteed to be less than $\frac{1}{2^{|F_U|}}$ that is the minimal possible variation of the fault ratio due to the change of evaluation of a single configuration. This means that the term can only affect the ranking of feature models having the same fault ratio.
+
+
+\paragraph{\bf Termination condition}%\label{sec:termination}
+In this step (step 3 in Fig.~\ref{fig:approach}), the process checks whether at least one of the following conditions is met:
+%
+\begin{compactitem}
+\item a defined level of fitness \thF is reached, i.e., there exists an \fmp in $P$ with $\fitness(\fmp) \ge \thF$. For example, $\thF=1$ means that we want to obtain a completely correct model without any cross-tree constraint; with $\thF = 1 - \frac{1}{2^{|F_U|} + 1}$, instead, we still want to have a correct model, but we allow to have any number of cross-tree constraints;
+\item in the previous \thNI iterations there has been no improvement of the fitness value of the best candidate;
+\item a maximum number \thI of iterations have been executed;
+\item a total time threshold \thT has been reached.
+\end{compactitem}
+
+If at least one of the previous conditions holds, the \fmp in $P$ with the highest fitness value is returned as final model.\footnote{If there is more than one model with the highest fitness value, we randomly select one of these models.}
+
+
+\paragraph{\bf Selection}%\label{sec:selection}
+
+In the \emph{selection} step (step 4 in Fig.~\ref{fig:approach}), starting from population $P$, a multiset of \emph{parents} \PAR of size $p$ is built, being $p$ a parameter of the evolutionary process. Different selection strategies have been proposed in literature:
+%
+\begin{compactitem}
+\item \emph{Truncation}: it selects the first $n = \left\lceil K\cdot|P| \right\rceil$ members of the population with the highest fitness value, where $K$ is a parameter specifying a percentage of the population ($0 < K \le 1$). Then, the first $n$ elements are added to \PAR as many times as necessary to reach the size $p$. Such strategy could result in premature convergence, as candidates with lower fitness values are not given the opportunity to improve their fitness.
+\item \emph{Roulette wheel}: $p$ members of the population are selected randomly; each member can be selected with a probability proportional to its fitness value. Note that one or more individuals could be selected multiple times.
+\item \emph{Rank}: it is similar to roulette wheel, except that the selection probability is proportional to the relative fitness rather than the absolute fitness, i.e., the probability of selecting a member is inversely proportional to its ranking number (where the member with highest fitness has ranking number 1). This strategy tends to avoid premature convergence by mitigating the selection pressure that comes from large differences in fitness values (as it happens in truncation selection).
+\end{compactitem}
+
+
+\paragraph{\bf Evolution}%\label{sec:evolution}
+In the \emph{evolution} step (step 5 in Fig.~\ref{fig:approach}), the parents \PAR are used to generate the \emph{offspring} that constitutes the population of the next generation.
+
+The idea we assume here is that the feature model should be updated applying a limited number of mutations. Making updates through the use of mutation operators has the benefit of reducing the risk of loss of domain knowledge, by changing the feature model as less as possible. Note that this assumption is similar to the competent programmer hypothesis~\cite{surveyMutationTesting} that assumes that the user has defined the artifact close to the correct one. If our approach is used for removing faults, we can directly rely on the competent programmer hypothesis. On the other hand, if the approach is used to evolve the feature model to align it with the SPL, we can still assume that the mutation operators are sufficient to obtain the updated model; indeed, it is unlikely that the updated version of the feature model should be too different from the initial one.
+
+In order to build the next population $P$, we mutate all the feature models in \PAR using the operators presented in Table~\ref{tab:mutOperators}.
+%
+\begin{table}[!tb]
+\caption{Mutation operators}
+\resizebox{\textwidth}{!}{%
+\centering
+\begin{tabular}{rl}
+\toprule
+Name & Description\\
+\midrule
+\OptToMan & an {\it optional} feature is changed to {\it mandatory}\\
+\ManToOpt & a {\it mandatory} feature is changed to {\it optional}\\
+\OrToAl & an {\it or} group is changed to {\it alternative}\\
+\OrToAnd & an {\it or} group is changed to {\it and} with all children {\it mandatory}\\
+\OrToAndOpt & an {\it or} group is changed to {\it and} with all children {\it optional}\\
+\AlToOr & an {\it alternative} group is changed to {\it or}\\
+\AlToAnd & an {\it alternative} group is changed to {\it and} with all children {\it mandatory}\\
+\AlToAndOpt & an {\it alternative} group is changed to {\it and} with all children {\it optional}\\
+\AndToAl & an {\it and} group is changed to {\it alternative}\\
+\AndToOr & an {\it and} group is changed to {\it or}\\
+\midrule
+\PullUp & a feature is moved as sibling of its parent\\
+\PushDown & a feature is moved as child of one of its siblings\\
+\PullUpChildren & all children of a feature are moved as siblings of their parent\\
+\PushDownSiblings & all siblings of a feature are moved as children of that feature\\
+\midrule
+\DelConstr & a cross-tree constraint ({\it requires} or {\it excludes}) is deleted\\
+\ReqToExcl & a {\it requires} constraint is changed to an {\it excludes} constraint\\
+\ExclToReq & an {\it excludes} constraint is changed to a {\it requires} constraint\\
+\Creq & a {\it requires} constraint is created\\
+\Cexc & an {\it excludes} constraint is created\\
+\bottomrule
+\end{tabular}}
+\label{tab:mutOperators}
+\end{table}
+%
+We set an upper bound $M$ to the size of the new population. If the mutation operators generate a maximum of $M$ mutants, we take all of them as the new population, otherwise we randomly select $M$ of them. In our approach, the offspring replaces the entire population.
+
+{\it Description of mutation operators}
+In~\cite{icst2015}, we have proposed some mutation operators for feature models, divided in \textit{feature-based} and \textit{constraint-based} operators that are a subset of the edit operations identified in~\cite{Burdek2016}. We use eight of the feature-based mutation operators proposed in~\cite{icst2015}, and introduce two new ones (\OrToAndOpt and \AlToAndOpt) that provide slightly different versions of \OrToAnd and \AlToAnd. Moreover, we also introduce two operators that permit to move a feature as sibling of the parent (\PullUp) or as child of one its siblings (\PushDown); we also introduce two versions of these operators that move all the children of a feature (\PullUpChildren) and all the siblings of a feature (\PushDownSiblings). Note that we do not allow the movement of a feature in any part of the feature model as this would produce too many mutants and could change too much the structure of the feature model. However, if in order to obtain the correct feature model a feature should be moved {\it far} from its current position, this is still obtainable by a suitable sequence of \PullUp and \PushDown mutations.
+
+Finally, we use all the \textit{constraint-based} operators\footnote{Note that the mutation operator \DelConstr corresponds to operator \MC described in~\cite{icst2015}.} proposed in~\cite{icst2015}, and introduce two new ones (\Creq, \Cexc) to create {\it requires} and {\it excludes} constraints; in order to limit the number of generated mutants, we only create constraints among features that belong to different sub-trees of the feature model, i.e., neither feature of the constraint is ancestor of the other. Moreover, we avoid to create constraints that would be redundant or that would introduce dead features: for instance, $A \rightarrow \neg B$ is not added if $A \rightarrow B$ is already present in the model, because A would become a dead feature.
+
+Although we allow feature models with constraints also in general form, we decided to not modify them, nor introduce new ones, in order to avoid the introduction of too many mutants and to achieve better readability of the final model.
+
+In general, we cannot evaluate a priori if a mutant introduces an anomaly; therefore, for each mutant, we check if it is infeasible, it contains redundant constraints, or it has dead features. If it has any of these anomalies, we do not select it.
+
+
+
+\section{Experiments}\label{sec:experiments}
+
+The process\footnote{The code is available at \url{https://github.com/fmselab/eafmupdate}} has been implemented in Java by using Watchmaker\footnote{\url{https://watchmaker.uncommons.org/}} as evolutionary framework, FeatureIDE~\cite{FeatureIDEbook} to represent and mutate feature models, and JavaBDD for BDDs manipulation. 
+
+We conducted a set of experiments to evaluate the proposed evolutionary approach; they have been executed on a Windows 10 system with an Intel i7-3770 3.40GHz processor, and 16 GB RAM.
+
+
+\subsection{Benchmarks}\label{sec:benchmarks}
+
+For the experiments, we used two sets of benchmarks, both shown in Table~\ref{tab:benchmarks}.
+%
+\begin{table}[!tb]
+\caption{Benchmark properties}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{clcc|ccccc} 
+\toprule
+& & \multicolumn{2}{c|}{model size} & \multicolumn{5}{c}{\UR size}\\
+& SPL & input & target & $\vert \Ftbr \vert$ & $\vert \Fadd \vert$ & $\vert \Frem \vert$ & $\vert \CFrelax \vert$ & $\vert \CFrem \vert$\\
+\midrule
+\multirow{12}*{\rotatebox{90}{\small \benchReal}}
+&{\tt MobileMedia d1} (V5..8) & 18.7 (15-23) & 22.3 (18-26) & 11.3 (1-17) & 4 (3-5) & 0.33 (0-1) & 26.7 (0-48) & 258 (24-560) \\
+&{\tt MobileMedia d2} (V5..8) & 16.5 (15-18) & 24.5 (23-26) & 12 (11-13) & 8 (8-8) & 0 (0-0) & 64 (48-80) & 536 (528-544) \\
+&{\tt MobileMedia d3} (V5,V8) &15 & 26 & 9 & 11 & 0 & 80 & 1648 \\
+&{\tt HelpSystem} (V1, V2) & 25 & 26 & 0 & 1 & 0 & 672 & 2016 \\
+&{\tt SmartHome} (V2.0, V2.2) & 39 & 60 & 12 & 23 & 2 & $1.92 \times 10^{9}$ & $2.31 \times 10^{10}$ \\
+&{\tt ERP\_SPL} (V1, V2) & 43 & 58 & 0 & 15 & 0 & 0 & $1.51 \times 10^{7}$ \\
+&{\tt PPU d1} (V1..9) & 13.9 (9-17) & 14.9 (11-17) & 0 (0-0) & 1.13 (0-4) & 0.125 (0-1) & 3.75 (0-27) & 27.8 (0-183) \\
+&{\tt PPU d2} (V1..9) & 13.4 (9-17) & 15.4 (11-17) & 0 (0-0) & 2.14 (0-6) & 0.142 (0-1) & 9 (0-27) & 54.4 (0-243) \\
+&{\tt PPU d3} (V1..9) & 12.8 (9-17) & 16.2 (13-17) & 0 (0-0) & 3.5 (1-6) & 0.167 (0-1) & 16 (0-27) & 77.5 (9-156) \\
+&{\tt CAR d1} (V2009..2012) & 7 (6-8) & 9.33 (7-13) & 0 (0-0) & 2.67 (1-5) & 0.333 (0-1) & 5 (0-13) & 16 (1-40) \\
+&{\tt CAR d2} (V2009..2012) & 6.5 (6-7) & 10.5 (8-13) & 0 (0-0) & 4.5 (3-6) & 0.5 (0-1) & 6 (0-12) & 34 (9-59) \\
+&{\tt CAR d3} (V2009,V2012) & 6 & 13 & 0 & 7 & 0 & 0 & 87 \\
+\midrule
+\multirow{4}*{\rotatebox{90}{\small \benchMut}}
+%& {\tt Example} & 4 & 4 & 0 & 0 & 0 & 0.41 (0-2) & 0.68 (0-2)\\
+& {\tt Register} & 11 & 11 & 0 & 0 & 0 & 11.85 (0-40) & 62.28 (0-210)\\
+& {\tt Graph} & 6 & 6 & 0 & 0 & 0 & 12.71 (0-28) & 0 (0-0)\\
+&{\tt Aircraft} & 13 & 13 & 0 & 0 & 0 & 196.86 (0-315) & 53.53 (0-365)\\
+& {\tt Connector} & 20 & 20 & 0 & 0 & 0 & 8.23 (0-18) & 26.02 (0-336)\\
+\bottomrule
+\end{tabular}
+}
+\label{tab:benchmarks}
+\end{table}
+
+\paragraph{Real models}
+The first benchmark set \benchReal is constituted by SPLs described in literature for which different versions of their feature model have been developed. First, we have identified in the SPLOT repository\footnote{\url{http://52.32.1.180:8080/SPLOT/feature_model_repository.html}} four SPLs that evolved over time:
+%
+\begin{compactitem}
+\item {\tt MobileMedia}: a program to manipulate multimedia on mobile devices (four versions)~\cite{multimediaPaper};
+\item {\tt HelpSystem}: a cyber-physical system with multiple sensors (two versions)~\cite{helpSystemPaper};
+\item {\tt SmartHome}: a set of smart house components (two versions)~\cite{smartHomePaper};
+\item {\tt ERP\_SPL}: an Enterprise Resource Planner (two versions).
+\end{compactitem}
+%
+Then, we have also considered the industrial case of a Pick-and-Place Unit ({\tt PPU})~\cite{Burdek2016}; for this system, the feature model has been changed eight times to adapt to new requirements (therefore, there are nine feature models available~\cite{Burdek2016}). Finally, we have also considered the product line model of a {\tt CAR}~\cite{Pleuss2012}, for which four different feature models have been produced.
+
+For each SPL, we identified couples (\initFm, $\fm_t$) of their feature models: the latest version was considered as target model\footnote{Note that, in the real usage of our approach, we do not have a target feature model, but an update request \UR from which we generate the target as propositional formula.} $\fm_t$, and the oldest one as the initial model \initFm we want to update. For SPLs with more than two feature models, in addition to couples of feature models of consecutive versions, we also considered models with version distance 2 and 3 (in the table, d1, d2, and d3 indicate the distance). In this way, we attempt to reproduce update requests of different complexity. In total, \benchReal contains 36 couples of models.
+
+\paragraph{Generated models}
+The second benchmark set \benchMut has been built with the aim of evaluating our approach under the assumption we did in Sect.~\ref{sec:prodBasedChangeReqs} that mutation operators are sufficient to update the feature model. We selected four feature models developed for four SPLs (for which only one model is available):
+%
+\begin{compactitem}
+\item {\tt Register}: a register of supermarkets, adapted from~\cite{Shimbara2015};
+\item {\tt Graph}: a graph library;
+\item {\tt Aircraft}: the configurations of the wing, the engine, and the materials of airplane models;
+\item {\tt Connector}: IP connection configurations.
+\end{compactitem}
+%
+From these models (used as target models $\fm_t$), we automatically generated other versions to be used as input models \initFm; we randomly mutated the target models (using 1 to 10 mutations), applying the operators described in Table~\ref{tab:mutOperators}. For each target model, we generated 100 input models. Therefore, \benchMut contains 400 couples.
+
+\subsubsection{Deriving the update request}
+In the devised usage of the approach, the user should specify the update request that must be provided as input to the evolutionary process; however, for our experiments, we do not have any update request available. Therefore, we automatically generated an update request \UR from the initial feature model \initFm and the target feature model $\fm_t$ of each couple (\initFm, $\fm_t$) of the benchmarks.
+
+In order to detect renamed features in \Ftbr, we manually inspected the two feature models and produced the renamed model \fmrenamed. Then, from \fmrenamed and $\fm_t$, we automatically identified the differences of their features for building \Fadd and \Frem; moreover, using their BDD representation, we identified the configurations that are differently evaluated in order to build \CFrelax and \CFrem (we built a predicate for each wrongly evaluated configuration\footnote{Note that, in this way, the sets \CFrelax and \CFrem are very large because they contain a predicate for each added and removed configuration. However, in a real setting, the user should specify predicates capturing sets of configurations and so the sets should be much smaller.}). Note that configurations that are added and removed by \Fadd and \Frem are not also specified in \CFrelax and \CFrem.
+
+Table~\ref{tab:benchmarks} reports, for all the benchmarks, the size of the input and target models in terms of number of features, and the number of requirements of the update request. For the SPLs in \benchReal having more than one couple of feature models, the reported values are aggregated by distance; for each SPL in \benchMut, the values are aggregated among its 100 input models. For these aggregated models, we report the average, minimum, and maximum number of elements in the update request. In \benchMut, since we did not add or remove features for producing the input models, their size is the same of that of the target model and so \Fadd and \Frem are empty; moreover, we do not even rename features and so also \Ftbr is empty.
+
+
+
+\subsection{Analysis}\label{sec:analysis}
+
+We now evaluate the proposed approach by a series of research questions. In these experiments, we set the parameters of the termination conditions as follows: \thF to $1 - \frac{\mathit{ctc}(\initFm)}{{2^{|F_U|} \times 2|F_U|^2}}$, \thNI to 15, \thI to 25, and \thT to 30 minutes. Note that the value chosen for \thF requires to have a totally correct model, with at most the same number of cross-tree constraints of the starting feature model. The parameter $H$ used to determine the maximum population size $M$ (as defined in Sect.~\ref{sec:prodBasedChangeReqs}) has been set to 5, and the parameter $p$ of the selection phase has been set to $\nicefrac{M}{2}$. All the reported data are the averages of 30 runs.
+
+In~\cite{evolUpdateVAMOS2018}, we experimented the effect of the different selection policies of the evolutionary approach and we found that truncation with $K$=5\% is the best policy in terms of fault ratio reduction, and the second best as execution time. Therefore, we here select it as selection policy and evaluate the approach using other research questions.
+
+\researchquestion{Is the proposed approach able to achieve the change requirements specified by the update request?}
+
+For each benchmark SPL, Table~\ref{tab:processPerformance} reports (among other things) the initial and final values of \FR, and the \FR reduction.
+%
+\begin{table}[!tb]
+\caption{Performance of the updating process}
+\resizebox{\textwidth}{!}{%
+\centering
+\setlength\tabcolsep{2pt} 
+\begin{tabular}{c l rrrrrrrrr}
+\toprule
+& SPL & \shortstack{time\\(s)} & \shortstack{initial\\FR (\%)} & \shortstack{final\\FR (\%)} & \shortstack{FR\\reduction (\%)} & \shortstack{\# \\ iterations} & \shortstack{sem.\\eq. (\%)} & \shortstack{synt.\\eq. (\%)} & ctc & ED \\
+\midrule
+\multirow{12}*{\rotatebox{90}{\small \benchReal}} &   {\tt MobileMedia d1}  & 71.11 &  4.17e-03 & 1.10e-04 & 96.03 & 8.42 & 64.44 & 17.78 &   0.23 &   14.86 \\ 
+&  {\tt MobileMedia d2} & 157.98 &  3.90e-03 & 4.41e-04 & 86.54 &     16.00 &      0.00 &      0.00 &   0.63 &   34.32 \\ 
+&  {\tt MobileMedia d3} & 178.46 &  2.57e-03 & 3.57e-04 & 86.13 &     16.00 &      0.00 &      0.00 &       0.80 &   36.97 \\ 
+&  {\tt HelpSystem} & 112.41 &  4.01e-03 & 1.24e-04 & 96.92 &    8.80 & 86.67 &      0.00 &    5.57 &   25.53 \\ 
+&  {\tt SmartHome} & 1990.40 & 7.24e-07 & 8.39e-08 & 88.42 &    6.10 &      0.00 &      0.00 &   0.43 &     57.60 \\ 
+& {\tt ERP\_SPL} & 2014.30 & 5.24e-09 & 8.86e-10 & 83.08 &      6.00 &      0.00 &      0.00 &   0.43 &     18.80 \\ 
+& {\tt PPU d1} &  5.98 &    0.09 &  2.27e-03 & 97.44 & 3.88 & 86.67 & 48.33 &    1.23 &      7.40 \\ 
+& {\tt PPU d2} & 10.23 &    0.10 &   0.54e-03 & 96.48 & 6.84 & 68.57 & 36.67 &    1.39 &   11.63 \\ 
+& {\tt PPU d3} & 15.90 &   0.09 &   0.01 & 87.43 & 9.69 & 48.89 & 28.89 &    1.94 &   17.04 \\ 
+& {\tt CAR d1} &  3.85 &     1.13 &   0.25 & 69.81 & 11.18 & 57.78 & 6.67 &   0.77 &   8.02 \\ 
+& {\tt CAR d2} & 4.21 &     1.31 &    0.17 & 80.31 & 10.52 &     50.00 &      0.00 &    1.83 &    10.15 \\ 
+& {\tt CAR d3}  & 6.59 &      1.06 &    0.37 & 65.52 &     16.00 &      0.00 &      0.00 &    2.37 &   20.13 \\ 
+\midrule
+\multirow{4}*{\rotatebox{90}{\small \benchMut}}
+ & {\tt Register} &   4.35 &     3.62 &    0.17 & 95.84 &  7.15 & 80.27 &   65.20 &   0.22 &   2.32 \\ 
+ & {\tt Graph} &  0.12 &     19.86 &          0.00 &    100.00 & 1.76 &    100.00 & 99.03 & 2.67e-03 & 0.02 \\ 
+ & {\tt Aircraft} &  8.09 &     3.06 &   0.07 & 97.49 & 6.58 & 84.53 & 68.63 &   0.29 &   2.89 \\ 
+ & {\tt Connector} & 28.68 &  3.27e-03 & 6.87e-05 & 98.11 & 5.80 &     94.00 & 68.47 &   0.20 &    2.27 \\ 
+\bottomrule
+\end{tabular}
+}
+\label{tab:processPerformance}
+\end{table}
+%
+For the models in \benchReal, the table reports the averages among couples at the same distance; for the models in \benchMut, instead, it reports the averages among the 100 input models of each SPL.\footnote{Non-aggregated results are reported online at \url{http://foselab.unibg.it/eafmupdate/}} We observe that for all models we can reduce the fault ratio of at least 65\%, with an average of 89.1\%. Comparing the two benchmark sets, we notice that the reduction is higher in \benchMut (on average, 97.86\%) than in \benchReal (on average, 86.15\%); this means that, as expected, if the assumption that the models can be updated using the proposed mutation operators holds, the approach behaves very well. However, also for general models as those in \benchReal, the performance of the approach is quite good.
+
+\researchquestion{Which is the computational effort of the proposed approach?}
+We are here interested in the effort required by the proposed approach in terms of computation time and iterations of the evolutionary process. Table~\ref{tab:processPerformance} also reports the total execution time of our process and the number of iterations of the evolutionary approach. For all but two models, the process takes at most 179 seconds; as expected, smaller models (as {\tt CAR}, {\tt Graph}, and {\tt Register}) are updated faster than larger models (as {\tt Mobile\-Media}, {\tt Help\-System}, {\tt Smart\-Home}, and {\tt ERP\_SPL}). We observe that the process terminates when one of these three terminating conditions occurs:
+%
+\begin{inparaenum}[(i)]
+\item \thF, i.e., the model is completely updated (as in {\tt Help\-System} and {\tt Graph}),
+\item \thT, i.e., the timeout has occurred (as in {\tt Smart\-Home} and {\tt ERP\_SPL}\footnote{Note that the time for these two models is around 3.5 minutes above the threshold \thT of 30 minutes; indeed, the terminating condition is checked at the end of an evolution step, but the threshold could be overcame during the step.}), or
+\item \thNI, i.e., no fitness improvement has been observed in the previous 15 iterations (as, for example, all the models of {\tt Mobile\-Media d2} and {\tt d3}, and those of {\tt CAR d3}).
+\end{inparaenum}
+%
+Note that the process never terminates because of the maximum number of iterations \thI.
+
+\researchquestion{Is there a relation between the initial fault ratio and its \emph{updatability}?}
+
+We are here interested in investigating whether there is a relation between the initial fault ratio and its reduction. Fig.~\ref{fig:frRepair} shows, for each benchmark model (a point in the plot), its initial fault ratio and the fault ratio reduction.
+%
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=.8\textwidth]{frRepairRed}
+\caption{Relation between the initial fault ratio and the fault ratio reduction}
+\label{fig:frRepair}
+\end{figure*}
+%
+It seems that there is no proper correlation: we reduce (or do not reduce) the fault ratio in the same proportion among models having different initial fault ratios. We checked the correlation with the Spearman rank-order correlation coefficient~\cite{Wohlin2012}, and indeed we found a value of 0.23 indicating almost no correlation~\cite{hinkle2003applied}.
+
+\researchquestion{Are the final models similar to those produced by SPL designers?}
+
+The main aim of the proposed approach is to obtain a feature model that satisfies all the change requirements; to this purpose, we use the fault ratio as measure of model correctness. However, the final model we obtain, although correct, may be not readable by and not useful for an SPL designer. Although we could not ask real SPL designers to validate our models in terms of usefulness and readability, we have access to models developed by SPL designers to achieve the same update requests we tackled in the experiments (models $\fm_t$ used as target in the experiments). We can assume that SPL designers are likely to find our models useful if models produced by our process are similar to their models. We therefore measure the {\it readability} of the final model of our process in terms of {\it distance} from the model $\fm_t$ developed by a designer for the same update request. We compute the {\it edit distance}~\cite{pawlik_efficient_2015,pawlik_tree_2016} of the final model $\fm_f$ from $\fm_t$, defined as the number of {\it edits} (insertion, deletion, and rename of tree nodes) that we have to apply to $\fm_f$ in order to obtain $\fm_t$.\footnote{Note that these edit operations are more fine-grained than our mutation operators and we are always able to compute the distance between two feature models.} Table~\ref{tab:processPerformance} reports also the edit distance (ED) to the target model (average among the models), and the percentage of models that are syntactically equal and semantically equivalent to the target model. Of course, models not completely updated are not syntactically equal to the target and have edit distance greater than 0. Completely correct models (semantically equivalent) are often also syntactically equal (for example, 86.67\% of the {\tt PPU d1} models are semantically equivalent and 48.33\% are also syntactically equal); however, there are some correct final models that are different from the target model $\fm_t$ (for example, {\tt HelpSystem} is completely updated 86.67\% of the times, but always in a different way than $\fm_t$).
+
+
+\researchquestion{Does considering the number of cross-tree constraints in the fitness impact the final results?}
+
+As explained in Sect.~\ref{sec:prodBasedChangeReqs}, our fitness function (see Eq.~\ref{eq:fitness}) can also take into consideration the number of cross-tree constraints ($\mathit{ctc}$); the value we selected for $k$ (see Eq.~\ref{eq:kFitness}) has the aim of penalizing models with higher $\mathit{ctc}$ at the same fault ratio (in order to limit the insertion of such constraints and instead give precedence to changes of the parental relations). In order to assess the impact of this choice, we have executed the same experiments presented before with $k=0$ in the fitness function (that becomes $\fitness(\fmp) = 1 - \FR(\fmp, t)$) and $\thT=1$. Table~\ref{tab:performanceVsConstraints} reports the data in terms of average fault ratio reduction, percentage of semantically equivalent, percentage of syntactically equal models, and the average number of cross-tree constraints.
+%
+\begin{table}[!tb]
+\caption{Performance of the updating process with the two versions of the fitness}
+\resizebox{1\textwidth}{!}{%
+\centering
+\setlength\tabcolsep{2pt} 
+\begin{tabular}{llrrrr|rrrr}
+\toprule
+& SPL & \multicolumn{4}{c}{Fitness without constr. ($k=0$)} & \multicolumn{4}{c}{Fitness with constr. ($k$ as in Eq.~\ref{eq:kFitness})}\\
+\midrule
+& & \shortstack{FR\\reduction (\%)} & \shortstack{sem.\\eq. (\%)} & \shortstack{synt.\\eq. (\%)} & ctc & \shortstack{FR\\reduction (\%)} & \shortstack{sem.\\eq. (\%)} & \shortstack{synt.\\eq. (\%)} & ctc \\
+\midrule
+\multirow{12}*{\rotatebox{90}{\small \benchReal}} & {\tt MobileMedia d1} & 94.10 &  61.11 & 17.78 & 0.69 &  96.03 &  64.44 & 17.78 & 0.23 \\
+& {\tt MobileMedia d2} & 84.83 &   0.00 &  0.00 & 1.85 &  86.54 &   0.00 &  0.00 & 0.63 \\ 
+& {\tt MobileMedia d3} & 85.16 &   0.00 &  0.00 & 2.43 &  86.13 &   0.00 &  0.00 & 0.80 \\ 
+& {\tt HelpSystem} & 97.22 &  86.67 &  0.00 & 5.57 &  96.92 &  86.67 &  0.00 & 5.57 \\ 
+& {\tt SmartHome} &   88.42 &   0.00 &  0.00 & 0.53 &  88.42 &   0.00 &  0.00 & 0.43 \\ 
+& {\tt ERP\_SPL} &   82.96 &   0.00 &  0.00 & 0.40 &  83.08 &   0.00 &  0.00 & 0.43 \\ 
+& {\tt PPU d1} & 98.10 &  87.50 & 45.83 & 1.62 &  97.44 &  86.67 & 48.33 & 1.23 \\ 
+& {\tt PPU d2} & 95.89 &  68.57 & 37.14 & 2.11 &  96.48 &  68.57 & 36.67 & 1.39 \\ 
+& {\tt PPU d3} & 87.25 &  50.00 & 27.22 & 2.95 &  87.43 &  48.89 & 28.89 & 1.94 \\ 
+& {\tt CAR d1}  & 73.61 &  55.56 &  3.33 & 1.89 &  69.81 &  57.78 &  6.67 & 0.77 \\ 
+& {\tt CAR d2}  & 78.06 &  45.00 &  0.00 & 3.22 &  80.31 &  50.00 &  0.00 & 1.83 \\ 
+& {\tt CAR d3}  & 62.80 &   0.00 &  0.00 & 4.63 &  65.52 &   0.00 &  0.00 & 2.37 \\ 
+\midrule
+\multirow{4}*{\rotatebox{90}{\small \benchMut}} & {\tt Register} &   96.11 &  82.70 & 64.03 & 0.60 &  95.84 &  80.27 & 65.20 & 0.22 \\ 
+& {\tt Graph} & 100.00 & 100.00 & 99.37 & 0.00 & 100.00 & 100.00 & 99.03 & 0.00 \\ 
+& {\tt Aircraft} &  97.43 &  85.97 & 68.73 & 0.42 &  97.49 &  84.53 & 68.63 & 0.29 \\ 
+& {\tt Connector} & 98.05 &  93.70 & 63.00 & 0.48 &  98.11 &  94.00 & 68.47 & 0.20 \\ 
+\bottomrule
+\end{tabular}%
+}
+\label{tab:performanceVsConstraints}
+\end{table}
+%
+For easing the comparison, we also report the same data of the results obtained with the previous experiment (already reported in Table~\ref{tab:processPerformance}). In order to check whether the consideration of cross-tree constraints has some effect on the final results, we have applied to the data the classical hypothesis testing by performing the Wilcoxon signed-rank test\footnote{We performed a non-parametric test as we found, with the Shapiro-Wilk test, that the distributions are not normal.}~\cite{Wohlin2012} between the results with the two versions of fitness. The null hypothesis that considering $\mathit{ctc}$ has no impact of the final model cannot be rejected for the percentage of totally updated models (i.e., semantically equivalent), but it is rejected for the syntactical equivalence with $p$-value equal to 0.0038. This confirms that penalizing  the usage of cross-tree constraints in the fitness improves the quality (readability) of the final model without compromising the ability of the approach in achieving the update request.
+
+
+\section{Threats to validity}\label{sec:threats}
+We discuss the threats to the validity of our results along two dimensions, \emph{external} and \emph{internal} validity~\cite{Wohlin2012}.
+
+\subsection{External validity}\label{sec:externalValidity}
+
+Regarding external validity, a threat is that the obtained results could be not generalizable to real-world (industrial) feature models having specific update requests. However, as first benchmark, we have selected 9 couples of models showing the evolution of real SPLs~\cite{multimediaPaper,helpSystemPaper,smartHomePaper} taken from the SPLOT repository, and other 27 couples from the evolution of other two real SPLs described in literature~\cite{Burdek2016,Pleuss2012} (see Sect.~\ref{sec:benchmarks}); moreover, in order to enlarge the set of evaluated models, we generated 400 input models by randomly mutating other 4 feature models (acting as target). We believe that this way of selecting the benchmarks reduces the bias w.r.t. other real models this process may be applied to in the future.
+
+Another threat to the external validity could be that the proposed process does not scale well to models larger than those considered in the experiments. In particular, the time for computing the fitness function grows exponentially with the number of features, as it is based on BDD construction. In order to address this problem, as future work, we plan to devise a technique that, given a single change requirement $c$, identifies the sub-tree $\mathit{st}$ of the feature model {\it affected} by $c$, i.e., $c$ can be achieved by only modifying $\mathit{st}$; only considering $\mathit{st}$ would allow to improve the process performance, as the mutations would be more targeted and the fitness computation would be performed on a smaller BDD.
+
+Another threat to the external validity is that the update requests that we use in the experiments could be different by those written by SPL designers. However, update requests have been obtained by computing the difference of consecutive versions of feature models written by SPL designers. While change requirements \Ftbr, \Fadd, and \Frem are guaranteed to be the same as those specified by SPL designers, \CFrelax and \CFrem are only semantically equivalent. However, this is not a threat, as the evolutionary approach only considers the semantics of the \CFrelax and \CFrem, not their structure.
+
+\subsection{Internal validity}\label{sec:internalValidity}
+
+Regarding internal validity, a threat is that the obtained results could depend on the values chosen for the parameters of the evolutionary process (parameters of termination conditions, and parameters of the selection and evolution phases) and that, with some other values, the results would have been different (e.g., a given selection strategy could perform better); although we kept all the parameters fixed, we believe that the overall result that our approach is able to actually update the feature model is not affected. However, as future work, we plan to perform a wider set of experiments in which the effect of each single parameter is evaluated. For finding the best parameter setting, we could use a parameter-tuning framework as irace~\cite{irace}.
+\end{tikzborder}
+
+
+
 
 \part{Test-Driven Model Repair}
 \chapter{Repair of Configuration Constraints}
@@ -855,18 +1629,18 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 
 \part{Tools to Support Model Repair}
 \chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}
-Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
-The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
+\begin{tikzborder}{\cite{IWCTGargantini2018}}
+	Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
+The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{Nie2011} reviewed the CIT literature and found around 20 tools. 
 %
 %\begin{mdframed}
 Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{czerwonka_pairwise_2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
 In~\cite{citlab12} we have presented a plugin for the eclipse IDE that helps the user in writing CIT models with constraints by leveraging all the expected features of a modern IDE, and it generates combinatorial test suites by using third party programs (like CASA or ACTS).
 %\end{mdframed}
-\begin{tikzborder}{Hello}
 However, this classical approach poses some challenges. First, the user must install the chosen CIT tool, which in turn may require some dependencies, like java, or in case of plugin, it requires the installation of another program or application like eclipse, excel and so on. Then the user must use his/her machine for running the test generation algorithms. For experienced users with powerful machines they can administer, this is not a real problem. However, for novice users with not so powerful computer, or students that are just learning the CIT principles, or software developers using computer they cannot administer, this can become a cost to be considered and it may be an obstacle for the use of CIT.
 
 Second, from the point of view of tool developers, the distribution of programs means that they have little or no control on the software once is installed: when a bug is discovered the developer has to fix the bug, publish a new version of the tool and hope that the users will update their software. Moreover, the developer has no idea about how the software is used: what are the typical scenarios of use (big or small models, for example), what are the features that are mostly used (for example, what modeling features are more used). Furthermore, it is difficult for tool developers to apply a cost model able to reward their effort in developing and deploying the CIT tool. Indeed, most of the tools are given away for free by researchers supported by their own organization.
-\end{tikzborder}
+
 A possible solution of these problems could be the offer of CIT features as software as a service (SaaS). SaaS is software that is accessed t+hrough Internet by using a classical web browser.  The SaaS software is actually hosted on the vendor’s servers, and the customers log in and perform tasks as necessary.  The 
 vendor is the one who is ultimately responsible for hosting, upgrading and maintaining the program as needed.  There is an extensive literature about SaaS and the advantages (together with limitations) are well known~\cite{Menken:2008}. 
 
@@ -887,10 +1661,8 @@ The paper is organized as follows. In Sect. \ref{sec:language} we present the mo
 We have devised a simple textual language for CIT models which is suitable to be used in web editors. It allows the definition of parameters, each with its name and (finite) domain, and it is based on our previous language defined for \citlab \cite{citlab12}. We allow the following parameter types: 
 
 \begin{enumerate}
-	\item \textsf{Boolean} with only two possible values \textsf{true} and \textsf{false}
-	\red{ (all lower or all upper case).}
-	%(which can be written also all uppercase). 
-	The two boolean constants are \red{ also }considered of Boolean type.
+	\item \textsf{Boolean} with only two possible values \textsf{true} and \textsf{false} (all lower or all upper case).
+	The two boolean constants are also considered of Boolean type.
 	\item \textsf{Ranges} that are integer intervals defined by their lower bound $l$ and upper bound $u$. With $[l..u]$ we denote all the integers between $l$ and $u$ included.
 	\item \textsf{Enumerative} that are a list of possible values between \{\}. We are rather liberal about the elements and we allow identifier starting also with a number, natural numbers, and strings. For example, one could define a  enumerative \textsf{values} in this way:
 	\begin{lstlisting}[language=ctwedge]
@@ -923,19 +1695,18 @@ There are some semantic rules about the parameters and their definitions, define
 
 \subsection{Constraints}
 
-A distinctive feature of our langauge is the support of modeling constraints among parameters. 
-In most configurable systems, constraints or dependencies exist between
-parameters. Constraints may be introduced for several reasons, for example, to
-model inconsistencies between certain hardware components, limitations of the
-possible system configurations, or simply design choices~\cite{CohenISSTA07}.
-In our approach, tests that
-do not satisfy the constraints are considered \emph{invalid} and do not need to
-be produced. For this reason, the presence of constraints may reduce the number
-of tests of the final test suite (but it may also increase it
-~\cite{CohenISSTA07}). However, the generation of tests considering constraints
-is generally more challenging than the generation without them, and several test generation techniques still do not support constraints, at least not in a direct manner. In \ctwedge we decided to focus more on techniques supporting constraints.
+A distinctive feature of our language is the support of modeling constraints among parameters. 
+In most configurable systems, constraints or dependencies exist between parameters. 
+Constraints may be introduced for several reasons, for example, to model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply design choices~\cite{CohenISSTA07}.
+In our approach, tests that do not satisfy the constraints are considered \emph{invalid} and do not need to
+be produced. 
+For this reason, the presence of constraints may reduce the number of tests of the final test suite (but it may also increase it ~\cite{CohenISSTA07}).
+However, the generation of tests considering constraints is generally more challenging than the generation without them, and several test generation techniques still do not support constraints, at least not in a direct manner.
+In \ctwedge we decided to focus more on techniques supporting constraints.
 
-In \ctwedge, we adopt the language of propositional logic (with the usual logical operators) with equality and arithmetic to express constraints. To be more precise, we use propositional calculus, enriched by the arithmetic over the integers and enumerative symbols. As operators, we admit the use of equality and inequality for any variable, the usual Boolean operators for Boolean terms, and the relational and arithmetic operators for numeric terms. To be more precise, Table \ref{tab:validity} reports all the rules we have defined to check if a constraint is semantically correct.
+In \ctwedge, we adopt the language of propositional logic (with the usual logical operators) with equality and arithmetic to express constraints. 
+To be more precise, we use propositional calculus, enriched by the arithmetic over the integers and enumerative symbols. As operators, we admit the use of equality and inequality for any variable, the usual Boolean operators for Boolean terms, and the relational and arithmetic operators for numeric terms. 
+To be more precise, Table \ref{tab:validity} reports all the rules we have defined to check if a constraint is semantically correct.
 
 \begin{table*}
 	\centering
@@ -949,31 +1720,19 @@ In \ctwedge, we adopt the language of propositional logic (with the usual logica
 		& $e_1$ range, $e_2$ number & always \\\cline{2-3}
 		& $e_1$ number, $e_2$ number & always \\\cline{2-3}
 		& $e_1$ boolean, $e_2$ boolean & always\\\cline{2-3}
-		%& $e_1$ boolean, $e_2$ boolean constant & always \\\cline{2-3}
 		\hline 
 		
 		\multirow{3}{*}{\shortstack{$e_1\ op\ e_2$	with $op \in \{<, \le, >, \ge \}$ $\rightarrow boolean$ \\ $ e_2\ op\ e_1$ with $op \in \{<, \le, >, \ge \}$ $ \rightarrow boolean$ }}  &  $e_1$ range, $e_2$ range & $e_1$ and $e_2$ share at least one number \\\cline{2-3}
 		& $e_1$ range, $e_2$ number & always \\\cline{2-3}
 		& $e_1$ number, $e_2$ number & always \\\cline{2-3}
-		%& $e_1$ boolean, $e_2$ boolean & always \red{sicuro???}\\\cline{2-3}
-		%& $e_1$ boolean, $e_2$ boolean constant & always \\\cline{2-3}
 		\hline 
 		
 		\multirow{3}{*}{\shortstack{$e_1\ op\ e_2$	with $op \in \{\wedge, \vee, \rightarrow\}$ $\rightarrow boolean$ \\ $ e_2\ op\ e_1$ with $op \in \{ \wedge, \vee, \rightarrow \}$ $ \rightarrow boolean$ }}  & \multirow{3}{*}{$e_1$ boolean, $e_2$ boolean} & \multirow{3}{*}{always} \\ %\cline{2-3}
 		& & \\
 		& & \\ 
-		
-		%& $e_1$ boolean, $e_2$  boolean constant & always \\\cline{2-3} 
-		%& $e_1$ not a boolean or $e_2$ not a boolean & never \red{skip?} \\\cline{2-3}
 		\hline
-		
-		%\multirow{2}{*}{\shortstack{$e$ $ \rightarrow boolean$ \\ $\neg e$ $ \rightarrow boolean$ }}  & $e$ boolean & always \\\cline{2-3}
-		%& $e$ boolean constant & always \\\cline{2-3} 
-		%\hline
-		
+				
 		\multirow{1}{*}{$\neg e$ $ \rightarrow boolean$}  & $e$ boolean & always \\\cline{2-3}
-		%& $e$ boolean constant & always \\\cline{2-3} 
-		%& $e$ not a boolean& never\\\cline{2-3} 
 		\hline
 		
 		\multirow{4}{*}{$e_1\ op\ e_2$	with $op \in \{+, -, *, /, \%\}$ $\rightarrow number$}  & $e_1$ number, $e_2$ number & $e_2 \neq 0$ if $op=/$ or $op=\%$ \\\cline{2-3}
@@ -995,7 +1754,7 @@ Constraints:
 # emailViewer and display != 16MC => textLines > 28 + 3#
 \end{lstlisting}
 
-Many test suite generation tools provide a limited support for constraints. For instance, AETG \cite{605761,Lott:2005:MRC:1083274.1083281} allows only simple constraints of type \textsf{if then else} or \textsf{requires}. The language of \ctwedge is in this aspect more expressive, as it is targeted to be more general than existing tools. In the specific case of AETG, the translation of those templates into our logic is straightforward. For example the \textsf{if then else} constraint can be translated by two implications.
+Many test suite generation tools provide a limited support for constraints. For instance, AETG \cite{Cohen_1997,Lott:2005:MRC:1083274.1083281} allows only simple constraints of type \textsf{if then else} or \textsf{requires}. The language of \ctwedge is in this aspect more expressive, as it is targeted to be more general than existing tools. In the specific case of AETG, the translation of those templates into our logic is straightforward. For example the \textsf{if then else} constraint can be translated by two implications.
 Other tools \cite{CohenISSTA07} allow constraints only in the form of forbidden combinations \cite{Golumbic:2011:GTC:2028636}. Our language is more general, as a forbidden tuple would be translated as a \textit{not} statement. For instance, a forbidden pair \textsf{emailViewer = false; display = 16MC} would be represented by the following constraint:
 $$\textsf{\#\ not\ (emailViewer = false\ and\ display = 16MC)\ \#}$$
 However, the explicit list of the forbidden combinations may explode and it may become impractical and error-prone to represent it. For example, if the model of mobile phones presented in Fig. 1 had a constraint that
@@ -1010,7 +1769,7 @@ which is more compact and more similar to the informal requirement.
 
 In our language semantics, a test case is valid only if it does not contradict any constraint in the specification. Others \cite{BRYCE2006960} distinguish between combinations to be avoided \textit{if possible} (soft constraints), and the forbidden combinations (hard constraints), which must always be avoided (our case). %We consider only hard constraints, for now.
 
-Other tools, like CASA \cite{CASA}, support only constraints in conjunctive normal form, without arithmetic or relational operators.
+Other tools, like CASA \cite{CASAwebsite}, support only constraints in conjunctive normal form, without arithmetic or relational operators.
 
 
 \subsection{Xtext}
@@ -1019,7 +1778,6 @@ There are countless ways to define a language together with its parser. One emer
 
 Grammar rules written in Xtext are very close to the standard (E)BNF production rules. For instance, the main grammar rule that defines the whole CIT model is defined as follows:
 
-% uso matlab per via delle single quote
 \begin{lstlisting}[language=Matlab,columns=fullflexible,basicstyle=\small\ttfamily,stringstyle=\ttfamily\color{blue},upquote=true]  
 CitModel:
 'Model' name=ID 
@@ -1068,7 +1826,6 @@ As we can see in Fig.~\ref{fig:architecture}, the tool is composed by a language
 The tool is written in Java and Xtext, and can be deployed on any Web-application server, such as Apache Tomcat. It is publicly available at: \url{http://foselab.unibg.it/ctwedge/}.
 
 
-
 \begin{figure}[bt!]
 	\centering
 	\includegraphics[width=\columnwidth]{images/architecture.png}
@@ -1076,22 +1833,15 @@ The tool is written in Java and Xtext, and can be deployed on any Web-applicatio
 \end{figure}
 
 
-
-%\section{CTWedge: Combinatorial Testing Web Editor and GEnarator}
 \subsection{Combinatorial Testing Web Editor}
-%\subsection{Editing}
 
 In order to implement a web-based editor, we can leverage the Xtext framework, since Xtext starting from version 2.9 offers an interface for integration of text editors in web applications. The text editors are implemented in JavaScript, and language-related services such as code completion are realized through HTTP requests to a server-side component.
 
 The Xtext web-based editor provides several features, like content assist to help the user to complete the models, validation to check the correctness, syntax coloring, and formatting.
 
-The \ctwedge web editor is based on Ace (Ajax.org Cloud9 Editor)\footnote{See \url{https://ace.c9.io/}}, but other web editors (like Orion and CodeMirror) are available. Xtext does not yet provide support for the recently standardized Language Server Protocol
-%\footnote{See \url{https://github.com/Microsoft/language-server-protocol}}
-\cite{lsp}, which we plan to include in our tool as a future work.  A screenshot of the \ctwedge web editor is shown in Fig. \ref{fig:editor}. The web editor provides an immediate feedback while writing by means of syntax highlighting, auto completion, and errors markings. 
+The \ctwedge web editor is based on Ace (Ajax.org Cloud9 Editor)\footnote{See \url{https://ace.c9.io/}}, but other web editors (like Orion and CodeMirror) are available. Xtext does not yet provide support for the recently standardized Language Server Protocol \cite{lsp}, which we plan to include in our tool as a future work.  A screenshot of the \ctwedge web editor is shown in Fig. \ref{fig:editor}. The web editor provides an immediate feedback while writing by means of syntax highlighting, auto completion, and errors markings. 
 
 The validation of the model is performed run-time while the user writes it. If the validator finds an error in the model, it generates an error message. The nature of the error is indicated in the pop-up box appearing when positioning the cursor over the error sign, and the point in which the error occurs is marked in the editor. Fig. \ref{fig:validation} shows how model validation errors are displayed to the test engineer.
-
-
 
 \begin{figure*}[bt!]
 	\centering
@@ -1099,13 +1849,11 @@ The validation of the model is performed run-time while the user writes it. If t
 	\caption{\ctwedge web editor}\label{fig:editor}
 \end{figure*}
 
-The editor allows to load predefined examples of combinatorial models, selected from literature \cite{segall_using_2011} and converted into \ctwedge language format (with extension \textit{.ctw}).
+The editor allows to load predefined examples of combinatorial models, selected from literature \cite{Segall2011} and converted into \ctwedge language format (with extension \textit{.ctw}).
 
 \red{Graphical components (buttons and option selectors) are built using the JavaScript frameworks JQuery}\footnote{JQuery: \url{https://jquery.com/}} 
 and Bootstrap\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
 \red{ The web application is fully compatible also with mobile devices (Android and iOS), from any recent Web browser with JavaScript enabled.}
-
-%\red{screenshot validazione per face vedere che l'editor mostra errori. MARCO}
 
 \begin{figure}[bt!]
 	\begin{subfigure}{\columnwidth}
@@ -1122,10 +1870,7 @@ and Bootstrap\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
 	\caption{Examples of \ctwedge validation errors}\label{fig:validation}
 \end{figure}
 
-
 \subsection{Test generator web service}
-
-%\red{cosa is questo modulo}
 
 The function of actually generating a test suite from the test model and option parameter is web-served and performed by the test generation service which is the component of \ctwedge.
 The test generation service is composed by two modules: a REST\footnote{REST: Representational State Transfer} service and a language translator.
@@ -1173,14 +1918,12 @@ For sake of brevity, an example URL request to the web generator service is show
 	\label{fig:urlexample}
 \end{figure}
 
-So far, we interfaced \ctwedge with ACTS~\cite{ACTS} and CASA~\cite{CASA}. ACTS is accessed  via it internal APIs whereas CASA is called via command line.
+So far, we interfaced \ctwedge with ACTS~\cite{ACTS} and CASA~\cite{CASAwebsite}. ACTS is accessed  via it internal APIs whereas CASA is called via command line.
 
 The resulting test suite is returned in CSV\footnote{CSV: Comma Separated Values} format. The header line contains the parameter names, and each following line represents a single test, with parameter values.
-%\red{Note that for coverage evaluation, the first line with the parameter names may need to later be removed, in order to not miscalculate coverage.}
 The web front-end allows to download CSV file to further local use, and shows the test suite in the browser by converting it into an HTML table. Conversion is straightforward and done client-side via Javascript.
 
 Arithmetic operations and relational operators ($>$, $<$, $\le$, $\ge$) are not natively supported by CASA, and in presence of such constraints, an error is reported to the user, as in Fig. \ref{fig:casaError}.
-% \red{aggiungere errore CASA?}
 
 \begin{figure}[bt!]
 	\centering
@@ -1199,20 +1942,10 @@ The HTML table showing the generated test cases is located below the editor on t
 The generator is called by the editor by AJAX, with an asynchronous XmlHttpRequest.
 
 
-
-
 A screenshot of how the generated test suite is presented to the user is shown in Fig. \ref{fig:generated}. 
-It is shown as plain HTML table, with the possibility to download the data as CSV. %\red{considerare ideaa di mettere tabella sotto con indice - MARCO} \blue{updated screenshot}
-%\red{da mettere errore per alcuni constraint usando CASA}
-
-
-
-
-%\subsection{Test generation}
+It is shown as plain HTML table, with the possibility to download the data as CSV. 
 
 \section{Related Work}\label{sec:related}
-
-
 
 With the success of the SaaS pattern, web-based tools have rapidly gained popularity due to their portability and ease of use. There exist some web-based services also for combinatorial test case generation, each with its own peculiarities. SaaS tools, however, still represents a small number of all the available tools for test case generation: IDE plugins and desktop applications represent almost the totality of the current tools. We looked for tools from the pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} and softwaretesters.net\footnote{See \url{https://softwaretesters.net/zbxe/index.php?mid=downloadtool&category=4258006&sort_index=readed_count&order_type=desc}} tool catalogs, and from the web, to the best of our searching skills. 
 
@@ -1242,18 +1975,10 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 	\item CTWeb Classic~\cite{usaolaframework} is a free online tool for combinatorial testing and state machine test case generation,  developed at University of Castilla-La Mancha (Spain).
 	\item CTWeb Plus~\cite{ctwebplus}, an academic combinatorial test generation tool developed as improvement of CTWeb Classic. CTWeb Plus is now commercially supported.
 	\item HexaWise~\cite{hexawise}, a commercial combinatorial test case editor and generator, launched in 2009 by Hexawise, Inc.
-	%\item PairWiser~\cite{pairwiser}, a free web-based tool provided by Inductive AS. It will be shut down January 15th, 2018, replaced by a desktop, standalone application.
 	\item PairWiser~\cite{pairwiser}, a \red{commercial web-based tool provided by Inductive AS. The online version was shut down January 15th, 2018. After that date, only the standalone application, for own-server installation, is available.}
 \end{itemize}
 
-%shown in Tab. \ref{tab:comparison}
-
 \red{All tools are well documented, with examples and tutorials. Links of on-line editors and official documentation resources of these tools are shown in Tab. \ref{tab:docs}}
-%Documentation about how to input a combinatorial model is not rich in many of the tools, which provide only a limited set of examples to copy/paste, or to load into the graphical interface, whereas \ctwedge also provides the language grammar definition.
-
-%Very few of them have editor-support, either on-line or off-line, and even the only tool with a web-based editor, has no highlighting nor recommendation support.
-
-%All of the 4 compared web-based tools are present in the pairwise.org list of CIT tools, in which, however, plugins and desktop tools represents almost the totality of the available tools.
 
 \begin{table*}[bt!]
 	\resizebox{\textwidth}{!}{%
@@ -1262,33 +1987,24 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 	\begin{tabular}{p{1mm}lP{24mm}P{24mm}P{24mm}P{24mm}P{24mm}P{24mm}}
 		\hline
 		& & \centering\textbf{TestCover}~\cite{testcover} & \centering\textbf{CTWeb Classic}~\cite{usaolaframework} & \centering\textbf{CTWeb Plus}~\cite{ctwebplus} & \centering\textbf{HexaWise}~\cite{hexawise} & \centering\textbf{PairWiser}~\cite{pairwiser} & {\textbf{\centering \ctwedge}} \\\toprule
-		%& \textbf{URL}  & \textbf{Editing} & \textbf{Generation} &  \textbf{other infor}\\ 
 		\hline 
-		%URL & TestCover \url{http://testcover.com} & \url{http://www.testcasegeneration.com/} & \url{https://hexawise.com/} &  \url{https://inductive.no/pairwiser/} \\ 
+ 
 		\multicolumn{2}{l}{\textbf{Language}} & & & & & & \\ 	
-		%Enumeratives & & & & & \\
-		%\red{Input type} & single text area & single text area & wizard process & wizard process & single text area \\
-		%	\red{\shortstack{Define parameter values\\as range}} & \xmark & \xmark & \xmark & \xmark & \cmark \\
 		&	Parameter Definition & Enumerative & Enumerative & Enumerative & Enumerative, Ranges (via value expansion) & Enumerative & Boolean, Enumerative, Ranges \\\midrule
 		&	Constraints format & in DPB notation: via \emph{blocks} (i.e., sets of allowed combinations) & as \emph{if-then-else} & AND, OR, Else operators, not nested & invalid pairs (\emph{if..then..}) & guided by select boxes with rich choice of operators & arbitrary formula \\\midrule
 		
 		&	Numeric operators & \cmark (in PHP functions) & \xmark & \cmark & \cmark & \xmark & \cmark \\\midrule
 		
-		&	State Machine support & \cmark & \cmark & \cmark & \xmark & \xmark & \xmark \\\toprule % when they support Abstract State Machines
-		%Verbosity & &  & high (GUI based) & & low \\\midrule
-		%	Documentation & description, examples & examples & video tutorial & tutorial, examples & language grammar, examples \\
+		&	State Machine support & \cmark & \cmark & \cmark & \xmark & \xmark & \xmark \\\toprule 
 		\textbf{Editing} & & & & & & \\
 		&	Web-based editor & text area & text fields and buttons + file upload & text fields, buttons, drawing area & text fields and buttons & text fields and buttons & text area \\\midrule
 		&	Model Import/Export	& \cmark (Copy\&Paste as text) & \cmark & \xmark & \xmark & \xmark & \cmark   (Copy\&Paste as text)\\\midrule	
 		&	Helping facilities & \xmark & button-guided (no facilities to build input file to upload) & button-guided & button-guided & button-guided & content-assist, syntax highlight, in-line error reporting \\\midrule 
-		%Content Assist & \xmark & \xmark & \xmark & \xmark & \cmark \\\midrule 
-		%		\red{REMOVE: LSP} & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\\midrule
 		&	Example Models & \cmark & \cmark & to be rebuilt from documentation file, not one-click loadable & \cmark & in the documentation & \cmark \\\toprule
 		
 		\multicolumn{2}{l}{\textbf{Generation}} & & & &  & & \\\midrule 
 		&	n-wise & pairwise & pairwise & pairwise & up to 6-way interaction + mixed strength & up to 3-way interaction + mixed strength & \cmark \\\midrule
 		&	Supported generators & All-pairs & AETG, PROW, All combinations, Each choice, Random, Bacteriologic & AETG, Pairwise, All-combinations, Each-choice, Comb, Random & not specified & not specified & ACTS, CASA \\\midrule
-		%Random test generation & \xmark & \cmark & \xmark & \xmark & \xmark \\\midrule
 		&	Export formats & HTML, WSDL interface & HTML, CSV & HTML & HTML, Excel, CSV, OPML & Excel, Jira issues & CSV, HTML \\\midrule
 		&	Generate test scripts & \cmark (for Selenium) & \cmark (custom) & \cmark (custom) & \xmark & \cmark (custom) & \xmark \\\midrule
 		&	Coverage visualization & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark \\\toprule 
@@ -1296,10 +2012,8 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 		&	License & Commercial & Free & Commercial & Commercial & Commercial & Free \\\midrule
 		&	Registration & subscription required &  optional & subscription required & subscription required & own-server installation & \xmark \\\midrule
 		&	Online storage & \cmark & \xmark & \cmark & \cmark & \cmark (on own server) &\xmark  \\\midrule
-		&	Additional notes & Functions in PHP into constraints. Also accessible via WSDL interface. %\red{TOREMOVE: Outputs also the number of pairs remaining uncovered after each test} 
+		&	Additional notes & Functions in PHP into constraints. Also accessible via WSDL interface.
 		& Registration required for models with more than 5 parameters & Features a drawing area to represent states and transition of a state machine. The combinatorial model must be in the form of a state machine. & Has also a chart showing the interaction coverage after each test & Pairwiser online was shut down January 15, 2018. Available only for own-server installation. Allows to specify combinations to include in test suite. & -- \\\bottomrule 
-		%URL & & \url{http://alarcostest.esi.uclm.es/CombTestWeb/combinatorial.jsp} &  \url{http://www.testcasegeneration.com} and \url{http://www.ctwebplus.com/}  & & & \\\midrule
-		%Documentation & & \url{http://alarcostest.esi.uclm.es/CombTestWeb/stuff/usersManual.pdf} & \url{http://www.ctwebplus.com/stuff/userManual.pdf} & & \url{https://testcover.com/sub/instructions.php} (accessible via registration) & \\\midrule
 	\end{tabular}
 	}
 	\caption{A comparison with other SaaS for CT}\label{tab:comparison}
@@ -1310,9 +2024,8 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 \begin{itemize}
 	\item \textbf{Language}. We look into the expressiveness of the accepted format for the combinatorial model in input. This evaluation includes:
 	\begin{itemize}
-		\item Parameter definition: how the parameter types and values  can be defined. For instance, a tool may support Boolean parameters or ranges of integers to express an enumerative made of all integers between two numbers. %, or Strings.
+		\item Parameter definition: how the parameter types and values  can be defined. For instance, a tool may support Boolean parameters or ranges of integers to express an enumerative made of all integers between two numbers.
 		\item Constraint format: if the constraints can be expressed as free combinations of logical and arithmetic operations among parameters, or have special formats, such as a set of forbidden tuples, a set of implications, or a set of if-then-else conditions. 
-		%\item Functions: if generic, user-defined functions over parameters in the model, are allowed in the constraints.
 		\item Numeric Operations: if constant numbers and basic numeric operations (+, -, *, /) are allowed in the constraints and/or in the generated code of test cases.
 		\item State Machine support: if the language supports an easy input of state machines, to generate combinatorial tests for their execution.
 	\end{itemize} 
@@ -1323,7 +2036,6 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 		\item Import and export models: how the models can be exported to the file system and imported. For example, a tool may allow importing a text file written with another editor.
 		
 		\item Helping facilities: how the test engineer is guided in the input of the model in the web editor; for example with syntax highlighting, content assist, in-line error reporting, warning messages, or single text input fields to fill, and self-explanatory buttons to click.
-		%		\item \red{TOREMOVE: LSP: If the back-end of the editor provides an API compatible with the Language Server Protocol standard, to make it easily extensible for usage with other tools.}
 		\item Predefined example models: if there are examples of combinatorial models that can be easily loaded into the tool and executed to generate a test suite.
 	\end{itemize} 
 	\item \textbf{Generation}. We evaluate how the test suite generation is performed and how the output is presented to the user. This category includes the following aspects:
@@ -1343,48 +2055,19 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 	\end{itemize} 
 \end{itemize}
 
-
-
-%Concerning language and editor support, HexaWise and PairWiser feature a completely graphical-based composer of combinatorial model: they do not allow scripting nor they feature a script editor. Input is only possible through buttons and text fields. Although this approach has the advantage of a quicker learning curve, it lacks all the features of a textual language, i.e., speed of writing and editing models, portability (possibility to edit and save models off-line or with other tools), expressiveness.
-
-
 Table \ref{tab:comparison} compares the five tools and \ctwedge according to all these aspects.
 
-\red{Concerning the web editor, while TestCover uses, as \ctwedge, a single text area for combinatorial model input,  all the others (CTWeb Classic, CTWeb Plus, HexaWise and PairWiser) feature a composer of combinatorial model guided by multiple selectors, text fields, and buttons. This approach of using buttons and text input fields, has the advantage of a quicker learning curve, and it does not need a language grammar, nor a parser, nor the helping facilities typical of text-based editors, such as auto-completion and syntax highlighting. However, it is not always the preferable way to input combinatorial models in the tool. In fact, the availability of a domain-specific language makes it possible to quickly and easily write, edit and copy-paste combinatorial input models, and export, translate or port them to other platforms and tools.} % (possibility to edit and save models off-line or with other tools).}
+Concerning the web editor, while TestCover uses, as \ctwedge, a single text area for combinatorial model input,  all the others (CTWeb Classic, CTWeb Plus, HexaWise and PairWiser) feature a composer of combinatorial model guided by multiple selectors, text fields, and buttons. This approach of using buttons and text input fields, has the advantage of a quicker learning curve, and it does not need a language grammar, nor a parser, nor the helping facilities typical of text-based editors, such as auto-completion and syntax highlighting. However, it is not always the preferable way to input combinatorial models in the tool. In fact, the availability of a domain-specific language makes it possible to quickly and easily write, edit and copy-paste combinatorial input models, and export, translate or port them to other platforms and tools.
 
 
-\red{CTWeb Classic comes both with a guided editor and a form to upload a text file containing the input of the tool, written in a domain specific language. Regarding the textual way of proving input for test case generation, however, although CTWeb Classic and TestCover have a good documentation, they have no facilities to help the test engineer in writing models. CTWeb Classic does not have an online editor for its own language (as it comes with just a file upload button), and TestCover has a simple text area, lacking support for auto-completion, syntax-highlighting and all the features proper of an IDE.}
+CTWeb Classic comes both with a guided editor and a form to upload a text file containing the input of the tool, written in a domain specific language. Regarding the textual way of proving input for test case generation, however, although CTWeb Classic and TestCover have a good documentation, they have no facilities to help the test engineer in writing models. CTWeb Classic does not have an online editor for its own language (as it comes with just a file upload button), and TestCover has a simple text area, lacking support for auto-completion, syntax-highlighting and all the features proper of an IDE.
 
-\red{All the tried tools offer support for test case generation with constraints, to be specified in their specific formats.  TestCover even allows to specify custom functions - in PHP code - to express constraints~\cite{sherwood2016embedded}.}
-%CTWeb is the only tool that supports test case generation with constraints. Other tools, except TestCover, do not allow the engineer to specify numerical operations and complexity of constraints is limited. TestCover, on the other side, even allows to specify custom functions - in PHP code - to output constraints.
+All the tried tools offer support for test case generation with constraints, to be specified in their specific formats.  TestCover even allows to specify custom functions - in PHP code - to express constraints~\cite{sherwood2016embedded}.
 
-%The graphical based tools, despite having a poor editor, have support for multiple output formats.
-
-\red{TestCover and CTWeb (Classic and Plus) offer pairwise test case generation, that is very often the chosen interaction strength by test-engineers. For some applications, however, higher interaction strength is preferred. HexaWise supports up to 6-way interaction strength, while PairWiser up to 3-way. \ctwedge is, instead, the only tool that does not pose limitation (in theory) on the interaction strength of the test suite. However, HexaWise and PairWiser come with the additional possibility to specify a mixed test suite strength, i.e., values of each single parameter may be covered with different strength.} 
+TestCover and CTWeb (Classic and Plus) offer pairwise test case generation, that is very often the chosen interaction strength by test-engineers. For some applications, however, higher interaction strength is preferred. HexaWise supports up to 6-way interaction strength, while PairWiser up to 3-way. \ctwedge is, instead, the only tool that does not pose limitation (in theory) on the interaction strength of the test suite. However, HexaWise and PairWiser come with the additional possibility to specify a mixed test suite strength, i.e., values of each single parameter may be covered with different strength.
 
 
 Still none of the tools supports the Microsoft Language Server Protocol \cite{lsp}, a new common open protocol for language servers which provides programming language-specific features to source code editors or integrated development environments (IDEs). The main goal of the standard is to support programming in any given language independently of editors or IDEs. We plan to extend \ctwedge in order to support LSP.
-
-%\subsection{Comparison with other web-based tools}
-
-\begin{comment}
-\begin{table*}[t]
-\begin{tabular}{|l|l|c|c|p{5cm}|}
-\hline 
-\textbf{Tool} & \textbf{URL}  & \textbf{Editing} & \textbf{Generation} &  \textbf{other infor}\\ 
-\hline 
-& TestCover \url{http://testcover.com} &  &  &  Commercial/subscription required\\ 
-\hline 
-&\url{http://www.testcasegeneration.com/} &  &  &  \\ 
-\hline 
-&\url{https://hexawise.com/} &  &  &  \\ 
-\hline 
-Pairwiser & \url{https://inductive.no/pairwiser/} &  &  &  Pairwiser online will shut down Januar 15th 2018.\\ 
-\hline 
-\end{tabular}
-\caption{A comparison with other SaaS for CT}
-\end{table*}
-\end{comment}
 
 \section{Future Work}\label{sec:futurework}
 
@@ -1393,9 +2076,9 @@ There are several directions in which we plan to work.
 \paragraph{Language extensions}
 Adding expressive power to the language for combinatorial models, in particular to express test seeds and goals, represents a direction for future work.
 Test seeds allow a tester to force the inclusion of certain test cases in the generated test suite \cite{BRYCE2006960}. Test seeds may be complete or partial. 
-Test goals are extra-constraints: relations among parameters to be satisfied by at least one test in the generated test suites. %Test goals can be used to represent partial seeds, used for instance by AETG.
+Test goals are extra-constraints: relations among parameters to be satisfied by at least one test in the generated test suites.
 
-Some CIT approaches \cite{segall_using_2011} introduce weights for parameter values. Weights reflect the importance of different values for a given parameter. The user can express further requirements over the solution involving weights. Even if the same constraints may be expressed in our language, it may become impractical. We plan to extend the \ctwedge language in order to include user defined functions depending on parameter values. A possible function could be the weight of a parameter. Constraints and test goals could use such functions to express complex testing requirements.
+Some CIT approaches \cite{Segall2011} introduce weights for parameter values. Weights reflect the importance of different values for a given parameter. The user can express further requirements over the solution involving weights. Even if the same constraints may be expressed in our language, it may become impractical. We plan to extend the \ctwedge language in order to include user defined functions depending on parameter values. A possible function could be the weight of a parameter. Constraints and test goals could use such functions to express complex testing requirements.
 
 \paragraph{Combinatorial model editor}
 To make the transition to \ctwedge easier, a possible direction for future improvement is an importer that translates models written in other generator formats, into \ctwedge language format.
@@ -1404,16 +2087,18 @@ Secondly, although \ctwedge already follows the SaaS approach, there are still s
 The web site could offer a storage and persistence service, and the logged user could save his/her models on the \ctwedge server and later recall the saved files and export/import them in other formats.
 The \ctwedge could offer analysis services, like those presented in~\cite{iwct2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also \red{coverage measurement} and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
 
-\red{Another future direction is the visualization of the individual t-tuples, as covered by each test in the test suite.}
+Another future direction is the visualization of the individual t-tuples, as covered by each test in the test suite.
+\end{tikzborder}
 
-%Another direction regards the way tests are generated. \ctwedge produces the tests in a synchronous mode: when the user calls the generator, the service starts producing the tests. This approach is not feasible in case there are many requests or the models become big. We plan to move to an asynchronous approach, in which the user requests the test generation, the server queues all the requests and make available on the server the test suites when they are generated. 
+Another direction regards the way tests are generated. \ctwedge produces the tests in a synchronous mode: when the user calls the generator, the service starts producing the tests. This approach is not feasible in case there are many requests or the models become big. We plan to move to an asynchronous approach, in which the user requests the test generation, the server queues all the requests and make available on the server the test suites when they are generated. 
 
+\begin{tikzborder}{\cite{IWCTGargantini2018}}
 \paragraph{Test case generation}
 Another direction for future work regards test case generation. The server is configured to run \ctwedge generator in a synchronous mode: the generator starts producing the test suite immediately, trying to serve all the requests.
 The server could have performance issues due to overloading in case for example there are many requests with large models. The web service could be improved by attaching a process scheduler and a load balancer. Test suite generation becomes therefore asynchronous also on the server, which queues the requests and makes the test suites available as soon as they are generated.
 
 \paragraph{External generation tool support}
-An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{NieXSW06}, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
+An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{Nie2006         }, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
 \cite{ipog}, IPOG-D \cite{ipog}, IPOG-F \cite{forbes2008refining}, IPOG-F2 \cite{forbes2008refining} and PaintBall \cite{318466}. 
 The possibility to download the translated input file along with the executable command parameters for each of the generators allows further customization and therefore can be an interesting future extension of the tool.
 
@@ -1427,9 +2112,8 @@ Xtext, already generates an eclipse-based development environment providing edit
 Generation of combinatorial test suites via web offers great advantages w.r.t. classical desktop applications. It is nowadays supported by a pool of tools, both open source and commercial. However, to the best of our knowledge, none of them has an integrated web editor support and a complete support of constraints. To work, they have their own language, with often just examples as unique description, and expect the user to write a file locally before uploading to the web-based tool. This process requires the test engineer to use another tool, may it be just a stand-alone text editor, with no auto-completion for that particular language, or a custom stand-alone editor with some grade of code recommendation.
 
 To offer a complete SaaS environment for CIT, we have developed and deployed \ctwedge. 
-\ctwedge was designed with three principles in mind: (1) installation-free and download-free, (2) ease of use, and (3) extensibility to support more generators. By using Xtext, we have defined a simple textual language which includes also the possibility to define complex constraints. Thanks to Xtext, a web editor can be easily deployed and it offers classical editing features like syntax highlighting and coloring, syntax validation, auto completion, and error messages. We have also developed a REST service that is able to generate CIT test suites exploiting third-party test generator programs. This test generators runs on the server and it can be called from the editor, thus providing a complete SaaS experience to the tester. %We have also presented several directions for future research.
-
-%??? Even though the ability to integrate generated test cases into unit test templates, and out-of-the box support for many famous test-case generators were given less emphasis, applicability of this tool is comparable with other known web-based test generation tools (see Tab. \ref{tab:comparison}).
+\ctwedge was designed with three principles in mind: (1) installation-free and download-free, (2) ease of use, and (3) extensibility to support more generators. By using Xtext, we have defined a simple textual language which includes also the possibility to define complex constraints. Thanks to Xtext, a web editor can be easily deployed and it offers classical editing features like syntax highlighting and coloring, syntax validation, auto completion, and error messages. We have also developed a REST service that is able to generate CIT test suites exploiting third-party test generator programs. This test generators runs on the server and it can be called from the editor, thus providing a complete SaaS experience to the tester.
+\end{tikzborder}
 
 
 
