@@ -889,9 +889,10 @@ Different types of software models are presented (namely software product lines,
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
 Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter 3 describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
 \researchquestion{How to repair feature models?}
-A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Software product lines are pervasive as many software products have configuration files with parameter-value pairs, and such configuration files are example of an artefact that can be modeled by feature models.
-Automotive industries and Linux Kernel... 
+A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. Although feature models are not used in every such configurable software, there are many companies, in particular in the automotive industry, that use feature models to represent domain knowledge over SPLs (see this list \todo{cite featureide} of some companies using feature models), and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
+Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now over 8000 features \todo{cite}.
 \researchquestion{How to repair configuration constraints, and can it be applied to detect XSS vulnerabilities?}
+
 \researchquestion{How to repair timed automata clock guards?}
 \researchquestion{How editing of combinatorial models and test generation can be made easy to perform?}
 \researchquestion{How can the detection of failure-inducing combinations be improved?}
@@ -914,9 +915,9 @@ To each of the questions correspond a chapter, referring to one or more publishe
 \section{Note on conventions}
 Parts of this thesis are based on the aforementioned publications. To be able to easily distinguish a text included verbatim from the publications, the corresponding paragraphs are marked with a vertical bar on the side of the text.
 
-
-The following paragraph is an example of the way we mark the text, which is a verbatim copy. It means that the original text appeared in the paper.
-
+\begin{tikzborder}{[X]}
+The following paragraph is an example of the way we mark the text, which is a verbatim copy. It means that the original text appeared in the paper [X].
+\end{tikzborder}
 
 \part{State of the Art}
 There are several works on automated program repair \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
