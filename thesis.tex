@@ -160,6 +160,7 @@ filecolor=black
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{bibentry}
+\usepackage{rotating}
 \usetikzlibrary{matrix,arrows,positioning,patterns}
 \usetikzlibrary{decorations,decorations.text,backgrounds}
 \tikzset{
@@ -1819,6 +1820,7 @@ To be more precise, Table \ref{tab:validity} reports all the rules we have defin
 
 \begin{table*}
 	\centering
+	\resizebox{\textwidth}{!}{
 	\begin{tabular}{|l|l|l|}
 		\hline 
 		\textbf{Expression}	& \textbf{Case} & \textbf{Correct iff}\\\hline
@@ -1850,6 +1852,7 @@ To be more precise, Table \ref{tab:validity} reports all the rules we have defin
 		&  $e_1$ number, $e_2$ range & always \\\cline{2-3}
 		\hline
 	\end{tabular} 
+}
 	\caption{Rules of \ctwedge Language Validator for Constraints}\label{tab:validity}
 \end{table*}
 
@@ -2034,15 +2037,15 @@ The web front-end allows to download CSV file to further local use, and shows th
 
 Arithmetic operations and relational operators ($>$, $<$, $\le$, $\ge$) are not natively supported by CASA, and in presence of such constraints, an error is reported to the user, as in Fig. \ref{fig:casaError}.
 
-\begin{figure}[bt!]
+\begin{figure}[hbt!]
 	\centering
 	\includegraphics[width=\columnwidth]{images/casaError.png}
 	\caption{Message of operations not supported in constraints for CASA generator tool}\label{fig:casaError}
 \end{figure}
 
-\begin{figure}[bt!]
+\begin{figure}[hbt!]
 	\centering
-	\includegraphics[width=\columnwidth,trim={0 0 7cm 0},clip]{images/generatedTable.png}
+	\includegraphics[width=.5\columnwidth,trim={0 0 7cm 0},clip]{images/generatedTable.png}
 	\caption{\ctwedge visualization of the generated test suite}\label{fig:generated}
 \end{figure}
 
@@ -2061,6 +2064,7 @@ With the success of the SaaS pattern, web-based tools have rapidly gained popula
 
 \begin{table}[bt!]
 	\centering
+	\footnotesize
 	\setlength\tabcolsep{2pt}
 	\begin{tabular}{l P{52mm} P{52mm}}
 		Tool & URL & Documentation \\
@@ -2084,43 +2088,44 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 	\item CTWeb Classic~\cite{usaolaframework} is a free online tool for combinatorial testing and state machine test case generation,  developed at University of Castilla-La Mancha (Spain).
 	\item CTWeb Plus~\cite{ctwebplus}, an academic combinatorial test generation tool developed as improvement of CTWeb Classic. CTWeb Plus is now commercially supported.
 	\item HexaWise~\cite{hexawise}, a commercial combinatorial test case editor and generator, launched in 2009 by Hexawise, Inc.
-	\item PairWiser~\cite{pairwiser}, a \red{commercial web-based tool provided by Inductive AS. The online version was shut down January 15th, 2018. After that date, only the standalone application, for own-server installation, is available.}
+	\item PairWiser~\cite{pairwiser}, a commercial web-based tool provided by Inductive AS. The online version was shut down January 15th, 2018. After that date, only the standalone application, for own-server installation, is available.
 \end{itemize}
 
-\red{All tools are well documented, with examples and tutorials. Links of on-line editors and official documentation resources of these tools are shown in Tab. \ref{tab:docs}}
+All tools are well documented, with examples and tutorials. Links of on-line editors and official documentation resources of these tools are shown in Tab. \ref{tab:docs}
 
-\begin{table*}[bt!]
+\begin{table*}[hbt!]
 	\resizebox{\textwidth}{!}{%
 	\centering
-	\setlength\tabcolsep{2pt}
+	\setlength\tabcolsep{1pt}
+	\tiny
 	\begin{tabular}{p{1mm}lP{24mm}P{24mm}P{24mm}P{24mm}P{24mm}P{24mm}}
-		\hline
-		& & \centering\textbf{TestCover}~\cite{testcover} & \centering\textbf{CTWeb Classic}~\cite{usaolaframework} & \centering\textbf{CTWeb Plus}~\cite{ctwebplus} & \centering\textbf{HexaWise}~\cite{hexawise} & \centering\textbf{PairWiser}~\cite{pairwiser} & {\textbf{\centering \ctwedge}} \\\toprule
+		%\hline
+		& & \centering\textbf{TestCover}~\cite{testcover} & \centering\textbf{CTWeb Classic}~\cite{usaolaframework} & \centering\textbf{CTWeb Plus}~\cite{ctwebplus} & \centering\textbf{HexaWise}~\cite{hexawise} & \centering\textbf{PairWiser}~\cite{pairwiser} & {\textbf{\centering \ctwedge}} \\%\toprule
 		\hline 
  
 		\multicolumn{2}{l}{\textbf{Language}} & & & & & & \\ 	
-		&	Parameter Definition & Enumerative & Enumerative & Enumerative & Enumerative, Ranges (via value expansion) & Enumerative & Boolean, Enumerative, Ranges \\\midrule
-		&	Constraints format & in DPB notation: via \emph{blocks} (i.e., sets of allowed combinations) & as \emph{if-then-else} & AND, OR, Else operators, not nested & invalid pairs (\emph{if..then..}) & guided by select boxes with rich choice of operators & arbitrary formula \\\midrule
+		&	Parameter Definition & Enumerative & Enumerative & Enumerative & Enumerative, Ranges (via value expansion) & Enumerative & Boolean, Enumerative, Ranges \\%\midrule
+		&	Constraints format & in DPB notation: via \emph{blocks} (i.e., sets of allowed combinations) & as \emph{if-then-else} & AND, OR, Else operators, not nested & invalid pairs (\emph{if..then..}) & guided by select boxes with rich choice of operators & arbitrary formula \\%\midrule
 		
-		&	Numeric operators & \cmark (in PHP functions) & \xmark & \cmark & \cmark & \xmark & \cmark \\\midrule
+		&	Numeric operators & \cmark (in PHP functions) & \xmark & \cmark & \cmark & \xmark & \cmark \\%\midrule
 		
 		&	State Machine support & \cmark & \cmark & \cmark & \xmark & \xmark & \xmark \\\toprule 
 		\textbf{Editing} & & & & & & \\
-		&	Web-based editor & text area & text fields and buttons + file upload & text fields, buttons, drawing area & text fields and buttons & text fields and buttons & text area \\\midrule
-		&	Model Import/Export	& \cmark (Copy\&Paste as text) & \cmark & \xmark & \xmark & \xmark & \cmark   (Copy\&Paste as text)\\\midrule	
-		&	Helping facilities & \xmark & button-guided (no facilities to build input file to upload) & button-guided & button-guided & button-guided & content-assist, syntax highlight, in-line error reporting \\\midrule 
+		&	Web-based editor & text area & text fields and buttons + file upload & text fields, buttons, drawing area & text fields and buttons & text fields and buttons & text area \\%\midrule
+		&	Model Import/Export	& \cmark (Copy\&Paste as text) & \cmark & \xmark & \xmark & \xmark & \cmark   (Copy\&Paste as text)\\%\midrule	
+		&	Helping facilities & \xmark & button-guided (no facilities to build input file to upload) & button-guided & button-guided & button-guided & content-assist, syntax highlight, in-line error reporting \\%\midrule 
 		&	Example Models & \cmark & \cmark & to be rebuilt from documentation file, not one-click loadable & \cmark & in the documentation & \cmark \\\toprule
 		
-		\multicolumn{2}{l}{\textbf{Generation}} & & & &  & & \\\midrule 
-		&	n-wise & pairwise & pairwise & pairwise & up to 6-way interaction + mixed strength & up to 3-way interaction + mixed strength & \cmark \\\midrule
-		&	Supported generators & All-pairs & AETG, PROW, All combinations, Each choice, Random, Bacteriologic & AETG, Pairwise, All-combinations, Each-choice, Comb, Random & not specified & not specified & ACTS, CASA \\\midrule
-		&	Export formats & HTML, WSDL interface & HTML, CSV & HTML & HTML, Excel, CSV, OPML & Excel, Jira issues & CSV, HTML \\\midrule
-		&	Generate test scripts & \cmark (for Selenium) & \cmark (custom) & \cmark (custom) & \xmark & \cmark (custom) & \xmark \\\midrule
+		\multicolumn{2}{l}{\textbf{Generation}} & & & &  & & \\%\midrule 
+		&	n-wise & pairwise & pairwise & pairwise & up to 6-way interaction + mixed strength & up to 3-way interaction + mixed strength & \cmark \\%\midrule
+		&	Supported generators & All-pairs & AETG, PROW, All combinations, Each choice, Random, Bacteriologic & AETG, Pairwise, All-combinations, Each-choice, Comb, Random & not specified & not specified & ACTS, CASA \\%\midrule
+		&	Export formats & HTML, WSDL interface & HTML, CSV & HTML & HTML, Excel, CSV, OPML & Excel, Jira issues & CSV, HTML \\%\midrule
+		&	Generate test scripts & \cmark (for Selenium) & \cmark (custom) & \cmark (custom) & \xmark & \cmark (custom) & \xmark \\%\midrule
 		&	Coverage visualization & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark \\\toprule 
-		\multicolumn{2}{l}{\textbf{Other information}} & & & & & & \\\midrule
-		&	License & Commercial & Free & Commercial & Commercial & Commercial & Free \\\midrule
-		&	Registration & subscription required &  optional & subscription required & subscription required & own-server installation & \xmark \\\midrule
-		&	Online storage & \cmark & \xmark & \cmark & \cmark & \cmark (on own server) &\xmark  \\\midrule
+		\multicolumn{2}{l}{\textbf{Other information}} & & & & & & \\%\midrule
+		&	License & Commercial & Free & Commercial & Commercial & Commercial & Free \\%\midrule
+		&	Registration & subscription required &  optional & subscription required & subscription required & own-server installation & \xmark \\%\midrule
+		&	Online storage & \cmark & \xmark & \cmark & \cmark & \cmark (on own server) &\xmark  \\%\midrule
 		&	Additional notes & Functions in PHP into constraints. Also accessible via WSDL interface.
 		& Registration required for models with more than 5 parameters & Features a drawing area to represent states and transition of a state machine. The combinatorial model must be in the form of a state machine. & Has also a chart showing the interaction coverage after each test & Pairwiser online was shut down January 15, 2018. Available only for own-server installation. Allows to specify combinations to include in test suite. & -- \\\bottomrule 
 	\end{tabular}
@@ -2128,7 +2133,7 @@ We compare the following five SaaS for CIT, listed in Tab. \ref{tab:docs}:
 	\caption{A comparison with other SaaS for CT}\label{tab:comparison}
 \end{table*}
 
-\red{To compare the SaaS tools among them and w.r.t. \ctwedge, we consider the following aspects, that we believe to be among the most relevant for a test engineer interested in using a web-based combinatorial test generation tool:}
+To compare the SaaS tools among them and w.r.t. \ctwedge, we consider the following aspects, that we believe to be among the most relevant for a test engineer interested in using a web-based combinatorial test generation tool:
 
 \begin{itemize}
 	\item \textbf{Language}. We look into the expressiveness of the accepted format for the combinatorial model in input. This evaluation includes:
@@ -2194,7 +2199,7 @@ To make the transition to \ctwedge easier, a possible direction for future impro
 
 Secondly, although \ctwedge already follows the SaaS approach, there are still several features that could be added in order to offer new cloud-based services. 
 The web site could offer a storage and persistence service, and the logged user could save his/her models on the \ctwedge server and later recall the saved files and export/import them in other formats.
-The \ctwedge could offer analysis services, like those presented in~\cite{iwct2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also \red{coverage measurement} and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
+The \ctwedge could offer analysis services, like those presented in~\cite{iwct2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also coverage measurement and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
 
 Another future direction is the visualization of the individual t-tuples, as covered by each test in the test suite.
 \end{tikzborder}
