@@ -651,6 +651,35 @@ EnumerativeType, Number, Range, TestGoals,
 	}
 	
 
+\newtheorem{myrem}{Remark}
+
+% Macros for test vector tables
+% normal value
+\newcommand{\nv}[1]{}
+\renewcommand{\nv}[1]{{\texttt{\textcolor{black}{#1}}}}
+
+% suspicious value
+\newcommand{\sv}[1]{}
+\renewcommand{\sv}[1]{{\texttt{\textcolor{black}{#1}}}}
+
+% space (0x20)
+\newcommand{\ws}[0]{}
+\renewcommand{\ws}[0]{{\textvisiblespace}}
+
+% empty (epsilon)
+\newcommand{\ep}[0]{}
+\renewcommand{\ep}[0]{{$\epsilon$}}
+
+% empty (epsilon)
+\newcommand{\vecheader}[0]{}
+\renewcommand{\vecheader}[0]{\texttt{JSO} & \texttt{WS1} & \texttt{INT} & \texttt{WS2} & \texttt{EVH} & \texttt{WS3} & \texttt{PAY} & \texttt{WS4} & \texttt{PAS} & \texttt{WS5} & \texttt{JSE}}
+
+% XSSDelphi
+\newcommand{\oxssd}{\textit{XSS Delphi}}
+
+% oracle function
+\newcommand{\orac}{\ensuremath{orac}}
+
 \begin{document}
 	
 \nobibliography*
@@ -917,7 +946,7 @@ This tool could be used not only to improve the model repair methods devised so 
 \begin{itemize}
 	\item \cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
 	
-	\item \cite{arcainiAchieving} \bibentry{arcainiAchieving}
+	\item \cite{arcaini2019achieving} \bibentry{arcaini2019achieving}
 	
 	\item \cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
 	
@@ -926,6 +955,10 @@ This tool could be used not only to improve the model repair methods devised so 
 	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
 	
 	\item \cite{evolUpdateVAMOS2018} \bibentry{evolUpdateVAMOS2018}
+	
+	\item \cite{arcaini2019efficient} \bibentry{arcaini2019efficient}
+	
+	\item \cite{andre2019repairing} \bibentry{andre2019repairing}
 	
 \end{itemize}
 
@@ -2233,6 +2266,8 @@ To offer a complete SaaS environment for CIT, we have developed and deployed \ct
 
 \chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
 
+\begin{tikzborder}{\cite{}}	
+
 \section{Introduction}
 
 %Rationale
@@ -2336,7 +2371,8 @@ Note that other approaches~\cite{Niu2018Identifying} assume that different tests
 	%
 	\begin{table}[!tb]
 		\caption{Test suites for running example}
-		\begin{subtable}[t]{.5\columnwidth}
+		\centering
+		\begin{subtable}[t]{.4\columnwidth}
 			\caption{\ets}
 			\label{table:etsRunningEx}
 			\begin{tabular}{c|ccc|c}
@@ -2354,7 +2390,7 @@ Note that other approaches~\cite{Niu2018Identifying} assume that different tests
 				\bottomrule
 			\end{tabular}
 		\end{subtable}%
-		\begin{subtable}[t]{.5\columnwidth}
+		\begin{subtable}[t]{.4\columnwidth}
 			\centering
 			\caption{$\cts_2$}
 			\label{table:ctsRunningEx}
@@ -2636,7 +2672,7 @@ In summary, the status evolution of a combination $c$ is depicted in the state m
 \begin{figure}[!tb]
 	\centering
 	\vspace{-50pt}
-	\resizebox{0.8\columnwidth}{!}{
+	\resizebox{0.6\columnwidth}{!}{
 		\begin{tikzpicture}
 		\tikzstyle{vertex}=[circle, minimum size=50pt,inner sep=0pt, line width=1pt, draw]
 		\node[vertex, draw=none] (EMPTY) at (-1,5.1) {};
@@ -2859,7 +2895,7 @@ Table~\ref{table:resultsByBenchmarkPrecRec} shows the results of the experiments
 	\centering
 	\caption{Experimental results (P: precision, R: recall, F: F-score, time is in ms)}
 	\label{table:resultsByBenchmarkPrecRec}
-	%\resizebox{\columnwidth}{!}{%
+	\resizebox{\columnwidth}{!}{%
 	\setlength\tabcolsep{2.1pt}
 	\begin{tabular}{c|c|ccccr|ccccr|ccccr|ccccr|ccccr} 
 		\toprule
@@ -2891,7 +2927,7 @@ Table~\ref{table:resultsByBenchmarkPrecRec} shows the results of the experiments
 		& Average & 44.0 & 1 & 1 & 1 & 331 & 29.8 & 0.85 & 0.94 & 0.88 & 5.99 & 26.2 & 0.46 & 0.45 & 0.44 & 68.9 & 79.3 & 0.90 & 0.84 & 0.86 & 3311 & 67.4 & 0.94 & 0.91 & 0.92 & 988 \\
 		\bottomrule
 	\end{tabular}
-	%}
+	}
 \end{table*}
 %
 For each method, it reports the total number of different tests required to complete the detection\footnote{If a test is generated twice by a method, we count it only once.}, and the execution time in milliseconds. Moreover, in order to measure the {\it quality} of the returned \mfics, we use classical measures as {\it precision} (P), {\it recall} (R), and {\it F-score} (F). Precision is defined as:
@@ -2925,6 +2961,7 @@ Also FIC and SOFOT showed to be able to correctly identify the \truemfics in man
 	\caption{Execution trace of SOFOT on example SUT}
 	\label{table:executionSOFOT}
 	%\resizebox{.8\columnwidth}{!}{%
+	\footnotesize
 	\begin{tabular}{r|c|c|c||c}
 		\multicolumn{5}{c}{Generation of $\cts_2$ with ACTS (to have some failing test)}\\
 		\toprule
@@ -3012,6 +3049,7 @@ The paper proposes an approach for finding minimal failure-inducing combinations
 
 The current work does not support constraints in the combinatorial model; their handling is planned as future work.
 
+\end{tikzborder}
 
 \bookmarksetup{startatroot}
 \chapter{Conclusion}
