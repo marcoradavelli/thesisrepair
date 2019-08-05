@@ -641,7 +641,7 @@ EnumerativeType, Number, Range, TestGoals,
 		\begin{tikzpicture}[overlay, remember picture]
 			\draw[ultra thick,lightgray]
 					 ([xshift=1.5\AnnSep,yshift=-\baselineskip]current page text area.north \AnnMargin) --  
-					 ([xshift=1.5\AnnSep,yshift=0.65ex]current page text area.south \AnnMargin);
+					 ([xshift=1.5\AnnSep,yshift=1ex]current page text area.south \AnnMargin);
 		\end{tikzpicture}
 		\addtocounter{borderpages}{-1}%
 		\ifnum\value{borderpages}>1
@@ -887,30 +887,46 @@ Different types of software models are presented (namely software product lines,
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
 \researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
-Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter 3 describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
+Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter 3\todo{3} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
 \researchquestion{How to repair feature models?}
 A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. Although feature models are not used in every such configurable software, there are many companies, in particular in the automotive industry, that use feature models to represent domain knowledge over SPLs (see this list \todo{cite featureide} of some companies using feature models), and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
 Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now over 8000 features \todo{cite}.
-\researchquestion{How to repair configuration constraints, and can it be applied to detect XSS vulnerabilities?}
+\researchquestion{How to repair configuration constraints? Can it be applied to detect XSS vulnerabilities?}
+Another goal is the application of model repair technique directly to constraints, they can be configuration constraints, i.e., constraints under which (and only under which) the system is supposed to work correctly, or shows a certain property. 
+Chapther 5\todo{5} describes a possible approach to automatically repair constraints using combinatorial testing, and a case study on the application of this method for the detection of XSS vulnerabilities in web applications.
+%By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
 
 \researchquestion{How to repair timed automata clock guards?}
-\researchquestion{How editing of combinatorial models and test generation can be made easy to perform?}
-\researchquestion{How can the detection of failure-inducing combinations be improved?}
+Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata.\todo{cite} They can range from electrical automated machines such as coffee machines and washing machines (where time models the time up to an inserted coin has to be given back to the user, if no operation is selected, for instance), to protocol implementation in the railway, automotive and aerospace industry.
+Chapter 6\todo{6} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating and executing test cases (i.e., sequences in the automata), and iteratively repair inconsistencies between the model and the system.
 
-To each of the questions correspond a chapter, referring to one or more published papers.
+\researchquestion{How combinatorial testing editing and generation can be made easy to perform?}
+As part of the thesis, we have also the goal to investigate a tool that supports the activity of combinatorial test generation, that is often used in the presented processes for model repair.
+Chapter 7\todo{7} presents a comparative study among the existing tools for combinatorial testing, and proposes a SaaS (Software-as-a-Service) web-based tool, that does not require any installation, to make the test generation activity easy for engineers.
+
+\researchquestion{How can the detection of failure-inducing combinations be improved?}
+One of the steps of the test-driven processes to automatically repair models is the detection of the combinations of parameters that cause inconsistencies between the model and the system: the failure-inducing combinations (\fccs).
+There are tools for failure-inducing combination detection, such as BEN \cite{ben_2015} \todo{cite others}, but they have limitations, in particular regarding accuracy.
+In Chapter 8\todo{8} we present \mix, a new method to detect failure-inducing combinations guaranteeing to achieve complete accuracy up to a certain strength $t$.
+This tool could be used not only to improve the model repair methods devised so far (Chapters 4-5 \todo{tocheck}), but also as an alternative fault localization technique.
+	
+%To each of the questions corresponds a chapter, referring to one or more published papers.
 
 \section{Reviewed Papers}
-\cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
-
-\cite{ARCAINI201964} \bibentry{ARCAINI201964}
-
-\cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
-
-\cite{IWCTGargantini2018} \bibentry{IWCTGargantini2018}
-
-\cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
-
-\cite{evolUpdateVAMOS2018} \bibentry{evolUpdateVAMOS2018}
+\begin{itemize}
+	\item \cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
+	
+	\item \cite{arcainiAchieving} \bibentry{arcainiAchieving}
+	
+	\item \cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
+	
+	\item \cite{IWCTGargantini2018} \bibentry{IWCTGargantini2018}
+	
+	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
+	
+	\item \cite{evolUpdateVAMOS2018} \bibentry{evolUpdateVAMOS2018}
+	
+\end{itemize}
 
 \section{Note on conventions}
 Parts of this thesis are based on the aforementioned publications. To be able to easily distinguish a text included verbatim from the publications, the corresponding paragraphs are marked with a vertical bar on the side of the text.
@@ -967,7 +983,9 @@ Due to variability, we are increasingly encountering a situation in the automoti
 
 %\section{Manipulation Techniques}
 \subsection{SAT and SMT solvers}
-In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula "a AND NOT b" is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, "a AND NOT a" is unsatisfiable.
+
+In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. 
+In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula "a AND NOT b" is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, "a AND NOT a" is unsatisfiable.
 
 SAT is the first problem that was proven to be NP-complete.
 Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols,[1] which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving.
@@ -976,7 +994,6 @@ Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem ins
 %\subsection{Model Checkers}
 \subsection{Automated Program Repair}
 \subsection{Model Transformations}
-\subsection{Automated Model Repair}
 
 \part{Test-Driven Model Repair Approaches}
 \chapter{Automated Model Repair}
@@ -1028,9 +1045,9 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 %The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
 %To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
 
-\begin{tikzborder}{\cite{arcaini2018evolutionary}}
 \section{Basic definitions}\label{sec:basic}
 
+\begin{tikzborder}{\cite{arcaini2018evolutionary}}
 In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
 %
 \begin{compactitem}
@@ -1676,22 +1693,9 @@ A model for a combinatorial problem consists of parameters which can take variou
 The devised iterative approach uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and CIT policies introduced in \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations into expressions in propositional logic.
 The repairs are of two types, depending on whether the model is true and the system (i.e., the oracle) false for a given test case (in this case, the model is \textit{under-constrained}) or vice-versa (in this case, the model is \textit{over-constrained}). Tab. \ref{table:testsandfaults} reports possible scenarios in which such condition may occur in a system with three boolean parameters A, B, C, that map to directives in a C program in which both B and C can be enabled only if also A is activated.
-\begin{table}[!tb]
+\begin{table}[!hb]
 	\caption{Test suites with faults (in gray)}\label{table:testsandfaults}
-	\begin{comment}
-	\begin{tabular}{c|c|c||c|c|c}
-	A & B & C & oracle & \mfU & \mfO\\
-	& & & $A \rightarrow B$,$ A \rightarrow C$ & $A \rightarrow B$ & $A \rightarrow B$,$C$\\
-	\hline 
-	T & T & T & T & T & T \\
-	T & T & F & F & \cg T & F \\
-	T & F & T & F & F & F \\
-	F & T & T & T & T & T \\% & \underConstr fault\\
-	F & T & F & T & T & \cg F\\
-	F & F & T & T & T & T\\
-	F & F & F & T & T & \cg F\\
-	\end{tabular}
-	\end{comment}
+	\centering
 	\resizebox{.8\columnwidth}{!}{
 		\begin{subtable}[t]{.5\columnwidth}
 			\centering
