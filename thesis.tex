@@ -87,7 +87,7 @@ consistentlayout, % Uncomment to change the layout of the declaration, abstract 
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
 
-
+%\theoremstyle{remark}
 
 \usepackage{color}
 \usepackage{amsthm}
@@ -492,6 +492,41 @@ EnumerativeType, Number, Range, TestGoals,
 
 \usepackage{centernot}
 
+\AtBeginDocument{%
+	\providecommand\BibTeX{{%
+			\normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+
+\usepackage{graphicx}
+%\usepackage[caption=false]{subfig}
+\usepackage{verbatim}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{xcolor,colortbl}
+%\definecolor{light-gray}{gray}{0.8}
+\usepackage{stfloats}%for correct floating of two-columns figures
+\usepackage{paralist}
+\usepackage{xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}
+%\theoremstyle{definition}
+\newtheorem{defn}[thm]{\protect\definitionname}
+%\theoremstyle{definition}
+\newtheorem{example}[thm]{\protect\examplename}
+%\theoremstyle{remark}
+\newtheorem{rem}[thm]{\protect\remarkname}
+\providecommand{\remarkname}{Remark}
+%\newfloat{algorithm}{tbp}{loa}
+\providecommand{\algorithmname}{Algorithm}
+%\floatname{algorithm}{\protect\algorithmname}
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\theoremname}{Theorem}
 
 \lstset{
 	columns=fullflexible,
@@ -515,17 +550,14 @@ EnumerativeType, Number, Range, TestGoals,
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 \theoremstyle{plain}
-\newtheorem{thm}{\protect\theoremname}
 \theoremstyle{definition}
-\newtheorem{defn}{\protect\definitionname}
-\theoremstyle{remark}
-\newtheorem{example}{\protect\examplename}
 \theoremstyle{remark}
 \newtheorem{observation}{\protect\observationname}
 \theoremstyle{plain}
 \newtheorem{assumption}{\protect\assumptionname}
 \theoremstyle{plain}
 \newtheorem{corollary}{Corollary}
+\newtheorem{lemm}[thm]{Lemma}
 
 \providecommand{\definitionname}{Definition}
 \providecommand{\examplename}{Example}
@@ -1013,12 +1045,6 @@ the main hypothesis of this project is that testing techniques can be used not o
 This methodology aims at changing the model \textit{with less impact as possible} (to preserve domain knowledge) to \textit{repair} the non-conformance w.r.t. the \textit{solution space} (it can be the current implementation, a new specification, or an available \textit{oracle}).
 The applied repairs are local and little, based on the \textit{competent modeler} assumption, that the model is \textit{a little} outdated, and minimal changes are enough. 
 
-\begin{figure}[!tb]
-	\centering
-	\includegraphics[width=.8\columnwidth]{images/repair.png}
-	\caption{Test-Driven process to repair models}
-	\label{fig:approach}
-\end{figure}
 
 %We plan to evaluate effectiveness and efficiency of the test-driven repair techniques on different applications, with real-world models and systems: from literature and from industrial cases. Apart from the already investigated applications to combinatorial and feature models, we plan to study a scenario of repair of 
 %timed automata (TA), high order logic expressions, and finite state machines, for example. % they all have
@@ -1028,6 +1054,112 @@ The applied repairs are local and little, based on the \textit{competent modeler
 
 %The dissemination plan consists in applying test-driven repair to real-world software systems, and possibly release tools, in addition to publishing papers to venues related to software testing or to the particular application for which test-driven repair has been applied.
 %If real-world case studies coming from collaborations with industries in the sector are found, it would be an added value.
+
+
+\begin{tikzborder}{[XXX]}
+\section{Research Hypothesis}
+By making the assumption that the fault resides in the model, and the implementation is correct, the rationale that drives this PhD proposal is the investigation of software testing techniques to automatically \textit{repair} models.
+Model \textit{repair} can be useful whenever the model is outdated w.r.t. the implementation, or a defined oracle or the specification.
+Sometimes an engineer also wants to detect which is a model of a current aspect of an implemented system, and can use testing techniques not only to find bugs in a system, but also to \textit{repair} or to entirely \textit{learn} a model from the system implementation. % \todo{più enfasi su repair by testing, quindi direi testing techniques to repair...}
+%Sometimes, however, the fault is not in the code, but in the model with a few \textit{partial} application to input parameters. not \textit{models}, as code is considered to be the most useful and straightforward application.
+\begin{comment}
+\textcolor{red}{Io seguirei di pù lo schema propposto:}
+The problem to be addressed by your thesis (justify the importance and show that it has not yet been addressed): motivation ok
+
+Your research hypothesis or goal: IT iS POSSIBILE TO REPAIR A MODEL BY TESTING
+
+The expected contributions of your dissertation research: in several contexts 
+
+Your proposed research approach: apply testing tecniques like CIT, mutation, etc
+
+Summary of results to date
+
+How you plan to evaluate your results and a dissemination plan
+\end{comment}
+The main hypothesis of this research project is that testing techniques can be used not only for fault detection and localization, but also for model repair.
+
+%The main hypothesis of this research project is therefore to use testing techniques % - and in particular combinatorial interaction testing (CIT), and mutation analysis with search-based algorithms - 
+%not only for fault detection and localization, but also for model repair. 
+
+%Configurable models can also specify fixed rules or constraints of a running system, for example a communication protocol or a real-time system.
+
+%System configuration is generally performed by setting system parameters, or by entering a finite number of input values chosen among a finite set of options.
+%These options, or features, can be created during \textit{design time} (for instance in the case of a software product line when the designer identifies the features unique to individual products or common to all products in its category), or during \textit{compilation time}, in order to improve some characteristics of the compiled code (scalability, efficiency, etc.), for example in case of preprocessor directives (e.g., in the Linux Kernel).
+%Software configurations can also be modified during \textit{operation time}, when the system is already running and the user wants to switch on/off a particular feature or functionality. In this case, for example, the parameters can be saved in a configuration file and modified if necessary (e.g., in the installation of the web-server Django).
+%These options may also be input parameters for a running system. %: either a web service, a command line tool, a protocol, or the GUI of a software (e.g., the ERTMS protocol for railways, or the \textit{grep} command line tool)
+
+%Variability of software can be expressed also by exercising it with different input values.
+%Previous experiments and industrial evidence suggest that software failures are usually caused by interactions among a small amount of inputs or parameters of the system.
+%Usually, an exhaustive testing of all the configurations becomes infeasible in practice, due to the combinatorial explosion problem.
+%For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. 
+
+%Repair, however, can and should be used also for models.
+
+\section{Contribution}\label{sec:contribution}
+The contribution of this PhD project is the proposal and evaluation of testing techniques to repair models of 
+%configurable
+software systems. %The process is driven by testing techniques, in order to localize \textit{faults}, or also driven by \textit{update requests} directly. %These faults can be obtained by the generation and execution of test cases.
+The methodology aims at changing the model \textit{with less impact as possible} (to preserve domain knowledge) to \textit{repair} the non-conformance w.r.t. the \textit{solution space} (it can be the current implementation, a new specification, or an available \textit{oracle}).
+
+In the rest of this PhD proposal, we present the research methodology, and the already evaluated application in the scenarios of (1) combinatorial models, and (2) feature models in software product line enginnering.
+We then discuss other possible scenarios in which model repair can be employed.
+%We illustrate the positive and negative aspects of them, and propose other possible scenarios in which model repair can be employed.
+
+\section{Research Approach}\label{sec:relatedwork}
+The research process, designed in accordance with the defined objectives, consists of two stages: the reviewing stage, and the formulation stage.
+In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
+In the formulation stage, for each scenario, we try to formulate the concepts and \textit{decline} the repair problem to that particular kind of model; then we apply or tailor the existing techniques to propose a solution to the model repair problem.
+Among testing techniques to be employed, black-box testing is an effective technique to detect faults in a system focusing on the inputs, without needing access to the code, but requiring simply an oracle that states if a particular test %(i.e., a system configuration)
+passes or fails. 
+Combinatorial Interaction Testing (CIT), in particular, has shown to achieve high coverage in software systems for which a parametric, configurable model can be defined. Mutation analysis and search-based methods are also to take into consideration, when possible, as they tend to apply \textit{small} edits to the model, helping preserve domain knowledge.
+The process is iterative: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:approach} shows an overview of such test-driven repair process. % New tests are generated from the repaired model, for a more fine-grained check of correctness.%Combinatorial Interaction Testing (CIT), in particular, has shown to be achieving high coverage in testing software systems for which a parametric, configurable model can be defined. Mutation analysis and search-based methods are also to take into consideration, when possible, as they to apply \textit{small} edits to the model, helping preserve domain knowledge.
+%For each application, the process should be automated or semi-automated,% and can be devised by choosing one application at a time, 
+%and obtained by combining existing techniques and/or a customization of them, or new approaches should be devised if needed.
+%and determine how existing techniques can be arranged in a way to actually succeed in repairing the particular chosen type of configuration model 
+%(such as combinatorial test suite generation, mutation analysis, failure-inducing combination detection).
+Benchmarks should be selected for evaluation, and tools to implement the repair process should be reused if existing, or customized or built if needed.%; customization or optimization of existing algorithms could also be performed.
+
+\begin{figure}[!tb]
+	\centering
+	\includegraphics[width=.8\columnwidth]{images/repair.png}
+	\caption{Test-Driven process to repair models}
+	\label{fig:approach}
+\end{figure}
+
+\section{Results to date}
+
+In the initial stage of the research project we applied the repair process to \textit{configurable} models. % found out that the repair technique is applicable to models for which some atomic mutation can be defined. %, and have a semantic interpretation w.r.t. to the aspect of the underlying system that they model. % represent variability of configurable systems.
+%We call these models as \textit{configurable models}, and we believe they are particularly \textit{suitable} to be repaired automatically using software testing. %key part of the proposed repair processes, as tests are employed to detect faults.
+%Many software systems can be configured in various ways, and testing is performed to obtain a certain \textit{confidence} that the system behaves as prescribed by the specification, under every configuration.
+Configurable models can model, for example, system features decided at \textit{compile time} such as preprocessor directives, or decided at \textit{operation time} such as configuration files, and also constraints among parameters in a running system.
+
+In the following subsections we briefly describe the results obtained from the application of test-driven repair in two kinds of configurable models: combinatorial models and feature models.
+
+\subsection{Repair of Configuration Constraints}\label{sec:constraintrepair}
+A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices.
+%We devise an approach in which tests that do not satisfy the constraints in the CIT model are considered invalid.
+Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
+Therefore, in \cite{gargantini_combinatorial_2017} %, to find and fix conformance faults between the given software system and its combinatorial model, 
+we proposed an iterative approach that uses a fault-localization tool based on combinatorial testing, called BEN, and CIT policies introduced in our previous work \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
+The model is then repaired \textit{logically}, by translating such failure-inducing combinations as expression in propositional logic.
+We also developed a tool to make it easier the editing of such combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}.
+%We also developed a tool to edit such combinatorial models, and generate tests, called CTWedge \cite{IWCTGargantini2018}.
+
+\subsection{Repair of Feature Models}\label{sec:fmrepair}
+
+Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
+In order to keep an SPL and its feature model aligned, feature models must be changed by including/excluding new features and products, either because faults in the model are found or to reflect the normal evolution of the SPL.
+Such changes can be complex and error-prone due to the size of the feature model.
+%The modification of the feature model to be made to satisfy these change requirements can be complex and error-prone. 
+%In this case study, w
+Therefore, we try to \textit{repair} a feature model w.r.t. a given update request in the form of a set of configurations to be accepted or rejected, that may come from \textit{failing} test cases, or from a change in the specification.
+The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled \cite{arcaini2018evolutionary,ARCAINI201964}. %, by using BDDs. %The process terminates until the model is completely updated or some other termination condition occurs.
+%Among all the possible models achieving the update request, the method privileges those structurally simpler, to preserve domain knowledge.
+The approach has been evaluated on real-world feature models: although it does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, %and since the process is based on small mutations, 
+with minimal edits, helping in preserving domain knowledge.% from previous models.
+\end{tikzborder}
+
+
 
 
 % in this part, there are the papers that do NOT focus on test generation, but start from UPDATE REQUEST, or FAILING COMBINATIONS
@@ -1683,10 +1815,513 @@ Another threat to the external validity is that the update requests that we use 
 Regarding internal validity, a threat is that the obtained results could depend on the values chosen for the parameters of the evolutionary process (parameters of termination conditions, and parameters of the selection and evolution phases) and that, with some other values, the results would have been different (e.g., a given selection strategy could perform better); although we kept all the parameters fixed, we believe that the overall result that our approach is able to actually update the feature model is not affected. However, as future work, we plan to perform a wider set of experiments in which the effect of each single parameter is evaluated. For finding the best parameter setting, we could use a parameter-tuning framework as irace~\cite{irace}.
 \end{tikzborder}
 
+\begin{tikzborder}{\cite{arcaini2019varivolution}}
+	\section{Basic Definitions}\label{sec:basic}
+	
+	\begin{mydef}[Variability Model]\label{def:varModel}
+		A variability model \m is made of a set of features $F=\{f_1, \ldots, f_n\}$ and a set of constraints $\Gamma = \{\gamma_1,\ldots, \gamma_m\}$ over the features.
+	\end{mydef}
+	
+	The features $F$ represent the system parameters. The expressions in $\Gamma$ identify the features configurations for which the actual system is expected to work.
+	
+	\begin{mydef}[Configuration]\label{def:configuration}
+		A \emph{configuration} (or \emph{test}) $t$ is a particular assignment of values for all the features $F$. We identify with $t(f_i)$ the value of feature $f_i$ in test $t$. A configuration is {\it valid} if it respects the constraints, i.e., $t \models \Gamma$. We also use $\Gamma$ as predicate to check the constraint satisfaction: $\Gamma(t) = \true$ iff $t \models \Gamma$.
+	\end{mydef}
+	
+	\begin{mydef}[Test suite]\label{def:testSuite}
+		A \emph{test suite} \testSuite is a set of tests. We identify with \exTestSuite the \emph{exhaustive test suite}, i.e., the set of all the possible tests.
+	\end{mydef}
+	
+	\begin{mydef}[Oracle]\label{def:oracle}
+		The oracle function \oraclet tells whether the configuration $t$ is functionally correct for the system $S$.
+	\end{mydef}
+	
+	We assume that an oracle exists, that tells whether a configuration is valid or not in the real system.
+	
+	We assume that the set of features $F$ is known and correctly modeled, while the constraints could be faulty.
+	
+	\begin{mydef}[Model correctness]\label{def:correctness}
+		We say that the model \m is \emph{correct} if it conforms with the oracle for every possible configuration $t$, i.e., $\forall t \in \exTestSuite \colon \Gamma(t) = \oraclet$. 
+	\end{mydef}
+	
+	\begin{mydef}[Conformance fault]\label{def:conformanceFault}
+		We say that the model contains a \emph{conformance fault} if there exists a configuration $t$ such that $\Gamma(t) \neq \oraclet$.
+	\end{mydef}
+	
+	\begin{mydef}[Combination]\label{def:combination}
+		A \emph{combination} (or \emph{partial configuration}) $c$ is an assignment to a subset $\features(c)$ of all the possible features $F$, i.e., $\features(c) \subseteq F$. A configuration (or test) is thus a particular combination in which $\features(c)=F$. The value assigned by the combination $c$ to the feature $f$ is denoted as $c(f)$.
+	\end{mydef}
+	
+	\begin{mydef}[Propositional representation of combinations]
+		A combination $c$ can be expressed in propositional logic by making the conjunction of the truth value assignments of its features:
+		%
+		\[c = \left(\bigwedge_{\{f \in \features(c) | c(f) \}} f\right) \wedge \left(\bigwedge_{\{f \in \features(c) | \neg c(f) \}} \neg f\right)\]
+	\end{mydef}
+	
+	\begin{mydef}[Combination containment]\label{def:combContainment}
+		A test (or configuration) $t$ \emph{contains} a combination $c$ if all features values in $c$ are the same in $t$. Formally, $\forall f_i \in \features(c) \colon c(f_i) = t(f_i)$.
+		
+		Given a test suite \testSuite, we identify all the tests containing a combination $c$ as $\testSuite(c)$. Formally, $\testSuite(c) = \{t \in T | c \subseteq t\}$.
+	\end{mydef}
+	
+	\begin{mydef}[Combination completeness]\label{def:combCompl}
+		Given a test suite \testSuite and a combination $c$, we say that $c$ is \emph{complete} w.r.t. \testSuite iff $\testSuite(c)$ contains all possible tests containing $c$.
+	\end{mydef}
+	
+	
+	%\begin{lemma}\label{lemma:combComplLemma}
+	\begin{thm}\label{lemma:combComplLemma}
+		\todo{To change to lemma}
+			If $c$ is complete w.r.t. a test suite \testSuite, then it holds $\forall t \in \exTestSuite \setminus \testSuite(c) \colon c = \false$.
+	\end{thm}
+	%\end{lemma}
 
+	\begin{mydef}[Failure-containing combination]\label{def:fcc}
+		A combination $c$ is a \emph{failure-containing combination} (\fcc) if:
+		%
+		\begin{compactenum}
+			\item $c$ is contained in at least a failing test of $~~T$, i.e., $\exists t \in \testSuite(c) \colon \Gamma(t) \neq \oraclet$.
+			\item every configuration containing $c$ has the same value in the oracle, i.e., $(\forall t \in \testSuite(c) \colon \oraclet = \false) \vee (\forall t \in \testSuite(c) \colon \oraclet = \true)$. In the former case, we call $c$ an \emph{\underConstr} \fcc; in the latter case, an \emph{\overConstr} \fcc.
+		\end{compactenum}
+		
+		We further classify a conformance fault as \emph{\underConstr fault} if it exposed by an \underConstr \fcc, or as \emph{\overConstr fault} if it is exposed by an \overConstr \fcc.
+	\end{mydef}
+	
+	In the following, we only consider complete \fccs.
+	
+	\begin{exmp}[Under-constraining \fcc]\label{ex:example1}
+		Let's assume that the oracle is the system (C program) of Fig.~\ref{fig:problSolSpaces} with features $F = \{A,B,C\}$ and that we have generated the test suite shown in Table~\ref{table:underConstrFault}. Given a faulty model \mfU, with only one constraint $\Gamma = \{A\rightarrow B\}$, we observe only one fault which is represented by the \fcc $c = A \wedge \neg C$.
+		%
+		\begin{table}[!tb]
+			\caption{Test suites with faults (in gray)}
+			\label{table:testsandfaults}
+			\begin{subtable}[t]{.5\columnwidth}
+				\centering
+				\caption{\underConstr fault}
+				\label{table:underConstrFault}
+				\begin{tabular}{c|c|c||c|c}
+					A & B & C & \mfU & oracle\\
+					\hline 
+					T & T & F & \cg T & \cg F\\% & \underConstr fault\\
+					T & F & F & F & F\\
+				\end{tabular}
+			\end{subtable}%
+			\begin{subtable}[t]{.5\columnwidth}
+				\centering
+				\caption{\overConstr fault}
+				\label{table:overConstrFault}
+				\begin{tabular}{c|c|c||c|c}
+					A & B & C & \mfO & oracle\\
+					\hline 
+					F & T & T & T & T\\
+					F & F & T & T & T\\
+					F & T & F & \cg F & \cg T\\% & \overConstr fault\\
+					F & F & F & \cg F & \cg T\\% & \overConstr fault\\
+				\end{tabular}
+			\end{subtable}%
+		\end{table}
+		%
+		Note that \emph{c} is a complete \fcc that identifies an \underConstr fault, i.e., it proves that the model is under-constrained.
+	\end{exmp}
+	
+	\begin{exmp}[Over-constraining \fcc]\label{ex:example2}
+		Consider now a faulty version \mfO of the model in Fig.~\ref{fig:problSolSpaces}, characterized by $\Gamma = \{A\rightarrow B, C\}$. Given the test suite shown Table~\ref{table:overConstrFault}, we detect two \overConstr faults identified by the complete \fcc $c = \neg A$.
+	\end{exmp}
+	
+	
+	
+	\section{Fault-driven Repair}\label{sec:repair}
+	
+	We here propose a process to {\it repair} the constraints of a variability model, based on the detection of conformance faults between the model and the system, represented as failure-containing combinations. Fig.~\ref{fig:splrepair} shows the context in which our process is applied.
+	%
+	\begin{figure}[!tb]
+		\centering
+		\includegraphics[width=1\columnwidth]{images/splrepair_new.png}
+		\caption{Context of the process to repair constraints among features in variability models}
+		\label{fig:splrepair}
+	\end{figure}
+	%
+	We assume that a possibly faulty variability model is translated to a set of boolean formulas representing the constraints. For example, if the model is a feature model, semantic transformations presented in~\cite{Batory:2005} can be used. From a sufficiently large test suite, complete \fccs have been identified. To this aim, one can use well-known fault localization techniques like~\cite{ben_2015,iwct19}. Our process takes as input the \fccs and the constraints and repair them. If the user wants to go back to the initial format of the variability model, (s)he must apply some reverse engineering (which is out of the scope of this work).
+	
+	We first describe a na{\"i}ve implementation of the repair process in Sect.~\ref{sec:naiveAppr}, and we then introduce some optimizations in Sect.~\ref{sec:optimizedApproach}.
+	
+	\subsection{Na{\"i}ve repair approach}\label{sec:naiveAppr}
+	In Def.~\ref{def:fcc}, we distinguish between two types of failure-containing combinations (i.e., \underConstr and \overConstr \fcc), depending on how the model fails with respect to the oracle.
+	
+	We can devise a na{\"i}ve repair approach that applies a specific type of repair on the base of the fault type:
+	%
+	\begin{compactenum}
+		\item {\tt Strengthening repair}: in case of \underConstr \fcc $c$, $\neg c$ is added as a new constraint to $\Gamma$, i.e., the constraints set $\Gamma^\prime$ of the repaired model becomes $\Gamma^\prime: = \Gamma \cup \{\neg c\}$.
+		\item {\tt Weakening repair}: in case of \overConstr \fcc $c$, $c$ is disjuncted with every constraint in $\Gamma$, i.e., the constraints set $\Gamma^\prime$ of the repaired model becomes $\Gamma^\prime = \cup_{\gamma_i \in \Gamma}\{ \gamma_i \vee c\}$.
+	\end{compactenum}
+	
+	
+	\begin{exmp}[Strengthening repair]\label{ex:example_rep1}
+		The \textit{\underConstr} fault in Ex.~\ref{ex:example1} is repaired by adding $\neg c = \neg(A\wedge\neg C) \equiv A \rightarrow C$ as a new constraint in $\Gamma$. The repaired constraints become $\Gamma^\prime = \{A\rightarrow B, A\rightarrow C\}$.
+	\end{exmp}
+	
+	
+	\begin{exmp}[Weakening repair]\label{ex:example_rep2}
+		The \textit{\overConstr fault} in Ex.~\ref{ex:example1} is repaired by adding $c = \neg A$ in disjunction with all the existing constraints, so that the repaired constraints become $\Gamma^\prime = \{(A \rightarrow B) \vee \neg A, C \vee\neg A\}$. Note that the first constraint is {\it redundant}, as it is equivalent to the original constraint $A \rightarrow B$. The only necessary application of the repair is the one in the second constraint, as it correctly allows to have both features $A$ and $C$ assigned to {\it false} (as in the oracle).
+	\end{exmp}
+	
+	
+	
+	
+	\begin{thm}[Correctness of the na{\"i}ve approach]\label{thm:correctnessNaive}
+		If a combination $c$ is complete w.r.t. its test suite $\testSuite(c)$, the repairs applied by the na{\"i}ve approach to $\Gamma$ (obtaining the modified constraints set $\Gamma ^\prime$) are {\it correct}, i.e., they remove all existing faults in $\testSuite(c)$ and do not introduce new ones, i.e.,
+		%
+		\begin{compactenum}
+			\item $\forall t \in \testSuite(c) \colon \Gamma^\prime(t) = \oracle(t)$;
+			\item $\forall t \in \exTestSuite \setminus \testSuite(c) \colon \Gamma^\prime(t) = \Gamma(t)$.
+		\end{compactenum}
+	\end{thm}
+	
+	\begin{proof}
+		Let's consider the two kinds of repairs separately:
+		%
+		\begin{compactitem}
+			\item {\tt Strengthening repair}: the repaired constraints are $\Gamma^\prime = \{\gamma_1, \dots, \gamma_m, \gamma_{m+1}\}$, where $\gamma_{m+1} = \neg c$.
+			%
+			\begin{compactenum}
+				%
+				\item From the definition of \underConstr \fcc, we know that it holds $\forall t \in \testSuite(c) \colon \oraclet = \false$. Furthermore, we also know that $\forall t \in \testSuite(c) \colon \Gamma^\prime(t) = \false$, because the new constraint $\gamma_{m+1} = \neg c$ falsifies all the tests containing the \fcc $c$. Therefore, it holds $\forall t \in \testSuite(c) \colon \Gamma^\prime(t) = \oraclet$.
+				\item
+				By Lemma~\ref{lemma:combComplLemma}, we know that $\forall t \in \exTestSuite \setminus \testSuite(c) \colon c = \false$.
+				Therefore, the added constraint $\gamma_{m+1} = \neg c$ is always true in tests $\exTestSuite \setminus \testSuite(c)$. Since $\gamma_{m+1}$ has no influence on the evaluation of these tests, it holds $\forall t \in \exTestSuite \setminus \testSuite(c) \colon \Gamma^\prime(t) = \Gamma(t)$.
+			\end{compactenum}
+			\item {\tt Weakening repair}: the repaired constraints are $\Gamma^\prime = \{ \gamma_1 \vee c, \dots, \gamma_m \vee c\}$.
+			%
+			\begin{compactenum}
+				\item From the definition of \overConstr \fcc, we know that it holds $\forall t \in \testSuite(c) \colon \oraclet = \true$.
+				Furthermore, we also know that $\forall t \in \testSuite(c) \colon \Gamma^\prime(t) = \true$, because all the constraints $\gamma_i^\prime = \gamma_i \vee c$ admit all the tests containing the \fcc $c$. Therefore, $\forall t \in \testSuite(c) \colon \Gamma^\prime(t) = \oraclet$.
+				\item
+				By Lemma~\ref{lemma:combComplLemma}, we know that $\forall t \in \exTestSuite \setminus \testSuite(c) \colon c = \false$. Since $c$ is added as a disjunction to the existing constraints, it leaves the constraints equivalent to the original ones, i.e., $\forall t \in \exTestSuite \setminus \testSuite(c) \colon \Gamma^\prime(t) = \Gamma(t)$.
+			\end{compactenum}
+		\end{compactitem}
+	\end{proof}
+	
+	
+	\subsection{Optimized repair approach}\label{sec:optimizedApproach}
+	
+	The na{\"i}ve repair approach described in Sect.~\ref{sec:naiveAppr} could generate some redundancy, as shown in Ex.~\ref{ex:example_rep2}. Therefore, we introduce techniques for constraint selection and simplification to reduce the potential redundancy generated by the na{\"i}ve approach. The goal is to make fewer edits as possible to the model, since we assume that a model with fewer edits better preserves domain knowledge.
+	
+	Fig.~\ref{fig:repair_process} shows the optimized repair approach.
+	%
+	\begin{figure*}[!tb]
+		\centering
+		\includegraphics[width=1\textwidth]{images/repair_process_new.png}
+		\caption{Single iteration of the optimized repair approach}
+		\label{fig:repair_process}
+	\end{figure*}
+	%
+	It consists of three phases:
+	%
+	\begin{inparaenum}[(1)]
+		\item \textsf{selection} of some constraints to modify,
+		\item \textsf{modification} of the selected constraints, and
+		\item \textsf{simplification} of the modified constraints.
+	\end{inparaenum}
+	%
+	Note that the process can be iterative if we identified more than one \fcc (as in the experiments in Sect.~\ref{sec:experiments}). In the following, we consider one iteration of the process.
+	
+	
+	\subsubsection{Update phase: \textsf{selection} and \textsf{modification}}\label{sec:selectionAndMod}
+	To preserve the domain knowledge embedded in the constraints, we want the process to make as few changes as possible to them. Namely, we would like that the constraints $\Gamma$ are updated with the following qualities:
+	%
+	\begin{compactenum}
+		\item possibly no more constraints are added;
+		\item as many constraints as possible are preserved identical;
+		\item some constraints can be removed.
+	\end{compactenum} 
+	%
+	Therefore, the process performs a pre-processing phase, which selects only the constraints $\Gamma_S \subseteq \Gamma$ containing some configurations in common with the \fcc $c$, and then modifies them. This phase is specific to the type of repair:
+	%
+	\begin{compactitem}
+		\item[\textbf{Strengthening repair}] Only the constraints $\gamma_i$ sharing at least one feature with the \fcc $c$, are selected. Formally, $\Gamma_S = \{\gamma_i \in \Gamma | (\features(\gamma_i) \cap \features(c)) \neq \emptyset\}$, where \features collects the features contained in a formula. Then, the modification phase updates only one constraint $\gamma_s$ selected randomly from $\Gamma_S$, by conjuncting $\neg c$. The repaired constraints set becomes $\Gamma^\prime = (\Gamma \setminus \{\gamma_s\}) \cup \{\gamma_s \wedge \neg c\}$.
+		\item[\textbf{Weakening repair}] Only the constraints $\gamma_i$ that exclude at least one configuration contained in the \fcc $c$ are selected. Formally, $\Gamma_S = \{\gamma_i \in \Gamma | \sat(\neg \gamma_i \wedge c )=\true\}$, where \sat tells whether a formula is satisfiable or not. Then, the modification phase updates all the constraints in $\Gamma_S$ by disjuncting them with $c$. The repaired constraints set becomes $\Gamma^\prime = (\Gamma \setminus \Gamma_s) \cup \bigcup_{\gamma_i \in \Gamma_s} \{\gamma_i \vee c\}$.
+	\end{compactitem}
+	
+	\subsubsection{\textsf{Simplification} phase}\label{sec:simplification}
+	The constraint \textsf{simplification} procedure aims at reducing redundancy in the repaired model, especially when failure-containing combinations involve many features. A straightforward way to simplify a formula (or make it more readable) is to find the smallest, but equivalent expression. This problem is known as the \textit{minimum-equivalent-expression} problem~\cite{Buchfuhrer:2011:CBF:1889388.1889508, hemaspaandra_minimization_2011}.
+	
+	We compared the three existing formula minimization techniques, and one minimization method based on mutations we have implemented (\atgt):
+	%
+	\begin{compactenum}
+		\item \jbool\footnote{JBool: \url{https://github.com/bpodgursky/jbool_expressions}}: a tool that recursively applies logic rules and preprocessing techniques, preserving equivalence~\cite{Biere2012}: \textit{literal removal}, \textit{negation simplification}, \textit{and/or reduplication and flattening}, \textit{child expression simplification}, \textit{and propagation}, \textit{De Morgan's law}.
+		\item \textsf{Quine-McCluskey} (\qm)~\cite{Quine3}, a generalization of the Karnaugh Maps method. It requires the constraints to be in Disjunctive Normal Form (DNF) and its exponential complexity in the number of features makes it suitable only for small models (up to 15 features).
+		\item \espresso\footnote{Espresso logic minimizer, sources available at \url{https://ptolemy.berkeley.edu/projects/embedded/pubs/downloads/espresso/index.htm}}, a faster version of the \qm method that relies on some heuristics~\cite{Rudell:M86/65}.
+		\item \atgt\footnote{ATGT: ASM Test Generation Tool. \url{http://fmse.di.unimi.it/atgtBoolean.html}}~\cite{CalvagnaG09}: a hill-climbing process we implemented that iteratively mutates a formula randomly and checks it for equivalence. %(\red{see removing vacuus constraints}).
+	\end{compactenum}
+	
+	We propose different methods, as we have seen that, in practice, these techniques often produce different outputs and none of them is guaranteed to generate an output which is always minimal compared to the others.
+	
+	\subsubsection{Correctness}
+	Does the optimized approach produce correct repairs? A repair $r$ is correct if it is equivalent to the one obtained by the na{\"i}ve approach.
+	
+	\begin{thm}[Correctness of the optimized approach]\label{thm:correctnessOptmised}
+		The optimized approach is correct.
+	\end{thm}
+	
+	\begin{proof}
+		The techniques applied in the \emph{simplification phase} preserve equivalence. Therefore, we only show that the repairs computed in the \emph{update phase} are equivalent to those computed by the na{\"i}ve approach, because the two following properties hold:
+		%
+		\begin{compactitem}
+			\item The strengthening repair is correct because of distributivity and commutativity of boolean conjunction: $\gamma_1 \wedge \ldots \wedge \gamma_s \wedge \ldots \wedge \gamma_m \wedge \neg c \equiv \gamma_1 \wedge \ldots \wedge (\gamma_s \wedge \neg c) \wedge \ldots \wedge \gamma_m$.
+			\item The weakening repair is by definition equivalent to the na{\"i}ve approach for all the constraints $\gamma_i$ that are selected in $\Gamma_S$ to be modified in the optimised approach (i.e., it performs the same operation of the na{\"i}ve approach). It is correct also for each non-selected constraints $\gamma_j$, since for these constraints it holds $\gamma_j \vee c = \gamma_j$ (as $c$ is \false in the non-selected constraints): thus, $\gamma_j$ can be left as it is. In fact, by translating this expression to a satisfiability problem, we obtain the condition under which the process does not select the constraint:
+			%
+			\begin{align*}
+			((\gamma_j \vee c) = \gamma_j) &\Leftrightarrow \neg \sat((\gamma_j \vee c) \neq \gamma_j) \\
+			& \Leftrightarrow \neg \sat( (\gamma_j \vee c) \oplus \gamma_j) \\
+			& \Leftrightarrow \neg \sat( (\gamma_j \wedge \neg \gamma_j) \vee (c \wedge \neg \gamma_j) \vee (\neg \gamma_j \wedge \neg c \wedge \gamma_j) ) \\
+			& \Leftrightarrow \neg \sat(\neg \gamma_j \wedge c) \\
+			\end{align*}
+		\end{compactitem}
+	\end{proof}
+	
+	
+	\section{Evaluation}\label{sec:experiments}
+	
+	In order to apply our process, we need a faulty variability model \m, a set of failure-containing combinations \fccSet, and an {\it oracle}. For the sake of experiments, we take as oracle another variability model \mO, instead of the real oracle; in this way, we can also extract the set \fccSet by comparing \m and \mO.
+	
+	\subsection{Benchmarks}
+	
+	We have built two sets of benchmarks: \benchMut with seeded faults, and \benchReal with versioned models.
+	
+	\paragraph{\benchMut (seeded faults)} 
+	In order to build this benchmark set, we first selected some models to be used as \mO, from previous papers and feature model repositories:
+	%
+	\begin{compactitem}
+		\item \exampleM, from Example~\ref{ex:example1}.
+		\item \register, a VSpec model for a register typically found in supermarkets, inspired by~\cite{Shimbara2015}.
+		\item \django, an open source web application framework written in Python. Each Django project has a configuration file loaded at launch time. We considered 12 Boolean parameters (features), with constraints devised in our previous work~\cite{gargantini_combinatorial_2017}.
+		\item \textsf{tight\_vnc} from FeatureIDE repository~\cite{FeatureIDEbook}.
+	\end{compactitem}
+	%
+	In order to obtain the initial faulty model \m, we seeded random faults in \mO using the following mutation operators:
+	%
+	\begin{compactitem}
+		\item \textbf{\textsf{RC}}: removal of a constraint. There are studies showing that this is the most common case in practice~\cite{lotufo_evolution_2010}.
+		\item \textbf{\textsf{RL}}: removal of a literal in a constraint.
+		\item \textbf{\textsf{SL}}: substitution of a literal in a constraint.
+	\end{compactitem}
+	
+	We generated 30 faulty versions \m of each model \mO (10 with each mutation operator).
+	
+	\paragraph{\benchReal (versioned models)}
+	For this benchmark set, we have considered two versions of variability models of the same system. We use the second version as oracle \mO, and the first one as the faulty model \m. We picked three models of industrial applications from the SPLOT repository\footnote{\url{http://52.32.1.180:8080/SPLOT/feature_model_repository.html}}~\cite{mendonca2009splot}:
+	%
+	\begin{compactitem}
+		\item the process model \rhiscom, between versions 2.0 and 3.0;
+		\item an enterprise resource planner (\erpSpl);
+		\item a \windows accessibility module, between versions 7.0 and 8.0.
+	\end{compactitem}
+	
+	
+	Table~\ref{table:benchs} reports the size of all the faulty models \m to be repaired in the two benchmarks, in terms of number of features, number of constraints, and total number of literals in the constraints.
+	%
+	\begin{table}[!tb]
+		\centering
+		\caption{Benchmarks size}
+		\label{table:benchs}
+		%\resizebox{\columnwidth}{!}{
+		\begin{tabular}{clrrr}
+			\toprule
+			& Name & \# features & \# constraints & \# literals\\
+			&    &      & avg(min - max)\\
+			\midrule
+			\multirow{4}*{\rotatebox{90}{\small \benchMut}}
+			&\exampleM & 3 & 1.67 (1-2) & 3.0 (2-4) \\
+			&\register & 3 & 1.67 (1-2) & 3.87 (2-5) \\
+			&\django & 12 & 4.6 (4-5) & 10.87 (9-12) \\
+			&\tightVnc & 24 & 11.67 (11-12) & 53.2 (45-55) \\
+			\midrule
+			\multirow{3}*{\rotatebox{90}{\small \benchReal}}
+			&\rhiscom & 36 & 70 & 140 \\
+			&\erpSpl & 43 & 75 & 151 \\
+			&\windows & 335 & 943 & 2031 \\
+			\bottomrule
+		\end{tabular}%}
+	\end{table}
+	%
+	For the constraints and literals of \benchMut, it reports the average number across the 30 mutants and the minimum and maximum number between parentheses (the number of features is the same across the mutants).
+	
+	
+	\subsection{Failure-containing combinations}
+	
+	For the sake of experiments, we obtain the set \fccSet from the faulty model \m (having constraints $\Gamma$) and the model we use as oracle \mO (having constraints $\Gamma_o$), using the following process:
+	%
+	\begin{compactenum}
+		\item first, we generate a test showing the difference (i.e., conformance fault) between the two models. The test is built as $t = \mathit{getModel}(\Gamma \neq \Gamma_o)$, where $\mathit{getModel}$ returns a model of the propositional expression, if it exists, or $\mathit{null}$ (in this case, the models are equivalent).
+		\item then, we start from $c \leftarrow t$, and,
+		\begin{compactitem}
+			\item if $\Gamma_o(t)$, for each feature $f \in F$, if $\neg \sat(\neg \Gamma_o \wedge \mathit{rem}(f, c))$ holds, then we do $c \leftarrow \mathit{rem}(f, c)$, where $\mathit{rem}$ removes the assignment of $f$ in $c$ and returns the modified $c$.
+			\item if $\neg \Gamma_o(t)$, for each feature $f \in F$, if $\neg \sat(\Gamma_o \wedge \mathit{rem}(f, c))$ holds, then we do $c \leftarrow \mathit{rem}(f, c)$.
+		\end{compactitem}
+	\end{compactenum}
+	%
+	This way we can obtain \fccs that are as minimal as possible, and complete (i.e., the oracle is always true in case of \overConstr \fcc, and always false in case of an \underConstr \fcc).
+	
+	
+	\subsection{Repair quality metrics}\label{sec:qualityMetrics}
+	
+	We want to assess the quality of a repair w.r.t. two goals:
+	%
+	\begin{inparaenum}[(i)]
+		\item simplification of the constraints, and
+		\item minimization of the impact of edits.
+	\end{inparaenum}
+	%
+	To this aim, we introduce two quality metrics that are used to compare Boolean expressions. We apply them to compare the conjunction of the constraints $\Gamma$ of the original model \m and the constraints $\Gamma^\prime$ of the repaired model \mRep obtained as output of the approach. The metrics are defined as follows:
+	%
+	\begin{compactitem}
+		\item{Complexity Distance (\textsf{CD})} as difference of formula sizes $\mathit{CD}(\Gamma, \Gamma^\prime) = \mathit{literals}(\Gamma) - \mathit{literals}(\Gamma^\prime)$, where $\mathit{literals}$ returns the number of literals in a formula. As in~\cite{vonRhein2015}, we also considered other measures (number of operators and node count in the parsed tree representation), but they do not change the overall results, therefore we do not report them here.
+		\item {Edit Distance (\textsf{ED})} computed between the syntactic trees of the two formulas $\Gamma$ and $\Gamma^\prime$. $\mathit{ED}(\Gamma, \Gamma^\prime)$ is defined as the number of {\it edits} (addition, substitution, or elimination) that we have to apply to $\Gamma$ in order to obtain $\Gamma^\prime$. A node of the tree can either be a literal or an operator. We use \textsf{APTED} as a tool to efficiently compute tree edit distances~\cite{pawlik_tree_2016}.
+	\end{compactitem}
+	
+	
+	
+	\subsection{Experiments}\label{sec:evaluation}
+	
+	We run experiments on the two benchmark sets \benchMut and \benchReal: namely, we applied the na{\"i}ve approach (see Sect.~\ref{sec:naiveAppr}), the optimized approach (see Sect.~\ref{sec:optimizedApproach}) without the \textsf{simplification} phase (\textsf{\onlySelection}), and with the \textsf{simplification} phase (employing the \atgt, \espresso, \jbool and \qm methods). Experiment code was written in Java and experiments were executed on a Linux PC with Intel(R) i7-3770 CPU (3.4 GHz) and 16 GB of RAM. All reported results are the average of 10 runs with a timeout for a single repair of 1 hour. The code and the benchmarks are available at \url{https://github.com/fmselab/VMConstraintsRepair}.
+	
+	Results of the experiments are reported in Table~\ref{tab:experimentb}.
+	%
+	\begin{table*}[!bt]
+		\caption{Experimental results {(mut.: mutation type; s.: strengthening repairs; w.: weakening repairs; ED: edit distance; CD: complexity distance; t: time in milliseconds, T/O: timeout occurred). In gray the best results (CD and ED over all the approaches, time over the simplification approaches)}}
+		\label{tab:experimentb}
+		\resizebox{\textwidth}{!}{%
+			\centering%\small
+			\setlength\tabcolsep{2pt} 
+			\begin{tabular}{ccc|cc|ccc|ccc|ccc|ccc|ccc|ccc}
+				\toprule
+				& & & \multicolumn{2}{c|}{\fccs and repairs} & \multicolumn{3}{c|}{Na{\"i}ve} & \multicolumn{3}{c|}{\onlySelection} &\multicolumn{12}{c}{simplification} \\
+				\cline{12-23}
+				& & &&&& & & & & &\multicolumn{3}{c}{\atgt} & \multicolumn{3}{c}{\espresso} & \multicolumn{3}{c}{\jbool} & \multicolumn{3}{c}{\qm}\\
+				& name & mut. & \# (s.+w.) & size (s./w.) & CD & ED & t & CD & ED & t & CD & ED & t & CD & ED & t & CD & ED & t & CD & ED & t \\ 
+				\midrule
+				\multirow{12}*{\rotatebox{90}{\small \benchMut}}
+				& \multirow{3}{*}{\exampleM} & RC & 1.0+0.0 &2.0 / -- & 2.0 & 5.0 & 0.1 & 2.0 & 5.0 & 0.4 & 2.0 & 5.0 & 1064 & 2.0 & 5.0 & 53.4 & 2.0 & \cg 4.0 & \cg 5.3 & 2.0 & \cg 4.0 & 24.2 \\
+				& & RL & 0.3+1.0 & 2.0 / 1.0 & 3.8 & 10.8 & 0.2 & 2.2 & 6.0 & 0.3 & 2.2 & 6.0 & 1371 & 2.2 & 6.0 & 68.2 & \cg 1.6 & \cg 4.2 & \cg 1.0 & \cg 1.6 & \cg 4.2 & 30.9 \\
+				& & SL & 0.5+0.3 & 2.0 / 1.0 & 1.2 & 3.2 & 0.0 & \cg 1.0 & \cg 2.6 & 0.0 & \cg 1.0 & \cg 2.6 & 1060 & \cg 1.0 & 3.0 & 52.4 & \cg 1.0 & \cg 2.6 & \cg 1.1 & \cg 1.0 & \cg 2.6 & 23.3 \\\\[-.2cm]
+				& \multirow{3}{*}{\register} & RC & 1.0+0.0 & 2.6 / -- & 2.3 & 5.6 & 0.0 & 2.3 & 5.6 & 0.3 & 2.3 & 5.6 & 1065 & 2.3 & 5.6 & 52.4 & 2.3 & \cg4.9 & \cg1.0 & 2.3 & \cg4.9 & 24.0 \\
+				& & RL & 0.2+1.1 & 2.6 / 1.3 & 5.5 & 14.6 & 0.0 & 2.9 & 7.7 & 0.3 & 2.5 & 6.9 & 1388 & 2.9 & 8.5 & 68.1 & \cg2.2 & \cg6.6 & \cg0.6 &\cg 2.2 & \cg6.6 & 30.8 \\
+				& & SL & 0.9+0.3 & 2.1 / 1.4 & 2.9 & 7.4 & 0.2 & \cg 2.1 & \cg5.2 & 0.2 & \cg 2.1 & \cg5.2 & 1433 & \cg2.1 & 6.0 & 69.2 & \cg2.1 & 5.7 & \cg1.2 & \cg2.1 & 5.7 & 32.9 \\\\[-.2cm]
+				& \multirow{3}{*}{\django} & RC & 0.5+0.0 & 1.7 / -- & 0.8 & 2.2 & 0.0 & 0.8 & 2.2 & 0.0 & 0.8 & 2.2 & 1062 & 0.8 & 2.2 & 52.2 & 0.8 & \cg1.3 & \cg1.0 & 0.8 & \cg1.3 & 24.2 \\
+				& & RL & 0.4+1.4 & 2.0 / 4.0 & 8.0 & 22.8 & 0.0 & 1.6 & 4.4 & 0.6 & \cg1.2 & 3.2 & 2424 & 1.6 & 4.4 & 119.9 & \cg1.2 & \cg3.0 & \cg2.5 & \cg1.2 & 3.2 & 58.1 \\
+				& & SL & 0.8+2.3 & 1.0 / 4.0 & 33.3 & 94.4 & 0.0 & 6.5 & 18.3 & 2.1 & \cg5.8 & \cg16.6 & 3720 & 6.5 & 19.2 & 180.3 & 7.4 & 21.7 & \cg4.2 & \cg5.8 & 18.4 & 116.0 \\\\[-.2cm]
+				
+				& \multirow{3}{*}{\tightVnc} & RC & 4.7+0.0 & 2.7 / -- & 14.0 & 39.1 & 0.1 & 14.0 & 39.1 & 11.0 & 14.0 & 39.1 & 8252 & 14.0 & 39.1 & 267 & 14.0 & \cg27.1 & \cg23.5 & 14.0 & 39.6 & 11199 \\
+				& & RL & 0.7+31.8 & 1.9 / 14.2 & 2422 & 6000 & 1.2 & 202.2 & 499.5 & 402 & -- & -- & T/O & 202.2 & 499.5 & 2275 & -- & -- & T/O & -- & -- & T/O \\
+				& & SL & 1.5+18.5 & 4.1 / 11.2 & 3734 & 8860 & 0.7 & 244.0 & 585.8 & 165 & -- & -- & T/O & 244.0 & 585.8 & 1369 & -- & -- & T/O & -- & -- & T/O \\
+				
+				\midrule
+				\multirow{3}*{\rotatebox{90}{\small \benchReal}}
+				& \rhiscom & -- & 9+6 & 1.2 / 35.3 & 13977 & 30634 & 2 & 197 & \cg504 & 128 & -- & -- & T/O & 197 & 511 & 2717 & -- & -- & T/O & -- & -- & T/O \\
+				& \erpSpl & -- & 9+232 & 2.0 / 37.1 & 723426 & 1604116 & 15 & 16562 & 37273 & 8555 & -- & -- & T/O & 16562 & 37273 & 16562 & -- & -- & T/O & -- & -- & T/O \\
+				& \windows & -- & 989+55 & 2.3 / 453.8 & 8537492 & 17028426 & 87 & 175380 & 1918927 & 114028 & -- & -- & T/O & \cg174200 & \cg 1917875 & 245532 & -- & -- & T/O & -- & -- & T/O \\
+				\bottomrule
+			\end{tabular}
+		}
+	\end{table*}
+	%
+	For benchmarks \benchMut, results are categorized by the type of mutation. For each benchmark model, the table reports the number and size of strengthening and weakening repairs (note that each repair corresponds to one \fcc); moreover, for each process setting, it reports the execution time, and the quality of the final model \mRep in terms of $\mathit{CD}$ and $\mathit{ED}$ distances. Values of the strategies \atgt, \jbool and \qm for repairing \textsf{RL} and \textsf{SL} mutations of \tightVnc and for all the benchmarks of \benchReal are not reported, because the experiment exceeded the timeout (T/O) of 1 hour.
+	
+	We evaluate the process using three research questions.
+	
+	\researchquestion{Which quality do the constraints repaired by the process have?}
+	
+	The main goal of this repair process is to not destroy domain knowledge. We consider the quality measures \textsf{ED} and \textsf{CD} to be proxies for domain knowledge preservation, under the assumption that having fewer edits means more preservation of the domain knowledge contained in the constraints. We therefore consider an approach {\it better} than another approach if it has smaller values of the quality measures.
+	
+	The process (in all its versions) completely repairs all the benchmarks models, as the \fccs in \fccSet are complete (see Thms.~\ref{thm:correctnessNaive} and \ref{thm:correctnessOptmised}). However, the quality of the repaired models depends on the adopted repair approach. The optimized approach only using selection (\onlySelection) always outperforms the na{\"i}ve process in terms of quality of the repairs, as it modifies a subset of the constraints, and so the two measures CD and ED for it are always lower. The simplification approaches sometimes allow to obtain better repairs than \onlySelection, meaning that they remove some redundancy introduced by the repair; however, there is no simplification method that is always better than the others on all the benchmarks for both measures (except for \atgt that is never worse than \espresso). 
+	We observe that, in a few cases, CD and ED are higher for a simplification method w.r.t. \onlySelection (e.g., ED of \espresso for \register RL): we have checked the example and we found that the simplification has removed some redundancy that was already present in the original model \m so modifying the model more than what done by \onlySelection.
+	
+	
+	\researchquestion{How efficient is the repair approach?}
+	
+	Computational time varies significantly for the different approaches and models: from 0-0.1ms of the smallest models, up to 245 seconds for the \windows model (the biggest model having 335 features and 943 constraints) repaired with the \espresso simplifier.
+	
+	The na{\"i}ve approach, and the optimized approach without simplification (\onlySelection), have been the fastest approaches; execution times of \onlySelection are higher than the na{\"i}ve approach for big models, as it uses a SAT solver for identifying the constraints that must be repaired (see Sect.~\ref{sec:selectionAndMod}). Simplification algorithms are the main responsible for slow performance in terms of computation time. \atgt is the slowest one, as it internally calls a SAT solver several times, and the algorithm is yet in a prototypical stage. The second slowest simplification method is \espresso, but we noticed that it is relatively faster than other methods for large models; indeed, it is the only approach able to simplify all the benchmark models, while the others cannot simplify the biggest mutations obtained for \tightVnc and all the models in \benchReal in the given timeout. For small models, \jbool is the fastest simplification method, followed by \qm; however, they both timeout for large models.
+	
+	
+	
+	\researchquestion{Is there a repair type that our process handles more efficiently?}
+	We are here interested in investigating whether there is an effect of the type of repair on the performances of the process. In order to better understand the computational cost of the type of repairs, Table~\ref{tab:experimentc} reports, for \benchReal, the average execution times of strengthening and weakening repairs in the selection and simplification phases, and also the average time of any repair (regardless of the type).
+	%
+	\begin{table}[!bt]
+		\centering%\small
+		\caption{Detailed results of the execution time for \benchReal}
+		\label{tab:experimentc}
+		%\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{c|ccc|ccc}
+			\toprule
+			& \multicolumn{6}{c}{avg. repair time per single repair (ms)}\\
+			& \multicolumn{3}{c|}{selection} & \multicolumn{3}{c}{simplification}\\
+			name & str. & wea. & avg. & str. & wea. & avg.\\
+			\midrule
+			\rhiscom & 2.6 & 4.7 & 3.4 & 57 & 54.3 & 55.9\\
+			\erpSpl & 4.3 & 17.7 & 17.2 & 119.8 & 123.3 & 123.2\\
+			\windows & 49.5 & 697.2 & 83.6 & 106.9 & 104.6 & 106.8\\
+			\bottomrule
+		\end{tabular}
+		%}
+	\end{table}
+	%
+	We only report the results of \espresso, as it is the only tool that completes before the timeout of 1 hour.
+	
+	We observe that, in the selection phase, strengthening repairs are faster than weakening repairs: indeed, the former ones only do a syntactical analysis of the constraint, while the latter ones need to call a SAT solver (see Sect.~\ref{sec:selectionAndMod}). The average repair time in the selection phase is then influenced by the number of repairs of the two types: in \erpSpl, since almost all the repairs are weakening (see Table~\ref{tab:experimentb}), the average time is mostly influenced by them; in \windows, instead, most of the repairs are strengthening (see Table~\ref{tab:experimentb}) and so the average repair time is influenced by them.
+	
+	Regarding the simplification phase, there is no significant difference between the two types of repairs.
+	
+	
+	
+	\section{Threats to Validity}\label{sec:threats}
+	We discuss the threats to the validity of our results along two dimensions.
+	
+	\paragraph{External Validity}
+	Regarding external validity, a first threat comes from the choice of the variability models on which we performed the experiments. In the benchmarks, we totally selected models of seven applications of different sizes, among them two industrial applications from the SPLOT public repository. Although we have not tested our process on bigger feature models, we believe that the number and variety of input data make the results of our evaluation generalizable to other models of similar size.
+	
+	In \benchReal, we \textit{simulated} real faults in constraints by enumerating the failure-containing combinations (and thus the single repairs) between two versions of constraints. Such simulated faults may not be accurate with respect to real usages in some scenarios. However, we believe that such results may be generalizable in cases when the faults are automatically detected by testing the \textit{updated} system implementation, with respect to an \textit{outdated} model, as we believe that the second version of the model accurately reflects the underlying system implementation.
+	
+	\paragraph{Internal Validity}
+	Regarding internal validity, a first threat involves the number of experiments and the accuracy of results. To this aim, we executed the experiments 10 times.
+	
+	Another threat comes from the metrics used to assess the effectiveness and efficiency of our approach, not being a good proxy for domain knowledge preservation. We believe, however, that the chosen metrics well represent the concepts of formula readability and impact of the changes (ED), that may be useful for successive reasoning, for a reverse engineering process from propositional formula to feature model, and for comprehension by the user.
+	
+	\smallskip
+	
+	Regarding our approach in general, we have identified the following two threats to validity. The first one regards the applicability of our repair technique. We assume that the variability model is given as a set of constraints, while in general other formats (like feature models) are widely used. However, it is almost always possible to extract the set of features and the constraints among them, so our approach is generally applicable. It is true that it may be not easy to go back from the repaired model to the original format (see Fig.~\ref{fig:splrepair}), but we try to change the model as little as possible. This should ease the identification of the applied repairs and facilitate the reverse process to extract the final variability model in another format.
+	
+	The second threat regards the assumption of the \fccs completeness. In general, we may find some conformance faults, but it may be not enough, since our process assumes that the \fccs are complete. However, we can notice that every failing test is a complete \fcc regardless of the test suite. Trying to extract a smaller failing combination from a failing test possibly requires new tests, but there already exist several techniques for fault localization that efficiently can do that~\cite{ben_2015}.
+	
+	
+	\section{Related Work}\label{sec:relatedwork}
+	
+	There exist methods to statistically infer constraints from sampled configurations~\cite{chiang_unified_2011,abukwaik_extracting_2016, temple_towards_2018,temple_learning_2017,temple_using_2016,amand_towards_2019}: they use a classifier to infer the conditions among parameter values, that determine a particular property, either a parameter above/below a certain threshold (like in~\cite{temple_learning_2017}), or directly the configuration being accepted or rejected by the system (as in~\cite{temple_using_2016}). These machine-learning based methods are well-documented and supported by application studies to real scenarios, such as learning constraints among parameters in SCAD programs that may cause defects of configurable objects to 3D print~\cite{amand_towards_2019}; and, in the case of \LaTeX, showing that it is possible to obtain constraints among Boolean or numerical values, to format the paper to meet desired properties, such as a defined page limit~\cite{acher_varylatex:_2018}. Another interesting application of inferring constraints using machine learning is the case of mining temporal and value constraints from rich logs, for event-based monitoring in industrial SoS (Systems of Systems)~\cite{krismayer_mining_2017}. The approach, integrated also with techniques from process mining and specification mining, was applied to the automation system of a metallurgical company, and it consists of a \textit{ranking} phase, based on some validity ratio metrics on the classification tree outcome, in which constraints that are more likely to be accepted by the users appear first.
+	
+	The constraints learned (or \textit{mined}) with such machine learning methods achieve a good accuracy (greater than 80\% on average~\cite{temple_learning_2017}), and they are able to completely \textit{infer} constraints from scratch, or to \textit{specialize} the model by adding the new inferred constraints to the existing ones. Our approach, however, is focused on performing any kind of repair to an existing set of constraints, and is also able to \textit{generalize} the model, or apply \textit{arbitrary edits} (as described in the classification in~\cite{thum_reasoning_2009}). Moreover, our proposed method focuses only on the \textit{manipulation} of existing constraints, and not on the actual detection of the failure-containing combinations, that we assume as input of our process. Unlike our approach, that takes the failure-containing combinations as input, those ML processes also include automatic detection of such \fccs (in the form of constraints), given a sample of configurations classified as valid or non-valid~\cite{temple_learning_2017}. For these reasons, the approaches are not alternative but complementary, as our approach is not comparable to those ML methods; however, as future work, we believe that it could be interesting to combine our process with those machine learning approaches, to have a more complete process for real case scenarios.
+	
+	A quality-based model refactoring framework assessing the quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents another approach to model repair, although it is not focused on repairing constraints in propositional logic. There is a comprehensive general work on repair of models by Reder et al.~\cite{reder_computing_2012}, with a method to detect inconsistencies using a validator, and to generate a repair tree representing in a compact way all the different viable actions to repair the model. This approach has been evaluated on UML models and OCL design rules, and is currently integrated in the Model/Analyzer plug-in for the IBM Rational Software Architect (RSA). We believe that our approach, instead, is a particular case of such repair framework in which the repair actions are fixed and determined by the selection and simplification algorithms (i.e., \espresso, \qm, etc.), whereas the inconsistency detection is left to the engineer, who has to provide a set of failure-containing combinations in input to our process. However, despite our process has a fixed repair type and in this paper we evaluated its application, it may be possible to integrate the idea of~\cite{reder_computing_2012} and build a sort of repair-action tree in which the \fccs are applied in different order, for example, or with a different simplification method for each \fcc, and we believe that the result of following another path in that repair-action tree could give slightly different results (that could be better or could also be worse).
+	
+	Program repair techniques, such as SemFix~\cite{nguyen_semfix:_2013}, GenProg~\cite{le_goues_systematic_2012}, and Par~\cite{kim_automatic_2013} already apply successive patch transformations, but to repair single faults in the code directly.
+	
+	A process to detect and repair feature models from \textit{conformance faults} with respect to another model has been presented in~\cite{icst2016}. Our work, however, is able to handle arbitrary constraints of a variability model, and adds also the simplification of such modified constraints. The need for a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but no experiments were yet performed.
+	
+	In the classification of edits to variability models presented in~\cite{lotufo_evolution_2010}, our process fits the categories \textit{build fix} and \textit{adherence to changes in code}; in the classification of edits to variability models presented in~\cite{thum_reasoning_2009}, our process is able to address all kind of edits: in the case of {\it arbitrary edits}, it achieves them by applying \textit{specialization} (what we call \textit{strengthening repair}) and \textit{generalization} (what we call \textit{weakening repair}) sequentially.
+	
+	A different technique for feature model repair in the context of system evolution, with different versions of systems, used mutation operators to make the model meet a specific \textit{update request}~\cite{evalUpdateJSS2019,arcaini_evolutionary_2018}; however, that approach does not handle arbitrary constraints, and does not guarantee to completely fulfil the update request, and thus to repair the model. We believe that that approach could be extended with our process, to be able to \textit{repair} not only the feature \textit{tree}, but the constraints as well.
+	
+	Repair of constraints has usage also in other contexts, such as the repair of parameter values of timed automata clock guards, by applying tests and specializing the constraints~\cite{andre_tap_2019}; and in the detection of constraints among parameters that let the built attack string trigger an XSS vulnerability in the system~\cite{garn2019}.
+	%however, due to continuous nature of \tas, the possible mutants could be too many. For this reason, our approach symbolically represents all the possible variations of the clock guards (similar to ``change guard'' mutants }
+	
+	
+	\section{Conclusion}\label{sec:conclusions}
+	We proposed a process that, given a (faulty or outdated) variability model, and the faults in terms of failure-containing combinations, identifies the constraints involved in the fault, repairs them according to the oracle value, and simplifies them to make the edit minimal. We conducted an empirical evaluation on 7 models of different sizes, and found that the process of selecting only some constraints is indeed more effective than the na{\"i}ve approach that modifies all of them. Moreover, we observed that simplification approaches can further improve the quality of the repair. However, their applicability is limited by the model size, as most of them do not scale on big models.
+	
+	As future work, we plan to adapt our approach to larger models and to include in the evaluation the performances of reverse engineering the final constraints into a variability model (in case the repairs affected the structure of the initial variability model). As future work, we also want to address the current limitations; for example, by designing better selection and simplification strategies, by extending the method to non-boolean variables, and by including new simplification techniques. Furthermore, in order to better preserve domain knowledge, we plan to design an approach that interacts with domain engineers, for instance by highlighting implicit constraints as in~\cite{ananieva_implicit_2016}.
+\end{tikzborder}
 
-
-\part{Test-Driven Model Repair}
+%\part{Test-Driven Model Repair}
 \chapter{Repair of Configuration Constraints}
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 %Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
@@ -2212,7 +2847,7 @@ Another direction for future work regards test case generation. The server is co
 The server could have performance issues due to overloading in case for example there are many requests with large models. The web service could be improved by attaching a process scheduler and a load balancer. Test suite generation becomes therefore asynchronous also on the server, which queues the requests and makes the test suites available as soon as they are generated.
 
 \paragraph{External generation tool support}
-An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{Nie2006         }, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
+An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{Nie2006}, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
 \cite{ipog}, IPOG-D \cite{ipog}, IPOG-F \cite{forbes2008refining}, IPOG-F2 \cite{forbes2008refining} and PaintBall \cite{318466}. 
 The possibility to download the translated input file along with the executable command parameters for each of the generators allows further customization and therefore can be an interesting future extension of the tool.
 
