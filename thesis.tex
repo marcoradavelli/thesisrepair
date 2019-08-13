@@ -1,47 +1,20 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masters/Doctoral Thesis 
-% LaTeX Template
-% Version 2.5 (27/8/17)
-%
-% This template was downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Version 2.x major modifications by:
-% Vel (vel@latextemplates.com)
-%
-% This template is based on a template by:
-% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
-% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
-%
-% Template license:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass[
-12pt, % The default document font size, options: 10pt, 11pt, 12pt
-oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
-english, % ngerman for German
-singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
-%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
-%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
-%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
-%toctotoc, % Uncomment to add the main table of contents to the table of contents
-%parskip, % Uncomment to add space between paragraphs
-%nohyperref, % Uncomment to not load the hyperref package
-headsepline, % Uncomment to get a line under the header
-%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
-consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
-]{MastersDoctoralThesis} % The class file specifying the document structure
-
-\usepackage[utf8]{inputenc} % Required for inputting international characters
-\usepackage[T1]{fontenc} % Output font encoding for international characters
+\documentclass [a4paper, 12pt, twoside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{textcomp}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{15pt} 
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LE,RO]{\thepage}
 
 \usepackage{mathpazo} % Use the Palatino font by default
+
+\usepackage{cite}
+
+%\usepackage[nottoc]{tocbibind}
 
 %\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
@@ -50,36 +23,22 @@ consistentlayout, % Uncomment to change the layout of the declaration, abstract 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 
 %----------------------------------------------------------------------------------------
-%	MARGIN SETTINGS
-%----------------------------------------------------------------------------------------
-
-\geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
-	bindingoffset=.5cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
-	%showframe, % Uncomment to show how the type block is set on the page
-}
-
-%----------------------------------------------------------------------------------------
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Using Software Testing to Repair Models} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{Prof. Angelo \textsc{Gargantini}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
-\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{Marco \textsc{Radavelli}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
-\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+\def \ttitle {Using Software Testing to Repair Models} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\def \supname {Prof. Angelo \textsc{Gargantini}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\def \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\def \degreename{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\def \authorname{Marco \textsc{Radavelli}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\def \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
-\subject{Engineering and Applied Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
-\university{\href{http://www.unibg.it}{University of Bergamo}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
-\department{\href{https://www.unibg.it/ingegneria}{School of Engineering}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{\href{https://cs.unibg.it}{Computer Science Group}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{\href{https://www.unibg.it/engineering}{Department of Management, Production and Information Engineering}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+\def \subjectname{Engineering and Applied Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\def \keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\def \univname{\href{http://www.unibg.it}{University of Bergamo}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\def \deptname{\href{https://www.unibg.it/ingegneria}{School of Engineering}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\def \groupname{\href{https://cs.unibg.it}{Computer Science Group}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\def \facname{\href{https://www.unibg.it/engineering}{Department of Management, Production and Information Engineering}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 \AtBeginDocument{
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -89,26 +48,8 @@ consistentlayout, % Uncomment to change the layout of the declaration, abstract 
 
 %\theoremstyle{remark}
 
-\usepackage{color}
-\usepackage{amsthm}
-\usepackage{stfloats}
-\usepackage{paralist}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{subcaption}
-\usepackage{amssymb}% http://ctan.org/pkg/amssymb
-\usepackage{pifont}% http://ctan.org/pkg/pifont
-%\usepackage[numbers,super]{natbib}
-%\usepackage{bibentry}
-\usepackage{cite}
-\usepackage{amsmath,amssymb,amsfonts}
-%\usepackage{algorithmic}
-\usepackage{textcomp}
-\usepackage{color}
-\usepackage{xspace}
-\usepackage{verbatim}
-\usepackage{xcolor,colortbl}
+\usepackage{color,amsthm,stfloats,paralist,graphicx,url,booktabs,subcaption,amssymb,pifont,bibentry,amsmath,amsfonts,textcomp,xspace}
+\usepackage{verbatim,xcolor,colortbl}
 \usepackage[unicode=true,
 %bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,pdfauthor={Angelo Gargantini},
 %breaklinks=false,backref=false,
@@ -117,52 +58,34 @@ pdfborder={0 0 0},colorlinks=false]{hyperref}
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \usepackage{comment}
 \usepackage{array} % for centering in tables: https://tex.stackexchange.com/questions/157389/how-to-center-column-values-in-a-table
-\usepackage{listings}
-\usepackage{multirow}
-\usepackage{subcaption}
-\usepackage{makecell}
+\usepackage{listings,multirow,subcaption,makecell}
 %\usepackage{algorithmicx}
 \usepackage{algorithm} % http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode} % http://ctan.org/pkg/algorithmicx
-\usepackage{xcolor,colortbl}
-\usepackage{xspace}
-\usepackage{centernot}
-\usepackage{bookmark} %https://tex.stackexchange.com/questions/33277/pdf-bookmark-customization
+%\usepackage[ruled,vlined,linesnumbered,algo2e]{algorithm2e}
+%\SetKwInOut{Input}{input}
+%\SetKwInOut{Output}{output}
+\usepackage{centernot,bookmark} %https://tex.stackexchange.com/questions/33277/pdf-bookmark-customization
 
 \usepackage[colorinlistoftodos,prependcaption,textsize=normalsize,backgroundcolor=blue!10]{todonotes}
 %\presetkeys{todonotes}{inline}{}
-\usepackage{comment}
 \usepackage{tikz}
 
 \usepackage{bm}
 
-%\usepackage[a5paper,rmargin=4cm]{geometry}
-\usepackage{atbegshi}
-\usepackage{refcount}
-\usepackage{setspace}
-\usepackage{tikzpagenodes}
-\usetikzlibrary{calc}
-\usepackage{lineno,hyperref}
+\usepackage[a4paper,rmargin=3cm]{geometry}
+\usepackage{atbegshi,refcount,setspace,tikzpagenodes,calc,hyperref}
 \hypersetup{
 colorlinks = false, % false: boxed links; true: colored links
-hidelinks = true,
+%hidelinks = true,
 linkcolor=black, % color of internal links
 citecolor=black, % color of links to bibliography
 urlcolor=black, % color of external links
 filecolor=black
 }
-\usepackage{subcaption}
 \usepackage[T1]{fontenc}
-\usepackage{verbatim}
-\usepackage{float}
-\usepackage{tabularx}
-\usepackage{units}
-\usepackage{pgfplots}
-\usepackage{tikz}
-\usepackage{bibentry}
-\usepackage{rotating}
-\usetikzlibrary{matrix,arrows,positioning,patterns}
-\usetikzlibrary{decorations,decorations.text,backgrounds}
+\usepackage{float,tabularx,units,pgfplots,rotating}
+\usetikzlibrary{matrix,arrows,positioning,patterns,decorations,decorations.text,backgrounds}
 \tikzset{
     feature/.style={draw, inner sep=1.5mm, font=\small\sffamily, fill=white},
     opt/.style={fill=white}}
@@ -397,7 +320,6 @@ EnumerativeType, Number, Range, TestGoals,
 
 \newcommand{\PAR}{\ensuremath{\mathit{PAR}}\xspace}
 
-
 \newcommand{\UR}{\ensuremath{\mathit{UR}}\xspace}
 \newcommand{\FR}{\ensuremath{\mathit{FR}}\xspace}
 \newcommand{\AlToOr}{\texttt{AlToOr}\xspace}
@@ -483,7 +405,7 @@ EnumerativeType, Number, Range, TestGoals,
 \newcommand{\fScore}{\rm{F-score}\xspace}
 
 \newcommand{\fakeparagraph}{\paragraph}
-\newcommand{\testSuite}{\ensuremath{\mathit{TS}}\xspace}
+\newcommand{\testSuiteTA}{\ensuremath{\mathit{TS}}\xspace}
 \newcommand{\testData}{\ensuremath{\mathit{TD}}\xspace}
 \newcommand{\testDataConf}{\ensuremath{\mathit{TD_{SC}}}\xspace}
 % \newcommand{\pta}{\ensuremath{\mathit{PTA}}\xspace}
@@ -494,7 +416,7 @@ EnumerativeType, Number, Range, TestGoals,
 \newcommand{\initTa}{\ensuremath{\mathit{ta_{init}}}\xspace}
 \newcommand{\repTa}{\ensuremath{\mathit{ta_{rep}}}\xspace}
 % \newcommand{\oracle}{\ensuremath{\mathit{oracle}}\xspace}
-\newcommand{\oracle}{\ensuremath{\mathcal{O}}\xspace}
+\newcommand{\oracleTa}{\ensuremath{\mathcal{O}}\xspace}
 \newcommand{\newTests}{\ensuremath{\mathit{newTests}}\xspace}
 \newcommand{\paramAssign}{\ensuremath{\mathit{ParamAssign}}\xspace}
 \newcommand{\mba}{\ensuremath{\mathit{MBA}}\xspace}
@@ -560,7 +482,7 @@ EnumerativeType, Number, Range, TestGoals,
 % \newcommand{\BranchingCard}{B}
 \newcommand{\BTrue}{\text{true}}
 \newcommand{\BFalse}{\text{false}}
-\newcommand{\C}{C}
+%\newcommand{\C}{C} %TODO check why it is already defined
 \newcommand{\Constr}{\ensuremath{\mathcal{C}}}
 \newcommand{\Clock}{\mathbb{X}} % set of clocks
 \newcommand{\ClockCard}{H} % cardinality of clocks
@@ -677,7 +599,6 @@ EnumerativeType, Number, Range, TestGoals,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\imitator}{\textsf{IMITATOR}\xspace}
 \newcommand{\uppaal}{\textsc{Uppaal}}
-\usepackage{paralist} % inline lists
 
 % Enumeration with (i)
 \newenvironment{ienumeration}
@@ -689,32 +610,10 @@ EnumerativeType, Number, Range, TestGoals,
 {\ifdefined\VersionLong\begin{enumerate}\else\begin{inparaenum}[1)]\fi}
 		{\ifdefined\VersionLong\end{enumerate}\else\end{inparaenum}\fi}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DYNAMIC LINKS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[svgnames,table]{xcolor}
-\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
-\definecolor{darkgreen}{rgb}{0, 0.5, 0}
-\definecolor{darkpurple}{rgb}{0.7, 0, 0.7}
-\definecolor{darkblue}{rgb}{0, 0, 0.7}
-
-\usepackage[
-colorlinks=true,
-\ifdefined \VersionWithComments
-pagebackref=true,
-\fi
-citecolor=darkgreen,
-linkcolor=darkblue,
-urlcolor=darkpurple,
-]{hyperref}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TIKZ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tikz
-\usepackage{tikz}
 \usetikzlibrary{arrows,automata,positioning,shapes} % shapes for 'cloud'
 \tikzstyle{every node}=[initial text=]
 \tikzstyle{location}=[rectangle, rounded corners, minimum size=12pt, draw=black, fill=blue!10, inner sep=2pt]
@@ -798,54 +697,7 @@ urlcolor=darkpurple,
 	
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% BEGIN Watermarking
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifdefined\VersionWithComments
-\usepackage{draftwatermark}
-\SetWatermarkText{draft}
-\SetWatermarkScale{15}
-\SetWatermarkColor[gray]{0.9}
-\fi
-% END Watermarking
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CLEVER REFERENCES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[capitalise,english,nameinlink]{cleveref} % load after algorithm2e and hyperref
-\crefname{line}{\text{line}}{\text{lines}} % to remove the capital
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LONG/SHORT VERSION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifdefined \VersionLong
-\newcommand{\LongVersion}[1]{\ifdefined\VersionWithComments{\color{red!40!black}#1}\else#1\fi}
-\newcommand{\ShortVersion}[1]{\ifdefined\VersionWithComments{\color{black!40}#1}\fi}
-\else
-\newcommand{\LongVersion}[1]{}
-% 	\newcommand{\LongVersion}[1]{\ifdefined\VersionWithComments{\color{black!40}#1}\fi}
-\newcommand{\ShortVersion}[1]{\ifdefined\VersionWithComments{\color{red!40!black}#1}\else#1\fi}
-\fi
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% COMMENTS MACROS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifdefined\VersionWithComments
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\else
-\newcommand{\red}[1]{}
-\fi
-
-\ifdefined\VersionWithComments
-\usepackage[colorinlistoftodos,textsize=footnotesize]{todonotes}
-\else
-\usepackage[disable]{todonotes}
-\fi
 \newcommand{\gennote}[3]{\xspace{}\todo[linecolor=#2,backgroundcolor=#2!25,bordercolor=#2]{#3: #1}\xspace{}}
 \newcommand{\ea}[1]{\gennote{#1}{blue}{ÉA}}
 \newcommand{\mr}[1]{\gennote{#1}{orange}{MR}}
@@ -853,48 +705,15 @@ urlcolor=darkpurple,
 \newcommand{\instructions}[1]{{\gennote{\bfseries #1}{red}{Instructions}}}
 \newcommand{\reviewer}[2]{{\gennote{``#2''}{purple}{Reviewer #1}}}
 
-% Sometimes, we just need the old-style TODO!
-\ifdefined \VersionWithComments
-\newcommand{\todoinline}[1]{\mbox{}{\color{red}{\textbf{TODO}\ifx#1\\\else:\ \fi #1}}} % here, ``\\'' stands for ``empty''
-\else
-\newcommand{\todoinline}[1]{}
-\fi
-
-
-
-
-%\usepackage[bookmarks=false]{hyperref}
-%\hypersetup{
-%colorlinks = true, % false: boxed links; true: colored links
-%linkcolor=black, % color of internal links
-%citecolor=black, % color of links to bibliography
-%urlcolor=black % color of external links
-%}
-
-\usepackage{centernot}
-
 \AtBeginDocument{%
 	\providecommand\BibTeX{{%
 			\normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
 
 
-\usepackage{graphicx}
-%\usepackage[caption=false]{subfig}
-\usepackage{verbatim}
-\usepackage{subcaption}
-
-\usepackage{booktabs}
-\usepackage{multirow}
-\usepackage{color}
-\usepackage{xcolor,colortbl}
-%\definecolor{light-gray}{gray}{0.8}
-\usepackage{stfloats}%for correct floating of two-columns figures
-\usepackage{paralist}
-\usepackage{xspace}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 %\theoremstyle{plain}
 \newtheorem{thm}{\protect\theoremname}
+\newtheorem{theorem}{\protect\theoremname}
 %\theoremstyle{definition}
 \newtheorem{defn}[thm]{\protect\definitionname}
 \newtheorem{definition}[thm]{\protect\definitionname}
@@ -902,6 +721,8 @@ urlcolor=darkpurple,
 \newtheorem{example}[thm]{\protect\examplename}
 %\theoremstyle{remark}
 \newtheorem{rem}[thm]{\protect\remarkname}
+\providecommand{\remarkname}{Remark}
+\newtheorem{remark}[thm]{\protect\remarkname}
 \providecommand{\remarkname}{Remark}
 %\newfloat{algorithm}{tbp}{loa}
 \providecommand{\algorithmname}{Algorithm}
@@ -1098,15 +919,15 @@ urlcolor=darkpurple,
 	
 \nobibliography*
 
-\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+%\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 
-\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+%\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\frontmatter
+%\frontmatter
 \begin{titlepage}
   \begin{center}
     \includegraphics[scale=0.5]{images/sigillo.png}
@@ -1156,142 +977,50 @@ urlcolor=darkpurple,
     	July\or August\or September\or October\or November\or December\fi,
     	\number\year
     }
-    
-   
-    
-    %P.O.Box 68 (Gustaf 2b)
-    
-    %00014 University of Helsinki, Finland
-    
+        
   \end{center}
 \end{titlepage}
 
 
-
 \clearpage
 
-%----------------------------------------------------------------------------------------
-%	DECLARATION PAGE
-%----------------------------------------------------------------------------------------
-
-\begin{declaration}
-\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
-\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
-
-\begin{itemize} 
-\item This work was done wholly or mainly while in candidature for a research degree at this University.
-\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
-\item Where I have consulted the published work of others, this is always clearly attributed.
-\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
-\item I have acknowledged all main sources of help.
-\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
-\end{itemize}
- 
-\noindent Signed:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
- 
-\noindent Date:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
-\end{declaration}
-
-\cleardoublepage
-
-%----------------------------------------------------------------------------------------
-%	QUOTATION PAGE
-%----------------------------------------------------------------------------------------
-
-\vspace*{0.2\textheight}
-
-\noindent\enquote{\itshape Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism.}\bigbreak
-
-\hfill Dave Barry
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
-\begin{abstract}
-\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+\clearpage
+\title{abstract}
+%\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to a specification.
 While most of the techniques in software testing are applied to debugging, fault-localization, and repair of code, to the best of our knowledge there are fewer works regarding the application of software testing to locating faults in models and to the automated repair of such faults.
 The goal of this PhD project proposal is to study how testing can be applied to repair models. %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
 We describe the research approach and discuss the application cases of combinatorial and feature models.
 We then discuss future work of applying testing to repair models for other scenarios, such as timed automata.
-\end{abstract}
-
-%----------------------------------------------------------------------------------------
-%	ACKNOWLEDGEMENTS
-%----------------------------------------------------------------------------------------
-
-\begin{acknowledgements}
-\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
-\end{acknowledgements}
+%\end{abstract}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %----------------------------------------------------------------------------------------
 
+\clearpage
+
 \tableofcontents % Prints the main table of contents
+
+\clearpage
 
 \listoffigures % Prints the list of figures
 
+\clearpage
+
 \listoftables % Prints the list of tables
 
-%----------------------------------------------------------------------------------------
-%	ABBREVIATIONS
-%----------------------------------------------------------------------------------------
+\clearpage
 
-\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+%\mainmatter % Begin numeric (1,2,3...) page numbering
 
-\textbf{SPL} & \textbf{S}oftware \textbf{P}roduct \textbf{L}ine(s)\\
-\textbf{CIT} & \textbf{C}ombinatorial \textbf{I}nteraction \textbf{T}esting\\
-
-\end{abbreviations}
-
-%----------------------------------------------------------------------------------------
-%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
-%----------------------------------------------------------------------------------------
-
-%\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
-
-% The \SI{}{} command is provided by the siunitx package, see its documentation for instructions on how to use it
-
-%Speed of Light & $c_{0}$ & \SI{2.99792458e8}{\meter\per\second} (exact)\\
-%Constant Name & $Symbol$ & $Constant Value$ with units\\
-
-%\end{constants}
-
-%----------------------------------------------------------------------------------------
-%	SYMBOLS
-%----------------------------------------------------------------------------------------
-
-%\begin{symbols}{lll} % Include a list of Symbols (a three column table)
-
-%$a$ & distance & \si{\meter} \\
-%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
-%Symbol & Name & Unit \\
-
-%\addlinespace % Gap to separate the Roman symbols from the Greek
-
-%$\omega$ & angular frequency & \si{\radian} \\
-
-%\end{symbols}
-
-%----------------------------------------------------------------------------------------
-%	DEDICATION
-%----------------------------------------------------------------------------------------
-
-%\dedicatory{For/Dedicated to/To my\ldots} 
-
-%----------------------------------------------------------------------------------------
-%	THESIS CONTENT - CHAPTERS
-%----------------------------------------------------------------------------------------
-
-\mainmatter % Begin numeric (1,2,3...) page numbering
-
-\pagestyle{thesis} % Return the page headers back to the "thesis" style
+%\pagestyle{thesis} % Return the page headers back to the "thesis" style
 
 % Include the chapters of the thesis as separate files from the Chapters folder
 % Uncomment the lines as you write the chapters
@@ -1453,7 +1182,7 @@ Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem ins
 %In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
 %In the formulation stage, for each scenario, we \textit{decline} the repair problem to that particular kind of model, and apply or tailor existing techniques to propose a solution to the model repair problem.
 
-We devise an iterative process to automatically repair models: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:approach} shows an overview of such test-driven repair approach. 
+We devise an iterative process to automatically repair models: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:researchapproach} shows an overview of such test-driven repair approach. 
 Among testing techniques to be employed, black-box testing is an effective technique to detect faults in a system focusing on the inputs, without needing access to the code, but requiring simply an oracle that states if a particular test %(i.e., a system configuration)
 passes or fails. 
 Combinatorial Interaction Testing (CIT), in particular, has shown to achieve high coverage in software systems for which a parametric, configurable model can be defined. Moreover, we use mutation analysis and search-based methods for \textit{feature models}, a model that has also a graphical tree representation, and these methods tend to apply \textit{small} edits to the model, helping preserve domain knowledge.
@@ -1524,14 +1253,14 @@ In the rest of this PhD proposal, we present the research methodology, and the a
 We then discuss other possible scenarios in which model repair can be employed.
 %We illustrate the positive and negative aspects of them, and propose other possible scenarios in which model repair can be employed.
 
-\section{Research Approach}\label{sec:relatedwork}
+\section{Research Approach}\label{sec:relatedwork1}
 The research process, designed in accordance with the defined objectives, consists of two stages: the reviewing stage, and the formulation stage.
 In the reviewing stage, we evaluate existing techniques that may be useful for the objective, and explore possible application scenarios, to determine the kind of models that can be repaired from software testing results.
 In the formulation stage, for each scenario, we try to formulate the concepts and \textit{decline} the repair problem to that particular kind of model; then we apply or tailor the existing techniques to propose a solution to the model repair problem.
 Among testing techniques to be employed, black-box testing is an effective technique to detect faults in a system focusing on the inputs, without needing access to the code, but requiring simply an oracle that states if a particular test %(i.e., a system configuration)
 passes or fails. 
 Combinatorial Interaction Testing (CIT), in particular, has shown to achieve high coverage in software systems for which a parametric, configurable model can be defined. Mutation analysis and search-based methods are also to take into consideration, when possible, as they tend to apply \textit{small} edits to the model, helping preserve domain knowledge.
-The process is iterative: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:approach} shows an overview of such test-driven repair process. % New tests are generated from the repaired model, for a more fine-grained check of correctness.%Combinatorial Interaction Testing (CIT), in particular, has shown to be achieving high coverage in testing software systems for which a parametric, configurable model can be defined. Mutation analysis and search-based methods are also to take into consideration, when possible, as they to apply \textit{small} edits to the model, helping preserve domain knowledge.
+The process is iterative: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:researchapproach} shows an overview of such test-driven repair process. % New tests are generated from the repaired model, for a more fine-grained check of correctness.%Combinatorial Interaction Testing (CIT), in particular, has shown to be achieving high coverage in testing software systems for which a parametric, configurable model can be defined. Mutation analysis and search-based methods are also to take into consideration, when possible, as they to apply \textit{small} edits to the model, helping preserve domain knowledge.
 %For each application, the process should be automated or semi-automated,% and can be devised by choosing one application at a time, 
 %and obtained by combining existing techniques and/or a customization of them, or new approaches should be devised if needed.
 %and determine how existing techniques can be arranged in a way to actually succeed in repairing the particular chosen type of configuration model 
@@ -1542,7 +1271,7 @@ Benchmarks should be selected for evaluation, and tools to implement the repair 
 	\centering
 	\includegraphics[width=.8\columnwidth]{images/repair.png}
 	\caption{Test-Driven process to repair models}
-	\label{fig:approach}
+	\label{fig:researchapproach}
 \end{figure}
 
 \section{Results to date}
@@ -1597,7 +1326,7 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 %The process is driven by update configurations or failure-inducing combinations in the input parameters of the system, and black-box (in particular, combinatorial) test generation and fault detection and localization techniques, are important to support engineers in determining such inputs for the repair process.
 %To this purpose, we make use of a tool to make it easier the editing of combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}, and we devise a fault localization process, based on combinatorial testing, that guarantees to find the correct detection of failure-inducing combinations, under the assumption that the maximum strength of the real failure-inducing combinations is known.
 
-\section{Basic definitions}\label{sec:basic}
+\section{Basic definitions}\label{sec:basicDef}
 
 \begin{tikzborder}{\cite{arcaini2018evolutionary}}
 In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
@@ -1625,7 +1354,7 @@ Some frameworks for feature models also support {\it complex} cross-tree constra
 
 Feature models can be visually represented by means of feature diagrams, and their semantics can be expressed by using propositional logic~\cite{batory2005feature,benavides2010automated}: features are represented by propositional variables, and relations among features by propositional formulae. We identify with $\fmToBool(\fm)$ the \textsc{BO}olean \textsc{F}ormula representing a feature model \fm.
 
-\begin{mydef}[\textbf{Configuration}]\label{def:configuration}
+\begin{mydef}[\textbf{Configuration}]\label{def:configuration1}
 A \emph{configuration} $c$ of a feature model \fm is a subset of the features $F$ of \fm (i.e., $c \subseteq F$).
 \end{mydef}
 
@@ -2218,7 +1947,7 @@ As explained in Sect.~\ref{sec:prodBasedChangeReqs}, our fitness function (see E
 For easing the comparison, we also report the same data of the results obtained with the previous experiment (already reported in Table~\ref{tab:processPerformance}). In order to check whether the consideration of cross-tree constraints has some effect on the final results, we have applied to the data the classical hypothesis testing by performing the Wilcoxon signed-rank test\footnote{We performed a non-parametric test as we found, with the Shapiro-Wilk test, that the distributions are not normal.}~\cite{Wohlin2012} between the results with the two versions of fitness. The null hypothesis that considering $\mathit{ctc}$ has no impact of the final model cannot be rejected for the percentage of totally updated models (i.e., semantically equivalent), but it is rejected for the syntactical equivalence with $p$-value equal to 0.0038. This confirms that penalizing  the usage of cross-tree constraints in the fitness improves the quality (readability) of the final model without compromising the ability of the approach in achieving the update request.
 
 
-\section{Threats to validity}\label{sec:threats}
+\section{Threats to validity}\label{sec:threats1}
 We discuss the threats to the validity of our results along two dimensions, \emph{external} and \emph{internal} validity~\cite{Wohlin2012}.
 
 \subsection{External validity}\label{sec:externalValidity}
@@ -2313,7 +2042,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 		%
 		\begin{table}[!tb]
 			\caption{Test suites with faults (in gray)}
-			\label{table:testsandfaults}
+			\label{table:testsandfaults1}
 			\begin{subtable}[t]{.5\columnwidth}
 				\centering
 				\caption{\underConstr fault}
@@ -2442,7 +2171,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 		\item \textsf{simplification} of the modified constraints.
 	\end{inparaenum}
 	%
-	Note that the process can be iterative if we identified more than one \fcc (as in the experiments in Sect.~\ref{sec:experiments}). In the following, we consider one iteration of the process.
+	Note that the process can be iterative if we identified more than one \fcc (as in the experiments in Sect.~\ref{sec:repairevaluation}). In the following, we consider one iteration of the process.
 	
 	
 	\subsubsection{Update phase: \textsf{selection} and \textsf{modification}}\label{sec:selectionAndMod}
@@ -2499,7 +2228,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 	\end{proof}
 	
 	
-	\section{Evaluation}\label{sec:experiments}
+	\section{Evaluation}\label{sec:repairevaluation}
 	
 	In order to apply our process, we need a faulty variability model \m, a set of failure-containing combinations \fccSet, and an {\it oracle}. For the sake of experiments, we take as oracle another variability model \mO, instead of the real oracle; in this way, we can also extract the set \fccSet by comparing \m and \mO.
 	
@@ -2756,7 +2485,7 @@ The repairs are of two types, depending on whether the model is true and the sys
 		\begin{subtable}[t]{.5\columnwidth}
 			\centering
 			\caption{\underConstr fault}
-			\label{table:underConstrFault}
+			\label{table:underConstrFault2}
 			\begin{tabular}{c|c|c||c|c}
 				A & B & C & \mfU & oracle\\
 				\hline 
@@ -2823,23 +2552,22 @@ We propose a framework for automatic repair of \tas that takes as input a \ta \i
 	\item starting from \initTa, we build a PTA \ptaProc where to look for the repaired \ta;
 	\item we build a symbolic representation of the language accepted by \ptaProc in terms of an {\it extended parametric zone graph} \epzg;
 	\item we then generate some test data \testData from \epzg;
-	\item we assess the correct evaluation of \testData by querying the {\it oracle}, so building the test suite \testSuite;
-	\item we feed the tests \testSuite to the \imitator tool that finds some constraints \ptaConstr that restrict \ptaProc only to those \tas that correctly evaluate all the tests in \testSuite;
+	\item we assess the correct evaluation of \testData by querying the {\it oracle}, so building the test suite \testSuiteTA;
+	\item we feed the tests \testSuiteTA to the \imitator tool that finds some constraints \ptaConstr that restrict \ptaProc only to those \tas that correctly evaluate all the tests in \testSuiteTA;
 	\item as the number of \tas that are correct repairs may be infinite, we try to obtain, using a constraint solver based on local search, the \ta \repTa closest to the initial \ta \initTa. Note that trying to modify as less as possible the initial \ta is reasonable if we assume the competent programmer hypothesis~\cite{surveyMutationTestingPapadakis2018}.
 \end{ienumeration}
 
-\LongVersion{In order to}\ShortVersion{To} evaluate the feasibility of the approach, we \LongVersion{have }performed some preliminary experiments showing that the approach is able to (partially) repair a faulty \ta. 
+To evaluate the feasibility of the approach, we performed some preliminary experiments showing that the approach is able to (partially) repair a faulty \ta. 
 %Moreover, we observed that the method can remove some faults even when the oracle TA is structurally different from the initial TA (\ie{} the assumption of the approach does not hold).\pa{Sentence restored.}
 
 %\paragraph{Related works}
 %\todo{}
 
 \fakeparagraph{Outline}
-\LongVersion{The paper is structured as follows.}
-\cref{sec:definitions} explains the definitions we need in our approach.
-Then \cref{sec:proposedApproachSingle} presents the process we propose that combines model abstraction, test generation, constraint generation, and constraint solving.
-\cref{sec:evaluation} describes experiments we performed to evaluate our process.
-Finally, \cref{sec:related} reviews some related work, and \cref{sec:conclusions} concludes the paper.
+\ref{sec:definitions} explains the definitions we need in our approach.
+Then \ref{sec:proposedApproachSingle} presents the process we propose that combines model abstraction, test generation, constraint generation, and constraint solving.
+\ref{sec:evaluation} describes experiments we performed to evaluate our process.
+Finally, \ref{sec:related} reviews some related work, and \ref{sec:conclusions} concludes the paper.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2849,36 +2577,22 @@ Finally, \cref{sec:related} reviews some related work, and \cref{sec:conclusions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\LongVersion{
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\subsection{Timed words and languages}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
 A \emph{timed word}~\cite{AD94} over an alphabet of actions~$\Actions$ is a possibly infinite sequence of the form
 $(\action_0 , d_0) (\action_1, d_1) \cdots$
 such that, for all integer $i \geq 0$, $\action_i \in \Actions$ and $d_i \leq d_{i+1}$.
 A timed language is a (possibly infinite) set of timed words.
 
-
-
-\LongVersion{
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\subsection{Clocks, parameters and guards}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
-
-
 We assume a set~$\Clock = \{ \clock_1, \dots, \clock_\ClockCard \} $ of \emph{clocks}, \ie{} real-valued variables that evolve at the same rate.
-A clock valuation is\LongVersion{ a function}
+A clock valuation is 
 $\clockval : \Clock \rightarrow \Rgeqzero$.
 We write $\ClocksZero$ for the clock valuation assigning $0$ to all clocks.
-Given $d \in \Rgeqzero$, $\clockval + d$ \ShortVersion{is}\LongVersion{denotes the valuation} \st{} $(\clockval + d)(\clock) = \clockval(\clock) + d$, for all $\clock \in \Clock$.
+Given $d \in \Rgeqzero$, $\clockval + d$ is \st{} $(\clockval + d)(\clock) = \clockval(\clock) + d$, for all $\clock \in \Clock$.
 %
 Given $\resets \subseteq \Clock$, we define the \emph{reset} of a valuation~$\clockval$, denoted by $\reset{\clockval}{\resets}$, as follows: $\reset{\clockval}{\resets}(\clock) = 0$ if $\clock \in \resets$, and $\reset{\clockval}{\resets}(\clock)=\clockval(\clock)$ otherwise.
 
 % Throughout this paper,
-We assume a set~$\Param = \{ \param_1, \dots, \param_\ParamCard \} $ of \emph{parameters}\LongVersion{, \ie{} unknown constants}.
-A parameter {\em valuation} $\pval$ is\LongVersion{ a function}
+We assume a set~$\Param = \{ \param_1, \dots, \param_\ParamCard \} $ of \emph{parameters}.
+A parameter {\em valuation} $\pval$ is
 $\pval : \Param \rightarrow \grandqplus$.
 We assume ${\compOp} \in \{<, \leq, =, \geq, >\}$.
 A \emph{clock guard}~$\guard$ is a constraint over $\Clock \cup \Param$ defined by a conjunction of inequalities of the form
@@ -2895,14 +2609,8 @@ Given~$\guard$, we write~$\clockval\models\pval(\guard)$ if %$\valuate{\valuate{
 the expression obtained by replacing each~$\clock$ with~$\clockval(\clock)$ and each~$\param$ with~$\pval(\param)$ in~$\guard$ evaluates to true.
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Parametric timed automata}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\LongVersion{Parametric timed automata (PTAs) extend timed automata with parameters within guards and invariants in place of integer constants~\cite{AHV93}.}
-
-%----------------------------------------------------------
 \begin{definition}[PTA]\label{def:uPTA}
 	A PTA $\A$ is a tuple \mbox{$\A = (\Actions, \Loc, \locinit, \LocsFinal, \Clock, \Param, \invariant, \Edges)$}, where:
 	\begin{ienumeration}
@@ -2917,18 +2625,14 @@ the expression obtained by replacing each~$\clock$ with~$\clockval(\clock)$ and 
 		where~$\loc,\loc'\in \Loc$ are the source and target locations, $\action \in \Actions$, $\resets\subseteq \Clock$ is a set of clocks to be reset, and $\guard$ is a clock guard.
 	\end{ienumeration}
 \end{definition}
-%----------------------------------------------------------
 
 Given $\edge = (\loc,\guard,\action,\resets,\loc')$, we define $\act(\edge) = \action$.
 
-%----------------------------------------------------------
 \begin{example}
-	Consider the PTA in \cref{figure:example-PTA}, containing two clocks~$\styleclock{x}$ and \styleclock{y} and three parameters~$\parami{2}$, $\parami{3}$ and~$\parami{4}$.
+	Consider the PTA in \ref{figure:example-PTA}, containing two clocks~$\styleclock{x}$ and \styleclock{y} and three parameters~$\parami{2}$, $\parami{3}$ and~$\parami{4}$.
 	The initial location is~$\loc_1$.
 \end{example}
-%----------------------------------------------------------
 
-%----------------------------------------------------------
 \begin{figure}[!tb]
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
@@ -2997,81 +2701,11 @@ Given $\edge = (\loc,\guard,\action,\resets,\loc')$, we define $\act(\edge) = \a
 %----------------------------------------------------------
 
 
-Given\LongVersion{ a parameter valuation}~$\pval$, we denote by $\valuate{\A}{\pval}$ the non-parametric structure where all occurrences of a parameter~$\param_i$ have been replaced by~$\pval(\param_i)$.
-% \LongVersion{%
-We denote as a \emph{timed automaton} any such structure $\valuate{\A}{\pval}$\LongVersion{, by assuming a rescaling of the constants: by multiplying all constants in $\valuate{\A}{\pval}$ by the least common multiple of their denominators, we obtain an equivalent (integer-valued) TA, as defined in \cite{AD94}}.
-% }
+Given~$\pval$, we denote by $\valuate{\A}{\pval}$ the non-parametric structure where all occurrences of a parameter~$\param_i$ have been replaced by~$\pval(\param_i)$.
 
-\LongVersion{
-	\subsubsection{Synchronized product of PTAs}
-}
+We denote as a \emph{timed automaton} any such structure $\valuate{\A}{\pval}$.
 
-The \emph{synchronous product} (using strong broadcast, \ie{} synchronization on a given set of actions), or \emph{parallel composition}, of several PTAs gives a PTA\ShortVersion{ (see \cref{appendix:parallel} for a common formal definition)}.
-
-% BEGIN LONG VERSION
-\newcommand{\appendixParallel}{
-	
-	%------------------------------------------------------------
-	\begin{definition}[synchronized product of PTAs]\label{definition:parallel}
-		Let $N \in \grandn$.
-		Given a set of PTAs $\A_i = (\Actions_i, \Loc_i, (\locinit)_i, \LocsFinal_i, \Clock_i, \Param_i, \invariant_i, \Edges_i)$, $1 \leq i \leq N$,
-		and a set of actions $\Actions_s$,
-		the \emph{synchronized product} of $\A_i$, $1 \leq i \leq N$,
-		denoted by $\A_1 \parallel_{\Actions_s} \A_2 \parallel_{\Actions_s} \cdots \parallel_{\Actions_s} \A_N$,
-		is the tuple
-		$(\Actions, \Loc, \locinit, \LocsFinal, \Clock, \Param, \invariant, \Edges)$, where:
-		\begin{enumerate}
-			\item $\Actions = \bigcup_{i=1}^N\Actions_i$,
-			\item $\Loc = \prod_{i=1}^N \Loc_i$,
-			\LongVersion{\item }$\locinit = ((\locinit)_1, \dots, (\locinit)_N)$,
-			\item $\LocsFinal = \{(\loc_1, \dots, \loc_N) \in \Loc \mid \exists i \in [1, N]$ \st{} $\loc_i \in \LocsFinal_i \}$,
-			\item $\Clock = \bigcup_{1 \leq i \leq N} \Clock_i$,
-			\item $\Param = \bigcup_{1 \leq i \leq N} \Param_i$,
-			\item $\invariant((\loc_1, \dots, \loc_N)) = \bigwedge_{i = 1}^{N} \invariant_i(\loc_i)$ for all $(\loc_1, \dots, \loc_N) \in \Loc$,
-		\end{enumerate}
-		and $\Edges{}$ is defined as follows.
-		For all $\action \in \Actions$,
-		let $\ActionsIndices_\action$ be the subset of indices $i \in 1, \dots, N$
-		% NOTE: ``Indexes and indices are both accepted and widely used plurals of the noun index. Both appear throughout the English-speaking world, but indices prevails in varieties of English from outside North America, while indexes is more common in American and Canadian English. Meanwhile, indices is generally preferred in mathematical, financial, and technical contexts, while indexes is relatively common in general usage.''
-		% FROM https://grammarist.com/usage/indexes-indices/
-		such that $\action \in \Actions_i$.
-		For all $\action \in \Actions$,
-		for all $(\loc_1, \dots, \loc_N) \in \Loc$,
-		for all \mbox{$(\loc_1', \dots, \loc_N') \in \Loc$},
-		$\big((\loc_1, \dots, \loc_N), \guard, \action, \resets, (\loc'_1, \dots, \loc'_N)\big) \in \Edges$
-		if:
-		\begin{itemize}
-			\item if $\action \in \Actions_s$, then
-			\begin{enumerate}
-				\item for all $i \in \ActionsIndices_\action$, there exist $\guard_i, \resets_i$ such that $(\loc_i, \guard_i, \action, \resets_i, \loc_i') \in \Edges_i$, $\guard = \bigwedge_{i \in \ActionsIndices_\action} \guard_i$, $\resets = \bigcup_{i \in \ActionsIndices_\action}\resets_i$, and,
-				\item for all $i \not\in \ActionsIndices_\action$, $\loc_i' = \loc_i$.
-			\end{enumerate}
-			\item otherwise (if $\action \notin \Actions_s$), then there exists $i \in \ActionsIndices_\action$ such that
-			\begin{enumerate}
-				\item there exist $\guard_i, \resets_i$ such that $(\loc_i, \guard_i, \action, \resets_i, \loc_i') \in \Edges_i$, $\guard = \guard_i$, $\resets = \resets_i$, and,
-				\item for all $j \neq i$, $\loc_j' = \loc_j$.
-			\end{enumerate}
-		\end{itemize}
-	\end{definition}
-	%------------------------------------------------------------
-	
-	That is, synchronization is only performed on~$\Actions_s$, and other actions are interleaved.
-	% \ea{Sun Jun, can you double check \cref{definition:parallel}? The synchronization on a predefined set $\Actions_s$ is not something I usually do, so an error might be left.}\sj{Checked. Looks fine to me}
-	
-}
-% END LONG VERSION
-
-\LongVersion{\appendixParallel}
-
-
-\LongVersion{
-	%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-
-	\subsubsection{Concrete semantics of TAs}
-	%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-
-	
-	
-	Let us now recall the concrete semantics of TA.
-}
+The \emph{synchronous product} (using strong broadcast, \ie{} synchronization on a given set of actions), or \emph{parallel composition}, of several PTAs gives a PTA (see \ref{appendix:parallel} for a common formal definition).
 
 %----------------------------------------------------------
 \begin{definition}[Concrete semantics of a TA]
@@ -3080,7 +2714,7 @@ The \emph{synchronous product} (using strong broadcast, \ie{} synchronization on
 	the semantics of $\valuate{\A}{\pval}$ is given by the timed transition system (TTS) $(\States, \sinit, \flecheRel)$, with
 	\begin{compactitem}
 		\item $\States = \{ (\loc, \clockval) \in \Loc \times \Rgeqzero^\ClockCard \mid \clockval \models \valuate{\invariant(\loc)}{\pval} \}$, % \valuate{\valuate{\invariant(\loc)}{\pval}}{\clockval} \text{ evaluates to true}
-		\LongVersion{\item} $\sinit = (\locinit, \ClocksZero) $,
+		 $\sinit = (\locinit, \ClocksZero) $,
 		\item $\flecheRel$ consists of the discrete and (continuous) delay transition relations:
 		\begin{ienumeration}
 			\item discrete transitions: $(\loc,\clockval) \longueflecheRel{\edge} (\loc',\clockval')$, %with $\action \in \Sigma$,
@@ -3112,7 +2746,7 @@ The (timed) language of a TA, denoted by $\Lg(\valuate{\A}{\pval})$, is the set 
 % 	The ``$-1$'' in indices comes from the fact that, following usual conventions in the literature, states are numbered starting from~0 while words are numbered from~1.
 % }
 %
-Given\LongVersion{ a state}~$\state=(\loc, \clockval)$, we say that $\state$ is reachable in~$\valuate{\A}{\pval}$ if $\state$ appears in a run of $\valuate{\A}{\pval}$.
+Given~$\state=(\loc, \clockval)$, we say that $\state$ is reachable in~$\valuate{\A}{\pval}$ if $\state$ appears in a run of $\valuate{\A}{\pval}$.
 By extension, we say that $\loc$ is reachable in~$\valuate{\A}{\pval}$; and by extension again, given a set~$\somelocs$ of locations, we say that $\somelocs$ is reachable if there exists $\loc \in \somelocs$ such that $\loc$ is reachable in~$\valuate{\A}{\pval}$.
 % 	\ea{$\somelocs$ is only useful when I describe the correctness of \EFsynth{}, only for the long version}
 %
@@ -3124,7 +2758,7 @@ By extension, we say that $\loc$ is reachable in~$\valuate{\A}{\pval}$; and by e
 
 %----------------------------------------------------------
 \begin{example}
-	Consider the TA~$\A$ in \cref{figure:example-TA}. %, and let $\pval$ be such that $\pval(\parami{2}) = 2$ and $\pval(\parami{2}) = 2$.
+	Consider the TA~$\A$ in \ref{figure:example-TA}.
 	Consider the following run~$\varrun$ of $\A$:
 	\[
 	\Big(\loc_1,
@@ -3155,223 +2789,10 @@ By extension, we say that $\loc$ is reachable in~$\valuate{\A}{\pval}$; and by e
 	
 	We write ``$\styleclock{\clock} = 2.5$'' instead of ``$\clockval$ such that $\clockval(\styleclock{\clock}) = 2.5$''.
 	The associated timed word is $(\styleact{a}, 2.5) (\styleact{c}, 4.5)$.
-	% 	$
-	% 	\styleclock{x} = 0) , (\edge_2, 1.4) , (\loc_2, \clock = 1.4) , (\edge_3, 1.3) , (\loc_1, \clock = 2.7)$, where
-	% 		$\edge_2$ is the edge from $\loc_0$ to~$\loc_2$ in \cref{figure:example-PTA},
-	% 		and
-	% 		$\edge_3$ is the edge from $\loc_2$ to~$\loc_1$.
-	% 	We have $\duration(\varrun) = 1.4 + 1.3 = 2.7$.
-	% 	In addition, $\loc_2$ is reachable on the way to~$\loc_1$ in~$\varrun$.
-	% 	The trace associated to~$\varrun$ is $\styleact{a} \styleact{c}$.
 \end{example}
 %----------------------------------------------------------
 
 
-
-% BEGIN LONG VERSION
-\newcommand{\appendixSymbolicSemantics}{
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\subsection{Symbolic semantics}\label{ss:symbolic}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	Let us now recall the symbolic semantics of PTAs (see \eg{} \cite{HRSV02,JLR15}).\todo{for final version: add back \cite{ACEF09}}
-	% 	, that we will use to solve these problems.
-	
-	
-	\paragraph{Constraints}
-	We first need to define operations on constraints.
-	% In the following, we assume %${\prec} \in \{<, \leq\}$ and
-	% 	${\compOp} \in \{<, \leq, \geq, >\}$.
-	A linear term over $\Clock \cup \Param$ is of the form $\sum_{1 \leq i \leq \ClockCard} \alpha_i \clock_i + \sum_{1 \leq j \leq \ParamCard} \beta_j \param_j + d$, with
-	$\clock_i \in \Clock$,
-	$\param_j \in \Param$,
-	and
-	$\alpha_i, \beta_j, d \in \grandz$.
-	% Throughout this paper, $\plterm$ denotes a parametric linear term over $\Param$, that is a linear term without clocks (\ie{} $\alpha_i = 0$ for all $1 \leq i \leq \ClockCard$).
-	%
-	A \emph{constraint}~$\C$ (\ie{} a convex polyhedron) over $\Clock \cup \Param$ is a conjunction of inequalities of the form $\lterm \compOp 0$, where $\lterm$ is a linear term.
-	%
-	% A \emph{simple inequality} is of the form $\clock \compOp \param$ or $\clock \compOp d$ (with $d \in \grandqplus$), and a \emph{simple constraint} is a conjunction of simple inequalities.
-	%
-	% A \emph{diagonal inequality} is of the form $\clock_i - \clock_j \compOp \plterm$, and a \emph{diagonal constraint} is a conjunction of diagonal inequalities.
-	
-	Given a parameter valuation~$\pval$, $\valuate{\C}{\pval}$ denotes the constraint over~$\Clock$ obtained by replacing each parameter~$\param$ in~$\C$ with~$\pval(\param)$.
-	Likewise, given a clock valuation~$\clockval$, $\valuate{\valuate{\C}{\pval}}{\clockval}$ denotes the expression obtained by replacing each clock~$\clock$ in~$\valuate{\C}{\pval}$ with~$\clockval(\clock)$.
-	% A clock valuation~$\clockval$ \emph{satisfies} constraint~$\valuate{\C}{\pval}$ (denoted by $\clockval \models C[\pval]$) if~$\valuate{\C}{\pval}[w]$ evaluates to true.
-	We say that %a parameter valuation~
-	$\pval$ \emph{satisfies}~$\C$,
-	denoted by $\pval \models \C$,
-	if the set of clock valuations satisfying~$\valuate{\C}{\pval}$ is nonempty.
-	Given a parameter valuation $\pval$ and a clock valuation $\clockval$, we denote by $\wv{\clockval}{\pval}$ the valuation over $\Clock\cup\Param$ such that
-	for all clocks $\clock$, $\valuate{\clock}{\wv{\clockval}{\pval}}=\valuate{\clock}{\clockval}$
-	and
-	for all parameters $\param$, $\valuate{\param}{\wv{\clockval}{\pval}}=\valuate{\param}{\pval}$.
-	We use the notation $\wv{\clockval}{\pval} \models \C$ to indicate that $\valuate{\valuate{\C}{\pval}}{\clockval}$ evaluates to true.
-	We say that $\C$ is \emph{satisfiable} if $\exists \clockval, \pval \text{ \st{} } \wv{\clockval}{\pval} \models \C$.
-	% An \emph{integer point} is $\wv{\clockval}{\pval}$, where $\clockval$ is an integer clock valuation, and $\pval$ is an integer parameter valuation.
-	
-	We define the \emph{time elapsing} of~$\C$, denoted by $\timelapse{\C}$, as the constraint over $\Clock$ and $\Param$ obtained from~$\C$ by delaying all clocks by an arbitrary amount of time.
-	That is,
-	% \[\timelapse{\C} = \{ \wv{\clockval'}{\pval} \mid \clockval \models \valuate{\C}{\pval} \land \forall \clock \in \Clock : \clockval'(\clock) = \clockval(\clock) + d, d \in \grandrplus \}\text{.}\]
-	\(\wv{\clockval'}{\pval} \models \timelapse{\C} \text{ iff } \exists \clockval : \Clock \to \grandrplus, \exists d \in \grandrplus \text { \st{} } \wv{\clockval}{\pval} \models \C \land \clockval' = \clockval + d \text{.}\)
-	% We define the \emph{past} of~$\C$, denoted by $\timepast{\C}$, as the constraint over $\Clock$ and $\Param$ obtained from~$\C$ by letting time pass backward by an arbitrary amount of time (see \eg{} \cite{JLR15}).
-	% That is,
-	% \[\wv{\clockval'}{\pval} \models \timepast{\C} \text{ iff } \exists \clockval : \Clock \to \grandrplus, \exists d \in \grandrplus \text { \st{} } \wv{\clockval'}{\pval} \models \C \land \clockval' = \clockval - d \land \forall \clock \in \Clock : \clockval'(\clock) \geq 0 \text{.}\]
-	Given $\resets \subseteq \Clock$, we define the \emph{reset} of~$\C$, denoted by $\reset{\C}{\resets}$, as the constraint obtained from~$\C$ by resetting the clocks in~$\resets$, and keeping the other clocks unchanged.
-	% Note that $\reset{\C}{\resets}$ can be written $\C \land \bigwedge_{\clock \in \resets} \clock = 0$. FAUX !!
-	We denote by $\projectP{\C}$ the projection of~$\C$ onto~$\Param$, \ie{} obtained by eliminating the variables not in~$\Param$ (\eg{} using Fourier-Motzkin~\cite{Schrijver99}).
-	%
-	% $\KTrue$ denotes the constraint over~$\Param$ representing the universal set of parameter valuations.
-	$\KFalse$ denotes the constraint over~$\Param$ representing the empty set of parameter valuations.
-	
-	% %----------------------------------------------------------
-	% \begin{definition}[Symbolic state]
-	% \end{definition}
-	% %----------------------------------------------------------
-	%
-	% A symbolic state $\state = (\loc, \C)$ is $\pval$-compatible if $\pval \models \C$.
-	
-	
-	%----------------------------------------------------------
-	\begin{definition}[Symbolic semantics]\label{def:PTA:symbolic}
-		Given a PTA $\A = (\Actions, \Loc, \locinit, \LocsFinal, \Clock, \Param, \invariant, \Edges)$,
-		the symbolic semantics of~$\A$ is the labeled transition system called \emph{parametric zone graph}
-		$ \PZG = ( \Edges, \SymbState, \symbstateinit, \symbtrans )$, with
-		\begin{compactitem}
-			\item $\SymbState = \{ (\loc, \C) \mid \C \subseteq \invariant(\loc) \}$, % \in \Loc \times \grandrplus^\ClockCard
-			\LongVersion{\item }$\symbstateinit = \big(\locinit, \timelapse{(\bigwedge_{1 \leq i\leq\ClockCard}\clock_i=0)} \land \invariant(\loc_0) \big)$,
-			and
-			\item $\big((\loc, \C), \edge, (\loc', \C')\big) \in \symbtrans $ if $\edge = (\loc,\guard,\action,\resets,\loc')$ and
-			\(\C' = \timelapse{\big(\reset{(\C \land \guard)}{\resets}\land \invariant(\loc')\big )} \land \invariant(\loc')\)
-			with $\C'$ satisfiable.
-		\end{compactitem}
-		
-	\end{definition}
-	%----------------------------------------------------------
-	
-	That is, in the parametric zone graph, nodes are symbolic states, and arcs are labeled by \emph{edges} of the original PTA.
-	A symbolic state is a pair $(\loc, \C)$ where $\loc \in \Loc$ is a location, and $\C$ its associated constraint\LongVersion{ called \emph{parametric zone}}.
-	%
-	This graph is (in general) \emph{infinite} and, in contrast to the zone graph of timed automata, no finite abstraction can be built for properties of interest; this can be put in perspective with the fact that most problems are undecidable for PTAs~\cite{Andre19STTT}.
-	
-	% If $\big((\loc, \C), \edge, (\loc', \C')\big) \in \symbtrans $, we write $\Succ(\symbstate, \edge) = (\loc', \C')$.
-	% By extension, we write $\Succ(\symbstate)$ for $\cup_{\edge \in \Edges} \Succ(\symbstate, \edge)$.\todo{Is it needed?}
-	
-	%----------------------------------------------------------
-	\begin{example}
-		Consider again the PTA~$\A$ in \cref{figure:example-PTA}.
-		The parametric zone graph of~$\A$ is given in \cref{figure:example-PTA:PZG}, where
-		$\edge_1$ is the edge from $\loc_1$ to~$\loc_2$ in \cref{figure:example-PTA},
-		$\edge_2$ is the edge from $\loc_2$ to~$\loc_3$,
-		$\edge_3$ is the edge from $\loc_1$ to~$\loc_4$,
-		and
-		$\edge_4$ is the edge from $\loc_4$ to~$\loc_5$.
-		
-	\end{example}
-	%----------------------------------------------------------
-	
-	
-	%----------------------------------------------------------
-	\begin{figure}[tb]
-		
-		\centering
-		\footnotesize
-		\begin{subfigure}[c]{0.25\textwidth}
-			\resizebox{\textwidth}{!}{\begin{tikzpicture}[scale=1, xscale=1.1, yscale=.8, auto, ->, >=stealth']
-				
-				\node[location, initial] at (0, 0) (l1) {$\symbstate_1$};
-				
-				\node[location] at (1, 0) (l2) {$\symbstate_2$};
-				
-				\node[location] at (2, 0) (l3) {$\symbstate_3$};
-				
-				\node[location] at (1, -1) (l4) {$\symbstate_4$};
-				
-				\node[location] at (2, -1) (l5) {$\symbstate_5$};
-				
-				\path (l1) edge node[align=center]{$\edge_1$} (l2);
-				\path (l2) edge node[align=center]{$\edge_2$} (l3);
-				\path (l1) edge[bend right] node[below left, align=center]{$\edge_3$} (l4);
-				\path (l4) edge node[align=center]{$\edge_4$} (l5);
-				
-				\end{tikzpicture}}
-		\end{subfigure}~~\begin{subfigure}[c]{0.74\textwidth}
-			\noindent\resizebox{\textwidth}{!}{\begin{tabular}{r @{ } l @{ }c @{ }l @{ }l}
-					$\symbstate_1 =($ & $\loc_1$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq 4 \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-					$\symbstate_2 =($ & $\loc_2$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-					$\symbstate_3 =($ & $\loc_3$ & $,$ & $\styleclock{x} = \styleclock{y} \geq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 4 \land \param_4 \geq 0 $ & $)$\\
-					$\symbstate_4 =($ & $\loc_4$ & $,$ & $\parami{2} < \styleclock{x} \leq 6 \land \styleclock{y} \geq 0 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-					$\symbstate_5 =($ & $\loc_5$ & $,$ & $\parami{2} < \styleclock{x} \land \parami{4} < \styleclock{x} \land \styleclock{y} > 1 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land 6 > \param_4 \geq 0 $ & $)$
-			\end{tabular}}
-		\end{subfigure}
-		\caption{Parametric zone graph of \cref{figure:example-PTA}}
-		\label{figure:example-PTA:PZG}
-		
-	\end{figure}
-	%----------------------------------------------------------
-	
-}
-
-\begin{comment}
-%----------------------------------------------------------
-\begin{example}
-Consider again the PTA~$\A$ in \cref{figure:example-PTA}.
-The parametric zone graph of~$\A$ is given in \cref{figure:example-PTA:PZG}, where
-$\edge_1$ is the edge from $\loc_1$ to~$\loc_2$ in \cref{figure:example-PTA},
-$\edge_2$ is the edge from $\loc_2$ to~$\loc_3$,
-$\edge_3$ is the edge from $\loc_1$ to~$\loc_4$,
-and
-$\edge_4$ is the edge from $\loc_4$ to~$\loc_5$.
-In addition, the symbolic states are:
-
-\noindent\resizebox{\textwidth}{!}{\begin{tabular}{r @{ } l @{ }c @{ }l @{ }l}
-$\symbstate_1 =($ & $\loc_1$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq 4 \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-$\symbstate_2 =($ & $\loc_2$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-$\symbstate_3 =($ & $\loc_3$ & $,$ & $\styleclock{x} = \styleclock{y} \geq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 4 \land \param_4 \geq 0 $ & $)$\\
-$\symbstate_4 =($ & $\loc_4$ & $,$ & $\parami{2} < \styleclock{x} \leq 6 \land \styleclock{y} \geq 0 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
-$\symbstate_5 =($ & $\loc_5$ & $,$ & $\parami{2} < \styleclock{x} \land \parami{4} < \styleclock{x} \land \styleclock{y} > 1 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land 6 > \param_4 \geq 0 $ & $)$
-\end{tabular}}
-\end{example}
-%----------------------------------------------------------
-
-
-%----------------------------------------------------------
-\begin{figure}[tb]
-
-\centering
-\footnotesize
-
-\begin{tikzpicture}[scale=1, xscale=1.1, yscale=.8, auto, ->, >=stealth']
-
-\node[location, initial] at (0, 0) (l1) {$\symbstate_1$};
-
-\node[location] at (2, 0) (l2) {$\symbstate_2$};
-
-\node[location] at (4, 0) (l3) {$\symbstate_3$};
-
-\node[location] at (2, -1) (l4) {$\symbstate_4$};
-
-\node[location] at (4, -1) (l5) {$\symbstate_5$};
-
-\path (l1) edge node[align=center]{$\edge_1$} (l2);
-\path (l2) edge node[align=center]{$\edge_2$} (l3);
-\path (l1) edge[bend right] node[below left, align=center]{$\edge_3$} (l4);
-\path (l4) edge node[align=center]{$\edge_4$} (l5);
-
-\end{tikzpicture}
-
-\caption{Parametric zone graph of \cref{figure:example-PTA}}
-\label{figure:example-PTA:PZG}
-
-\end{figure}
-%----------------------------------------------------------
-\end{comment}
-
-% \LongVersion{
-\appendixSymbolicSemantics{}
-% }
-% END LONG VERSION
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3380,53 +2801,24 @@ $\symbstate_5 =($ & $\loc_5$ & $,$ & $\parami{2} < \styleclock{x} \land \parami{
 
 % \ea{maybe not useful?!}
 
-We will use reachability synthesis to solve the problem in \cref{ss:problem}.
+We will use reachability synthesis to solve the problem in \ref{ss:problem}.
 This procedure, called \EFsynth{}, takes as input a PTA~$\A$ and a set of target locations~$\somelocs$, and attempts to synthesize all parameter valuations~$\pval$ for which~$\somelocs$ is reachable in~$\valuate{\A}{\pval}$.
 $\EFsynth(\A, \somelocs)$ was formalized in \eg{} \cite{JLR15} and is a procedure that traverses the parametric zone graph of~$\A$;
 \EFsynth{} may not terminate (because of the infinite nature of the graph), but computes an exact result (sound and complete) if it terminates.
-% 	\ShortVersion{, which is a potentially infinite extension of the well-known zone graph of TAs (see, \eg{} \cite{ACEF09,JLR15} and \cref{ss:symbolic})}. %\LongVersion{ above for a formal definition}
 
 
 %----------------------------------------------------------
 \begin{example}
-	Consider again the PTA~$\A$ in \cref{figure:example-PTA}.
+	Consider again the PTA~$\A$ in \ref{figure:example-PTA}.
 	% 	 p4 >= 0
 	% & p2 >= 0
 	% & 6 > p4
 	% & 4 > p2
 	% & p3 >= 0
 	$\EFsynth(\A, \{ \loc_5 \})$ returns $0 \leq \parami{2} < 4 \land 0 \leq \parami{4} \leq 6 \land \parami{3} \geq 0$.
-	Intuitively, this corresponds to all parameter constraints in the parametric zone graph in \cref{figure:example-PTA:PZG} associated to symbolic states with location~$\loc_5$ (there is a single such state).
+	Intuitively, this corresponds to all parameter constraints in the parametric zone graph in \ref{figure:example-PTA:PZG} associated to symbolic states with location~$\loc_5$ (there is a single such state).
 \end{example}
 %----------------------------------------------------------
-
-
-
-% BEGIN LONG VERSION
-\newcommand{\lemmaJLR}{
-	
-	%------------------------------------------------------------
-	\begin{lemma}[\cite{JLR15}]\label{prop:EFsynth}
-		Let $\A$ be a PTA, and let $\somelocs$ be a subset of the locations of~$\A$.
-		Assume $\EFsynth(\A, \somelocs)$ terminates with result~$\ptaConstr$.
-		Then $\pval \models \ptaConstr$ iff $\somelocs$ is reachable in~$\valuate{\A}{\pval}$.
-	\end{lemma}
-	% %------------------------------------------------------------
-	% \begin{proof}
-	%   From \cite{JLR15}.
-	% 	%
-	% % 	\qed
-	% \end{proof}
-	% %------------------------------------------------------------
-}
-
-\LongVersion{
-	We finally recall the correctness of \EFsynth{}.
-	
-	\lemmaJLR{}
-}
-% END LONG VERSION
-
 
 
 
@@ -3437,16 +2829,10 @@ $\EFsynth(\A, \somelocs)$ was formalized in \eg{} \cite{JLR15} and is a procedur
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\LongVersion{\subsection{Problem}}
-\label{ss:problem}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 In this paper, we address the \emph{guard-repair} problem of timed automata.
-Given a reference TA~$\initTa$ and an oracle~$\oracle$ knowing an unknown timed language~$\TLoracle$, our goal is to modify (``repair'') the timing constants in the clock guards of~$\A$ such that the repaired automaton matches the timed language~$\TLoracle$.
+Given a reference TA~$\initTa$ and an oracle~$\oracleTa$ knowing an unknown timed language~$\TLoracle$, our goal is to modify (``repair'') the timing constants in the clock guards of~$\A$ such that the repaired automaton matches the timed language~$\TLoracle$.
 %
-The setting assumes that the oracle \oracle can be queried for acceptance of timed words by~$\TLoracle$; that is, $\oracle$ can decide whether a timed word belongs to~$\TLoracle$, but the internal structure of the object leading to~$\TLoracle$ (\eg{} an unknown timed automaton) is unknown.
+The setting assumes that the oracle \oracleTa can be queried for acceptance of timed words by~$\TLoracle$; that is, $\oracleTa$ can decide whether a timed word belongs to~$\TLoracle$, but the internal structure of the object leading to~$\TLoracle$ (\eg{} an unknown timed automaton) is unknown.
 %
 This setting makes practical sense when testing black-box systems.
 
@@ -3466,7 +2852,7 @@ While the ultimate goal is to solve this problem, in practice the best we can ho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 From now on, we describe the process we propose to automatically repair an initial timed automaton \initTa.
-\cref{fig:repairProcess} describes the approach:\ea{I'd prefer have a nice vectorial TikZ image… but let's see for the final version :-)}
+\ref{fig:repairProcess} describes the approach:\ea{I'd prefer have a nice vectorial TikZ image… but let's see for the final version :-)}
 %
 \begin{figure}[!tb]
 	\centering
@@ -3479,81 +2865,58 @@ From now on, we describe the process we propose to automatically repair an initi
 	\item[Step \ding{192}] a PTA \ptaProc is generated starting from the initial \ta \initTa.
 	\item[Step \ding{193}] the extended parametric zone graph \epzg (an extension of $\PZG$) is built.
 	\item[Step \ding{194}] a test generation algorithm generates relevant test data \testData from \epzg.
-	%By analyzing \ptaProc and possibly also \initTa, test sequences are produced (\cref{line:genTestsSingle} in \cref{alg:proposedApproachSingle}).
-	\item[Step \ding{195}] \testData is evaluated using the oracle, therefore building the test suite \testSuite.
-	\item[Step \ding{196}] some constraints \ptaConstr are generated, restricting \ptaProc to the \tas that evaluate correctly the generated tests \testSuite.
+	%By analyzing \ptaProc and possibly also \initTa, test sequences are produced (\ref{line:genTestsSingle} in \ref{alg:proposedApproachSingle}).
+	\item[Step \ding{195}] \testData is evaluated using the oracle, therefore building the test suite \testSuiteTA.
+	\item[Step \ding{196}] some constraints \ptaConstr are generated, restricting \ptaProc to the \tas that evaluate correctly the generated tests \testSuiteTA.
 	\item[Step \ding{197}] one possible \ta satisfying the constraints \ptaConstr is obtained.
 \end{description}
 
 %\ea{problem, we said the algorithm would return a constraint, not a valuation}
 
-\cref{alg:proposedApproachSingle} formalizes steps \ding{192}--\ding{196} for which we can provide some theoretical guarantees (\ie{} the non-emptiness of the returned valuation set, and its inclusion of~$\TLoracle$).
+\ref{alg:proposedApproachSingle} formalizes steps \ding{192}--\ding{196} for which we can provide some theoretical guarantees (\ie{} the non-emptiness of the returned valuation set, and its inclusion of~$\TLoracle$).
 %
 \begin{algorithm}[!tb]
-	\Input{\initTa: initial timed automaton to repair}
-	\Input{\oracle: an oracle assessing the correct evaluation of timed words}
-	\Output{$\ptaConstr$: set of valuations repairing \initTa}
+	\begin{algorithmic}[1]
+	\Require{\initTa: initial timed automaton to repair}
+	\Require{\oracleTa: an oracle assessing the correct evaluation of timed words}
+	\Ensure{$\ptaConstr$: set of valuations repairing \initTa}
 	
-	{$\ptaProc \gets \abstractInPta(\initTa)$}\label{line:abstractPtaSingle}
+	\State{$\ptaProc \gets \abstractInPta(\initTa)$}\label{line:abstractPtaSingle}
 	
-	{$\epzg \gets \buildEpzg(\ptaProc)$}\label{line:buildEpzg}
+	\State{$\epzg \gets \buildEpzg(\ptaProc)$}\label{line:buildEpzg}
 	
-	{$\testData \gets \genTestData(\epzg)$}\tcc*{Generate test data from \epzg}\label{line:genTestsSingle}
+	\State{$\testData \gets \genTestData(\epzg)$} \Comment{Generate test data from \epzg}\label{line:genTestsSingle}
 	
-	{$\testSuite \gets \labelTests(\testData, \oracle)$}\tcc*{A test is a pair (trace, assessment)}\label{line:assessTestsSingle}
+	\State{$\testSuiteTA \gets \labelTests(\testData, \oracleTa)$} \Comment{A test is a pair (trace, assessment)}\label{line:assessTestsSingle}
 	
-	\Return{$\ptaConstr \gets \genConstr(\ptaProc, \testSuite)$}\label{line:genConstrSingle}
-	
-	% 	%\State{$\testSuite \gets \testSuite \cup \newTests$}\Comment{It seems that it is not needed}
-	% 	%	\eIf{$\mathtt{isSat}(\ptaConstr)$\label{line:checkSatSingle}}{
-	% 	{$\vRep \gets \getAssign(\ptaConstr)$}\label{line:getModelSingle}
-	% 	\LongVersion{
-	%
-	% 	}\ShortVersion{;}
-	% 	{$\repTa \gets \valuate{\ptaProc}{\vRep}$}\label{line:instanNewTaSingle}
-	% 	\LongVersion{
-	%
-	% 	}\ShortVersion{;}
-	% 	\Return{\repTa}
-	
-	\caption{Automatic repair process $\ourMethod(\initTa, \oracle)$}
+	\Return{$\ptaConstr \gets \genConstr(\ptaProc, \testSuiteTA)$}\label{line:genConstrSingle}
+\end{algorithmic}
+	\caption{Automatic repair process $\ourMethod(\initTa, \oracleTa)$}
 	\label{alg:proposedApproachSingle}
 \end{algorithm}
 %
-\begin{function}[!tb]
-	{$\mba \gets \{\word \mid (\word, \BTrue) \in \testSuite\}$}\tcc*{Tests that must be accepted}\label{line:initMbaSingle}
+\begin{algorithm}[!tb]
+	\begin{algorithmic}[1]
+	\State {$\mba \gets \{\word \mid (\word, \BTrue) \in \testSuiteTA\}$} \Comment{Tests that must be accepted}\label{line:initMbaSingle}
 	
-	{$\mbr \gets \{\word \mid (\word, \BFalse) \in \testSuite\}$}\tcc*{Tests that must be rejected}\label{line:initMbrSingle}
-	
-	% 	{$\phi \gets \KTrue$}\tcc*{Constraints}
-	%
-	% 	\For{$t \in \mba$\label{line:loopMbaSingle}}{
-	% 		{$\phi \gets \phi \wedge Imitator(\ptaProc, t)$}\label{line:imitatorMbaSingle}
-	% 	}
-	%
-	% 	{$\phi \gets \phi \wedge Imitator(\ptaProc, \bigwedge_{t \in \mbr} \neg t)$}\label{line:imitatorMbrSingle}
-	
-	% 	\Return{$\phi$}\label{line:returnPhiSingle}
+	\State {$\mbr \gets \{\word \mid (\word, \BFalse) \in \testSuiteTA\}$} \Comment{Tests that must be rejected}\label{line:initMbrSingle}
 	
 	\Return{$\bigwedge_{\word \in \mba} \replayTW(\ptaProc, \word) \land \bigwedge_{\word \in \mbr} \neg \replayTW(\ptaProc, \word)$}\label{line:returnPhiSingle}
-	
-	% \caption{TODO} %$\genConstr(\ptaProc, \testSuite)$
-	\caption{GenConstraints($\ptaProc, \testSuite$)}
+\end{algorithmic}
+	\caption{GenConstraints($\ptaProc, \testSuiteTA$)}
 	\label{algo:genConstr}
-\end{function}
-%
+\end{algorithm}
+
 For step \ding{197}, instead, different approaches could be adopted: in the paper, we discuss a possible one. We describe each phase in details in the following sections.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Step \ding{192}: Abstraction}\label{sec:abstraction}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Starting from the initial \initTa, through \emph{abstraction}, the user obtains a PTA \ptaProc that generalizes \initTa in all the parts that can be possibly changed in order to repair \initTa (\cref{line:abstractPtaSingle} in \cref{alg:proposedApproachSingle}). For instance, a clock guard with a constant value can be parametrized. Therefore, \ptaProc represents the set of all the \tas that can be obtained when repairing \initTa. \ptaProc is built on the base of the domain knowledge of the developer who has a guess of the \LongVersion{clock }guards that may be faulty. 
+Starting from the initial \initTa, through \emph{abstraction}, the user obtains a PTA \ptaProc that generalizes \initTa in all the parts that can be possibly changed in order to repair \initTa (\ref{line:abstractPtaSingle} in \ref{alg:proposedApproachSingle}). For instance, a clock guard with a constant value can be parametrized. Therefore, \ptaProc represents the set of all the \tas that can be obtained when repairing \initTa. \ptaProc is built on the base of the domain knowledge of the developer who has a guess of the guards that may be faulty. 
 
 \begin{example}
-	Consider again the TA in \cref{figure:example-TA}.
-	A possible abstraction of this TA is the PTA in \cref{figure:example-PTA}, where we chose to abstract some of the timing constants with parameters.
+	Consider again the TA in \ref{figure:example-TA}.
+	A possible abstraction of this TA is the PTA in \ref{figure:example-PTA}, where we chose to abstract some of the timing constants with parameters.
 	Note that not all timing constants must necessarily be substituted with parameters; also note that a same parameter can be used in different places (this is the case of \parami{3}).
 \end{example}
 
@@ -3563,7 +2926,7 @@ Starting from the initial \initTa, through \emph{abstraction}, the user obtains 
 \paragraph{Assumption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We define below an important assumption for our method; we will discuss in \cref{ss:discussion-abstraction} how to lift it.
+We define below an important assumption for our method; we will discuss in \ref{ss:discussion-abstraction} how to lift it.
 
 \begin{assumption}\label{assumption:oracle-in-pta}
 	We here assume that \ptaProc is a correct abstraction, \ie{} it contains a \ta that precisely models the {\it oracle}.
@@ -3572,7 +2935,7 @@ We define below an important assumption for our method; we will discuss in \cref
 
 % While this assumption may not be always valid, notably for black-box systems, it is however practically relevant for product evolution, for products that were indeed designed using a given timed automaton.
 Note that this assumption is trivially valid if faults lay in the clock guards (which is the setting of this work), and if all constants used in clock guards are turned to parameters.
-%Nevertheless, we will see in \cref{sec:evaluation} that, even when \cref{assumption:oracle-in-pta} does not hold, our method still turns out to be partially relevant.\pa{Sentence restored.}
+%Nevertheless, we will see in \ref{sec:evaluation} that, even when \ref{assumption:oracle-in-pta} does not hold, our method still turns out to be partially relevant.\pa{Sentence restored.}
 
 % \todoinline{
 % We here assume that \ptaProc is a correct abstraction, \ie{} it contains a \ta that precisely models the {\it oracle}; in \cref{ss:discussion-abstraction}, we discuss what happens if such assumption does not hold.
@@ -3582,15 +2945,13 @@ Note that this assumption is trivially valid if faults lay in the clock guards (
 \subsection{Step \ding{193}: construction of the extended parametric zone graph}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Starting from \ptaProc, we build a useful representation of its computations in terms of an {\it extended parametric zone graph} \epzg (\cref{line:buildEpzg} in \cref{alg:proposedApproachSingle}).
+Starting from \ptaProc, we build a useful representation of its computations in terms of an {\it extended parametric zone graph} \epzg (\ref{line:buildEpzg} in \ref{alg:proposedApproachSingle}).
 This original data structure will be used for test generation.
 In the following, we describe how we build \epzg from \PZG.
-\LongVersion{
-	
-}%
+
 We extend the parametric zone graph~$\PZG$ with the two following pieces of information:
 \begin{description}
-	\item[the parameter constraint characterizing each symbolic state:] from a state $(\loc, \C)$, the parameter constraint is $\projectP{\C}$ and gives the exact set of parameter valuations for which there exists an equivalent concrete run in the automaton. That is, a state $(\loc, \C)$ is reachable in $\valuate{\A}{\pval}$ iff $\pval \models \C$ (see \cite{JLR15} for details).
+	\item[the parameter constraint characterizing each symbolic state:] from a state $(\loc, C)$, the parameter constraint is $\projectP{C}$ and gives the exact set of parameter valuations for which there exists an equivalent concrete run in the automaton. That is, a state $(\loc, C)$ is reachable in $\valuate{\A}{\pval}$ iff $\pval \models C$ (see \cite{JLR15} for details).
 	\item[the minimum and maximum arrival times:] that is, we compute the minimum ($m_i$) and maximum ($M_i$) over all possible parameter valuations of the possible absolute times reaching this symbolic state.
 \end{description}
 While the construction of the first information is standard, the second one is original to our work and requires more explanation.
@@ -3599,7 +2960,7 @@ This can be easily obtained from the parametric zone graph by adding an extra cl
 
 %----------------------------------------------------------
 \begin{example}\label{example:structure}
-	Consider again the PTA~$\A$ in \cref{figure:example-PTA} and its parametric zone graph in \cref{figure:example-PTA:PZG}. The parameter constraints associated to each of the symbolic states, and the possible absolute reachable times\ea{vocabulary!}, are given in \cref{table:extended-PZG}.
+	Consider again the PTA~$\A$ in \ref{figure:example-PTA} and its parametric zone graph in \ref{figure:example-PTA:PZG}. The parameter constraints associated to each of the symbolic states, and the possible absolute reachable times\ea{vocabulary!}, are given in \ref{table:extended-PZG}.
 	
 	\begin{table}[!tb]
 		\caption{Description of the states of the extended parametric zone graph}
@@ -3629,7 +2990,7 @@ This can be easily obtained from the parametric zone graph by adding an extra cl
 %----------------------------------------------------------
 \begin{remark}
 	If all locations of the original PTA contain an invariant with at least one inequality of the form $\clock \compOpLeq \param$ or $\clock \compOpLeq d$, with $\compOpLeq \in \{ <, \leq \}$, and if the parameters are bounded\ea{vocabulary}, then the maximum arrival time in each symbolic state will always be finite.
-	Note that this condition is not fulfilled in \cref{example:structure} because $\loc_2$ features an invariant $\styleclock{x} \leq \parami{3}$, with $\parami{3}$ unbounded, thus allowing to remain arbitrarily long in~$\loc_2$ for an arbitrarily large value of~$\parami{3}$.
+	Note that this condition is not fulfilled in \ref{example:structure} because $\loc_2$ features an invariant $\styleclock{x} \leq \parami{3}$, with $\parami{3}$ unbounded, thus allowing to remain arbitrarily long in~$\loc_2$ for an arbitrarily large value of~$\parami{3}$.
 	Therefore, the arrival time in~$\loc_3$ is $\clockabs \in [4, \infty)$.
 \end{remark}
 %----------------------------------------------------------
@@ -3641,7 +3002,7 @@ This can be easily obtained from the parametric zone graph by adding an extra cl
 \subsection{Step \ding{194}: Test data generation}\label{sec:testDataGen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Starting from \epzg, we generate some test data (\cref{line:genTestsSingle} in \cref{alg:proposedApproachSingle}) in terms of timed words.
+Starting from \epzg, we generate some test data (\ref{line:genTestsSingle} in \ref{alg:proposedApproachSingle}) in terms of timed words.
 
 \subsubsection{Constructing timed words}
 We use the minimal and maximum arrival times in the abstract PTA to generate test data.
@@ -3677,12 +3038,12 @@ For each $k < K$, we instantiate $(\action_0, d_0)$ $(\action_1, d_1)$ $\cdots$ 
 
 %----------------------------------------------------------
 \begin{example}\label{example:timedword}
-	Consider again the PTA~$\A$ in \cref{figure:example-PTA} and its parametric zone graph in \cref{figure:example-PTA:PZG} together with reachable times in \cref{table:extended-PZG}.
+	Consider again the PTA~$\A$ in \ref{figure:example-PTA} and its parametric zone graph in \ref{figure:example-PTA:PZG} together with reachable times in \ref{table:extended-PZG}.
 	Pick the run $\symbstate_1 \edge_3 \symbstate_4 \edge_4 \symbstate_5$.
 	First note that $\act(\edge_3) = \styleact{a}$ and $\act(\edge_4) = \styleact{c}$.
-	According to \cref{table:extended-PZG}, the reachable times associated with $\symbstate_4$ are $(0,4]$ while those associated with $\symbstate_5$ are $(1,6]$.
+	According to \ref{table:extended-PZG}, the reachable times associated with $\symbstate_4$ are $(0,4]$ while those associated with $\symbstate_5$ are $(1,6]$.
 	Therefore, a possible timed word generated with \policyminusplus is $(\styleact{a}, 1) (\styleact{c}, 5)$.
-	Note that this timed word does not belong to the TA to be repaired (\cref{figure:example-TA}) because of the guard $\styleclock{x} > 2$; however, it does belong to an instance TA of \cref{figure:example-PTA} for a sufficiently small value of~$\parami{2}$ (namely $\pval(\parami{2}) < 1$).
+	Note that this timed word does not belong to the TA to be repaired (\ref{figure:example-TA}) because of the guard $\styleclock{x} > 2$; however, it does belong to an instance TA of \ref{figure:example-PTA} for a sufficiently small value of~$\parami{2}$ (namely $\pval(\parami{2}) < 1$).
 \end{example}
 %----------------------------------------------------------
 
@@ -3691,9 +3052,9 @@ For each $k < K$, we instantiate $(\action_0, d_0)$ $(\action_1, d_1)$ $\cdots$ 
 \subsection{Step \ding{195}: Test labeling}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Then, every test sequence in \testData is checked against the oracle in order to label it as accepted or not (\cref{line:assessTestsSingle} in \cref{alg:proposedApproachSingle}), therefore the test suite \testSuite;
-a test case in \testSuite is a pair ($\word$, $\oracle(\word)$), being $\word$ a timed word, and $\oracle(\word)$ the evaluation of the oracle, \ie{} $\oracle(\word)$ is defined as a Boolean the value of which is $\word \in \TLoracle$.\footnote{To limit the number of tests, we only keep the maximal accepted traces (\ie{} we remove accepted traces included in longer accepted traces), and the minimal rejected traces (\ie{} we remove rejected traces having as prefix another rejected trace).}
-A test case \emph{fails} if $\initTa(\word) \neq \oracle(\word)$, \ie{} the initial TA and the oracle timed language disagree. Note that, if is no test case fails, \initTa is considered correct\footnote{%
+Then, every test sequence in \testData is checked against the oracle in order to label it as accepted or not (\ref{line:assessTestsSingle} in \ref{alg:proposedApproachSingle}), therefore the test suite \testSuiteTA;
+a test case in \testSuiteTA is a pair ($\word$, $\oracleTa(\word)$), being $\word$ a timed word, and $\oracleTa(\word)$ the evaluation of the oracle, \ie{} $\oracleTa(\word)$ is defined as a Boolean the value of which is $\word \in \TLoracle$.\footnote{To limit the number of tests, we only keep the maximal accepted traces (\ie{} we remove accepted traces included in longer accepted traces), and the minimal rejected traces (\ie{} we remove rejected traces having as prefix another rejected trace).}
+A test case \emph{fails} if $\initTa(\word) \neq \oracleTa(\word)$, \ie{} the initial TA and the oracle timed language disagree. Note that, if is no test case fails, \initTa is considered correct\footnote{%
 	This does not necessarily mean that both TAs have the same language, but that the tests did not exhibit any discrepancy.
 }
 and the process terminates.
@@ -3706,19 +3067,11 @@ In different settings, different oracles can be used. In this work, we assume th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Given the test suite \testSuite, our approach generates constraints \ptaConstr that restrict \ptaProc to only those \tas that correctly evaluate the tests (\cref{line:genConstrSingle} in \cref{alg:proposedApproachSingle}).
+Given the test suite \testSuiteTA, our approach generates constraints \ptaConstr that restrict \ptaProc to only those \tas that correctly evaluate the tests (\ref{line:genConstrSingle} in \ref{alg:proposedApproachSingle}).
 
 
 In this section, we explain how to ``replay a timed word'', \ie{} given a PTA~$\A$, how to synthesize the exact set of parameter valuations~$\pval$ for which a finite timed word belongs to the timed language of~$\valuate{\A}{\pval$}.
-%
-\LongVersion{%
-	Replaying a timed word is close to two undecidable problems for PTAs:
-	\begin{inparaenum}[\itshape i\upshape)]
-		\item the reachability of a location is undecidable for PTAs~\cite{AHV93}, and therefore this result trivially extends to the reachability of a single action;
-		\item the emptiness of the set of valuations for which the set of untimed words is the same as a given valuation is undecidable for PTAs~\cite{AM15} (where a proof is given even for a \emph{unique} untimed word).
-	\end{inparaenum}
-	Nevertheless, computing}\ShortVersion{Computing}
-the set of parameter valuations for which a given \emph{finite} timed word belongs to the timed language can be done easily by exploring a small part of the symbolic state space.
+Computing the set of parameter valuations for which a given \emph{finite} timed word belongs to the timed language can be done easily by exploring a small part of the symbolic state space.
 Replaying a timed word is also very close to the $\replayTrace$ procedure in~\cite{ALin17} where we synthesized valuations corresponding to a trace, \ie{} a timed word without the time information---which is decidable.\ea{TODO later: cite Michal and Woijciech}
 
 
@@ -3730,44 +3083,10 @@ Let \TransWord{} denote this procedure.\footnote{%
 	This procedure transforms the word to a non-parametric TA; we nevertheless use the name \TransWord{} for consistency with~\cite{AHW18}.
 }
 
-\begin{comment}
-%----------------------------------------------------------
-\begin{example}
-Consider again the timed word~$\word$ mentioned in \cref{example:timedword}: $(\styleact{a}, 0.5) (\styleact{c}, 5)$.
-The result of $\TransWord(\word)$ is given in \cref{figure:example-TW2PTA}.
-\end{example}
-%----------------------------------------------------------
-
-%----------------------------------------------------------
-\begin{figure}[!tb]
-
-\centering
-\footnotesize
-
-\begin{tikzpicture}[scale=1, xscale=1.1, yscale=1.5, auto, ->, >=stealth']
-
-\node[location, initial] at (0, 0) (l0) {$\TWloc_0$};
-
-\node[location] at (2, 0) (l1) {$\TWloc_1$};
-
-\node[location] at (4, 0) (l2) {$\TWloc_2$};
-
-\path (l0) edge node[align=center][above]{$\clockabs = 0.5$} node[below]{$\styleact{a}$} (l1);
-\path (l1) edge node[align=center][above]{$\clockabs = 5$} node[below]{$\styleact{c}$} (l2);
-
-\end{tikzpicture}
-
-\caption{Translation of timed word $(\styleact{a}, 0.5) (\styleact{c}, 5)$}
-\label{figure:example-TW2PTA}
-
-\end{figure}
-%----------------------------------------------------------
-\end{comment}
-
 
 \noindent\begin{minipage}{0.5\textwidth}
 	\begin{example}
-		Consider again the timed word~$\word$ mentioned in \cref{example:timedword}: $(\styleact{a}, 0.5) (\styleact{c}, 5)$. The result of $\TransWord(\word)$ is given in \cref{figure:example-TW2PTA}.
+		Consider again the timed word~$\word$ mentioned in \ref{example:timedword}: $(\styleact{a}, 0.5) (\styleact{c}, 5)$. The result of $\TransWord(\word)$ is given in \ref{figure:example-TW2PTA}.
 	\end{example}
 \end{minipage}\quad\begin{minipage}{0.47\textwidth}
 	\centering
@@ -3799,7 +3118,7 @@ Let $\replayTW(\ptaProc, \word)$ denote the entire procedure of synthesizing the
 
 %----------------------------------------------------------
 \begin{example}
-	Consider again the PTA~$\A$ in \cref{figure:example-PTA} and the timed word $(\styleact{a}, 0.5) (\styleact{c}, 5)$ translated to a (P)TA in \cref{figure:example-TW2PTA}.
+	Consider again the PTA~$\A$ in \ref{figure:example-PTA} and the timed word $(\styleact{a}, 0.5) (\styleact{c}, 5)$ translated to a (P)TA in \ref{figure:example-TW2PTA}.
 	The result of \EFsynth{} applied to the synchronized product of these two PTAs with $\{\TWloc_2\}$ as target location set is
 	% 5 > p4
 	% & p4 >= 0
@@ -3820,14 +3139,13 @@ Let $\replayTW(\ptaProc, \word)$ denote the entire procedure of synthesizing the
 	% & p4 >= 0
 	% & p3 >= 0
 	\[ \parami{3} \geq 3 \land \parami{2} \geq 0 \land \parami{4} \geq 0 \ \ \lor \ \ \parami{2} < 3 \land \parami{3} \geq 0 \land \parami{4} \geq 0 \]
-	This comes from the fact that the action~$\styleact{a}$ can correspond to either $\edge_1$ (from~$\loc_1$ to~$\loc_2$) or~$\edge_3$ (from~$\loc_1$ to~$\loc_4$) in \cref{figure:example-PTA}.\ea{I haven't reread my examples, that were generated by \imitator{}, but hopefully no figure has changed since}
+	This comes from the fact that the action~$\styleact{a}$ can correspond to either $\edge_1$ (from~$\loc_1$ to~$\loc_2$) or~$\edge_3$ (from~$\loc_1$ to~$\loc_4$) in \ref{figure:example-PTA}.\ea{I haven't reread my examples, that were generated by \imitator{}, but hopefully no figure has changed since}
 \end{example}
 %----------------------------------------------------------
 
 %----------------------------------------------------------
 \begin{remark}
 	Despite the non-guarantee of termination of the general \EFsynth{} procedure, $\replayTW$ not only always terminates, but is also very efficient in practice: indeed, it only explores the part of the PTA corresponding to the sequence of (timed) transitions imposed by the timed word.
-	\LongVersion{(Recall that there are no silent transitions ``$\epsilon$'' in our setting.)}
 \end{remark}
 %----------------------------------------------------------
 
@@ -3843,12 +3161,10 @@ Let $\replayTW(\ptaProc, \word)$ denote the entire procedure of synthesizing the
 \subsection{Correctness}\label{ss:correctness}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\LongVersion{We introduce a result assessing the capabilities of the proposed process.}
-
-Recall that \cref{assumption:oracle-in-pta} assumes that there exists a valuation~$\pvalOracle$ such that $\Lg(\valuate{\ptaProc}{\pvalOracle}) = \TLoracle$. We show that, under \cref{assumption:oracle-in-pta}, our resulting constraint is always non-empty and contains the valuation~$\pvalOracle$.
+Recall that \ref{assumption:oracle-in-pta} assumes that there exists a valuation~$\pvalOracle$ such that $\Lg(\valuate{\ptaProc}{\pvalOracle}) = \TLoracle$. We show that, under \ref{assumption:oracle-in-pta}, our resulting constraint is always non-empty and contains the valuation~$\pvalOracle$.
 
 \begin{theorem}\label{theorem:correctness}
-	Let $\ptaConstr = \ourMethod(\initTa, \oracle)$.
+	Let $\ptaConstr = \ourMethod(\initTa, \oracleTa)$.
 	Then $\ptaConstr \neq \KFalse$ and $\pvalOracle \models \ptaConstr$.
 \end{theorem}
 
@@ -3859,11 +3175,7 @@ Recall that \cref{assumption:oracle-in-pta} assumes that there exists a valuatio
 \subsection{Step \ding{197}: Instantiation of a repaired \ta}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%If $\phi$ is unsatisfiable, it means that there is no instantiation of \ptaProc that correctly evaluates all the generated tests and, so, it does not even contain the oracle. In this case, the user should provide a different abstraction.
-
-%Otherwise, if $\phi$ is satisfiable, any assignment characterizes a correct \ta \wrt{} the generated tests.
-Any assignment satisfying \ptaConstr characterizes a correct \ta \wrt{} the generated tests in \testSuite; however, not all of them exactly capture the oracle behaviour.
-%At \cref{line:getModelSingle} of \cref{alg:proposedApproachSingle}, we select one assignment \vRep of \ptaConstr, and at \cref{line:instanNewTaSingle} we use it to instantiate the final repaired \ta \repTa.
+Any assignment satisfying \ptaConstr characterizes a correct \ta \wrt{} the generated tests in \testSuiteTA; however, not all of them exactly capture the oracle behaviour.
 If the user wants to select one \ta, (s)he can select one assignment \vRep of \ptaConstr, and use it to instantiate the final repaired \ta \repTa.
 
 In order to select one possible assignment \vRep, different strategies may be employed, on the base of the assumptions of the process. In this work, we assume the {\it competent programmer hypothesis}~\cite{surveyMutationTestingPapadakis2018} that the developer produced an initial \ta \initTa close to be correct; therefore, we want to generate a final \ta \repTa that is {\it not too different} from \initTa. In particular, we assume that the developer did small mistakes on setting the values of the clock guards.
@@ -3877,13 +3189,12 @@ In order to find the closest values of the clock guards that respect the constra
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Discussing \cref{assumption:oracle-in-pta}}\label{ss:discussion-abstraction}
+\subsection{Discussing \ref{assumption:oracle-in-pta}}\label{ss:discussion-abstraction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \subsection{Abstraction}\label{sec:discussionAbs}
-\cref{assumption:oracle-in-pta} assumes that the user provides a PTA \ptaProc that contains the oracle.
-%If this is not the case, the test generation phase (\cref{sec:genConstraints}) may generate a negative test (\ie{} not accepted by any instance of \ptaProc) that is instead accepted by the oracle;
-If this is not the case, the test generation phase (\cref{sec:genConstraints}) may generate a negative test (\ie{} not accepted by any instance of \ptaProc) that is instead accepted by the oracle or a positive test that is not accepted by the oracle;
+\ref{assumption:oracle-in-pta} assumes that the user provides a PTA \ptaProc that contains the oracle.
+If this is not the case, the test generation phase (\ref{sec:genConstraints}) may generate a negative test (\ie{} not accepted by any instance of \ptaProc) that is instead accepted by the oracle or a positive test that is not accepted by the oracle;
 in this case, the constraints generation phase would produce an unsatisfiable constraint \ptaConstr. In this case, the user should refine the abstraction by parameterizing some other clock guards, or by relaxing the constraints on some existing parameters.
 
 Moreover, it could be that the correct oracle has a different structure (additional states and transitions): as future work, we plan to apply other abstractions as CoPtA models~\cite{luthmann2019minimum} that allow to parametrize states and transitions.
@@ -3896,8 +3207,6 @@ Moreover, it could be that the correct oracle has a different structure (additio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Note that, even if the provided abstraction is wrong, our approach could still be able to refine it. In order to do this, we must avoid to use for constraint generation (step \ding{196}) tests that produce unsatisfiable constraints. We use a greedy incremental version of \genConstr in which \replayTW{} is called incrementally: if the constraint generated for a test $\word$ is not compatible with the other constraints generated previously, then it is discarded; otherwise it is conjuncted.
-\LongVersion{\cref{figure:example-TA-different} shows a \ta that we will use in the experiments as alternative oracle.}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3905,7 +3214,7 @@ Note that, even if the provided abstraction is wrong, our approach could still b
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In order to evaluate our approach, we selected some benchmarks from the literature to be used as initial \ta \initTa: the model of a coffee machine (\benchmarkCoffeeShort)~\cite{aichernig2013time}, of a car alarm system (\benchmarkCarAlarmShort)~\cite{aichernig2013time}, and the running case study (\benchmarkExampleShort). For each benchmark model, \cref{table:benchmarks} reports its number of locations and transitions.
+In order to evaluate our approach, we selected some benchmarks from the literature to be used as initial \ta \initTa: the model of a coffee machine (\benchmarkCoffeeShort)~\cite{aichernig2013time}, of a car alarm system (\benchmarkCarAlarmShort)~\cite{aichernig2013time}, and the running case study (\benchmarkExampleShort). For each benchmark model, \ref{table:benchmarks} reports its number of locations and transitions.
 %
 \begin{table}[!tb]
 	\centering
@@ -3931,9 +3240,9 @@ In order to evaluate our approach, we selected some benchmarks from the literatu
 	\end{tabular}
 \end{table}
 
-The proposed approach requires that the developer, starting from \initTa, provides an abstraction in terms of a PTA \ptaProc. For the experiments, as we do not have any domain knowledge, we took the most general case and we built \ptaProc by adding a parameter for each guard constant; the only optimization that we did is to use the same parameter when the same constant is used on entering and/or exiting transitions of the same location (as in \cref{figure:example-PTA}).
+The proposed approach requires that the developer, starting from \initTa, provides an abstraction in terms of a PTA \ptaProc. For the experiments, as we do not have any domain knowledge, we took the most general case and we built \ptaProc by adding a parameter for each guard constant; the only optimization that we did is to use the same parameter when the same constant is used on entering and/or exiting transitions of the same location (as in \ref{figure:example-PTA}).
 
-In the approach, the oracle should be the real system that we can query for acceptance; in the experiments, the oracle is another \ta $\mathit{ta}_o$ that we obtained by slightly changing some constants on the guards. The oracle has been built in a way that it is an instance of \ptaProc, following \cref{assumption:oracle-in-pta}.
+In the approach, the oracle should be the real system that we can query for acceptance; in the experiments, the oracle is another \ta $\mathit{ta}_o$ that we obtained by slightly changing some constants on the guards. The oracle has been built in a way that it is an instance of \ptaProc, following \ref{assumption:oracle-in-pta}.
 
 In order to measure {\it how much} a \ta (either the initial one \initTa or the final one \repTa) is different from the oracle, we introduce a syntactic and a semantic measure, that provide different kinds of comparison with the oracle $\mathit{ta}_o$.
 
@@ -3957,10 +3266,10 @@ The semantic conformance is defined as follows:\ea{where is the maximum length d
 \centerline{$\semConf(\mathit{ta}) = \frac{|\{t \in \testDataConf | (t \in \Lg(\mathit{ta}) \wedge t \in \Lg(\mathit{ta}_o)) \vee (t \not\in \Lg(\mathit{ta}) \wedge t \not\in \Lg(\mathit{ta}_o)) \}|}{|\testDataConf|}$}
 \vspace{4pt}
 
-\cref{table:benchmarks} also reports \syntDist and \semConf of each benchmark \initTa.
+\ref{table:benchmarks} also reports \syntDist and \semConf of each benchmark \initTa.
 %\ea{I don't quite get $\mathit{ta}(t)=\mathit{ta}_o(t)$; do you mean a word ($\word$) belongs to both languages or none?}
 
-Experiments have been executed on a Mac\,OS\,X 10.14, Intel Core i3, with 4\,GiB of RAM. Code is implemented in Java, \imitator 2.11 ``Butter Kouign-amann'' is used for constraint generation, and Choco 4.10 for constraint solving. The code and the benchmarks are available at \url{https://github.com/ERATOMMSD/repairTAsThroughAbstraction}\todo{Marco, please move some code and the benchmarks here. Only what is needed.}.
+Experiments have been executed on a Mac\,OS\,X 10.14, Intel Core i3, with 4\,GiB of RAM. Code is implemented in Java, \imitator 2.11 ``Butter Kouign-amann'' is used for constraint generation, and Choco 4.10 for constraint solving. The code and the benchmarks are available at \url{https://github.com/ERATOMMSD/repairTAsThroughAbstraction}.
 
 %For the benchmarks, the \textit{repaired} model is actually the model of the oracle.
 
@@ -3970,7 +3279,7 @@ In this section, we evaluate the process and we compare it with other techniques
 
 We introduce a measure of correctness as follows:
 %
-\[\fr(\ta, \oracle) = \frac{|\{t \in S \mid \ta(t) \neq \oracle(t)\}|}{|S|}\]
+\[\fr(\ta, \oracleTa) = \frac{|\{t \in S \mid \ta(t) \neq \oracleTa(t)\}|}{|S|}\]
 %
 where $S$ ....
 \end{comment}
@@ -3989,7 +3298,7 @@ where $S$ ....
 \subsection{Results}\label{sec:results}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\cref{table:expResults} reports the experimental results.
+\ref{table:expResults} reports the experimental results.
 %
 \begin{table}[!tb]
 	\centering
@@ -4035,7 +3344,7 @@ where $S$ ....
 \benchmarkCarAlarmShort & \policyrand & 0.070 & 0.068 & 0.007 & 0.000 & 0.000 & 0/ 0 & 314 & 94.86 \\
 \end{comment}
 %
-For each benchmark and each test generation policy (see \cref{sec:testDataGen}), it reports the execution time (divided between the different phases), the total number of generated tests, the number of tests that fail on \initTa, and \syntDist and \semConf of the final \ta \repTa.
+For each benchmark and each test generation policy (see \ref{sec:testDataGen}), it reports the execution time (divided between the different phases), the total number of generated tests, the number of tests that fail on \initTa, and \syntDist and \semConf of the final \ta \repTa.
 
 We now evaluate the approach answering the following research questions.
 
@@ -4046,7 +3355,7 @@ We evaluate whether the approach is actually able to (partially) repair \initTa.
 
 \researchquestion{Which is the best test generation strategy?}
 
-In \cref{sec:testDataGen}, we proposed different test generation policies over \epzg. We here assess the influence of the generation policy on the final results. \policyminusplus, \policymiddle, and \policyquarter obtain the same best results for two benchmarks (\benchmarkExampleShort and \benchmarkCarAlarmShort), meaning that the most useful tests are those on the boundaries of the clock guards: those are indeed able to expose the failure if the fault is not too large. On the other hand, for \benchmarkCoffeeShort, \policyminusplus performs slightly worse than the other two, meaning that also generating tests inside the intervals (as done by \policymiddle and \policyquarter) can be beneficial for repair. \policyrand is able to improve (but not totally repair) only \benchmarkCoffeeShort; for the other two benchmarks, instead, it is not able to improve neither \syntDist nor \semConf.
+In \ref{sec:testDataGen}, we proposed different test generation policies over \epzg. We here assess the influence of the generation policy on the final results. \policyminusplus, \policymiddle, and \policyquarter obtain the same best results for two benchmarks (\benchmarkExampleShort and \benchmarkCarAlarmShort), meaning that the most useful tests are those on the boundaries of the clock guards: those are indeed able to expose the failure if the fault is not too large. On the other hand, for \benchmarkCoffeeShort, \policyminusplus performs slightly worse than the other two, meaning that also generating tests inside the intervals (as done by \policymiddle and \policyquarter) can be beneficial for repair. \policyrand is able to improve (but not totally repair) only \benchmarkCoffeeShort; for the other two benchmarks, instead, it is not able to improve neither \syntDist nor \semConf.
 
 \begin{comment}
 \begin{figure*}[!tb]
@@ -4109,9 +3418,8 @@ In the experiments, we use as oracle another \ta that we can visit for acceptanc
 
 \researchquestion{Which is the process performance if \ptaProc does not include the oracle?}
 
-\cref{assumption:oracle-in-pta} assumes that the user provides a PTA that contains the oracle. In \cref{ss:discussion-abstraction}, we discussed about the possible consequences when this assumption does not hold. We here evaluate whether the approach is still able to partially repair \initTa using an oracle having a different structure. We took the \ta shown in \cref{figure:example-TA-different} as oracle of the running example, that is structurally different from \initTa and \ptaProc shown in \cref{figure:example} (we name this experiment as \benchmarkExampleShortAlt); the semantic conformance \semConf of \initTa \wrt{} the new oracle is shown at the last row of \cref{table:expResults}\footnote{Note that it does not make sense to measure the syntactical distance, as the structure of the oracle is different.}.
-%: it is lower than that of the original oracle (experiment \benchmarkExampleShort), as the timed language accepted by the new oracle is much different.
-We performed the experiments with the new oracle using the greedy approach described in \cref{assumption:oracle-in-pta}, and results are reported in \cref{table:expOtherOracle}.
+\ref{assumption:oracle-in-pta} assumes that the user provides a PTA that contains the oracle. In \ref{ss:discussion-abstraction}, we discussed about the possible consequences when this assumption does not hold. We here evaluate whether the approach is still able to partially repair \initTa using an oracle having a different structure. We took the \ta shown in \ref{figure:example-TA-different} as oracle of the running example, that is structurally different from \initTa and \ptaProc shown in \ref{figure:example} (we name this experiment as \benchmarkExampleShortAlt); the semantic conformance \semConf of \initTa \wrt{} the new oracle is shown at the last row of \ref{table:expResults}\footnote{Note that it does not make sense to measure the syntactical distance, as the structure of the oracle is different.}.
+We performed the experiments with the new oracle using the greedy approach described in \ref{assumption:oracle-in-pta}, and results are reported in \ref{table:expOtherOracle}.
 %
 \begin{table}[!tb]
 	\centering
@@ -4136,7 +3444,7 @@ We performed the experiments with the new oracle using the greedy approach descr
 	%}
 \end{table}
 %
-We observe that policies \policyminusplus, \policymiddle, and \policyquarter, although they find some failing tests, they are not able to improve \semConf. This is partially due to the fact that \semConf is computed on some timed words \testDataConf that may be not enough to judge the improvement. On the other hand, as the three policies try to achieve a kind of coverage of \ptaProc (so implicitly assuming \cref{assumption:oracle-in-pta}), it could be that they are not able to find {\it interesting} failing tests (\ie{} they cannot be repaired); this seems to be confirmed by the fact that the random policy \policyrand is instead able to partially repair the initial \ta using only three tests, out of which one fails. We conclude that, if the assumption does not hold, trying to randomly select tests could be more efficient.
+We observe that policies \policyminusplus, \policymiddle, and \policyquarter, although they find some failing tests, they are not able to improve \semConf. This is partially due to the fact that \semConf is computed on some timed words \testDataConf that may be not enough to judge the improvement. On the other hand, as the three policies try to achieve a kind of coverage of \ptaProc (so implicitly assuming \ref{assumption:oracle-in-pta}), it could be that they are not able to find {\it interesting} failing tests (\ie{} they cannot be repaired); this seems to be confirmed by the fact that the random policy \policyrand is instead able to partially repair the initial \ta using only three tests, out of which one fails. We conclude that, if the assumption does not hold, trying to randomly select tests could be more efficient.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5498,9 +4806,9 @@ We presented applications to combinatorial and feature models. As future work, w
 %----------------------------------------------------------------------------------------
 
 %\printbibliography[heading=bibintoc,title=Bibliography]
-
-\bibliographystyle{IEEEtran}
+\bibliographystyle{plain}
 \bibliography{thesis}
+%\bibliographystyle{ieeetr}
 %----------------------------------------------------------------------------------------
 
 \end{document}  
