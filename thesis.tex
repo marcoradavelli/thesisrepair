@@ -1,4 +1,4 @@
-\documentclass [a4paper, 12pt, twoside]{book}
+\documentclass [a4paper, 12pt, twoside]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{fancyhdr}
@@ -12,7 +12,7 @@
 
 \usepackage{mathpazo} % Use the Palatino font by default
 
-\usepackage{cite}
+%\usepackage{cite}
 
 %\usepackage[nottoc]{tocbibind}
 
@@ -34,7 +34,7 @@
 \def \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \def \subjectname{Engineering and Applied Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\def \keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\def \keywordnames{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
 \def \univname{\href{http://www.unibg.it}{University of Bergamo}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \def \deptname{\href{https://www.unibg.it/ingegneria}{School of Engineering}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \def \groupname{\href{https://cs.unibg.it}{Computer Science Group}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
@@ -48,7 +48,7 @@
 
 %\theoremstyle{remark}
 
-\usepackage{color,amsthm,stfloats,paralist,graphicx,url,booktabs,subcaption,amssymb,pifont,bibentry,amsmath,amsfonts,textcomp,xspace}
+\usepackage{color,amsthm,stfloats,paralist,graphicx,url,booktabs,subcaption,amssymb,pifont,natbib,bibentry,amsmath,amsfonts,textcomp,xspace}
 \usepackage{verbatim,xcolor,colortbl}
 \usepackage[unicode=true,
 %bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,pdfauthor={Angelo Gargantini},
@@ -915,9 +915,16 @@ EnumerativeType, Number, Range, TestGoals,
 % oracle function
 \newcommand{\orac}{\ensuremath{orac}}
 
-\begin{document}
-	
+\pgfplotsset{compat=1.16}
+
 \nobibliography*
+\bibliographystyle{plain}
+
+\begin{document}
+
+%\bibliographystyle{plain}
+%\nobibliography{thesis}
+%\nobibliography{thesis}
 
 %\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 
@@ -948,9 +955,7 @@ EnumerativeType, Number, Range, TestGoals,
     
     \vspace{.2cm}
     
-    {\large Ph.D. course in Mechatronics, Information Technology,
-
-	New Technologies and Mathematical Methods}
+    {\large Ph.D. course in Engineering and Applied Sciences}
 
 	XXXII Cycle
     
@@ -990,7 +995,7 @@ EnumerativeType, Number, Range, TestGoals,
 %----------------------------------------------------------------------------------------
 
 \clearpage
-\title{abstract}
+\begin{abstract}
 %\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to a specification.
@@ -998,7 +1003,7 @@ While most of the techniques in software testing are applied to debugging, fault
 The goal of this PhD project proposal is to study how testing can be applied to repair models. %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
 We describe the research approach and discuss the application cases of combinatorial and feature models.
 We then discuss future work of applying testing to repair models for other scenarios, such as timed automata.
-%\end{abstract}
+\end{abstract}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
@@ -1087,19 +1092,20 @@ This tool could be used not only to improve the model repair methods devised so 
 	
 %To each of the questions corresponds a chapter, referring to one or more published papers.
 
-\section{Reviewed Papers}
+\section{Peer-Reviewed Papers}
+
 \begin{itemize}
+	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
+
 	\item \cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
 	
-	\item \cite{arcaini2019achieving} \bibentry{arcaini2019achieving}
-		
+	\item \cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
+
 	\item \cite{IWCTGargantini2018} \bibentry{IWCTGargantini2018}
 
-	\item \cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
+	\item \cite{arcaini2019achieving} \bibentry{arcaini2019achieving}	
 	
-	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
-	
-	\item \cite{arcaini2019efficient} \bibentry{arcaini2019efficient}
+	\item \cite{iwct19} \bibentry{iwct19}
 
 %	\item \cite{evolUpdateVAMOS2018} \bibentry{evolUpdateVAMOS2018}
 		
@@ -1109,9 +1115,11 @@ This tool could be used not only to improve the model repair methods devised so 
 
 \end{itemize}
 
+
 \section{Note on conventions}
 Parts of this thesis are based on the aforementioned publications. To be able to easily distinguish a text included verbatim from the publications, the corresponding paragraphs are marked with a vertical bar on the side of the text.
 
+\paragraph{}
 \begin{tikzborder}{[X]}
 The following paragraph is an example of the way we mark the text, which is a verbatim copy. It means that the original text appeared in the paper [X].
 \end{tikzborder}
@@ -1204,7 +1212,7 @@ The applied repairs are local and little, based on the \textit{competent modeler
 %If real-world case studies coming from collaborations with industries in the sector are found, it would be an added value.
 
 
-\begin{tikzborder}{[XXX]}
+\begin{tikzborder}{\cite{radavelli2019using}}
 \section{Research Hypothesis}
 By making the assumption that the fault resides in the model, and the implementation is correct, the rationale that drives this PhD proposal is the investigation of software testing techniques to automatically \textit{repair} models.
 Model \textit{repair} can be useful whenever the model is outdated w.r.t. the implementation, or a defined oracle or the specification.
@@ -1398,7 +1406,7 @@ By analysing existing evolutions of feature models described in literature~\cite
 
 In the following, we provide the formal definition of update request. We assume that the initial feature model does not contain any dead feature or redundant constraint~\cite{benavides2010automated,Duran2017FLAME}; in case it has any, we can remove them using standard techniques, as, for example, that provided by FeatureIDE~\cite{FeatureIDEbook}.
 
-\begin{mydef}[\textbf{Update request}]\label{def:fic}
+\begin{mydef}[\textbf{Update request}]\label{def:fic1}
 Given an initial feature model \initFm defined over a set of features $F$, we call \emph{update request} \UR the modifications a user wants to apply to \initFm in order to obtain the desired updated model \fmp. An update request is composed of five change requirements, three regarding the features of the feature model, and two the configurations/products. The first \emph{feature-based} change requirement regards the features names:
 %
 \begin{compactitem}
@@ -1530,7 +1538,7 @@ Moreover, we also check that each feature $f \in F^\prime$ can be actually selec
 \section{Evolutionary updating process}\label{sec:process}
 
 Modifying the initial feature model \initFm such that it satisfies the update request as specified by the target is a challenging task. Note that, in general, there could be no \fmp that exactly adds and removes the specified configurations and features, unless {\it complex} cross-tree constraints are used. However, we claim that the usage of these constraints should be discouraged. Urli et al.~\cite{visualSupport} observe that ``they make FMs complex to understand and maintain'', Reinhartz-Berger et al.~\cite{ComprehendingFeatureModels} experimentally assessed that they are more difficult to understand than parent-child relationships (at least, by modelers who are unfamiliar with feature modeling), and Berger et al.~\cite{Berger2013} report that ``they are known to critically influence reasoners''. Also the authors of FeatureIDE noted that cross-tree constraints ``are harder to comprehend than simple tree constraints" and that ``relations among features should be rather expressed using the tree structure if possible''~\cite{FeatureIDEbook}. In this paper, we therefore avoid the addition of complex cross-tree constraints, as we not only aim at correctness (i.e., full achievement of the update request), but also at readability of the final model.
-Some approaches that aim at simplifying complex constraints exist~\cite{knuppel_is_2017,vonRhein2015}, but they may diminish readability and other qualities, such as compactness, traceability, and maintainability.\footnote{In Sect.~\ref{sec:conclusions}, we discuss how complex cross-tree constraints could be used to achieve all the change requirements and the issues that could be related to that approach.}
+Some approaches that aim at simplifying complex constraints exist~\cite{knuppel_is_2017,vonRhein2015}, but they may diminish readability and other qualities, such as compactness, traceability, and maintainability.\footnote{In Sect.~\ref{sec:conclusions1}, we discuss how complex cross-tree constraints could be used to achieve all the change requirements and the issues that could be related to that approach.}
 
 This paper proposes a heuristic approach that tries to achieve the update request {\it as much as possible}. In order to do this, we use the target as {\it oracle} to compute the {\it fault ratio}. The fault ratio tells how close we are to the correct solution. In Sect.~\ref{sec:correctness}, we give the definition of fault ratio and then, in Sect.~\ref{sec:updatingProcess}, we describe the updating process we propose.
 
@@ -1657,7 +1665,7 @@ In our approach, we assume that the population $P$ is a multiset (i.e., possibly
 
 As initial population, we generate the set $P$ by cloning $\fm_{\mathit{AR}}$ $M$ times (step 1 in Fig.~\ref{fig:approach}). In this way, if $\fm_{\mathit{AR}}$ is already correct, it will be returned as final model in the \emph{termination condition} phase.
 
-\paragraph{\bf Evaluation}%\label{sec:evaluation}
+\paragraph{\bf Evaluation}%\label{sec:evaluation1}
 As first step of each iteration (step 2 in Fig.~\ref{fig:approach}), each candidate member \fmp of the population $P$ is evaluated using a \emph{fitness function} that tells how \emph{good} the member is in achieving the overall goal. We define the fitness function both in terms of fault ratio (see Def.~\ref{def:faultratio}) and of {\it complexity} of the model structure. Indeed, we would like to avoid that, during the updating process, the feature model becomes unreadable, unnecessarily complex, and difficult to maintain~\cite{Berger2013,visualSupport,ComprehendingFeatureModels,FeatureIDEbook}. We have decided to consider, at least initially, the number of cross-tree constraints as indicator of complexity, since the constraints among features should be expressed by structural relationships and cross-tree constraints should be used only when really necessary. We introduce the following fitness function:
 %
 \begin{equation}\label{eq:fitness}
@@ -1758,7 +1766,7 @@ The process\footnote{The code is available at \url{https://github.com/fmselab/ea
 We conducted a set of experiments to evaluate the proposed evolutionary approach; they have been executed on a Windows 10 system with an Intel i7-3770 3.40GHz processor, and 16 GB RAM.
 
 
-\subsection{Benchmarks}\label{sec:benchmarks}
+\subsection{Benchmarks}\label{sec:benchmarks1}
 
 For the experiments, we used two sets of benchmarks, both shown in Table~\ref{tab:benchmarks}.
 %
@@ -1952,7 +1960,7 @@ We discuss the threats to the validity of our results along two dimensions, \emp
 
 \subsection{External validity}\label{sec:externalValidity}
 
-Regarding external validity, a threat is that the obtained results could be not generalizable to real-world (industrial) feature models having specific update requests. However, as first benchmark, we have selected 9 couples of models showing the evolution of real SPLs~\cite{multimediaPaper,helpSystemPaper,smartHomePaper} taken from the SPLOT repository, and other 27 couples from the evolution of other two real SPLs described in literature~\cite{Burdek2016,Pleuss2012} (see Sect.~\ref{sec:benchmarks}); moreover, in order to enlarge the set of evaluated models, we generated 400 input models by randomly mutating other 4 feature models (acting as target). We believe that this way of selecting the benchmarks reduces the bias w.r.t. other real models this process may be applied to in the future.
+Regarding external validity, a threat is that the obtained results could be not generalizable to real-world (industrial) feature models having specific update requests. However, as first benchmark, we have selected 9 couples of models showing the evolution of real SPLs~\cite{multimediaPaper,helpSystemPaper,smartHomePaper} taken from the SPLOT repository, and other 27 couples from the evolution of other two real SPLs described in literature~\cite{Burdek2016,Pleuss2012} (see Sect.~\ref{sec:benchmarks1}); moreover, in order to enlarge the set of evaluated models, we generated 400 input models by randomly mutating other 4 feature models (acting as target). We believe that this way of selecting the benchmarks reduces the bias w.r.t. other real models this process may be applied to in the future.
 
 Another threat to the external validity could be that the proposed process does not scale well to models larger than those considered in the experiments. In particular, the time for computing the fitness function grows exponentially with the number of features, as it is based on BDD construction. In order to address this problem, as future work, we plan to devise a technique that, given a single change requirement $c$, identifies the sub-tree $\mathit{st}$ of the feature model {\it affected} by $c$, i.e., $c$ can be achieved by only modifying $\mathit{st}$; only considering $\mathit{st}$ would allow to improve the process performance, as the mutations would be more targeted and the fitness computation would be performed on a smaller BDD.
 
@@ -1996,7 +2004,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 		We say that the model contains a \emph{conformance fault} if there exists a configuration $t$ such that $\Gamma(t) \neq \oraclet$.
 	\end{mydef}
 	
-	\begin{mydef}[Combination]\label{def:combination}
+	\begin{mydef}[Combination]\label{def:combination1}
 		A \emph{combination} (or \emph{partial configuration}) $c$ is an assignment to a subset $\features(c)$ of all the possible features $F$, i.e., $\features(c) \subseteq F$. A configuration (or test) is thus a particular combination in which $\features(c)=F$. The value assigned by the combination $c$ to the feature $f$ is denoted as $c(f)$.
 	\end{mydef}
 	
@@ -2006,7 +2014,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 		\[c = \left(\bigwedge_{\{f \in \features(c) | c(f) \}} f\right) \wedge \left(\bigwedge_{\{f \in \features(c) | \neg c(f) \}} \neg f\right)\]
 	\end{mydef}
 	
-	\begin{mydef}[Combination containment]\label{def:combContainment}
+	\begin{mydef}[Combination containment]\label{def:combContainment1}
 		A test (or configuration) $t$ \emph{contains} a combination $c$ if all features values in $c$ are the same in $t$. Formally, $\forall f_i \in \features(c) \colon c(f_i) = t(f_i)$.
 		
 		Given a test suite \testSuite, we identify all the tests containing a combination $c$ as $\testSuite(c)$. Formally, $\testSuite(c) = \{t \in T | c \subseteq t\}$.
@@ -2463,7 +2471,7 @@ Regarding internal validity, a threat is that the obtained results could depend 
 	%however, due to continuous nature of \tas, the possible mutants could be too many. For this reason, our approach symbolically represents all the possible variations of the clock guards (similar to ``change guard'' mutants }
 	
 	
-	\section{Conclusion}\label{sec:conclusions}
+	\section{Conclusion}\label{sec:conclusions1}
 	We proposed a process that, given a (faulty or outdated) variability model, and the faults in terms of failure-containing combinations, identifies the constraints involved in the fault, repairs them according to the oracle value, and simplifies them to make the edit minimal. We conducted an empirical evaluation on 7 models of different sizes, and found that the process of selecting only some constraints is indeed more effective than the na{\"i}ve approach that modifies all of them. Moreover, we observed that simplification approaches can further improve the quality of the repair. However, their applicability is limited by the model size, as most of them do not scale on big models.
 	
 	As future work, we plan to adapt our approach to larger models and to include in the evaluation the performances of reverse engineering the final constraints into a variability model (in case the repairs affected the structure of the initial variability model). As future work, we also want to address the current limitations; for example, by designing better selection and simplification strategies, by extending the method to non-boolean variables, and by including new simplification techniques. Furthermore, in order to better preserve domain knowledge, we plan to design an approach that interacts with domain engineers, for instance by highlighting implicit constraints as in~\cite{ananieva_implicit_2016}.
@@ -2496,7 +2504,7 @@ The repairs are of two types, depending on whether the model is true and the sys
 		\begin{subtable}[t]{.5\columnwidth}
 			\centering
 			\caption{\overConstr fault}
-			\label{table:overConstrFault}
+			\label{table:overConstrFault2}
 			\begin{tabular}{c|c|c||c|c}
 				A & B & C & \mfO & oracle\\
 				\hline 
@@ -2564,15 +2572,15 @@ To evaluate the feasibility of the approach, we performed some preliminary exper
 %\todo{}
 
 \fakeparagraph{Outline}
-\ref{sec:definitions} explains the definitions we need in our approach.
+\ref{sec:definitions1} explains the definitions we need in our approach.
 Then \ref{sec:proposedApproachSingle} presents the process we propose that combines model abstraction, test generation, constraint generation, and constraint solving.
-\ref{sec:evaluation} describes experiments we performed to evaluate our process.
-Finally, \ref{sec:related} reviews some related work, and \ref{sec:conclusions} concludes the paper.
+\ref{sec:evaluation2} describes experiments we performed to evaluate our process.
+Finally, \ref{sec:related1} reviews some related work, and \ref{sec:conclusions2} concludes the paper.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Definitions}\label{sec:definitions}
+\section{Definitions}\label{sec:definitions1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2921,7 +2929,6 @@ Starting from the initial \initTa, through \emph{abstraction}, the user obtains 
 \end{example}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Assumption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2933,13 +2940,7 @@ We define below an important assumption for our method; we will discuss in \ref{
 	That is, there exists $\pvalOracle$ such that $\Lg(\valuate{\ptaProc}{\pvalOracle}) = \TLoracle$.
 \end{assumption}
 
-% While this assumption may not be always valid, notably for black-box systems, it is however practically relevant for product evolution, for products that were indeed designed using a given timed automaton.
 Note that this assumption is trivially valid if faults lay in the clock guards (which is the setting of this work), and if all constants used in clock guards are turned to parameters.
-%Nevertheless, we will see in \ref{sec:evaluation} that, even when \ref{assumption:oracle-in-pta} does not hold, our method still turns out to be partially relevant.\pa{Sentence restored.}
-
-% \todoinline{
-% We here assume that \ptaProc is a correct abstraction, \ie{} it contains a \ta that precisely models the {\it oracle}; in \cref{ss:discussion-abstraction}, we discuss what happens if such assumption does not hold.
-% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Step \ding{193}: construction of the extended parametric zone graph}
@@ -3210,16 +3211,16 @@ Note that, even if the provided abstraction is wrong, our approach could still b
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experimental evaluation}\label{sec:evaluation}
+\section{Experimental evaluation}\label{sec:evaluation2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In order to evaluate our approach, we selected some benchmarks from the literature to be used as initial \ta \initTa: the model of a coffee machine (\benchmarkCoffeeShort)~\cite{aichernig2013time}, of a car alarm system (\benchmarkCarAlarmShort)~\cite{aichernig2013time}, and the running case study (\benchmarkExampleShort). For each benchmark model, \ref{table:benchmarks} reports its number of locations and transitions.
+In order to evaluate our approach, we selected some benchmarks from the literature to be used as initial \ta \initTa: the model of a coffee machine (\benchmarkCoffeeShort)~\cite{aichernig2013time}, of a car alarm system (\benchmarkCarAlarmShort)~\cite{aichernig2013time}, and the running case study (\benchmarkExampleShort). For each benchmark model, \ref{table:benchmarks1} reports its number of locations and transitions.
 %
 \begin{table}[!tb]
 	\centering
 	\caption{Benchmarks}
-	\label{table:benchmarks}
+	\label{table:benchmarks1}
 	\setlength\tabcolsep{4pt}
 	\begin{tabular}{lrrrrr}
 		\toprule
@@ -3266,36 +3267,13 @@ The semantic conformance is defined as follows:\ea{where is the maximum length d
 \centerline{$\semConf(\mathit{ta}) = \frac{|\{t \in \testDataConf | (t \in \Lg(\mathit{ta}) \wedge t \in \Lg(\mathit{ta}_o)) \vee (t \not\in \Lg(\mathit{ta}) \wedge t \not\in \Lg(\mathit{ta}_o)) \}|}{|\testDataConf|}$}
 \vspace{4pt}
 
-\ref{table:benchmarks} also reports \syntDist and \semConf of each benchmark \initTa.
-%\ea{I don't quite get $\mathit{ta}(t)=\mathit{ta}_o(t)$; do you mean a word ($\word$) belongs to both languages or none?}
+\ref{table:benchmarks1} also reports \syntDist and \semConf of each benchmark \initTa.
 
 Experiments have been executed on a Mac\,OS\,X 10.14, Intel Core i3, with 4\,GiB of RAM. Code is implemented in Java, \imitator 2.11 ``Butter Kouign-amann'' is used for constraint generation, and Choco 4.10 for constraint solving. The code and the benchmarks are available at \url{https://github.com/ERATOMMSD/repairTAsThroughAbstraction}.
 
-%For the benchmarks, the \textit{repaired} model is actually the model of the oracle.
-
-
-\begin{comment}
-In this section, we evaluate the process and we compare it with other techniques for repairing of feature models, that we developed on top of other approaches.
-
-We introduce a measure of correctness as follows:
-%
-\[\fr(\ta, \oracleTa) = \frac{|\{t \in S \mid \ta(t) \neq \oracleTa(t)\}|}{|S|}\]
-%
-where $S$ ....
-\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Benchmarks}\label{sec:benchmarks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-%\subsection{Compared approaches}\label{sec:processes}
-%We compare our approach with some other approaches achieving the repair...
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results}\label{sec:results}
+\subsection{Results}\label{sec:results1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ref{table:expResults} reports the experimental results.
@@ -3449,7 +3427,7 @@ We observe that policies \policyminusplus, \policymiddle, and \policyquarter, al
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related Work}\label{sec:related}
+\section{Related Work}\label{sec:related1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3478,7 +3456,7 @@ In addition, we address in our work the full class of timed automata, for which 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusions}\label{sec:conclusions}
+\section{Conclusions}\label{sec:conclusions2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3517,7 +3495,7 @@ However, as we will discuss in the related work section, each tool has its own s
 For this reason, starting from our experience with \citlab~\cite{citlab12}, we have worked on a web based application that allows the user to write CIT models in a similar way he/she would do in a classical IDE and it offers test suite generation by means of   server using known and community evaluated test generation algorithms. 
 Our system, called \ctwedge (Combinatorial Testing Web EDiting and GEneration), introduces a rich language for combinatorial models, offers a powerful web editor, and allows the user to generate the CIT test suites on a server. The only software needed to use \ctwedge is a modern web browser.
 
-The paper is organized as follows. In Sect. \ref{sec:language} we present the modeling language (in an abstract way) we use to define CIT models. In Sect. \ref{sec:ctwedge} we introduce our tool, its architecture, its web editing capabilities, and the generator engine. A detailed comparison with other similar web based tools is presented in  Sect. \ref{sec:related}. Future works and possible directions of extension are presented in Sect. \ref{sec:futurework}. Sect. \ref{sec:conclusions} concludes the paper.
+The paper is organized as follows. In Sect. \ref{sec:language} we present the modeling language (in an abstract way) we use to define CIT models. In Sect. \ref{sec:ctwedge} we introduce our tool, its architecture, its web editing capabilities, and the generator engine. A detailed comparison with other similar web based tools is presented in  Sect. \ref{sec:related2}. Future works and possible directions of extension are presented in Sect. \ref{sec:futurework}. Sect. \ref{sec:conclusions3} concludes the paper.
 
 
 \section{A simple language for CIT models}\label{sec:language}
@@ -3813,7 +3791,7 @@ The generator is called by the editor by AJAX, with an asynchronous XmlHttpReque
 A screenshot of how the generated test suite is presented to the user is shown in Fig. \ref{fig:generated}. 
 It is shown as plain HTML table, with the possibility to download the data as CSV. 
 
-\section{Related Work}\label{sec:related}
+\section{Related Work}\label{sec:related2}
 
 With the success of the SaaS pattern, web-based tools have rapidly gained popularity due to their portability and ease of use. There exist some web-based services also for combinatorial test case generation, each with its own peculiarities. SaaS tools, however, still represents a small number of all the available tools for test case generation: IDE plugins and desktop applications represent almost the totality of the current tools. We looked for tools from the pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} and softwaretesters.net\footnote{See \url{https://softwaretesters.net/zbxe/index.php?mid=downloadtool&category=4258006&sort_index=readed_count&order_type=desc}} tool catalogs, and from the web, to the best of our searching skills. 
 
@@ -3977,7 +3955,7 @@ Combinatorial test case generation is used as a part of an automated process for
 Xtext, already generates an eclipse-based development environment providing editing experience known from modern IDEs, featuring a content assist, quick fixes, a project wizard, template proposal, outline view, hyperlinking, and syntax coloring.
 
 
-\section{Conclusion} \label{sec:conclusions}
+\section{Conclusion} \label{sec:conclusions3}
 
 Generation of combinatorial test suites via web offers great advantages w.r.t. classical desktop applications. It is nowadays supported by a pool of tools, both open source and commercial. However, to the best of our knowledge, none of them has an integrated web editor support and a complete support of constraints. To work, they have their own language, with often just examples as unique description, and expect the user to write a file locally before uploading to the web-based tool. This process requires the test engineer to use another tool, may it be just a stand-alone text editor, with no auto-completion for that particular language, or a custom stand-alone editor with some grade of code recommendation.
 
@@ -4014,7 +3992,7 @@ The contribution of this paper is therefore twofold:
 
 During test generation, our approach collects tuples that seem to cause failures and tries to \emph{isolate} them by finding those tuples that instead are \emph{passing}. By using this information, tests are generated and immediately executed, and the knowledge base of the system updated accordingly.
 
-The paper is structured as follows. Sect.~\ref{sec:background} introduces the necessary background and Sect.~\ref{sec:definitions} explains the definitions we need in our approach. Then, Sect.~\ref{sec:proposedApproach} presents the iterative process we propose that combines test generation, test execution, and identification of failure inducing combinations. Sect.~\ref{sec:theorems} discusses about the assumptions of the process and introduces some theorems about its capabilities. Finally, Sect.~\ref{sec:evaluation} describes some experiments we performed to evaluate the process, Sect.~\ref{sec:related} reviews some related work, and Sect.~\ref{sec:conclusions} concludes the paper.
+The paper is structured as follows. Sect.~\ref{sec:background} introduces the necessary background and Sect.~\ref{sec:definitions} explains the definitions we need in our approach. Then, Sect.~\ref{sec:proposedApproach} presents the iterative process we propose that combines test generation, test execution, and identification of failure inducing combinations. Sect.~\ref{sec:theorems} discusses about the assumptions of the process and introduces some theorems about its capabilities. Finally, Sect.~\ref{sec:evaluation3} describes some experiments we performed to evaluate the process, Sect.~\ref{sec:related} reviews some related work, and Sect.~\ref{sec:conclusions} concludes the paper.
 
 
 \section{Background}\label{sec:background}
@@ -4541,7 +4519,7 @@ We want to prove that, under the assumption that the SUT has only true \mfics of
 \end{proof}
 
 
-\section{Evaluation}\label{sec:evaluation}
+\section{Evaluation}\label{sec:evaluation3}
 
 In this section, we evaluate the process and we compare it with other techniques for fault interaction detection.
 
@@ -4806,7 +4784,7 @@ We presented applications to combinatorial and feature models. As future work, w
 %----------------------------------------------------------------------------------------
 
 %\printbibliography[heading=bibintoc,title=Bibliography]
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
 \bibliography{thesis}
 %\bibliographystyle{ieeetr}
 %----------------------------------------------------------------------------------------
