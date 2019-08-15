@@ -932,6 +932,9 @@ EnumerativeType, Number, Range, TestGoals,
 \usepackage{titlesec} % https://tex.stackexchange.com/questions/93789/two-horizontal-lines-above-and-under-chapter-entry
 \titleformat{\chapter}[display]{\bfseries\huge}{\filleft\Large\chaptertitlename~\thechapter}{3ex}{\titlerule\vspace{1.5ex}\filright}[\vspace{1ex}\titlerule]
 
+%\usepgfplotslibrary{external} % https://tex.stackexchange.com/questions/7953/how-to-expand-texs-main-memory-size-pgfplots-memory-overload
+%\tikzexternalize
+
 \begin{document}
 
 %\bibliographystyle{plain}
@@ -947,6 +950,7 @@ EnumerativeType, Number, Range, TestGoals,
 %----------------------------------------------------------------------------------------
 
 %\frontmatter
+%\hypersetup{pageanchor=false}
 \begin{titlepage}
   \begin{center}
     \includegraphics[scale=0.5]{images/sigillo.png}
@@ -1536,23 +1540,24 @@ This paper proposes a heuristic approach that tries to achieve the update reques
 
 \subsection{Correctness}\label{sec:correctness}
 
-\bb We can use the target to evaluate whether a feature model \fmp captures the desired change requirements, i.e., \fmp is equivalent to the target ($\models t \leftrightarrow \fmToBool(\fmp, F_U)$). In the following, we will only compare feature models \fmp whose features $F_{\fmp}$ are, at most, those in $F_U$, i.e., $F_{\fmp} \subseteq F_U$.
+We can use the target to evaluate whether a feature model \fmp captures the desired change requirements, i.e., \fmp is equivalent to the target ($\models t \leftrightarrow \fmToBool(\fmp, F_U)$). In the following, we will only compare feature models \fmp whose features $F_{\fmp}$ are, at most, those in $F_U$, i.e., $F_{\fmp} \subseteq F_U$.
 
-Although a feature model could not fulfill all the change requirements, it could satisfy them partially. We give a measure of the \emph{difference} between a feature model \fm (either the initial one \initFm or a modified one \fmp) and the target as follows.\be
+Although a feature model could not fulfill all the change requirements, it could satisfy them partially. We give a measure of the \emph{difference} between a feature model \fm (either the initial one \initFm or a modified one \fmp) and the target as follows.
 
 \begin{mydef}[\textbf{Fault ratio}]\label{def:faultratio}
-\bb Given a feature model \fm and a target $t$, the \emph{fault ratio} of \fm w.r.t. $t$ is defined as follows:\be
+Given a feature model \fm and a target $t$, the \emph{fault ratio} of \fm w.r.t. $t$ is defined as follows:
 %
 \begin{equation*}
 \FR(\fm, t) = \frac{|\mathit{AllConfs}(\fmToBool(\fm, F_U) \neq t, F_U)|}{2^{|F_U|}}
 \end{equation*}
 %
-\bb where $\mathit{AllConfs}(\varphi, V)$ returns all the logical models of formula $\varphi$, i.e., all the truth assignments $m$ to propositional variables $V$, such that $m \models \varphi$.\footnote{In our approach, we represent formulas as Binary Decision Diagrams (BDDs) in JavaBDD that implements $|\mathit{AllConfs}|$ by means of the method $\mathtt{satCount}$ that directly computes the cardinality of the set without enumerating all the models.}\be
+ where $\mathit{AllConfs}(\varphi, V)$ returns all the logical models of formula $\varphi$, i.e., all the truth assignments $m$ to propositional variables $V$, such that $m \models \varphi$.\footnote{In our approach, we represent formulas as Binary Decision Diagrams (BDDs) in JavaBDD that implements $|\mathit{AllConfs}|$ by means of the method $\mathtt{satCount}$ that directly computes the cardinality of the set without enumerating all the models.}
 \end{mydef}
 
-\bb If the fault ratio is equal to 0, it means that \fm accepts as products the same configurations that are logical models of $t$; otherwise, there are some configurations that are wrongly evaluated by \fm, as shown in Fig.~\ref{fig:faults}: \fm could wrongly accept some configurations and/or wrongly refuse some others.\be 
+If the fault ratio is equal to 0, it means that \fm accepts as products the same configurations that are logical models of $t$; otherwise, there are some configurations that are wrongly evaluated by \fm, as shown in Fig.~\ref{fig:faults}: \fm could wrongly accept some configurations and/or wrongly refuse some others.
+
 %
-\begin{figure}[!htb]
+\begin{figure}[H]
 \def\languageAll{(-1.2,-1.2) rectangle (2.2cm,1.2cm)}
 \def\firstcircle{(0,0) circle (1cm)}
 \def\circleS{(0:1cm) circle (1cm)}
@@ -1995,7 +2000,7 @@ Another threat to the external validity is that the update requests that we use 
 	
 	We assume that the set of features $F$ is known and correctly modeled, while the constraints could be faulty.
 	
-	\begin{mydef}[Model correctness]\label{def:correctness}
+	\begin{mydef}[Model correctness]\label{def:varivolution_correctness}
 		We say that the model \m is \emph{correct} if it conforms with the oracle for every possible configuration $t$, i.e., $\forall t \in \exTestSuite \colon \Gamma(t) = \oraclet$. 
 	\end{mydef}
 	
@@ -2443,7 +2448,8 @@ Another threat to the external validity is that the update requests that we use 
 	
 	Regarding our approach in general, we have identified the following two threats to validity. The first one regards the applicability of our repair technique. We assume that the variability model is given as a set of constraints, while in general other formats (like feature models) are widely used. However, it is almost always possible to extract the set of features and the constraints among them, so our approach is generally applicable. It is true that it may be not easy to go back from the repaired model to the original format (see Fig.~\ref{fig:splrepair}), but we try to change the model as little as possible. This should ease the identification of the applied repairs and facilitate the reverse process to extract the final variability model in another format.
 	
-	The second threat regards the assumption of the \fccs completeness. In general, we may find some conformance faults, but it may be not enough, since our process assumes that the \fccs are complete. However, we can notice that every failing test is a complete \fcc regardless of the test suite. Trying to extract a smaller failing combination from a failing test possibly requires new tests, but there already exist several techniques for fault localization that efficiently can do that~\cite{ben_2015}.	\be
+	The second threat regards the assumption of the \fccs completeness. In general, we may find some conformance faults, but it may be not enough, since our process assumes that the \fccs are complete. However, we can notice that every failing test is a complete \fcc regardless of the test suite. Trying to extract a smaller failing combination from a failing test possibly requires new tests, but there already exist several techniques for fault localization that efficiently can do that~\cite{ben_2015}.	
+	\be
 
 	\section{Related Work}\label{sec:relatedwork}
 	\bb There exist methods to statistically infer constraints from sampled configurations~\cite{chiang_unified_2011,abukwaik_extracting_2016, temple_towards_2018,temple_learning_2017,temple_using_2016,amand_towards_2019}: they use a classifier to infer the conditions among parameter values, that determine a particular property, either a parameter above/below a certain threshold (like in~\cite{temple_learning_2017}), or directly the configuration being accepted or rejected by the system (as in~\cite{temple_using_2016}). These machine-learning based methods are well-documented and supported by application studies to real scenarios, such as learning constraints among parameters in SCAD programs that may cause defects of configurable objects to 3D print~\cite{amand_towards_2019}; and, in the case of \LaTeX, showing that it is possible to obtain constraints among Boolean or numerical values, to format the paper to meet desired properties, such as a defined page limit~\cite{acher_varylatex:_2018}. Another interesting application of inferring constraints using machine learning is the case of mining temporal and value constraints from rich logs, for event-based monitoring in industrial SoS (Systems of Systems)~\cite{krismayer_mining_2017}. The approach, integrated also with techniques from process mining and specification mining, was applied to the automation system of a metallurgical company, and it consists of a \textit{ranking} phase, based on some validity ratio metrics on the classification tree outcome, in which constraints that are more likely to be accepted by the users appear first.
@@ -2470,8 +2476,8 @@ Another threat to the external validity is that the update requests that we use 
 
 
 \chapter{Automated Constraint Repair}
-\begin{tikzborder}{\cite{arcaini2019varivolution}}
-A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
+%\begin{tikzborder}{\cite{arcaini2019varivolution}}
+\bb A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 The devised iterative approach uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and CIT policies introduced in \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations into expressions in propositional logic.
 The repairs are of two types, depending on whether the model is true and the system (i.e., the oracle) false for a given test case (in this case, the model is \textit{under-constrained}) or vice-versa (in this case, the model is \textit{over-constrained}). Tab. \ref{table:testsandfaults} reports possible scenarios in which such condition may occur in a system with three boolean parameters A, B, C, that map to directives in a C program in which both B and C can be enabled only if also A is activated.\be
@@ -2509,500 +2515,6 @@ The repairs are of two types, depending on whether the model is true and the sys
 \begin{tikzborder}{}
 Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency, and Django) show that our approach can repair on average 37\% of conformance faults. Moreover, we also notice that it can infer and repair parameter constraints for the configurations that lead to a successful startup of Django, a well-known open source web application framework written in Python.
 \end{tikzborder}
-
-\section{Validation of Constraints Among Configuration Parameters Using Search-Based Combinatorial Interaction Testing}
-\begin{tikzborder}{\cite{Gargantini16:validation}}
-	The appeal of highly-configurable software systems lies in their adaptability to users' needs. 
-	Search-based Combinatorial Interaction Testing (CIT) techniques have been specifically developed to drive the systematic testing of such highly-configurable systems. In order to apply these, it is paramount to devise a model of parameter configurations which conforms to the software implementation. This is a non-trivial task. Therefore, we extend traditional search-based CIT by devising 4 new testing policies able to check if the model correctly identifies constraints among the various software parameters. Our experiments show that 
-	one of our new policies is able to detect faults both in the model and the software implementation that are missed by the standard approaches.
-
-
-Most software systems can be configured in order to improve their capability to address user's needs. Configuration of such systems is generally performed by setting certain parameters. These options, or \emph{features},  can be created at the software design stage (e.g., for \emph{software product lines}, the designer identifies the features unique to individual products and features common to all products in its category), during compilation  (e.g., to improve the efficiency of the compiled code) or while the software is running (e.g., to allow the user to switch on/off a particular functionality). 
-A configuration file can also be used to decide which features to load at startup.
-
-Large configurable systems and software product lines can have hundreds of features. It is infeasible in practice to test all the possible configurations.
-Consider, for example, a system with only 20 Boolean parameters. One would have to check over one million configurations in order to test them all ($2^{20}$ to be exact). Furthermore, the time cost of running one test could range from fraction of a second to hours if not days. In order to address this combinatorial explosion problem, Combinatorial Interaction Testing (CIT) has been proposed for testing configurable systems \cite{CohenTSE08}. It is a very popular black-box testing technique that tests all interactions between any set of $t$ parameters. There have been several studies showing the successful efficacy and efficiency of the approach \cite{Kuhn06:pseudo,KuhnTSE04,Petke15:practical}.%,Petke13:efficiency}. 
-
-Furthermore, certain tests could prove to be infeasible to run, because the system being modelled can prohibit certain interactions between parameters. 
-Designers, developers, and testers can greatly benefit from modelling parameters and constraints among them by significantly reducing modelling and testing effort \cite{Petke15:practical} as well as identifying corner cases of the system under test. 
-Constraints play a very important role, since they identify parameter interactions that need not be tested, hence they can significantly reduce the testing effort.
-Certain constraints are defined to prohibit generation of test configurations under which the system simply should not be able to run.  
-Other constraints can prohibit system configurations that are valid, but need not be tested for other reasons. For example, there's no point in testing the \emph{find} program on an empty file by supplying all possible strings. %\red{elaborate one this - the importance about constraints} 
-
-Constructing a CIT model of a large software system is a hard, usually manual task.  Therefore, discovering constraints among parameters is highly error prone. One might run into the problem of not only producing an incomplete CIT model, but also one that is over-constrained. Even if the CIT model only allows for valid configurations to be generated, it might miss important system faults if one of the constraints is over-restrictive. Moreover, even if the system is not \emph{supposed} to run under certain configurations, if there's a fault, a test suite generated from a CIT model that correctly mimics only desired system behaviour will not find that error. In such situations tests that exercise those corner cases are desirable. 
-
-\textbf{\emph{The objective of this work is to use CIT techniques to validate constraints of the model of the system under test (SUT). We extend traditional CIT by devising a set of six policies for generating tests that can be used to detect faults in the CIT model as well as the SUT.}}
-\be
-
-\subsection{Combinatorial Models of Configurable Systems}
-
-\bb Combinatorial Interaction Testing (CIT), or simply combinatorial testing, 
-aims to test the software
-or the system with selected combinations of parameter values. 
-There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11},
-while an introduction to CIT and its efficacy in practice can be found
-in~\cite{kuhncomputer09,Petke15:practical}. 
-
-A model for a combinatorial problem consists of several parameters %(at least 2) 
-which can take several domain values. 
-In most configurable systems, dependencies exist between parameters. 
-Such constraints may be introduced for several reasons, e.g., to model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply design choices~\cite{CohenTSE08}. 
-In our approach, tests that do not satisfy the constraints in the CIT model are considered \emph{invalid}.
-
-We assume that the models are specified using \citlab{}~\cite{citlab12,citlab13ttt}.
-This is a framework for combinatorial testing which provides a rich abstract language with precise formal semantics for specifying
-combinatorial problems, and an eclipse-based editor with a rich set of features. %(like syntax highlighting, autocompletion, and outline view). 
-\citlab{} does not have its own test generators, but it can utilise, for example, the search-based combinatorial test generator  CASA\footnote{\url{http://cse.unl.edu/~citportal/}}\cite{CASASSBSE09}. CIT problems can be formally defined as follows.
-
-\begin{defn}
-Let $P=\{p_{1},\dots,p_{m}\}$ be the
-set of parameters. Every parameter $p_{i}$ assumes values in the domain $D_{i}=\{v_{1}^{i},\ldots,v_{o_{i}}^{i}\}$. 
-Every parameter has its name (it can have also a type with its own name) and every enumerative value has an explicit name. We denote with $C=\{c_{1},\ldots,c_{n}\}$
-the set of constraints.
-\end{defn}
-
-\begin{defn}\label{def:citstrength}
-The objective of a CIT test suite is to cover all parameter interactions between any set of $t$ parameters. $t$ is called the strength of the CIT test suite. For example, a pairwise test suite covers all combinations of values between any 2 parameters.
-\end{defn}
-\be
-
-% ======= STORE/BOX LISTINGS =======
-\newsavebox{\wmlisting}
-\begin{lrbox}{\wmlisting}% Store first listing
-\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
-Model WashingMachine
-Definitions:
-Number maxSpinHL = 1400;
-end
-Parameters:
-Boolean HalfLoad;
-Enumerative Rinse {Delicate Drain Wool};
-Numbers Spin { 800 1200 1800 };
-end
-Constraints:
-# HalfLoad => Spin < maxSpinHL #
-# Rinse==Rinse.Delicate => 
-( HalfLoad and Spin==800) #
-end\end{lstlisting}
-\end{lrbox}
-
-\newsavebox{\hello}
-\begin{lrbox}{\hello}% Store first listing
-\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
-Model Greetings
-Parameters:
-Boolean HELLO;
-Boolean BYE;
-end
-Constraints:
-# HELLO != BYE#
-end
-\end{lstlisting}\qquad
-\begin{lstlisting}[language=C,basicstyle=\scriptsize,columns=fullflexible]
-#ifdef HELLO
-char* msg = "Hello!\n";
-#endif
-#ifdef BYE
-char* msg = "Bye bye!\n";
-#endif
-
-void main() {
-printf(msg);
-}
-\end{lstlisting}
-\end{lrbox}
-
-
-\begin{figure}[H]%
-\centering
-\subfloat[Washing Machine example]{\label{fig:washerexample}%
-	\usebox{\wmlisting}}%
-\qquad
-\subfloat[Compile time configurable example, its CIT model (left) and the source code (right)]{\label{fig:compiletimeConf}%
-	\usebox{\hello}}%
-\caption{Combinatorial interaction \citlab{} models}
-\end{figure}
-
-\bb Constraints $c_i$ are given in general form, using the language of propositional logic with equality and arithmetic. 
-Fig.~\ref{fig:washerexample} shows the \citlab{} model
-of a simple washing machine consisting of 3 parameters. The user can select if the machine has \texttt{HalfLoad}, the desired \texttt{Rinse}, and the \texttt{Spin} cycle speed.
-There are two constraints, including,  if \texttt{HalfLoad} is set then the speed of spin cycle cannot exceed \texttt{maxSpinHL}.
-
-Software systems can be configured by setting specific parameter values at different stages of the software testing process.
-
-\noindent {\bf Compile time}
-Configurations can be set at compile time. An example is shown in Figure~\ref{fig:compiletimeConf}. Depending on the value settings of the Boolean variables \texttt{HELLO} and \texttt{BYE} different messages will be displayed when the program is run.
-
-\noindent {\bf Design time}
-
-Configurations can also be set at design time. For example, in case of a SPL, a configurability model is built during the design. 
-
-%\item 
-\noindent {\bf Runtime}
-%\red{something that one can customize at run time via conf file}
-Another way of setting parameter configurations is at runtime. This can be usually done by means of a graphical user interface (GUI). In a chat client, e.g., you can change your availability status as the program is running. 
-
-\noindent {\bf Launch time}
-We also differentiate the case where parameters are read from a separate configuration file or given as program arguments, \emph{before} the system is run. We say that these parameters are set at launch time of the given application. They decide which features of the system should be activated at startup. Examples of such systems include chat clients, web browsers and others. 
-\be
-
-\subsection{Basic Definitions}
-
-\bb We assume that the combinatorial model represents the specification
-of the parameters and their constraints for a real system as it has
-been implemented. We are interested in checking whether this system specification 
-correctly represents the software implementation. We assume that the parameters and their domains are correctly captured in the specification, while the constraints may contain some faults. Specification $S$ belongs to the problem space while software implementation $I$ belongs to the solution space~\cite{NadiBKC14}. 
-
-Formally, given an assignment $\bar{p}$ that assigns a value to every parameter in $P$ of the model $S$,
-we introduce two functions:
-\begin{defn}
-Given a model $S$ and its implementation $I$, $val_{S}$ is the function
-that checks if assignment $\bar{p}$ satisfies the constraints in $S$, while
-$oracle_{I}$($\bar{p}$) checks if $\bar{p}$ is a valid configuration according to 
-implementation $I$.
-\end{defn}
-We assume that the oracle function $oracle_{I}$ exists. For instance, in case of a compile-time configurable system, we can assume that the compiler plays the role of an oracle: if and only if the parameters $\bar{p}$ allow the compilation of the product then we say that   $oracle({\bar{p}})$ holds. We may enhance the definition of oracle by considering also other factors, for example, if the execution of the test suite completes successfully. However, executing  $oracle_{I}$ may be very time consuming and it may require, in some cases,  human intervention.
-
-On the model side, the evaluation of  $val_{S}(P)$ is straightforward, that is, $val_{S}(\bar{p})=c_{1[P\leftarrow\bar{p}]}\wedge \ldots\wedge c_{n[P\leftarrow\bar{p}]}$.
-
-\begin{defn}\
-\label{def:validation_correctness}We say that the Constrained CIT (CCIT) model is correct if, for
-every $p$, $val_{S}(p)=oracle_{I}$($p$). We say that a specification
-contains a \emph{conformance} fault if there exists a $\bar{p}$ such that $val_{S}(\bar{p})\neq oracle_I(\bar{p})$.
-\end{defn}
-\be
-
-\begin{figure}[H]
-\begin{center}
-	\includegraphics[width=.95\columnwidth]{images/spec_vs_impl}
-\end{center}
-\caption{Validating constraints by CIT}\label{fig:process}
-\end{figure}
-
-\subsection{Finding Faults by Combinatorial Testing}
-
-\bb In order to find possible faults as defined in Definition \ref{def:validation_correctness}, the exhaustive exploration of all the configurations of a large software system is usually impractical. In many cases, the evaluation of $oracle_I$ is time consuming and error prone, so the number of tests one can check on the implementation can be very limited. Instead, we can apply combinatorial testing in order to select the parameters values and check that for every generated CIT test $val_{S}(p) = oracle_I(p)$ holds. This approach does not guarantee, of course, finding all possible conformance faults, but we can assume that faults are due to the interaction of parameters and we can leverage the success of CIT in finding faults in real configurable systems \cite{KuhnTSE04,Petke15:practical}.
-
-We have devised a process that is able to find possible conformance faults. It is depicted in Figure \ref{fig:process}
-and consists of the following steps:
-
-\begin{enumerate}
-\item Create a CIT model $S$ that takes constraints into account.
-\item Generate a CIT test suite according to one of the policies (see Section \ref{sec:validation_citpolicies}).
-\item For every test in the test suite, 
-\begin{enumerate}
-	\item Compute its validity as specified by the constraints in the CIT model.
-	\item Compute $oracle_I$, by executing the software system under each configuration to check if it's acceptable.%using the same configuration in order to check if the configuration is acceptable
-	\item Compare the validity, as defined by the model, with the actual result.
-	\item If $val_{S}\neq oracle_{I}$ a fault (either in the model or in the system) is found.
-\end{enumerate}
-\end{enumerate}
-
-A discrepancy between the model and the real system means that a configuration is correct according to the model but rejected by the real system (or the other way around) and this means that the constraints in the model do not correctly describe constraints in the system under test.
-\be
-
-\paragraph{Invalid Configuration Testing.}\label{sec:invalidimportance}
-
-\bb In classical combinatorial interaction testing, only valid tests are generated, since the focus is on assessing if the system under test produces valid outputs. 
-%testing the software implementation. 
-However, we believe that invalid tests are also useful.  In particular,  they address the following issues.
-
-The CIT model should minimise the number of constraints and the invalid configuration set:  invalid configurations, according to the model, should only be those that are actually invalid in the real system. This kind of test aims at discovering faults of over-constraining the model. This problem is a variant of the bigger problem of over-specification. Moreover, critical systems should be tested if they safely fail when the configuration is incorrect. This means that the system should check that the parameters are not acceptable (i.e. it must \emph{fail}) and it should fail in a safe way, avoiding crashes and unrecoverable errors (it must fail \emph{safely}). Furthermore, creation of a CIT model for a large real-world software system is usually a tedious, error-prone task. Therefore, invalid configurations generated by the model at hand can help reveal constraints within the system under test and help refine the CIT model. In line with the scientific epistemology, our research focuses on generating not only tests (i.e., valid configurations) that confirm our theory (i.e., the model), but also tests that can \emph{refute} or  \emph{falsify} it. 
-Since the number of invalid configurations might be huge, such configurations must be chosen in accordance with some criteria. We choose to use the same t-way interaction paradigm as in standard CIT.
-\be
-
-\subsection{Combinatorial Testing Policies}
-\label{sec:validation_citpolicies}
-
-\bb We propose to use search-based combinatorial interaction testing techniques to verify the validity of CIT models. In particular, given a CIT model, we modify it according to one of the policies introduced in this section. Next, we use CASA to generate the test suite satisfying the modified CIT model. 
-We use the term ``valid test" to denote the generated configuration that satisfies all the constraints of the original CIT model. Conversely, the term ``invalid test" is used for a configuration that does not satisfy at least one of the constraints of the original CIT model. Words ``test" and ``configuration" are used interchangeably, though we note in real-world systems one configuration may lead to multiple tests.
-\be
-
-\subsubsection{\ic: Unconstrained CIT.}
-\bb
-In unconstrained CIT, constraints are ignored during CIT test generation.
-They are used only to check the validity of the configuration
-selected during generation. The main advantage is that test generation
-is simplified and efficient methods that work without constraints
-can be used. Moreover, in principle, both valid and invalid configurations
-can be generated - there is no control over
-model validity. It may happen that the test generation algorithm generates
-only valid combinations (i.e., $val_{S}(t)$ for every $t$ in the test
-suite). This may reduce the effectiveness of the test suite: if only valid tests are generated, one can miss faults only discoverable by invalid tests, as explained in Section \ref{sec:invalidimportance}. On the other hand, only invalid tests can be equally useless.
-
-\begin{example}
-In the washing machine example shown in Fig.~\ref{fig:washerexample}, 
-\ic policy will produce a pairwise test suite with at least 9 test cases, including an invalid test case
-where \texttt{HalfLoad} is set to true in combination with \texttt{Spin} equal to 1800.
-%, and tests where \texttt{Rinse} is Delicate, \texttt{HalfLoad} is false, and \texttt{Spin} is greater than 800.
-\end{example}
-\paragraph*{Test generation.}
-\ic can be applied by simply removing the constraints $c_i$ from the original CIT model. The validity of each test can be later computed by checking if the generated configuration satisfies all the $c_i$. There are several CIT tools that do not handle constraints (for example, those that use algebraic methods for CIT test suite generation), hence can be used with this policy.
-
-%\vspace{-0.5em}
-\newcommand{\ccit}{CC\xspace}
-\be
-
-\subsubsection{\ccit: Constrained CIT.}
-
-\bb In this classical approach, constraints are taken into account and only valid
-combinations among parameters are chosen. Among these parameters
-a certain level of desired strength is required. The rationale behind
-this policy is that one wants to test only valid combinations. If
-a certain interaction among parameters is not possible, then it is
-not considered even if it would be necessary in order to achieve the
-desired level of coverage. The main advantage is that no error should
-be generated by the system. However, this technique can only check
-one side of equation given in Def.~\ref{def:correctness}, namely
-that $val_{S}(p)\rightarrow$$oracle_{I}(p)$, since $val_{S}$ is always
-true. If the specification is too restrictive, %with respect to  the real system, 
-no existing fault will be guaranteed to be found, if it refers to configurations that are 
-invalid. %{*}{*}{*}{*}
-%\vspace{-0.5em}
-\begin{example}
-In the washing machine example shown in Fig.~\ref{fig:washerexample}, the \ccit policy produces 7 tests for pairwise, all of which satisfy the constraints. Some pairs are not covered: for instance \texttt{HalfLoad}=true and \texttt{Spin}=1800 will not be covered.
-\end{example}
-
-\paragraph*{Test generation.} \ccit is the classical constrained combinatorial testing (CCIT), and CASA can correctly deal with the constraints and generate only valid configurations. However, CASA requires the constraints in Conjunctive Normal Form (CNF), so \citlab must convert the constraints from general form to CNF.
-\newcommand{\cv}{CV\xspace}
-
-\subsubsection{\cv: Constraints Violating CIT.}
-In case one wants to test the interactions of parameters that produce errors, 
-only tests violating the constraints should be produced. This approach is complementary with respect to the \ccit in which only valid configurations are produced. In \cv, we ask that the maximum possible CIT coverage for a given strength is achieved considering only tuples of parameter values that make at least one constraint false (i.e. each test violates the conjunction $c_{1}\wedge \dots\wedge c_{n}$ ). 
-\begin{example}
-In the example presented in Fig.~\ref{fig:washerexample}, the CV policy produces 6 test cases, all of which violate some constraint of the model. For instance, a test has \texttt{Rinse}=Delicate, \texttt{Spin} =800, and \texttt{HalfLoad}=false.
-\end{example}
-\paragraph*{Test generation.} \cv can be applied by modifying the model by replacing all the constraints with $\neg(c_{1}\wedge \dots\wedge c_{n})$ and then classical \ccit is applied.
-
-\subsubsection{\cucv: Combinatorial Union.}
-One limitation of the \ccit technique is that with an over-constrained model, certain faults may not be discovered. On the other hand, by generating test cases violating constraints only, as in \cv, certain parameter interactions may not be covered by the generated test suite. In order to overcome these limitations we propose the combination of \ccit and \cv. %(see Sections \ref{sub:unconstrainedCIT} and \ref{sub:classicalCIT}).
-
-\paragraph*{Test generation.}
-\cucv is achieved by generating tests using policy \ccit and policy \cv and then by merging the two test suites. Since every test is either valid (in \ccit) or invalid (in \cv), merging the test suites consists of simply making the union of the two test suites.
-
-\subsubsection{\ValC: CIT of Constraint Validity.}
-\cucv may produce rather big test suites, since it covers all the desired parameter interactions that produce valid configurations \emph{and} all those that produce invalid ones according to the given CIT model. On the other hand, \ic may be too weak since there is no control over the final constraint validity and therefore there is no guarantee that the parameter values will influence the final validity of the configuration. On one extreme, \ic might produce a test suite without any test violating the constraints. 
-We propose the \ValC policy that tries to balance the validity of the tests without requiring the union of valid and invalid tests. \ValC requires the interaction of each parameter with the validity of the whole CIT model. That is, both tests that satisfy all the constraints will be generated as well as those that don't satisfy any of the constraints in the given CIT model. 
-Formally, \ValC requires that the validity of each configuration $\bar{p}$ (i.e., $val_{S}(\bar{p})$) is covered in the same desired interaction strength (see Definition \ref{def:citstrength}) among all the parameters. %\red{to explain??}. 
-
-\begin{example}
-For the WashingMachine, \cucv generates 13 test cases (6+7). \ValC requires only 11 test cases.
-\end{example}
-\paragraph*{Test generation.}
-\ValC requires to modify the original CIT model by introducing a new Boolean variable \textsf{validity} and replacing all the constraints with one constraint equal to \textsf{validity} $\leftrightarrow (c_{1}\wedge \dots\wedge c_{n})$
-
-\newcommand{\CCi}{CCi\xspace}
-
-\subsubsection{\CCi: CIT of the Constraints.}
-Every constraint may represent a condition over the system state. For instance, the constraint
-\lstinline[language=comb]|HalfLoad => Spin < maxSpinHL|
-identifies the critical states in which the designer wants a lower spin speed. One might consider each constraint as a property of the system and be interested in covering how these conditions interact with each other and with the other parameters. The goal is to make the constraints interact with the other system parameters.
-\paragraph*{Test generation.}
-\CCi requires the introduction of a new Boolean variable $\mathsf{validity}_i$ for every constraint, and replacing every constraint $c_i$ with $\mathsf{validity}_i \Leftrightarrow c_{i}$.
-\be
-
-\section{Experiments}
-\label{sec:validation_experiments}
-
-\bb In order to test our proposed approach we conducted the following experiments.
-We used 4 case studies to evaluate our proposed approach:
-
-\begin{asparaenum}
-
-\item \textbf{Banking1} represents the testing problem for a configurable Banking application presented in \cite{segall_using_2011}. 
-
-\item \textbf{libssh} is a multi-platform library implementing SSHv1 and SSHv2 written in C\footnote{\url{https://www.libssh.org/}}. The library consists of around 100 KLOC and can be configured by several options and several modules (like an SFTP server and so on) can be activated during compile time. We have analysed the \texttt{cmake} files and identified 16 parameters and the relations among them. We have built a feature model for it in \cite{icst2016} and we have derived from that a \citlab model.
-%
-\item \textbf{\TLSChecker} is a small C program, written by us, that performs a Heartbeat test on a given TLS server. 
-The Heartbeat Extension is a standard procedure (RFC 6520) that tests secure communication links by allowing a computer at one end of a connection to send a ``Heartbeat Request" message. Such a message consists of a payload, typically a text string, along with the payload's length as a 16-bit integer. The receiving computer then must send exactly the same payload back to the sender. \TLSChecker reads the data to be used in the Heartbeat from a configuration file with the following schema:
-
-\begin{center}
-	\begin{minipage}{.9\linewidth}%
-		\begin{lstlisting}[frame=single,basicstyle={\scriptsize\ttfamily}]
-		TLSserver: <IP>
-		TLS1_REQUEST Length: <n1> PayloadData: <data1>
-		TLS1_RESPONSE Length: <n2> PayloadData: <data2>
-		\end{lstlisting}
-	\end{minipage}
-\end{center}
-
-
-Configuration messages with \texttt{n1} equal to \texttt{n2} and  \texttt{data1} equal to  \texttt{data2} represent a successful  Heartbeat test (when the TLS-server has correctly responded to the request). \TLSChecker can be considered as an example of a \emph{runtime} configurable system, since thanks to the parameters one can perform different types of tests (with different lengths and payloads). We have written an abstract version of \TLSChecker in the combinatorial model shown in Fig. \ref{fig:TLSChecker}: we ignore the actual content of the PayloadData and we model only the lengths: \textsf{Length} represents the declared lengths and \textsf{PayloadData\_length} is the actual length of the PayloadData. The constraints represent successful exchanges of messages in the Heartbeat test. The oracle is true if the Heartbeat test has been successfully performed with the specified parameters.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=comb,basicstyle=\sffamily\footnotesize]
-	Model Heartbeat
-	Parameters:
-	Range REQ_Length [ 0 .. 65535 ] step 4369;
-	Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
-	Range RES_Length [ 0 .. 65535 ] step 4369;
-	Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
-	end
-	Constraints:
-	// the declared length in the REQUEST is correct
-	# REQ_Length==REQ_PayloadData_length #
-	// the declared length in the RESPONSE is correct
-	# RES_Length==RES_PayloadData_length #
-	// the RESPONSE has the same length as the REQUEST
-	# REQ_Length==RES_Length #	
-	end
-	\end{lstlisting}
-	\caption{\TLSChecker CIT model}
-	\label{fig:TLSChecker}
-\end{figure}
-
-
-\item \textbf{Django}  is a free and open source web application framework, written in Python, consisting of over 17k lines of code, that supports the creation of complex, database-driven websites, emphasizing reusability of components\footnote{\url{https://www.djangoproject.com/}}. Each Django project can have a configuration file, which is loaded every time the web server that executes the project (e.g. Apache) is started. Therefore, the configuration parameters are loaded at \emph{launch time}.
-In the model we made, among all the possible configuration parameters, we selected and considered one Enumerative and 23 Boolean parameters. We elicited the constraints from the documentation, including several forum articles and from the code when necessary. We have also implemented the oracle, which is completely automated and returns true if and only if the HTTP response code of the project homepage is 200 (HTTP OK).
-\end{asparaenum}
-\be
-
-\begin{table*}[H]
-\caption{Benchmark data. {\footnotesize $vr$ is the validity ratio, defined as the percentage of configurations that are valid.}}\label{tab:validation_benchmarks}
-\centering
-\begin{tabular}{lrrrrrrrrr}
-	\toprule
-	name & \#var & \multicolumn{1}{c}{\#constraints} &\multicolumn{1}{c}{\#configurations} & \multicolumn{1}{c}{$vr$} & \multicolumn{1}{c}{\#pairs}\\ 
-	\midrule
-	Banking1 & 5 & 112 & 324 & 65.43\% &  102  \\ 
-	Libssh &  16 & 2 &  65536  & 50\% & 480 \\ 
-	\TLSChecker & 4 & 3 & 65536 & 0.02\% & 1536 \\ 
-	Django & 24 & 3 &  33554432 & 18.75\% & 1196\\
-	\bottomrule
-\end{tabular}
-%}
-\end{table*}
-
-
-\smallskip
-
-\bb Table \ref{tab:benchmarks} presents various benchmark data: number of variables and constraints, 
-size of the state space (the total number of possible configurations), the percentage of configurations that are valid  (i.e. the ratio $vr$), the number of pairs that represent the pairwise testing requirements (ignoring constraints). Note that a low ratio indicates that there are only few valid configurations (see, for example, the \TLSChecker benchmark). We collected models of real-world systems from different domains, with a good level of diversity (in terms of size, constraints, etc.) in order to increase the validity of our findings.
-
-Experiments were executed on a Linux PC with two Intel(R) i7-3930K CPU  (3.2 GHz) and 16 GB of RAM. All reported results are the average of 10 runs with a timeout for a single model of 3600 secs. Test suites were produced using the CASA CIT test suite generation tool according to the pairwise testing criterion.\be
-
-\subsubsection{Test generation and coverage}
-
-\bb In our first experiment, we are interested in comparing the policies in terms of test \emph{effort} measured by the number of tests and by the test suite generation time.
-Table \ref{tab:gendata} presents the following data:
-\begin{itemize}
-\item The \emph{time} required to generate the tests and to evaluate their validity (it does not include the evaluation of the $oracle_{I}$) in seconds.
-\item The \emph{size} in terms of the number of tests and how many of those are valid (\#Val), i.e.   $val_{S}$  returns true. %(\red{would in percentage be useful?})
-\item The percentage of parameter interactions (pairs) that are covered. In the count of the pairs to be covered, we ignore constraints as in Table \ref{tab:benchmarks}.
-\end{itemize}\be
-
-\begin{table*}[t]
-\caption{Valid pairwise parameter interactions covered by six test generation policies. (Shaded cells are covered in the prose.) Out of memory errors are due to constraint conversion into the CNF format required by CASA. In particular, as known in the literature, the size in CNF of the negation of a constraint can grow exponentially.}\label{tab:gendata} %Interesting cases covered in the prose are shaded.
-\centering
-\resizebox{\columnwidth}{!}{%
-	\begin{tabular}{l|cccc|cccc|cccc|cccc}
-		\toprule
-		&   \multicolumn{4}{c}{Banking1} & \multicolumn{4}{c}{Django}  &   \multicolumn{4}{c}{libssh} &\multicolumn{4}{c}{\TLSChecker}\\
-		Pol.  & time & size  & \#Val & Cov. & time& size  & \#Val & Cov. & time& size  & \#Val & Cov. & time& size  & \#Val & Cov.  \\ \midrule
-		\ic & 0.22 & 12 & 11 & 100\% & 0.65 & 10 & 2 & 100\%& 0.25 & 8 & 4 & 100\% & 447 & 267 & \cellcolor{light-gray}0 & 100\%\\
-		\ccit & 0.26 & 13 & 13 & \cellcolor{light-gray}100\%&  1.24 & 10 & 10 & 91.8\%& 0.28 & 8 & 8 & 99.3\% & 2.74 & 141 & 141 & 6.2\%\\
-		\cv &\multicolumn{4}{c}{Out of memory} &  0.32 & 11 & 0 & \cellcolor{light-gray}100\%& 0.25 & 8 & 0 & 99.3\% &\multicolumn{4}{c}{Out of memory} \\
-		\cucv &\multicolumn{4}{c}{Out of memory} &  1.58 & 21 & 10 & 100\% & 0.52 & 16 & 8 & 100\% &  \multicolumn{4}{c}{Out of memory}\\
-		\ValC &\multicolumn{4}{c}{Out of memory} &   0.31 & 11 & 4 & 100\%& 0.29 & 8 & 5 & 100\% &  \multicolumn{4}{c}{Out of memory} \\
-		\CCi & 6.22 & 12 & 9 & 100\% & 0.58 & 13 & 3 & 100\%&  0.30 & 8 & 2 & 100\% &  460 & 268 & \cellcolor{light-gray}0 & 100\%\\\bottomrule
-	\end{tabular}
-}
-\end{table*}
-
-\bb \noindent From Table  \ref{tab:gendata} we can draw the following observations:
-
-\begin{asparaitem}
-
-\item 
-\ic usually produces both valid and invalid tests. However, it may produce all invalid tests (especially if the constraints are strong - see \TLSChecker). Having all invalid tests may reduce test effectiveness.
-
-\item 
-\ccit usually does not cover all the parameter interactions, since some of them are infeasible because they violate constraints in the original model. On the other hand, \ccit generally produces smaller test suites (as in the case of \TLSChecker). However, in some cases, \ccit is able to cover all the required tuples at the expense of larger test suites (as in the case of Banking1). 
-
-\item 
-\cv generally does not cover all the parameter interactions, since it produces only invalid configurations. However, in one case (Django) \cv covered all the interactions. This means that 100\% coverage of the tuples in some cases can be obtained with no valid configuration generated and this may reduce the effectiveness of testing. %Therefore, interaction coverage may be not a good indicator of the coverage of the model validity by itself.
-Sometimes \cv is too expensive to perform.
-
-\item
-\cucv guarantees to cover all the interactions and it produces both valid and invalid configurations. However, it produces the bigger test suites and it may fail because it relies on \cv.
-
-\item 
-\ValC covers all the interactions with both valid and invalid configurations. It produces test suites smaller than \cucv and it is generally faster, but as \cucv may not terminate.
-
-\item
-\CCi covers all the interactions, it generally produces both valid and invalid test. However, it may produce all invalid tests (see \TLSChecker), and it produces a test suite comparable in size with \ic. However, it guarantees an interaction among the constraint validity. It terminates, but it can be slightly more expensive than \ic and \ccit. If the strength of combinatorial testing is greater or equal to the number of constraints, it guarantees also that valid and invalid configurations are generated.
-\end{asparaitem}
-\be
-
-\subsubsection{Fault detection capability}
-
-\bb We are interested in evaluating the fault detection capability of the tests generated by the policies presented above. 
-We have applied mutation analysis \cite{Jia:mutation} which consists of introducing artificial faults and checking if the proposed technique is able to find them. In our case, we have introduced the faults by hand and then we have applied our technique described in Section \ref{sec:process} in order to check if the fault is detected (or \emph{killed}). 
-Tables in Fig. \ref{tab:faultdetection} present a brief description of each introduced fault and if each policy was able to kill it.
-
-In principle, our technique is able to find conformance faults both in the model and in the implementation. Indeed, when a fault is found, it is the designer's responsibility to decide what is the source of the fault. For libssh we have modified both the model and the code (the \texttt{cmake} script) (faults L$x$). For the  \TLSChecker we have modified the model and the source code (faults H$x$). Table in Fig. \ref{fig:seededfaults} presents the details of each injected fault, including if it refers to the specification (S) or to the implementation (I).\be
-
-\begin{figure}[t]%
-\centering
-\subfloat[Seeded Faults (S: in Spec, I: in implementation)]{\label{fig:seededfaults}%
-	\resizebox{.32\columnwidth}{!}{\begin{tabular}{ccll}
-			\parbox[t]{3mm}{\multirow{5}{*}{\rotatebox[origin=c]{90}{libssh}}}
-			& L1&forgot all the constraints	 &S\\
-			& L2&remove a constraint	&S\\
-			& L3&add a constraint	&S\\
-			& L5	& remove a dependency&I\\
-			& L6	& add a dependency&I\\\\
-			\parbox[t]{3mm}{\multirow{6}{*}{\rotatebox[origin=c]{90}{HeartBeatChecker}}}
-			& H1  & remove one constraint&S\\
-			& H2	&== to $<=$&S\\
-			& H4	&\&\& to $||$	&I\\
-			& H5	&== to != (all)	&I\\
-			& H6	&== to != (one) &I\\
-			& H7	&HeartBleed	&I \\\\
-			
-\end{tabular}}}
-\hspace{4mm}
-\subfloat[Fault detection capability of the policies (- means that the test suite was not generated.)]{\label{fig:faultdetected}%
-	\resizebox{.61\columnwidth}{!}{\begin{tabular}{lccccccccccccccr}
-			\\
-			&&\multicolumn{13}{c}{Is the fault detected?} & mut.\\
-			Policy & &L1 &L2	&L3	&L4	& L5&	L6	&	H1	&H2&	H3	& H4	&	H5	& H6 & H7 & score\\\midrule
-			\ic	&&	\checkmark & 	 \checkmark & 		&	 \checkmark & 	 \checkmark & 		&	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 		& 10/13\\
-			\ccit	&&	 \checkmark & 	 \checkmark & 		&	&	&	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 		&	 \checkmark & 		&	& 7/13\\
-			\cv	&&	 \checkmark & 		&	 \checkmark & 	 \checkmark & 	 \checkmark & 		&- & - & - & - & - & - & - & 4/13 \\
-			\cucv	&&	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & - & - & - & - & - & - & - & 		6/13\\
-			\ValC	&&	 \checkmark & 	 \checkmark & 		&	 \checkmark & 	 \checkmark & 		&	 - & - & - & - & - & - & - & 	4/13\\
-			\CCi	&&	 \checkmark &  	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 		&	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 	 \checkmark & 		 \checkmark & 12/13\\\\\\\\
-\end{tabular}}}%
-\caption{Fault detection capability}
-\label{tab:faultdetection}
-\end{figure}
-
-
-\bb Table in Fig. \ref{fig:faultdetected} reports which faults were killed by each policy.
-We can observe that the  unconstrained CIT (\ic) policy performs better than some policies that consider constraints (\ccit and \cv) even if normally their test suites have the same dimensions. However, in some cases (L6) \ccit detected a fault where \ic failed.  For \cv, \cucv, and \ValC we can analyze only the results for libssh, since they did not complete the test generation for \TLSChecker. However, even if we restrict to libssh, \cucv has a very good fault detection capability (but it produces the biggest test suite) while \ValC and \cv scored as well as \ic, although they are more expensive, so according to our studies there is no particular reason to justify the use of \ValC and \cv alone. However,  in one case (L3) \cv detected a fault that \ic did not.
-
-Overall \CCi was the best in terms of fault detection, even with test suites as big as those for \ic. However, it missed one of the injected faults (L6).  
-\CCi was the only one to find the fault H7 (\emph{HeartBleed}).  The HeartBleed fault simulates the famous Heartbleed security bug of the OpenSSH implementation of the TLS protocol. It results from improper input validation (due to a missing bounds check) in the implementation of the TLS Heartbeat extension. In detail, the implementation built the payload length of message to be returned based on the length field in the requesting message, without regard to the actual size of that message's payload. In our implementation, the faulty \TLSChecker missed to check that \lstinline[language=comb]$REQ_Length==RES_Length$. This proves that testing how parameters can interact with single constraints increases the fault detection capability of combinatorial testing. Our new policies may thus prove useful in detecting faults missed by standard approaches due to the so-called \emph{masking effects} \cite{YilmazDCP14}. \be
-
-\section{Related Work}
-\label{sec:validation_relatedwork}
-
-\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,HenardPPKT04,YilmazDCP14}.
-For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
-A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
-
-Testing configurable systems in the presence of constraints is tackled in \cite{CohenTSE08} and \cite{Petke15:practical}. In these papers, authors argue that CIT is a very efficient technique and that constraints among parameters should be taken into account in order to generate only valid configurations. This allows to reduce the cost of testing. Also in \cite{jar10}, authors have shown how to successfully deal with the constraints by solving them by using a constraint solver such as a Boolean satisfiability solver (SAT). However, the emphasis of that research is more on testing of the final system not its model of configurability. CIT is also widely used to test SPLs \cite{Perrouin010a}.
-
-In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
-
-\section{Conclusions}
-\label{sec:validation_conclusions}
-
-\bb We proposed a novel approach that extends CIT and aims to automatically check the validity of the configurability model of the system under test. In particular, we described how combinatorial interaction testing techniques can be utilised for this purpose. We devised four  original policies that can help software testers discover faults in the model of system configurations as well as faults in the software implementation that the model describes. Several experiments conducted show the efficacy of our approach.   We confirm that constraints play an important role in configurability testing, but the experiments show that also invalid configurations should be considered in order to avoid some problems (like over-specification) and to detect a wider range of faults. 
-Our experiments suggest that techniques including both valid and invalid tests (as \cucv) have a better fault detection capability than techniques including only valid (as \ccit) or invalid tests (as \cv). However, producing invalid tests may be not feasible. In these cases we would suggest the tester to use \CCi instead of \ic and \ccit. The experiments suggest that \CCi is not very expensive and it offers a superior fault detection capability. The techniques presented should significantly help software developers in the modelling and testing process of software systems configurations.
-\end{tikzborder}
-
 
 
 \section{Introduction}
@@ -4587,7 +4099,7 @@ Let $\replayTW(\ptaProc, \word)$ denote the entire procedure of synthesizing the
 \end{lemma}
 \end{tikzborder}
 
-\subsection{Correctness}\label{ss:correctness}
+\subsection{Correctness}
 
 \begin{tikzborder}{}
 Recall that \ref{assumption:oracle-in-pta} assumes that there exists a valuation~$\pvalOracle$ such that $\Lg(\valuate{\ptaProc}{\pvalOracle}) = \TLoracle$. We show that, under \ref{assumption:oracle-in-pta}, our resulting constraint is always non-empty and contains the valuation~$\pvalOracle$.
