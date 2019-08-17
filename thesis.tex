@@ -1075,70 +1075,116 @@ Outcomes of this project may have an impact in reducing the effort of software m
 
 \section{Research Questions and Objective}
 The goal of this thesis is to study how software testing techniques can be applied to drive automatic repair of software models.
-The thesis is divided into seven chapters, and each of these chapters (introduction excluded) try to answer to a research question (RQ).
+The thesis is divided into seven chapters, and each of these chapters (introduction excluded) tries to answer to a research question (RQ).
 \researchquestion{What are the main techniques and applications of software testing and program repair?}
-This is shown in Chapter 2 in which relevant books, papers and standards are analysed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
+This is shown in Chapter \ref{ch:background} in which relevant books, papers and standards are analysed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
 Different types of software models are presented (namely software product lines, combinatorial models, and timed automata), and currently available techniques to support engineers in automatically update and repair programs and models are analyzed. In particular, techniques such as mutation together with evolutionary algorithms, and a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
 \researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
-Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter 3\todo{3} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
+Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter \ref{ch:automatedrepair} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
 \red{add also the one that simplifies constraints among features}
 
 \researchquestion{How to repair feature models?}
 A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. Although feature models are not used in every such configurable software, there are many companies, in particular in the automotive industry, that use feature models to represent domain knowledge over SPLs (see this list \todo{cite featureide} of some companies using feature models), and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
 Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now over 8000 features \todo{cite}.
+Chapter \ref{ch:fmrepair} presents a
+
 \researchquestion{How to repair configuration constraints?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
 Another goal is the application of model repair technique directly to constraints, they can be configuration constraints, i.e., constraints under which (and only under which) the system is supposed to work correctly, or shows a certain property. 
-Chapther 5\todo{5} describes a possible approach to automatically repair constraints using combinatorial testing, and a case study on the application of this method for the detection of XSS vulnerabilities in web applications.
+Chapther \ref{ch:constraintrepair} describes a possible approach to automatically repair constraints using combinatorial testing, and a case study on the application of this method to software security, for the detection of XSS vulnerabilities in web applications.
 %By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
 
 \researchquestion{How to repair timed automata clock guards?}
 Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata.\todo{cite} They can range from electrical automated machines such as coffee machines and washing machines (where time models the time up to an inserted coin has to be given back to the user, if no operation is selected, for instance), to protocol implementation in the railway, automotive and aerospace industry.
-Chapter 6\todo{6} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating and executing test cases (i.e., sequences in the automata), and iteratively repair inconsistencies between the model and the system.
+Chapter \ref{ch:tarepair} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating and executing test cases (i.e., sequences in the automata), and iteratively repair inconsistencies between the model and the system.
 
 \researchquestion{How combinatorial testing editing and generation can be made easy to perform?}
 As part of the thesis, we have also the goal to investigate a tool that supports the activity of combinatorial test generation, that is often used in the presented processes for model repair.
-Chapter 7\todo{7} presents a comparative study among the existing tools for combinatorial testing, and proposes a SaaS (Software-as-a-Service) web-based tool, that does not require any installation, to make the test generation activity easy for engineers.
+Chapter \ref{ch:ctwedge} presents a comparative study among the existing tools for combinatorial testing, and proposes a SaaS (Software-as-a-Service) web-based tool, that does not require any installation, to make the test generation activity easy for engineers.
 
 \researchquestion{How can the detection of failure-inducing combinations be improved?}
 One of the steps of the test-driven processes to automatically repair models is the detection of the combinations of parameters that cause inconsistencies between the model and the system: the failure-inducing combinations (\fccs).
 There are tools for failure-inducing combination detection, such as BEN \cite{ben_2015} \todo{cite others}, but they have limitations, in particular regarding accuracy.
-In Chapter 8\todo{8} we present \mix, a new method to detect failure-inducing combinations guaranteeing to achieve complete accuracy up to a certain strength $t$.
-This tool could be used not only to improve the model repair methods devised so far (Chapters 4-5 \todo{tocheck}), but also as an alternative fault localization technique.
+In Chapter \ref{ch:mix} we present \mix, a new method to detect failure-inducing combinations guaranteeing to achieve complete accuracy up to a certain strength $t$.
+This tool could be used not only to improve the constraint repair method devised (in Chapter \ref{ch:constraintrepair}), but also as an alternative fault localization technique.
 	
 %To each of the questions corresponds a chapter, referring to one or more published papers.
 
-\section{Peer-Reviewed Papers}
+\section{Contributions}
 
-\begin{itemize}
+We give below an overview of the contributions of this PhD thesis in terms of published or accepted peer-reviewed papers, in international conferences or scientific journals.
+The list is in chronological order, and for each paper is shown a short summary and a description of the role of M. Radavelli in the work.
+
+\begin{enumerate}
 	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
+	
 	In this paper, we study the effectiveness of different combinatorial test generation criteria in detecting faults in system whose combinatorial model contains constraints among parameters.
 	M. Radavelli contributed in the discussion of ideas between co-authors, in implementing part of the experiments (in particular, the evaluation with the benchmark \textit{Django}), and in writing about it.
 	The co-authors further contributed in writing the paper, implementing the approach and code to report the data from evaluation, further discussions and proof reading.
 
 	\item \cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
-	In this paper, 
-	M. Radavelli contributed in 
+
+	In this paper, we present a process for finding and fixing conformance faults in models of parameter configuration of software systems. We compare effectiveness among the CIT policies introduced in the previous paper \cite{Gargantini16:validation} in repairing the constraints, and also in completely inferring the constraints, for the benchmark \textit{Django}.
+	M. Radavelli contributed to the discussion of ideas between co-authors, to the implementation of part of the evaluation, and in writing the paper.
+	The co-authors further contributed in writing the paper, implementing the approach, reporting the data from evaluation, and in further discussions and proof reading.
+		
+	\item \cite{arcaini_evolutionary_2018} \bibentry{arcaini_evolutionary_2018}
 	
-	\item \cite{arcaini2018evolutionary} \bibentry{arcaini2018evolutionary}
+	This paper presents an approach to automatically repair feature models. Given a set of change requirements in terms of features and products to add/remove from a feature model, the evolutionary process tries to mutate that feature model such that the obtained model exactly captures the specified requirements.
+	M. Radavelli contributed in the process definition, implemented the process in Java, selected the benchmarks, performed the experiments on them, and produced tables and charts. M. Radavelli contributed in writing the paper.
+	The co-authors further contributed in discussions, writing the paper, and proof reading.
 
 	\item \cite{IWCTGargantini2018} \bibentry{IWCTGargantini2018}
+	
+	This paper presents \ctwedge, a novel tool that offers a complete SaaS (Software as a Service) environment for combinatorial testing modeling and generation. This tool is installation-free and download-free, easy to use, and extensible to support more generators.
+	M. Radavelli contributed in the discussion towards this paper, in the tool implementation using Xtext Web \todo{cite}, in the comparison with existing tools, and in writing the paper.
+	The co-author further contributed in discussions, writing the paper, and proof reading.
 
 	\item \cite{arcaini2019achieving} \bibentry{arcaini2019achieving}	
 	
+	This journal paper further extends \cite{arcaini_evolutionary_2018} by improving the process and by performing a more extensive evaluation using real evolutions of feature models.
+	M. Radavelli contributed in the discussions and in writing the paper (in particular the experiments and the related works), implemented the process and performed the experiments.
+	The co-authors further contributed in discussions, writing the paper, and proof reading.
+	
 	\item \cite{iwct19} \bibentry{iwct19}
 
+	This paper presents \mix, an iterative process to fault localization aiming at finding minimal failure-inducing combinations alternating combinatorial test generation and execution. With respect to existing methods, under the assumption that the maximum strength of the failure-inducing combinations is known and the process is run up to that strength, it guarantees to find all and only those minimal failure-inducing combinations.
+	This kind of fault localization is used in the processes for model repair devised in our papers \cite{gargantini_combinatorial_2017,IWCTGargantini2018,garn2019}, and the process described in this paper could be used to improve those processes.
+	
 %	\item \cite{evolUpdateVAMOS2018} \bibentry{evolUpdateVAMOS2018}
 		
 	\item \cite{garn2019} \bibentry{garn2019}
 	
+	This paper applies the automated iterative process for constraints repair described in \cite{gargantini_combinatorial_2017} to the field of security testing. It identifies (from an empty model) constraints among XSS attack parameters that trigger XSS vulnerabilities in web applications. Empirical evaluation on six real-world web applications shows that the process achieves on average 78.8\% accuracy in detecting XSS vulnerability triggering conditions.
+	M. Radavelli contributed in the discussions among co-authors, in writing the paper (in particular the sections regarding the process description, the evaluation and related work), and implemented part of the process, and reported the evaluation results.
+	The co-authors further contributed in discussions, in implementing part of the process (web server for test case concretization, and XSS vulnerability detection) , writing part of the paper, and proof reading.
+	
 	\item \cite{andre2019repairing} \bibentry{andre2019repairing}
 
+	This paper proposes an iterative approach for automatically repairing timed automata, in the case where clock guards shall be checked for conformance w.r.t. the system implementation, and be repaired if needed. 
+	Our approach abstract the initial TA by adding some parameters in the clock guards, generates some tests, and then refines the abstraction by identifying only those TAs that correctly evaluate all the tests.
+	M. Radavelli contributed in the discussions among co-authors, in the implementation of the approach in Java, performed the evaluation among the three benchmarks, and compared among existing techniques.
+	Co-authors contributed in discussions (especially precious has been André's expertise on Timed Automate), in implementing the process, in writing the paper and in proof reading.
+	
 	\item \cite{arcaini2019varivolution} \bibentry{arcaini2019varivolution}
 
-\end{itemize}
+	In this paper, we proposed a process that, given a (faulty or outdated) variability model, and the faults in terms of failure-containing combinations, identifies the constraints involved in the fault, repairs them according to the oracle value, and simplifies them to make the edit minimal. 
+	The process can be seen as an integration to the evolutionary algorithm we proposed to repair feature models in \cite{arcaini_evolutionary_2018,arcaini2019achieving}, that deals with constraints among features expressed in propositional logic. 
+	M. Radavelli contributed in the discussions among co-authors, in the implementation of the approach in Java, performed the empirical evaluation among the 7 benchmark models and the different simplification strategies, and wrote the paper.
+	Co-authors contributed in discussions, in writing the paper, and in proof reading.
 
+\end{enumerate}
+
+\subsection{Publications at Doctoral Symposiums and Student Research Competitions}
+
+The contents of this thesis have also been accepted for presentation, in the form of a poster and/or presentation, to the following two software engineering conferences, in which an extended abstract has been included in the conference proceedings:
+
+\begin{enumerate}
+	\item \cite{radavelli2019using} \bibentry{radavelli2019using}
+	\item \cite{Radavelli:2019:UST:3338906.3342508} \bibentry{Radavelli:2019:UST:3338906.3342508}
+	%\item \cite{}
+\end{enumerate}
 
 \section{Note on conventions}
 Parts of this thesis are based on the aforementioned publications. To be able to easily distinguish a text included verbatim from the publications, the corresponding paragraphs are marked with a vertical bar on the side of the text.
@@ -1149,18 +1195,29 @@ The following paragraph is an example of the way we mark the text, which is a ve
 \end{tikzborder}
 
 \part{State of the Art}
-There are several works on automated program repair \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}. However, to the best of our knowledge, very few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
+
+\chapter{Background}\label{ch:background}
+
+To make this thesis more self-contained, this chapter presents an overview of the context of model repair, i.e., model-driven software engineering (Sect. \ref{sec:modeldriven}), of the main common techniques used in the approaches proposed in this thesis, i.e., software testing and fault localization, evolutionary algorithms, SAT and SMT solvers, and BDD and MDD representations (Sect. \ref{sec:testing}), and some background over the specific software models targeted in the repair processes, i.e., logical constraints, feature models, and timed automata (Sect. \ref{sec:models}).
+
+\section{Model-Driven Software Engineering}\label{sec:modeldriven}
+to copy from various sources, including the MDE book by Krogstie.
+	
+\subsection{Models in the Software Development Lifecycle}
+to copy from various sources, including the MDE book by Krogstie.
+
+\subsection{Model Transformations}
+M2M, M2T, T2M, T2T transformations (copy from MDE book)
+
+\subsection{Model Repair and Program Repair}
+To the best of our knowledge, few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
+There are, however, several works on automated repair of programs \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}.
 In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo_2013}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,Abukwaik_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
 A quality-based model refactoring framework assessing quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents an approach to model repair, although it is specific to one kind of models.
 The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
 
-\chapter{Background}
 
-\section{Model-Driven Software Engineering}
-\subsection{Models in the Software Development Lifecycle}
-\subsection{Model Transformations}
-
-\section{Software Testing}
+\section{Software Testing}\label{sec:testing}
 Software systems are an integral part of life, from business applications (e.g., banking) to consumer
 products (e.g., cars). Most people have had an experience with software that did not work as expected.
 Software that does not work correctly can lead to many problems, including loss of money, time, or
@@ -1185,21 +1242,16 @@ Burr and Young \cite{burr98} reported 93\% code coverage from applying pairwise 
 CIT is used in a variety of applications for unit, system, and interoperability testing. 
 It has generated both high-level test plans and detailed test cases. In several applications, it greatly reduced the cost of test plan development. Testers can base their input on detailed development requirements or on a system's high-level functional requirements.
 
-\section{The Oracle Problem}
-
-\section{Software Artifacts}
-
-\subsection{Software Product Lines}
-%// TODO change because copied from Oster's PhD thesis introduction
-\blue{Software Product Line (SPL) engineering is a popular approach for the systematic reuse of software artifacts across a very large number of similar products. SPLs are gaining widespread acceptance and various domains already apply SPL engineering successfully to address the well-known needs of the Software Engineering community, including increasing quality, saving costs for development and maintenance, and decreasing time-to-market \cite{bookSPL2001}. SPLs offer a systematic reuse of software artifacts within a range of products sharing a common set of features (i.e., units of functionality) \cite{Griss2000}. According to IEEE a feature is a distinguishing characteristic of a software item (e.g. concerning its performance, portability, or functionality) [ANS83].
-The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features [CE00, pages 93-95]. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate. Variability leads to a combinatorial explosion of possible products from one SPL. For instance, an SPL with around 200 optional features may lead to over 1060 different products.
-The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software [Bos05].
-Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.}
-
-\subsection{Timed Automata}
+\subsection{The Oracle Problem}
+TODO to copy from Tonella e Jahangirova papers...
+It is important to our repair process because it depends on an oracle to assess non conformancies between the model and the system.
+In one case we automated the oracle (we used the implicit oracle), in other cases, the oracle could be set by the user or predicted.
+It is often the longest phase in software testing, and a bottleneck in testing automation, because it is where human plays an important role, as it is intimately related to domain knowledge representation, and to requirements engineering.
 
 %\section{Manipulation Techniques}
-\section{SAT and SMT solvers}
+\subsection{SAT and SMT solvers}
+\todo{We use SAT and SMT solvers to determine if a test is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints.}
+
 
 In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. 
 In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula "a AND NOT b" is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, "a AND NOT a" is unsatisfiable.
@@ -1209,11 +1261,27 @@ Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem ins
 
 %\subsection{Search-based Software Engineering}
 %\subsection{Model Checkers}
-\section{Automated Program Repair}
+
+\subsection{BDDs and MDDs}
+
+
+\section{Software Artifacts}\label{sec:models}
+
+\subsection{Logical Constraints}
+
+\subsection{Feature Models}
+%// TODO change because copied from Oster's PhD thesis introduction
+\blue{Software Product Line (SPL) engineering is a popular approach for the systematic reuse of software artifacts across a very large number of similar products. SPLs are gaining widespread acceptance and various domains already apply SPL engineering successfully to address the well-known needs of the Software Engineering community, including increasing quality, saving costs for development and maintenance, and decreasing time-to-market \cite{bookSPL2001}. SPLs offer a systematic reuse of software artifacts within a range of products sharing a common set of features (i.e., units of functionality) \cite{Griss2000}. According to IEEE a feature is a distinguishing characteristic of a software item (e.g. concerning its performance, portability, or functionality) \cite{ieeeterminology}.
+The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features \cite{CE00}. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate. Variability leads to a combinatorial explosion of possible products from one SPL. For instance, an SPL with around 200 optional features may lead to over 1060 different products.
+The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia}.
+Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.}
+
+\subsection{Timed Automata}
+
 
 
 \part{Test-Driven Model Repair Approaches}
-\chapter{Automated Model Repair}
+\chapter{Automated Model Repair}\label{ch:automatedrepair}
 We devise an iterative process to automatically repair models: the model is modified until all the non-conformances between the model and the system (revealed by the generated tests), are solved. Fig. \ref{fig:researchapproach} shows an overview of such test-driven repair approach. 
 Among testing techniques to be employed, black-box testing is an effective technique to detect faults in a system focusing on the inputs, without needing access to the code, but requiring simply an oracle that states if a particular test passes or fails. 
 Combinatorial Interaction Testing (CIT), in particular, has shown to achieve high coverage in software systems for which a parametric, configurable model can be defined. Moreover, we use mutation analysis and search-based methods for \textit{feature models}, a model that has also a graphical tree representation, and these methods tend to apply \textit{small} edits to the model, helping preserve domain knowledge.
@@ -1273,7 +1341,7 @@ In the following subsections we briefly describe the results obtained from the a
 \bb
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices.
 %We devise an approach in which tests that do not satisfy the constraints in the CIT model are considered invalid.
-Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{abukwaik_extracting_2016,Temple:2016:UML:2934466.2934472}. 
+Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{Abukwaik_2016,Temple:2016:UML:2934466.2934472}. 
 Therefore, in \cite{gargantini_combinatorial_2017} %, to find and fix conformance faults between the given software system and its combinatorial model, 
 we proposed an iterative approach that uses a fault-localization tool based on combinatorial testing, called BEN, and CIT policies introduced in our previous work \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations as expression in propositional logic.
@@ -1290,22 +1358,22 @@ Such changes can be complex and error-prone due to the size of the feature model
 %The modification of the feature model to be made to satisfy these change requirements can be complex and error-prone. 
 %In this case study, w
 Therefore, we try to \textit{repair} a feature model w.r.t. a given update request in the form of a set of configurations to be accepted or rejected, that may come from \textit{failing} test cases, or from a change in the specification.
-The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled \cite{arcaini2018evolutionary,ARCAINI201964}. %, by using BDDs. %The process terminates until the model is completely updated or some other termination condition occurs.
+The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled \cite{arcaini_evolutionary_2018,ARCAINI201964}. %, by using BDDs. %The process terminates until the model is completely updated or some other termination condition occurs.
 %Among all the possible models achieving the update request, the method privileges those structurally simpler, to preserve domain knowledge.
 The approach has been evaluated on real-world feature models: although it does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, %and since the process is based on small mutations, 
 with minimal edits, helping in preserving domain knowledge.% from previous models.
 \be
 
-\chapter{Repair of Feature Models}
+\chapter{Repair of Feature Models}\label{ch:fmrepair}
 Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
 We developed an approach that \textit{repairs} a feature model w.r.t. a given update request in the form of combinations representing a set of configurations to be accepted or rejected, that may be detected by \textit{failing} test cases, or directly by engineer domain knowledge. % from a change in the specification.
 The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled.
-We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini2018evolutionary}.
+We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini_evolutionary_2018}.
 We generate faults between two real versions of feature models of the {\tt MobileMedia}, {\tt HelpSystem},  {\tt SmartHome}, and {\tt ERP\_SPL} systems in the SPLOT repository\footnote{\url{http://52.32.1.180:8080/SPLOT/feature_model_repository.html}}, and we notice that although our approach does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, with minimal edits.%, helping in preserving domain knowledge.
 
 \section{Basic definitions}\label{sec:basicDef}
 
-\begin{tikzborder}{\cite{arcaini2018evolutionary}}
+\begin{tikzborder}{\cite{arcaini_evolutionary_2018}}
 In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
 %
 \begin{compactitem}
@@ -2073,7 +2141,7 @@ Another threat to the external validity is that the update requests that we use 
 	\end{figure}
 	%
 	
-	\bb We assume that a possibly faulty variability model is translated to a set of boolean formulas representing the constraints. For example, if the model is a feature model, semantic transformations presented in~\cite{Batory:2005} can be used. From a sufficiently large test suite, complete \fccs have been identified. To this aim, one can use well-known fault localization techniques like~\cite{ben_2015,iwct19}. Our process takes as input the \fccs and the constraints and repair them. If the user wants to go back to the initial format of the variability model, (s)he must apply some reverse engineering (which is out of the scope of this work).
+	\bb We assume that a possibly faulty variability model is translated to a set of boolean formulas representing the constraints. For example, if the model is a feature model, semantic transformations presented in~\cite{batory2005feature} can be used. From a sufficiently large test suite, complete \fccs have been identified. To this aim, one can use well-known fault localization techniques like~\cite{ben_2015,iwct19}. Our process takes as input the \fccs and the constraints and repair them. If the user wants to go back to the initial format of the variability model, (s)he must apply some reverse engineering (which is out of the scope of this work).
 	
 	We first describe a na{\"i}ve implementation of the repair process in Sect.~\ref{sec:naiveAppr}, and we then introduce some optimizations in Sect.~\ref{sec:optimizedApproach}.
 	\be
@@ -2440,7 +2508,7 @@ Another threat to the external validity is that the update requests that we use 
 	
 	In the classification of edits to variability models presented in~\cite{lotufo_evolution_2010}, our process fits the categories \textit{build fix} and \textit{adherence to changes in code}; in the classification of edits to variability models presented in~\cite{thum_reasoning_2009}, our process is able to address all kind of edits: in the case of {\it arbitrary edits}, it achieves them by applying \textit{specialization} (what we call \textit{strengthening repair}) and \textit{generalization} (what we call \textit{weakening repair}) sequentially.
 	
-	A different technique for feature model repair in the context of system evolution, with different versions of systems, used mutation operators to make the model meet a specific \textit{update request}~\cite{evalUpdateJSS2019,arcaini_evolutionary_2018}; however, that approach does not handle arbitrary constraints, and does not guarantee to completely fulfil the update request, and thus to repair the model. We believe that that approach could be extended with our process, to be able to \textit{repair} not only the feature \textit{tree}, but the constraints as well.
+	A different technique for feature model repair in the context of system evolution, with different versions of systems, used mutation operators to make the model meet a specific \textit{update request}~\cite{arcaini2019achieving,arcaini_evolutionary_2018}; however, that approach does not handle arbitrary constraints, and does not guarantee to completely fulfil the update request, and thus to repair the model. We believe that that approach could be extended with our process, to be able to \textit{repair} not only the feature \textit{tree}, but the constraints as well.
 	
 	Repair of constraints has usage also in other contexts, such as the repair of parameter values of timed automata clock guards, by applying tests and specializing the constraints~\cite{andre_tap_2019}; and in the detection of constraints among parameters that let the built attack string trigger an XSS vulnerability in the system~\cite{garn2019}.\be
 
@@ -2451,7 +2519,7 @@ Another threat to the external validity is that the update requests that we use 
 	As future work, we plan to adapt our approach to larger models and to include in the evaluation the performances of reverse engineering the final constraints into a variability model (in case the repairs affected the structure of the initial variability model). As future work, we also want to address the current limitations; for example, by designing better selection and simplification strategies, by extending the method to non-boolean variables, and by including new simplification techniques. Furthermore, in order to better preserve domain knowledge, we plan to design an approach that interacts with domain engineers, for instance by highlighting implicit constraints as in~\cite{ananieva_implicit_2016}.\be
 
 
-\chapter{Automated Constraint Repair}
+\chapter{Repair of Constraints Among Parameters}\label{ch:constraintrepair}
 %\begin{tikzborder}{\cite{arcaini2019varivolution}}
 \bb A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 The devised iterative approach uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and CIT policies introduced in \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
@@ -2549,50 +2617,50 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 	\be
 	
 	% ======= STORE/BOX LISTINGS =======
-	\newsavebox{\wmlisting}
-	\begin{lrbox}{\wmlisting}% Store first listing
-		\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
-		Model WashingMachine
-		Definitions:
-		Number maxSpinHL = 1400;
-		end
-		Parameters:
-		Boolean HalfLoad;
-		Enumerative Rinse {Delicate Drain Wool};
-		Numbers Spin { 800 1200 1800 };
-		end
-		Constraints:
-		# HalfLoad => Spin < maxSpinHL #
-		# Rinse==Rinse.Delicate => 
-		( HalfLoad and Spin==800) #
-		end\end{lstlisting}
-	\end{lrbox}
+\newsavebox{\wmlisting}
+\begin{lrbox}{\wmlisting}% Store first listing
+	\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
+	Model WashingMachine
+	Definitions:
+	Number maxSpinHL = 1400;
+	end
+	Parameters:
+	Boolean HalfLoad;
+	Enumerative Rinse {Delicate Drain Wool};
+	Numbers Spin { 800 1200 1800 };
+	end
+	Constraints:
+	# HalfLoad => Spin < maxSpinHL #
+	# Rinse==Rinse.Delicate => 
+	( HalfLoad and Spin==800) #
+	end\end{lstlisting}
+\end{lrbox}
 	
-	\newsavebox{\hello}
-	\begin{lrbox}{\hello}% Store first listing
-		\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
-		Model Greetings
-		Parameters:
-		Boolean HELLO;
-		Boolean BYE;
-		end
-		Constraints:
-		# HELLO != BYE#
-		end
-		\end{lstlisting}\qquad
-		\begin{lstlisting}[language=C,basicstyle=\scriptsize,columns=fullflexible]
-		#ifdef HELLO
-		char* msg = "Hello!\n";
-		#endif
-		#ifdef BYE
-		char* msg = "Bye bye!\n";
-		#endif
-		
-		void main() {
-		printf(msg);
-		}
-		\end{lstlisting}
-	\end{lrbox}
+\newsavebox{\hello}
+\begin{lrbox}{\hello}% Store first listing
+\begin{lstlisting}[language=comb,basicstyle=\sffamily\scriptsize]
+Model Greetings
+Parameters:
+Boolean HELLO;
+Boolean BYE;
+end
+Constraints:
+# HELLO != BYE#
+end
+\end{lstlisting}\qquad
+\begin{lstlisting}[language=C,basicstyle=\scriptsize,columns=fullflexible]
+#ifdef HELLO
+char* msg = "Hello!\n";
+#endif
+#ifdef BYE
+char* msg = "Bye bye!\n";
+#endif
+
+void main() {
+printf(msg);
+}
+\end{lstlisting}
+\end{lrbox}
 	
 	
 	\begin{figure}[!htp]%
@@ -2620,7 +2688,6 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 	Configurations can be set at compile time. An example is shown in Figure~\ref{fig:compiletimeConf}. Depending on the value settings of the Boolean variables \texttt{HELLO} and \texttt{BYE} different messages will be displayed when the program is run.
 	
 	\noindent {\bf Design time}
-	
 	Configurations can also be set at design time. For example, in case of a SPL, a configurability model is built during the design. 
 	
 	%\item 
@@ -2925,7 +2992,6 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 	
 	In principle, our technique is able to find conformance faults both in the model and in the implementation. Indeed, when a fault is found, it is the designer's responsibility to decide what is the source of the fault. For libssh we have modified both the model and the code (the \texttt{cmake} script) (faults L$x$). For the  \TLSChecker we have modified the model and the source code (faults H$x$). Table in Fig. \ref{fig:seededfaults} presents the details of each injected fault, including if it refers to the specification (S) or to the implementation (I).
 	\be
-	
 	
 	\begin{figure}[h]%
 		\centering
@@ -4003,7 +4069,7 @@ As future work, we plan to improve the process by reducing the required tests, u
 Another direction is to further simplify the detected constraints, to reduce them in number and present them to the user in a more readable way.
 \end{tikzborder}
 
-\chapter{Repair of Timed Automata}
+\chapter{Repair of Timed Automata}\label{ch:tarepair}
 \begin{tikzborder}{\cite{andre_tap_2019}}
 Timed automata (TAs) are a widely used formalism to specify systems having temporal requirements. However, exactly specifying the system may be difficult, as the user may not know the exact clock constraints triggering state transitions. In this work, we assume the user already specified a \ta, and (s)he wants to validate it against an oracle that can be queried for acceptance. Under the assumption that the user only wrote wrong guard transitions (\ie{} the structure of the TA is correct), the search space for the correct TA can be represented by a Parametric Timed Automaton (PTA), \ie{} a TA in which some constants are parametrized. The paper presents a process that
 %
@@ -4851,7 +4917,7 @@ In addition, when the oracle acts as a white-box, \ie{} when the oracle is able 
 \end{tikzborder}
 
 \part{Tools to Support Model Repair}
-\chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}
+\chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}\label{ch:ctwedge}
 \begin{tikzborder}{\cite{IWCTGargantini2018}}
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{Nie2011} reviewed the CIT literature and found around 20 tools. 
@@ -5374,13 +5440,13 @@ To offer a complete SaaS environment for CIT, we have developed and deployed \ct
 
 
 
-\chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}
+\chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}\label{ch:mix}
 
 \section{Introduction}
 
 \begin{tikzborder}{\cite{iwct19}}	
 %Rationale
-Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{kuhn2002investigation}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
+Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn2002a}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
 
 While test generation for CIT is a well-studied topic, fault detection and localization is still an open problem, although there are now some works targeting diagnosis and bug characterization~\cite{satapathy_approaches_2018}. When a failing test has been found, it remains unclear which combination in the failing test is responsible for the failure, since a test contains many combinations of different sizes. Knowing the interaction (and, therefore, also all the input configurations) that trigger failures is of help not only in correcting bugs, but also in understanding the impact of them. The particular interacting configuration that induces a failure, often directly reflects a use case scenario, which can be traced back from the input configuration. Knowing only the test that causes a fault, instead, often makes it impossible to trace back to the general use-case scenario (maybe involving several other input configurations) that caused the fault.
 
@@ -6185,10 +6251,16 @@ The current work does not support constraints in the combinatorial model; their 
 \end{tikzborder}
 
 \bookmarksetup{startatroot}
-\chapter{Conclusion}
+\chapter{Conclusions}\
 We illustrated the research project of using software testing techniques to drive the inference and repair of models of software systems.
 It is a novel application of software testing that goes beyond detecting and localizing faults in code, and that performs little repairs to preserves domain knowledge and support engineers in maintaining consistency between all the software artifacts, and localizing faults also in the model. 
 We presented applications to combinatorial and feature models. As future work, we plan to apply test-driven repair of other model types, namely timed automata, and abstract state machines. Furthermore, we plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.
+
+\section{Future Work}
+TODO: apply the repair process to more kind of models, if necessary through an abstraction and parametrization process (as in Timed Automata, see Chapter. \ref{ch:tarepair}).
+Improve each paper by doing what described as future work.
+Although these contributions have also been implemented, the program is tailored towards producing experiments table on the benchmarks proposed in the paper, and an easy-to-use tool publicly available could further promote the usage of the finding of our research. 
+In some cases the process is not fully automated, manual intervention (even if just to move, rename some files, or translate language formats) for certain tasks is needed (especially for timed automata repair, and for xss detection), so make a tool out of it, although expensive, would promote the usage of the devised processes.
 
 %\chapter{Bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
