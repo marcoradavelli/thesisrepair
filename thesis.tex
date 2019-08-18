@@ -1278,7 +1278,20 @@ Due to variability, we are increasingly encountering a situation in the automoti
 
 \subsection{Timed Automata}
 
+Timed automata is proposed by Alur and Dill \cite{AD94} in the early nineties as an extension to the classical automata, which is extended with clock variables. 
+Timed automata theory has become an important research area and been widely studied in the context of both formal languages and verification of real time systems \cite{5521565}.
 
+One main application of timed automata is the verification of properties using model checking methods \cite{clarke_model_checking}, by traversing through all reachable states.
+Another application is robustness analysis of systems that can be modeled by a TA \cite{markey2011robustness}.
+
+Timed automata have academic and industrial applications for the modeling and verification of protocols: such as TDMA (Time Division Multiple Access) protocol \cite{tdma}, power controller protocols \cite{havelund_power_controller_1999}, and security protocols such as Kerberos, TMN, Neumann Stubblebine, Andrew Secure and Wide Mouthed Frog \cite{jakubowska2005verifying,jakubowska2007modelling}.
+
+Timed automata are equipped with of clock variables that record the passage of time since they have been reset. All clocks are synchronized and they run at the same speed. 
+The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
+
+An example of time automaton is given in Fig. \ref{fig:time}.\todo{figura}
+
+A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
 \part{Test-Driven Model Repair Approaches}
 \chapter{Automated Model Repair}\label{ch:automatedrepair}
