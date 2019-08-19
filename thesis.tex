@@ -1117,6 +1117,7 @@ We give below an overview of the contributions of this PhD thesis in terms of pu
 The list is in chronological order, and for each paper is shown a short summary and a description of the role of M. Radavelli in the work.
 
 \begin{enumerate}
+	\renewcommand{\theenumi}{\Alph{enumi}} % https://tex.stackexchange.com/questions/2291/how-do-i-change-the-enumerate-list-format-to-use-letters-instead-of-the-defaul
 	\item \cite{Gargantini16:validation} \bibentry{Gargantini16:validation}
 	
 	In this paper, we study the effectiveness of different combinatorial test generation criteria in detecting faults in system whose combinatorial model contains constraints among parameters.
@@ -1176,14 +1177,19 @@ The list is in chronological order, and for each paper is shown a short summary 
 
 \end{enumerate}
 
-\subsection{Publications at Doctoral Symposiums and Student Research Competitions}
+%\subsection{Publications at Doctoral Symposiums and Student Research Competitions}
+\subsection{Other publications}
 
-The contents of this thesis have also been accepted for presentation, in the form of a poster and/or presentation, to the following two software engineering conferences, in which an extended abstract has been included in the conference proceedings:
+Aside the papers that characterize the contributions of this thesis, two extended abstracts that present the overall contents of this thesis have been accepted for presentation in two software engineering conferences (A and B in the list below).
+Furthermore, M. Radavelli contributed to a paper that we here only mention, as goes beyond the scope of this thesis. It presents a framework for testing a medical protocol using ASM model refinement (paper C in the list below), and it is the fruit of a collaboration between the FMSE lab at the University of Bergamo \footnote{Formal Methods and Software Engineering Lab at University of Bergamo: \url{https://foselab.unibg.it/}}, and the  team of Prof. Yu Lei at University of Texas at Arlington.
 
 \begin{enumerate}
+	\renewcommand{\theenumi}{\Alph{enumi}} % https://tex.stackexchange.com/questions/2291/how-do-i-change-the-enumerate-list-format-to-use-letters-instead-of-the-defaul
 	\item \cite{radavelli2019using} \bibentry{radavelli2019using}
+	
 	\item \cite{Radavelli:2019:UST:3338906.3342508} \bibentry{Radavelli:2019:UST:3338906.3342508}
-	%\item \cite{}
+	
+	\item \cite{bonfanti_ictss_2019} \bibentry{bonfanti_ictss_2019}
 \end{enumerate}
 
 \section{Note on conventions}
@@ -1371,7 +1377,7 @@ Such changes can be complex and error-prone due to the size of the feature model
 %The modification of the feature model to be made to satisfy these change requirements can be complex and error-prone. 
 %In this case study, w
 Therefore, we try to \textit{repair} a feature model w.r.t. a given update request in the form of a set of configurations to be accepted or rejected, that may come from \textit{failing} test cases, or from a change in the specification.
-The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled \cite{arcaini_evolutionary_2018,ARCAINI201964}. %, by using BDDs. %The process terminates until the model is completely updated or some other termination condition occurs.
+The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled \cite{arcaini_evolutionary_2018,arcaini2019achieving}. %, by using BDDs. %The process terminates until the model is completely updated or some other termination condition occurs.
 %Among all the possible models achieving the update request, the method privileges those structurally simpler, to preserve domain knowledge.
 The approach has been evaluated on real-world feature models: although it does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, %and since the process is based on small mutations, 
 with minimal edits, helping in preserving domain knowledge.% from previous models.
@@ -1900,7 +1906,7 @@ Table~\ref{tab:benchmarks} reports, for all the benchmarks, the size of the inpu
 
 \bb We now evaluate the proposed approach by a series of research questions. In these experiments, we set the parameters of the termination conditions as follows: \thF to $1 - \frac{\mathit{ctc}(\initFm)}{{2^{|F_U|} \times 2|F_U|^2}}$, \thNI to 15, \thI to 25, and \thT to 30 minutes. Note that the value chosen for \thF requires to have a totally correct model, with at most the same number of cross-tree constraints of the starting feature model. The parameter $H$ used to determine the maximum population size $M$ (as defined in Sect.~\ref{sec:prodBasedChangeReqs}) has been set to 5, and the parameter $p$ of the selection phase has been set to $\nicefrac{M}{2}$. All the reported data are the averages of 30 runs.
 
-In~\cite{evolUpdateVAMOS2018}, we experimented the effect of the different selection policies of the evolutionary approach and we found that truncation with $K$=5\% is the best policy in terms of fault ratio reduction, and the second best as execution time. Therefore, we here select it as selection policy and evaluate the approach using other research questions.
+In~\cite{arcaini_evolutionary_2018}, we experimented the effect of the different selection policies of the evolutionary approach and we found that truncation with $K$=5\% is the best policy in terms of fault ratio reduction, and the second best as execution time. Therefore, we here select it as selection policy and evaluate the approach using other research questions.
 
 \researchquestion{Is the proposed approach able to achieve the change requirements specified by the update request?}
 
@@ -2509,7 +2515,7 @@ Another threat to the external validity is that the update requests that we use 
 	\be
 
 	\section{Related Work}\label{sec:relatedwork}
-	\bb There exist methods to statistically infer constraints from sampled configurations~\cite{chiang_unified_2011,abukwaik_extracting_2016, temple_towards_2018,temple_learning_2017,temple_using_2016,amand_towards_2019}: they use a classifier to infer the conditions among parameter values, that determine a particular property, either a parameter above/below a certain threshold (like in~\cite{temple_learning_2017}), or directly the configuration being accepted or rejected by the system (as in~\cite{temple_using_2016}). These machine-learning based methods are well-documented and supported by application studies to real scenarios, such as learning constraints among parameters in SCAD programs that may cause defects of configurable objects to 3D print~\cite{amand_towards_2019}; and, in the case of \LaTeX, showing that it is possible to obtain constraints among Boolean or numerical values, to format the paper to meet desired properties, such as a defined page limit~\cite{acher_varylatex:_2018}. Another interesting application of inferring constraints using machine learning is the case of mining temporal and value constraints from rich logs, for event-based monitoring in industrial SoS (Systems of Systems)~\cite{krismayer_mining_2017}. The approach, integrated also with techniques from process mining and specification mining, was applied to the automation system of a metallurgical company, and it consists of a \textit{ranking} phase, based on some validity ratio metrics on the classification tree outcome, in which constraints that are more likely to be accepted by the users appear first.
+	\bb There exist methods to statistically infer constraints from sampled configurations~\cite{chiang_unified_2011,Abukwaik_2016, temple_towards_2018,temple_learning_2017,Temple16:using,amand_towards_2019}: they use a classifier to infer the conditions among parameter values, that determine a particular property, either a parameter above/below a certain threshold (like in~\cite{temple_learning_2017}), or directly the configuration being accepted or rejected by the system (as in~\cite{Temple16:using}). These machine-learning based methods are well-documented and supported by application studies to real scenarios, such as learning constraints among parameters in SCAD programs that may cause defects of configurable objects to 3D print~\cite{amand_towards_2019}; and, in the case of \LaTeX, showing that it is possible to obtain constraints among Boolean or numerical values, to format the paper to meet desired properties, such as a defined page limit~\cite{acher_varylatex:_2018}. Another interesting application of inferring constraints using machine learning is the case of mining temporal and value constraints from rich logs, for event-based monitoring in industrial SoS (Systems of Systems)~\cite{krismayer_mining_2017}. The approach, integrated also with techniques from process mining and specification mining, was applied to the automation system of a metallurgical company, and it consists of a \textit{ranking} phase, based on some validity ratio metrics on the classification tree outcome, in which constraints that are more likely to be accepted by the users appear first.
 	
 	The constraints learned (or \textit{mined}) with such machine learning methods achieve a good accuracy (greater than 80\% on average~\cite{temple_learning_2017}), and they are able to completely \textit{infer} constraints from scratch, or to \textit{specialize} the model by adding the new inferred constraints to the existing ones. Our approach, however, is focused on performing any kind of repair to an existing set of constraints, and is also able to \textit{generalize} the model, or apply \textit{arbitrary edits} (as described in the classification in~\cite{thum_reasoning_2009}). Moreover, our proposed method focuses only on the \textit{manipulation} of existing constraints, and not on the actual detection of the failure-containing combinations, that we assume as input of our process. Unlike our approach, that takes the failure-containing combinations as input, those ML processes also include automatic detection of such \fccs (in the form of constraints), given a sample of configurations classified as valid or non-valid~\cite{temple_learning_2017}. For these reasons, the approaches are not alternative but complementary, as our approach is not comparable to those ML methods; however, as future work, we believe that it could be interesting to combine our process with those machine learning approaches, to have a more complete process for real case scenarios.
 	
@@ -3089,7 +3095,7 @@ their dependencies, while the \emph{solution space} is the technical realisation
 
 Large configurable systems and software product lines can have hundreds of features. It is infeasible in practice to test all the possible configurations.  Consider, for example, a system with only 20 Boolean parameters. One would have to check over one million configurations in order to test them all. 
 
-\noindent Furthermore, the time cost of running one test could range from fraction of a second to hours if not days. In order to address this combinatorial explosion problem, combinatorial interaction testing (CIT) has been proposed for testing configurable systems \cite{CohenISSTA07}. It is a very popular black-box testing technique that tests all interactions between any set of $t$ parameters.  There have been several studies showing the successful efficacy and efficiency of the approach \cite{KuhnTSE04,okun06,Petke15:practical,Petke13:efficiency}.  
+\noindent Furthermore, the time cost of running one test could range from fraction of a second to hours if not days. In order to address this combinatorial explosion problem, combinatorial interaction testing (CIT) has been proposed for testing configurable systems \cite{CohenISSTA07}. It is a very popular black-box testing technique that tests all interactions between any set of $t$ parameters.  There have been several studies showing the successful efficacy and efficiency of the approach \cite{KuhnTSE04,Kuhn06:pseudo,Petke15:practical,Petke2013a}.  
 
 %\red{CIT has been proposed for testing configurable systems, especially in the presence of constraints \cite{CohenISSTA07}}.
 
@@ -3485,9 +3491,9 @@ We considered all CIT policies presented Section \ref{sec:citpolicies}. We appli
 	
 	\item The \textbf{WashingMachine} system, model of which is presented in Figure \ref{fig:washerexample}. It represents an abstract view of the human interaction with an \emph{embedded system}.  
 	
-	\item \textbf{Concurrency} is a testing problem for real-life concurrent system presented in \cite{Segall2011a}.
+	\item \textbf{Concurrency} is a testing problem for real-life concurrent system presented in \cite{segall_using_2011}.
 	
-	\item \textbf{Telecom} is a real-life telecommunication system presented in \cite{Segall2011a}.
+	\item \textbf{Telecom} is a real-life telecommunication system presented in \cite{segall_using_2011}.
 	
 	\item \textbf{Aircraft} is a small Software Product Line (SPL) found in SPLOT repository and presented in \cite{Voelter:2009}.
 	
@@ -3792,7 +3798,7 @@ The constraints obtained in the final models are still readable, making a human 
 \label{sec:constr_relatedwork}
 
 %%%%%% Added by Justyna
-\bb The problem of finding and fixing constraints in combinatorial models has been addressed in the field of software product lines. Henard et al. \cite{Henard13:towards} assumes existence of valid configurations of the given software system and use a SAT solver to randomly generate configurations for an existing feature model of the system. Once a conformance fault is found, a constraint is added, removed or altered with certain probability. The mutated feature model is compared against the original using a pre-defined fitness function and the best of the two is kept for future evaluation. 
+\bb The problem of finding and fixing constraints in combinatorial models has been addressed in the field of software product lines. Henard et al. \cite{henard_towards_2013} assumes existence of valid configurations of the given software system and use a SAT solver to randomly generate configurations for an existing feature model of the system. Once a conformance fault is found, a constraint is added, removed or altered with certain probability. The mutated feature model is compared against the original using a pre-defined fitness function and the best of the two is kept for future evaluation. 
 
 In contrast to Henard et al.'s work, we derive test cases in a systematic fashion using combinatorial interaction testing. Moreover, by applying policies presented in \cite{Gargantini16:validation}, we are able to generate invalid configurations. Therefore, in contrast to the work by Henard et al., we are able to find conformance faults caused by an over-constrained model. Finally, we use a systematic approach to fix the model by utilising BEN to find the minimum fault-inducing configurations.
 
@@ -3958,7 +3964,7 @@ Otherwise, increase $t$ and go to point 1.
 
 \subsection{Experiments}\label{sec:xssexperiments}
 
-\bb The process has been implemented in Java using {\tt CTWedge}~\cite{GargantiniR18} to represent and update attack models, {\tt ACTS}~\cite{ACTS} to generate combinatorial test suites of a defined strength, and {\tt BEN}~\cite{ghandehari2018combinatorial} as a tool to detect suspicious combinations and compute suspiciousness.
+\bb The process has been implemented in Java using {\tt CTWedge}~\cite{IWCTGargantini2018} to represent and update attack models, {\tt ACTS}~\cite{ACTS} to generate combinatorial test suites of a defined strength, and {\tt BEN}~\cite{ghandehari2018combinatorial} as a tool to detect suspicious combinations and compute suspiciousness.
 Experiments were executed on a PC with Intel i7 3.40GHz processor and 16 GB RAM.
 We run the process on six real web-applications: four are part of the WAVSEP\footnote{WAVSEP: Web Application Vulnerability Scanner Evaluation Project, \url{https://github.com/sectooladdict/wavsep}.} project, and two are open source content management systems: MiniCMS and NavigateCMS.
 Each SUT receives over HTTP one GET parameter which is rejected on the page in different contexts, and might optionally be altered by a specific sanitization function.
@@ -4066,11 +4072,11 @@ and detect
 XSS attacks; %, and discusses possible countermeasures to prevent XSS vulnerabilities; %\todo{this came from the reviewer}
 Simos et al.~\cite{wotawa_combinatorial_2016} proposed a combinatorial approach to find attack vectors that trigger XSS vulnerabilities; Jia et al.~\cite{Jia:2015} %and Temple et al.~\cite{temple_using_2016}
 used machine learning and hyper-heuristic search to improve combinatorial tests% and infer constraints among parameters.
-; Temple et al.~\cite{temple_using_2016} proposed a machine-learning approach to infer constraints among parameters that, although not sound, achieves high precision (about 90\%) and recall (80\%).
+; Temple et al.~\cite{Temple16:using} proposed a machine-learning approach to infer constraints among parameters that, although not sound, achieves high precision (about 90\%) and recall (80\%).
 Although these works use model-based testing,%  or fuzzing,
 the usage of combinatorial testing for XSS vulnerability detection to \textit{classify} vulnerabilities based on the input and describe \textit{completely} the vulnerability space of a part of a web application, evolving a \textit{knowledge base}, is the main novelty of our approach.
 The first phase of BEN~\cite{ghandehari2018combinatorial} as a failure-inducing combination detection and ranking tool 
-has been used by Gargantini et al.~\cite{7899061} to repair constraints in combinatorial models, evaluating different test generation policies.\be
+has been used by Gargantini et al.~\cite{gargantini_combinatorial_2017} to repair constraints in combinatorial models, evaluating different test generation policies.\be
 
 \subsection{Conclusion and Future Work}\label{sec:conclusion-future-work}
 \bb We presented an automated iterative process based on combinatorial testing to evolve an attack model to include conditions among input parameters that trigger XSS vulnerabilities in web applications.
@@ -4078,7 +4084,7 @@ Our approach is based on the notion of suspicious combination, i.e., whose appea
 Identification of constraints among XSS attack parameters helps to better understand
 the root cause of an XSS vulnerability and provides insights about how to fix
 a flawed sanitization function.
-As future work, we plan to improve the process by reducing the required tests, using information from previous step, and evaluating alternatives to BEN, such as MixTgTe \cite{mixfltg}. We believe that this approach can be extended to other security vulnerabilities related to sanitization functions, and to detect discrepancies between a functional system specification and its implementation.
+As future work, we plan to improve the process by reducing the required tests, using information from previous step, and evaluating alternatives to BEN, such as MixTgTe \cite{iwct19}. We believe that this approach can be extended to other security vulnerabilities related to sanitization functions, and to detect discrepancies between a functional system specification and its implementation.
 Another direction is to further simplify the detected constraints, to reduce them in number and present them to the user in a more readable way.
 \end{tikzborder}
 
@@ -4890,7 +4896,7 @@ We observe that policies \policyminusplus, \policymiddle, and \policyquarter, al
 \section{Related Work}\label{sec:related1}
 
 \fakeparagraph{Testing timed automata}
-\bb Works related to ours are approaches for test case generation for timed automata. In~\cite{aichernig2013time,aichernig2014debugging}, a fault-based approach is proposed. The authors defined 8 mutation operators for \tas and a test generation technique based on bounded-model checking; tests are then used for model-based testing to check that System Under Test (SUT) is conformant with the specification. Our approach is different, as we aim at building a faithful representation of the SUT (\ie{} the oracle). Their mutation operators could be used to repair our initial \ta, as done in~\cite{evalUpdateJSS2019}; however, due to continuous nature of \tas, the possible mutants could be too many. For this reason, our approach symbolically represents all the possible variations of the clock guards (similar to ``change guard'' mutants in~\cite{aichernig2013time}). Other classical test generation approaches for timed automata are presented in~\cite{springintveld2001testing,Hessel2008}; while they aim at coverage of a single \ta, we aim at coverage of a family of \tas described by \ptaProc.
+\bb Works related to ours are approaches for test case generation for timed automata. In~\cite{aichernig2013time,aichernig2014debugging}, a fault-based approach is proposed. The authors defined 8 mutation operators for \tas and a test generation technique based on bounded-model checking; tests are then used for model-based testing to check that System Under Test (SUT) is conformant with the specification. Our approach is different, as we aim at building a faithful representation of the SUT (\ie{} the oracle). Their mutation operators could be used to repair our initial \ta, as done in~\cite{arcaini2019achieving}; however, due to continuous nature of \tas, the possible mutants could be too many. For this reason, our approach symbolically represents all the possible variations of the clock guards (similar to ``change guard'' mutants in~\cite{aichernig2013time}). Other classical test generation approaches for timed automata are presented in~\cite{springintveld2001testing,Hessel2008}; while they aim at coverage of a single \ta, we aim at coverage of a family of \tas described by \ptaProc.
 
 %Testing timed automata \cite{springintveld2001testing}
 
@@ -4933,9 +4939,9 @@ In addition, when the oracle acts as a white-box, \ie{} when the oracle is able 
 \chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}\label{ch:ctwedge}
 \begin{tikzborder}{\cite{IWCTGargantini2018}}
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
-The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{Nie2011} reviewed the CIT literature and found around 20 tools. 
+The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
 
-Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{czerwonka_pairwise_2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
+Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{Czerwonka2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
 In~\cite{citlab12} we have presented a plugin for the eclipse IDE that helps the user in writing CIT models with constraints by leveraging all the expected features of a modern IDE, and it generates combinatorial test suites by using third party programs (like CASA or ACTS).
 However, this classical approach poses some challenges. First, the user must install the chosen CIT tool, which in turn may require some dependencies, like java, or in case of plugin, it requires the installation of another program or application like eclipse, excel and so on. Then the user must use his/her machine for running the test generation algorithms. For experienced users with powerful machines they can administer, this is not a real problem. However, for novice users with not so powerful computer, or students that are just learning the CIT principles, or software developers using computer they cannot administer, this can become a cost to be considered and it may be an obstacle for the use of CIT.
 
@@ -5166,7 +5172,7 @@ The validation of the model is performed run-time while the user writes it. If t
 \end{figure*}
 
 \begin{tikzborder}{}
-The editor allows to load predefined examples of combinatorial models, selected from literature \cite{Segall2011} and converted into \ctwedge language format (with extension \textit{.ctw}).
+The editor allows to load predefined examples of combinatorial models, selected from literature \cite{segall_using_2011} and converted into \ctwedge language format (with extension \textit{.ctw}).
 
 Graphical components (buttons and option selectors) are built using the JavaScript frameworks JQuery\footnote{JQuery: \url{https://jquery.com/}}
 and Bootstrap\footnote{Bootstrap: \url{https://getbootstrap.com/}}.
