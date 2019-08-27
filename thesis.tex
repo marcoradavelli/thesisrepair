@@ -1087,8 +1087,8 @@ Automatically repair the model in order to maintain conformance, by applying sma
 
 \researchquestion{How to repair feature models?}
 A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. Although feature models are not used in every such configurable software, there are many companies, in particular in the automotive industry, that use feature models to represent domain knowledge over SPLs (see this list \todo{cite featureide} of some companies using feature models), and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
-Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now over 8000 features \todo{cite}.
-Chapter \ref{ch:fmrepair} presents a
+Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now currently 13000 features \todo{cite}.
+Chapter \ref{ch:fmrepair} presents two approaches for automated repair of feature models: the first is targeted to repair the hierarchical relations among features and the simple constraints of type \textit{requires} and \textit{excludes}, the second is targeted to repair arbitrary constraints among features.
 
 \researchquestion{How to repair configuration constraints?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
 Another goal is the application of model repair technique directly to constraints, they can be configuration constraints, i.e., constraints under which (and only under which) the system is supposed to work correctly, or shows a certain property. 
@@ -1204,16 +1204,86 @@ The following paragraph is an example of the way we mark the text, which is a ve
 
 \chapter{Background}\label{ch:background}
 
-To make this thesis more self-contained, this chapter presents an overview of the context of model repair, i.e., model-driven software engineering (Sect. \ref{sec:modeldriven}), of the main common techniques used in the approaches proposed in this thesis, i.e., software testing and fault localization, evolutionary algorithms, SAT and SMT solvers, and BDD and MDD representations (Sect. \ref{sec:testing}), and some background over the specific software models targeted in the repair processes, i.e., logical constraints, feature models, and timed automata (Sect. \ref{sec:models}).
+To make this thesis more self-contained, this chapter presents an overview of the context of model repair, i.e., model-driven software engineering, with some background over the specific software models targeted in the repair processes, i.e., combinatorial constraints, feature models, and timed automata (Sect. \ref{sec:modeldriven}), and of the main common techniques used in the approaches for model repair proposed in this thesis, i.e., software testing and fault localization, evolutionary algorithms, SAT and SMT solvers, and BDD and MDD representations (Sect. \ref{sec:testing}), and 
 
-\section{Model-Driven Software Engineering}\label{sec:modeldriven}
-to copy from various sources, including the MDE book by Krogstie. \cite{brambillaModelDriven}
-	
-\subsection{Models in the Software Development Lifecycle}
-to copy from various sources, including the MDE book by Krogstie.
+\section{The Role of Models in Software Engineering}\label{sec:modeldriven}
+%\cite{Krogstie:2012:MDE:2331118}
 
-\subsection{Model Transformations}
-M2M, M2T, T2M, T2T transformations (copy from MDE book)
+MDSE (Model-Driven Software Engineering) or simply MDE (Model-Driven Engineering) provides a comprehensive vision for system development. 
+MDSE can be defined as a methodology for applying the advantages of modeling to software engineering activities \cite{brambillaModelDriven}.
+%Figure \ref{fig:mdse} shows an overview of the main aspects considered in MDSE and summarizes how the different issues are addressed.
+MDSE seeks for solutions according to two dimensions: conceptualization (columns in the Fig. \ref{fig:mdse}) and implementation (rows in the figure).
+
+Different levels to model reality are defined in the \textit{conceptualization} dimension, 
+%composed of three levels:
+%\textit{application}, where models and transformation rules are defined, and running components are generated; \textit{application domain}, where the domain platform for the and the modeling and transformation language are defined; and
+%\textit{meta-level}, where the domain platform and the modeling and transformation language are defined.
+while the \textit{implementation} issue deals with the mapping of the models to some existing or future running systems. 
+While the conceptualization distinguish a model from its meta-model (model of the model), the \textit{implementation} consists of linking the modeling level with the realization level via a transformation (or \textit{automation}) level, where the mappings from the modeling to the realization levels are put in place.
+For the application level, such mappings can be from model to artifacts (\textit{code generation}, or \textit{model-to-text}, M2T, transformation), or from artifacts to model (\textit{model inference}, or T2M transformation). In the other levels, we can have model-to-model transformations (M2M).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=.8\columnwidth]{mdse.png}
+	\caption{Test-Driven process to repair models}
+	\label{fig:mdse}
+\end{figure}
+
+There is a literature on how to design high quality models \cite{Krogstie:2012:MDE:2331118}, however keeping all the different models conformant while code-base evolves, is one of the main challenges in model-based software engineering.
+The model repair approaches proposed in this thesis try to improve the state of the art for model repair, by giving more tools or methods for software engineers to apply in the industrial practice, or to further extend.
+
+%\subsection{Models in the Software Development Lifecycle}
+%to copy from various sources, including the MDE book by Krogstie.
+
+%\subsection{Model Transformations}
+%M2M, M2T, T2M, T2T transformations (copy from MDE book)
+
+%\section{Software Artifacts}\label{sec:models}
+
+Whereas with the recent advent of agile methodologies, such as the scrum development process, the usage of models is sometimes interpreted as being discouraged, empirical evidence shows that a trade-off on which models to keep, should be found \cite{blasband2016rise}. As code evolves, models should be updated too to maintain conformance with code, and this operations take time: therefore which models to keep and which not, should be a careful decision to make \cite{blasband2016rise}.
+Indeed, models have the positive effect of being more easily understandable than code and, among their functions, models are particularly important in helping engineers to transfer domain knowledge, and collaborate with others.
+A trade-off should be found, but models remain covering an important function in the software development process, therefore all the model-driven engineering activities are of importance.
+
+In the rest of the section, we describe the three model types that we chose as target for the repair operations identified in this thesis: combinatorial contraints, feature models, and timed automata.
+\subsection{Combinatorial Constraints}
+
+
+\subsection{Feature Models}
+%// TODO change because copied from Oster's PhD thesis introduction
+Software Product Line (SPL) engineering is an approach for the systematic reuse of software artifacts across a very large number of similar products. 
+Various domains apply SPL engineering successfully to improve the overall project success, by increasing quality, saving costs for development and maintenance, and decreasing time-to-market \cite{bookSPL2001}. 
+SPLs offer a systematic reuse of software artifacts within a range of products sharing a common set of features (i.e., units of functionality) \cite{Griss2000}.
+According to IEEE a feature is a distinguishing characteristic of a software item (e.g. concerning its performance, portability, or functionality) \cite{ieeeterminology}.
+
+The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features \cite{CE00}. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate.
+% Variability leads to a combinatorial explosion of possible products from one SPL. % For instance, an SPL with around 200 optional features may lead to over 1060 different products.
+
+Feature models represent... 
+
+Feature models are employed in various domains, in particular in the IoT and in the automotive sectors.
+However, variability model repair, in the context of systematic variability management in software, is still challenging and a relatively new problem.
+One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia,oster_feature_2011}.
+
+%The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia}.
+
+%Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.
+
+\subsection{Timed Automata}
+
+Timed automata is proposed by Alur and Dill \cite{AD94} in the early nineties as an extension to the classical automata, which is extended with clock variables. 
+Timed automata theory has become an important research area and been widely studied in the context of both formal languages and verification of real time systems \cite{5521565}.
+
+One main application of timed automata is the verification of properties using model checking methods \cite{clarke_model_checking}, by traversing through all reachable states.
+Another application is robustness analysis of systems that can be modeled by a TA \cite{markey2011robustness}.
+
+Timed automata have academic and industrial applications for the modeling and verification of protocols: such as TDMA (Time Division Multiple Access) protocol \cite{tdma}, power controller protocols \cite{havelund_power_controller_1999}, and security protocols such as Kerberos, TMN, Neumann Stubblebine, Andrew Secure and Wide Mouthed Frog \cite{jakubowska2005verifying,jakubowska2007modelling}.
+
+Timed automata are equipped with of clock variables that record the passage of time since they have been reset. All clocks are synchronized and they run at the same speed. 
+The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
+
+An example of time automaton is given in Fig. \ref{fig:time}.\todo{figura}
+
+A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
 \subsection{Model Repair and Program Repair}
 To the best of our knowledge, few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
@@ -1223,7 +1293,7 @@ A quality-based model refactoring framework assessing quality of merging operati
 The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
 
 
-\section{Software Testing}\label{sec:testing}
+\section{Software Testing for Model Repair}\label{sec:testing}
 Software systems are an integral part of life, from business applications (e.g., banking) to consumer
 products (e.g., cars). Most people have had an experience with software that did not work as expected.
 Software that does not work correctly can lead to many problems, including loss of money, time, or
@@ -1244,7 +1314,7 @@ This allows to budget-constrain the costs of testing while still having a testin
 The most commonly applied combinatorial testing technique is pairwise testing, which consists in applying the smallest possible test suite covering all pairs of input values (each pair in at least one test case). 
 In fact, it has been experimentally shown that a test suite covering just all pairs of input values can already detect a significantly large part (typically 50\% to 75\%) of the faults in a program \cite{Dalal:ICSE99, IPO}.
 Dunietz et al. \cite{Dunietz:ICSE97} compared t-wise coverage to random input testing with respect to the percentage of structural (block) coverage achieved, showing that the former achieves better results if compared to random test suites of the same size. 
-Burr and Young \cite{burr98} reported 93\% code coverage from applying pairwise testing of a large commercial software system, and many CIT tools (see \cite{pairwise} for an up to date listing) and techniques have already been developed \cite{AETGT.ISSRE.1998,GrindalSTVR05,KuhnTSE04} and are currently applied in practice \cite{OATS,Kuhn02,Smith}. 
+Burr and Young \cite{burr98} reported 93\% code coverage from applying pairwise testing of a large commercial software system, and many CIT tools (see \cite{pairwise} for an up to date listing) and techniques have already been developed \cite{Dalal1998a,GrindalSTVR05,KuhnTSE04} and are currently applied in practice \cite{Brownlie1992a,Kuhn02,Smith}. 
 CIT is used in a variety of applications for unit, system, and interoperability testing. 
 It has generated both high-level test plans and detailed test cases. In several applications, it greatly reduced the cost of test plan development. Testers can base their input on detailed development requirements or on a system's high-level functional requirements.
 
@@ -1271,33 +1341,7 @@ Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem ins
 \subsection{BDDs and MDDs}
 
 
-\section{Software Artifacts}\label{sec:models}
 
-\subsection{Logical Constraints}
-
-\subsection{Feature Models}
-%// TODO change because copied from Oster's PhD thesis introduction
-\blue{Software Product Line (SPL) engineering is a popular approach for the systematic reuse of software artifacts across a very large number of similar products. SPLs are gaining widespread acceptance and various domains already apply SPL engineering successfully to address the well-known needs of the Software Engineering community, including increasing quality, saving costs for development and maintenance, and decreasing time-to-market \cite{bookSPL2001}. SPLs offer a systematic reuse of software artifacts within a range of products sharing a common set of features (i.e., units of functionality) \cite{Griss2000}. According to IEEE a feature is a distinguishing characteristic of a software item (e.g. concerning its performance, portability, or functionality) \cite{ieeeterminology}.
-The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features \cite{CE00}. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate. Variability leads to a combinatorial explosion of possible products from one SPL. For instance, an SPL with around 200 optional features may lead to over 1060 different products.
-The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia}.
-Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.}
-
-\subsection{Timed Automata}
-
-Timed automata is proposed by Alur and Dill \cite{AD94} in the early nineties as an extension to the classical automata, which is extended with clock variables. 
-Timed automata theory has become an important research area and been widely studied in the context of both formal languages and verification of real time systems \cite{5521565}.
-
-One main application of timed automata is the verification of properties using model checking methods \cite{clarke_model_checking}, by traversing through all reachable states.
-Another application is robustness analysis of systems that can be modeled by a TA \cite{markey2011robustness}.
-
-Timed automata have academic and industrial applications for the modeling and verification of protocols: such as TDMA (Time Division Multiple Access) protocol \cite{tdma}, power controller protocols \cite{havelund_power_controller_1999}, and security protocols such as Kerberos, TMN, Neumann Stubblebine, Andrew Secure and Wide Mouthed Frog \cite{jakubowska2005verifying,jakubowska2007modelling}.
-
-Timed automata are equipped with of clock variables that record the passage of time since they have been reset. All clocks are synchronized and they run at the same speed. 
-The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
-
-An example of time automaton is given in Fig. \ref{fig:time}.\todo{figura}
-
-A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
 \part{Test-Driven Model Repair Approaches}
 \chapter{Automated Model Repair}\label{ch:automatedrepair}
@@ -1384,7 +1428,19 @@ with minimal edits, helping in preserving domain knowledge.% from previous model
 \be
 
 \chapter{Repair of Feature Models}\label{ch:fmrepair}
-Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
+
+Feature are a widely used modeling notation for variability management in software product line (SPL) engineering. 
+The goal of this chapter is to propose an answer to the research question RQ3 introduced in Sect. \ref{sec:intro}: "How to repair feature models?".
+We present two different techniques to repair feature models.
+The first approach allows to repair feature models represented in the hierarchical tree-like structure, as well as \textit{simple} constraints (i.e., only in the form of \textit{requires} and \textit{excludes} between couple of features) in propositional logic.
+The second approach, instead, applies to feature models represented as arbitrarily \textit{complex} constraints, expressed in propositional logic.
+The two approaches can be combined, as to fully represent variability, unless complicating the model with a large number of abstract feature, it is normally more convenient to use \textit{general} (i.e., \textit{complex}) constraints, besides the hierarchical tree-like structure of feature dependencies.
+In the rest of the chapter, Sect. \ref{sec:fm1} covers the first approach reporting from paper \cite{arcaini2019achieving}, which includes and extends the previous paper \cite{arcaini_evolutionary_2018}.
+
+Related work for the two approaches are discussed jointly in Sect. \ref{sec:fmrelated} , and Sect. \ref{sec:fmconclusion} concludes the chapter.
+
+
+\section{Achieving change requirements of feature models by an evolutionary approach}\label{sec:fm1}
 We developed an approach that \textit{repairs} a feature model w.r.t. a given update request in the form of combinations representing a set of configurations to be accepted or rejected, that may be detected by \textit{failing} test cases, or directly by engineer domain knowledge. % from a change in the specification.
 The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled.
 We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini_evolutionary_2018}.
@@ -1414,7 +1470,7 @@ In addition to the parental relations, it is possible to add \emph{cross-tree co
 \item A {\it excludes} B: A and B cannot be part of the same product. We also indicate it as $A \rightarrow \neg B$.
 \end{compactitem}
 
-Some frameworks for feature models also support {\it complex} cross-tree constraints~\cite{knuppel_is_2017} through {\it general} propositional formulas. In our approach, we allow feature models to contain complex cross-tree constraints.
+Some frameworks for feature models also support {\it complex} cross-tree constraints~\cite{knuppel_is_2017} through \textit{general} propositional formulas. In our approach, we allow feature models to contain complex cross-tree constraints.
 
 Feature models can be visually represented by means of feature diagrams, and their semantics can be expressed by using propositional logic~\cite{batory2005feature,benavides2010automated}: features are represented by propositional variables, and relations among features by propositional formulae. We identify with $\fmToBool(\fm)$ the \textsc{BO}olean \textsc{F}ormula representing a feature model \fm.
 
