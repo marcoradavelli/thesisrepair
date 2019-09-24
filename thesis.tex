@@ -13,6 +13,7 @@
 
 \usepackage{mathpazo} % Use the Palatino font by default
 
+
 %\usepackage{cite}
 
 %\usepackage[nottoc]{tocbibind}
@@ -51,10 +52,13 @@
 
 \usepackage{color,amsthm,stfloats,paralist,graphicx,url,booktabs,subcaption,amssymb,pifont,natbib,bibentry,amsmath,amsfonts,textcomp,xspace}
 \usepackage{verbatim,xcolor,colortbl}
-\usepackage[unicode=true,
-%bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,pdfauthor={Angelo Gargantini},
-%breaklinks=false,backref=false,
-pdfborder={0 0 0},colorlinks=false]{hyperref}
+% AG
+\usepackage[unicode=true,pdfusetitle,
+bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,pdfauthor={Marco Radavelli},
+breaklinks=false,pdfborder={0 0 0},pdfborderstyle={},backref=false,colorlinks=false]
+{hyperref}
+
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \usepackage{comment}
@@ -1016,7 +1020,7 @@ EnumerativeType, Number, Range, TestGoals,
 \begin{abstract}
 %\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
-Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to a specification.
+Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to its specification.
 While most of the techniques in software testing are applied to debugging, fault-localization, and repair of code, to the best of our knowledge there are fewer works regarding the application of software testing to locating faults in models and to the automated repair of such faults.
 The goal of this PhD project proposal is to study how testing can be applied to repair models. %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
 We describe the research approach and discuss the application cases of combinatorial and feature models.
