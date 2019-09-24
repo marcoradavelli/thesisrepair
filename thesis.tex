@@ -1113,7 +1113,7 @@ Chapter \ref{ch:ctwedge} presents a comparative study among the existing tools f
 One of the steps of the test-driven processes to automatically repair models is the detection of the combinations of parameters that cause inconsistencies between the model and the system: the failure-inducing combinations (\fccs).
 There are tools for failure-inducing combination detection, such as BEN \cite{ben_2015,ghandehari2018combinatorial}, IterAIFL~\cite{wang_adaptive_2010}, AIFL~\cite{shi_software_nodate}, FIC~\cite{zhang_characterizing_2011}, SOFOT~\cite{nie_2011}, and ICT~\cite{Niu2018interleaving}.
 In Chapter \ref{ch:mix} we present \mix, a new method to detect failure-inducing combinations guaranteeing to achieve complete accuracy up to a certain strength $t$.
-This tool could be used not only to improve the constraint repair method devised (in Chapter \ref{ch:constraintrepair}), but also as an alternative fault localization technique.
+This tool could be used not only to improve the constraint repair method devised (described in Chapter \ref{ch:constraintrepair}), but also as an alternative fault localization technique.
 	
 %To each of the questions corresponds a chapter, referring to one or more published papers.
 
@@ -1167,7 +1167,7 @@ The list is in chronological order, and for each paper is shown a short summary 
 	M. Radavelli contributed in the discussions among co-authors, in writing the paper (in particular the sections regarding the process description, the evaluation and related work), and implemented part of the process, and reported the evaluation results.
 	The co-authors further contributed in discussions, in implementing part of the process (web server for test case concretization, and XSS vulnerability detection) , writing part of the paper, and proof reading.
 	
-	\item \cite{andre2019repairing} \bibentry{andre2019repairing}
+	\item \cite{andre_tap_2019} \bibentry{andre_tap_2019}
 
 	This paper proposes an iterative approach for automatically repairing timed automata, in the case where clock guards shall be checked for conformance w.r.t. the system implementation, and be repaired if needed. 
 	Our approach abstract the initial TA by adding some parameters in the clock guards, generates some tests, and then refines the abstraction by identifying only those TAs that correctly evaluate all the tests.
@@ -1253,13 +1253,9 @@ A trade-off should be found, but models remain covering an important function in
 In the rest of the section, we describe the three model types that we chose as target for the repair operations identified in this thesis: combinatorial contraints, feature models, and timed automata.
 
 \subsection{Combinatorial Constraints}
-\begin{tikzborder}{\cite{Gargantini16:validation}}
-Combinatorial Interaction Testing (CIT), or simply combinatorial testing, 
-aims to test the software
-or the system with selected combinations of parameter values. 
-There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11},
-while an introduction to CIT and its efficacy in practice can be found
-in~\cite{kuhncomputer09,Petke15:practical}. 
+
+Combinatorial Interaction Testing (CIT), or simply combinatorial testing, aims to test the software or the system with selected combinations of parameter values. 
+There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11}, while an introduction to CIT and its efficacy in practice can be found in~\cite{kuhncomputer09,Petke15:practical}. 
 
 A model for a combinatorial problem consists of several parameters %(at least 2) 
 which can take several domain values. 
@@ -1299,7 +1295,6 @@ Another way of setting parameter configurations is at runtime. This can be usual
 
 \noindent {\bf Launch time}
 We also differentiate the case where parameters are read from a separate configuration file or given as program arguments, \emph{before} the system is run. We say that these parameters are set at launch time of the given application. They decide which features of the system should be activated at startup. Examples of such systems include chat clients, web browsers and others. 
-\be
 
 \begin{comment}
 \todo{cite from constraintsrepair}
@@ -1330,9 +1325,7 @@ According to IEEE a feature is a distinguishing characteristic of a software ite
 The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features \cite{CE00}. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate.
 % Variability leads to a combinatorial explosion of possible products from one SPL. % For instance, an SPL with around 200 optional features may lead to over 1060 different products.
 
-Feature models represent... 
-
-Feature models are employed in various domains, in particular in the IoT and in the automotive sectors.
+Feature models represent variability in software product lines, and are employed in various domains, in particular in the IoT and in the automotive sector.
 However, variability model repair, in the context of systematic variability management in software, is still challenging and a relatively new problem.
 One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia,oster_feature_2011}.
 
@@ -1353,7 +1346,7 @@ Timed automata have academic and industrial applications for the modeling and ve
 Timed automata are equipped with of clock variables that record the passage of time since they have been reset. All clocks are synchronized and they run at the same speed. 
 The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
 
-An example of time automaton is given in Fig. \ref{fig:time}.%\todo{figura}
+An example of time automaton is given in Fig. \ref{figure:example-TA}.%\todo{figura}
 
 A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
@@ -1429,7 +1422,10 @@ This is one of the practical reasons why for some applications in software engin
 
 \subsection{BDDs and MDDs}
 
-A binary decision diagram (BDD) or branching program is a data structure that is used to represent a Boolean function. On a more abstract level, BDDs can be considered as a compressed representation of sets or relations. Unlike other compressed representations, operations are performed directly on the compressed representation, i.e. without decompression. Other data structures used to represent Boolean functions include negation normal form (NNF), Zhegalkin polynomials, and propositional directed acyclic graphs (PDAG).
+Binary Decision Diagrams (BDD) and Multi-Valued Decisions Diagrams (MDD) are commonly used structures for representing Boolean functions and multi-valued functions, respectively. 
+
+%A binary decision diagram (BDD) or branching program is a data structure that is used to represent a Boolean function. 
+On a more abstract level, BDDs can be considered as a compressed representation of sets or relations. Unlike other compressed representations, operations are performed directly on the compressed representation, i.e. without decompression. Other data structures used to represent Boolean functions include negation normal form (NNF), Zhegalkin polynomials, and propositional directed acyclic graphs (PDAG).
 
 BDDs are extensively used in CAD software to synthesize circuits (logic synthesis) and in formal verification. There are several lesser known applications of BDD, including fault tree analysis, Bayesian reasoning, product configuration, and private information retrieval.
 
@@ -1439,7 +1435,6 @@ Although building a BDD is normally computationally more expensive than solving 
 	\item BDDs do not need the input formula (or set of constraints) to be in a CNF representation, therefore avoiding the potentially exponential complexity of the CNF transformation.
 	\item BDDs can be more convenient, and potentially faster, when multiple assignments are to be evaluated over the same propositional formula, because the tree is built only once (building the BDD is the complex operation), and then just traversed many times to check for satisfiability.
 \end{itemize} 
-
 
 
 \part{Test-Driven Model Repair Approaches}
@@ -1462,12 +1457,13 @@ Sometimes an engineer also wants to detect which is a model of a current aspect 
 The main hypothesis of this research project is that testing techniques can be used not only for fault detection and localization, but also for model repair.
 \be
 
-\subsection{Further Assumptions}
+\subsection{Assumptions}
 The applicability of the proposed failure-driven model repair framework is subject to the following assumptions, that we identified:
 \begin{itemize}
-	\item prescriptive model: there should be an initial prescriptive model of the system, from which tests can be then generated.
-	\item traceability: it should be always possible to translate an abstract configuration (i.e., a test), into a concrete test
+	\item prescriptive model: there should be an initial prescriptive model of the system, from which tests can be then generated;
+	\item traceability: the parameters in the model can be traced back to variable in the system. It should be always possible to translate an abstract configuration (i.e., a test), into a concrete test;
 	\item oracle definition: there should be the possibility to execute a test towards the system, and obtain a \textit{pass}/\textit{fail} result, e.g., depending if the system compiles correctly, doesn't crash, doesn't expose a vulnerability, etc.
+	\item faulty model: we assume that the fault(s), if present, reside in the model, while the system is correct, and can be used as oracle.
 \end{itemize}
 
 \section{Contribution}\label{sec:contribution}
@@ -1513,13 +1509,14 @@ In the following subsections we briefly describe the results obtained from the a
 \bb
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices.
 %We devise an approach in which tests that do not satisfy the constraints in the CIT model are considered invalid.
-Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{Abukwaik_2016,Temple:2016:UML:2934466.2934472}. 
+Some methods have been introduced to automate the process of inferring constraints, but they do not aim at \textit{repairing} existing ones \cite{Abukwaik_2016,Temple16:using}. 
 Therefore, in \cite{gargantini_combinatorial_2017} %, to find and fix conformance faults between the given software system and its combinatorial model, 
 we proposed an iterative approach that uses a fault-localization tool based on combinatorial testing, called BEN, and CIT policies introduced in our previous work \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations as expression in propositional logic.
 We also developed a tool to make it easier the editing of such combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}.
 %We also developed a tool to edit such combinatorial models, and generate tests, called CTWedge \cite{IWCTGargantini2018}.
 \be
+
 Chapter \ref{ch:constraintrepair} presents results in detail.
 
 \subsection{Repair of Feature Models}\label{sec:fmrepair}
@@ -1536,11 +1533,12 @@ The method is based on an evolutionary algorithm that iteratively mutates the or
 The approach has been evaluated on real-world feature models: although it does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, %and since the process is based on small mutations, 
 with minimal edits, helping in preserving domain knowledge.% from previous models.
 \be
+
 Chapter \ref{ch:fmrepair} presents results in detail.
 
 \subsection{Repair of Timed Automata}
 We apply the repair framework also to timed automata clock guards. In this case, a test is a timed sequence (i.e., actions associated to an absolute time) that can be exercised on the real system.
-Our approach generates an abstraction of the initial TA in terms of a PTA, generates some tests, and then refines the abstraction by identifying only those TAs contained in the PTA that correctly evaluate all the tests.
+Our approach generates an abstraction of the initial TA in terms of a PTA, generates some tests, and then refines the abstraction by identifying only those TAs contained in the PTA that correctly evaluate all the tests. 
 Chapter \ref{ch:tarepair} presents results in detail.
 
 \chapter{Repair of Feature Models}\label{ch:fmrepair}
@@ -2211,7 +2209,7 @@ Another threat to the external validity is that the update requests that we use 
 \bb Regarding internal validity, a threat is that the obtained results could depend on the values chosen for the parameters of the evolutionary process (parameters of termination conditions, and parameters of the selection and evolution phases) and that, with some other values, the results would have been different (e.g., a given selection strategy could perform better); although we kept all the parameters fixed, we believe that the overall result that our approach is able to actually update the feature model is not affected. However, as future work, we plan to perform a wider set of experiments in which the effect of each single parameter is evaluated. For finding the best parameter setting, we could use a parameter-tuning framework as irace~\cite{irace}.\be
 
 \section{A Process for Fault-Driven Repair of Constraints Among Features}\label{sec:arcaini2019varivolution}
-In order to detect discrepancies between the problem space and the solution space, classical techniques for testing of propositional formulas (as the constraints of a variability model) can be used: the classical decision and condition coverage, the MCDC~\cite{sej.1994.0025}, fault based criteria~\cite{compj15}, and also combinatorial testing~\cite{icst15}. In this paper, we assume that some tests have been generated according to some coverage criterion and some \emph{faults} (i.e., non-conformances of the model w.r.t. the solution space acting as oracle) have been detected; our aim is to \emph{repair} the constraints of the variability model in order to remove the faults. We propose an automated process that, upon some failing tests, is able to \emph{automatically} correct the constraints in such a way that they maintain their original validity for all the configurations, except for those found failing.
+In order to detect discrepancies between the problem space and the solution space, classical techniques for testing of propositional formulas (as the constraints of a variability model) can be used: the classical decision and condition coverage, the MCDC~\cite{sej.1994.0025}, fault based criteria~\cite{compj15}, and also combinatorial testing~\cite{icst2015}. In this paper, we assume that some tests have been generated according to some coverage criterion and some \emph{faults} (i.e., non-conformances of the model w.r.t. the solution space acting as oracle) have been detected; our aim is to \emph{repair} the constraints of the variability model in order to remove the faults. We propose an automated process that, upon some failing tests, is able to \emph{automatically} correct the constraints in such a way that they maintain their original validity for all the configurations, except for those found failing.
 
 The rest of the paper is organized as follows. Sect.~\ref{sec:basic} presents some basic definitions. Sect.~\ref{sec:repair} presents the basic repair process and some possible optimizations. Sect.~\ref{sec:experiments} shows the empirical results. Threats to validity are tackled in Sect.~\ref{sec:threats}, whereas an overview of the related work is given in Sect.~\ref{sec:relatedwork}. Sect.~\ref{sec:conclusions} concludes the paper and proposes lines for future research.
 
@@ -3183,7 +3181,7 @@ printf(msg);
 	\subsubsection{Fault detection capability}
 	
 	\bb We are interested in evaluating the fault detection capability of the tests generated by the policies presented above. 
-	We have applied mutation analysis \cite{Jia:mutation} which consists of introducing artificial faults and checking if the proposed technique is able to find them. In our case, we have introduced the faults by hand and then we have applied our technique described in Section \ref{sec:process} in order to check if the fault is detected (or \emph{killed}). 
+	We have applied mutation analysis \cite{surveyMutationTesting} which consists of introducing artificial faults and checking if the proposed technique is able to find them. In our case, we have introduced the faults by hand and then we have applied our technique described in Section \ref{sec:process} in order to check if the fault is detected (or \emph{killed}). 
 	Tables in Fig. \ref{tab:faultdetection} present a brief description of each introduced fault and if each policy was able to kill it.
 	
 	In principle, our technique is able to find conformance faults both in the model and in the implementation. Indeed, when a fault is found, it is the designer's responsibility to decide what is the source of the fault. For libssh we have modified both the model and the code (the \texttt{cmake} script) (faults L$x$). For the  \TLSChecker we have modified the model and the source code (faults H$x$). Table in Fig. \ref{fig:seededfaults} presents the details of each injected fault, including if it refers to the specification (S) or to the implementation (I).
@@ -3957,7 +3955,7 @@ The constraints obtained in the final models are still readable, making a human 
 	\subsection{Related Work}
 \label{sec:validation_relatedwork}
 
-\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,HenardPPKT04,YilmazDCP14}.
+\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,henard_towards_2013,YilmazDCP14}.
 For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
 A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
 
@@ -5123,7 +5121,7 @@ In addition, when the oracle acts as a white-box, \ie{} when the oracle is able 
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
 
-Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{Czerwonka2006}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
+Most of the tools are classical programs or plugins of existing programs/platforms.  In all these cases, the user has to download, install, and execute the program on his/her machine.  Some tools offer a GUI interface, for example, for defining the models and run the test generation, while others rely on other programs for some activities (like PICTMaster, based on PICT~\cite{czerwonka2006pairwise}, that works entirely inside Microsoft Excel). %(like PICT~\cite{czerwonka_pairwise_2006} that gives the output as an Excel spreadsheet).
 In~\cite{citlab12} we have presented a plugin for the eclipse IDE that helps the user in writing CIT models with constraints by leveraging all the expected features of a modern IDE, and it generates combinatorial test suites by using third party programs (like CASA or ACTS).
 However, this classical approach poses some challenges. First, the user must install the chosen CIT tool, which in turn may require some dependencies, like java, or in case of plugin, it requires the installation of another program or application like eclipse, excel and so on. Then the user must use his/her machine for running the test generation algorithms. For experienced users with powerful machines they can administer, this is not a real problem. However, for novice users with not so powerful computer, or students that are just learning the CIT principles, or software developers using computer they cannot administer, this can become a cost to be considered and it may be an obstacle for the use of CIT.
 
@@ -5250,7 +5248,7 @@ Constraints:
 \end{lstlisting}
 
 \begin{tikzborder}{}
-Many test suite generation tools provide a limited support for constraints. For instance, AETG \cite{Cohen_1997,Lott:2005:MRC:1083274.1083281} allows only simple constraints of type \textsf{if then else} or \textsf{requires}. The language of \ctwedge is in this aspect more expressive, as it is targeted to be more general than existing tools. In the specific case of AETG, the translation of those templates into our logic is straightforward. For example the \textsf{if then else} constraint can be translated by two implications.
+Many test suite generation tools provide a limited support for constraints. For instance, AETG \cite{AETG,Lott2005} allows only simple constraints of type \textsf{if then else} or \textsf{requires}. The language of \ctwedge is in this aspect more expressive, as it is targeted to be more general than existing tools. In the specific case of AETG, the translation of those templates into our logic is straightforward. For example the \textsf{if then else} constraint can be translated by two implications.
 Other tools \cite{CohenISSTA07} allow constraints only in the form of forbidden combinations \cite{Golumbic:2011:GTC:2028636}. Our language is more general, as a forbidden tuple would be translated as a \textit{not} statement. For instance, a forbidden pair \textsf{emailViewer = false; display = 16MC} would be represented by the following constraint:
 $$\textsf{\#\ not\ (emailViewer = false\ and\ display = 16MC)\ \#}$$
 However, the explicit list of the forbidden combinations may explode and it may become impractical and error-prone to represent it. For example, if the model of mobile phones presented in Fig. 1 had a constraint that
@@ -5601,14 +5599,14 @@ Adding expressive power to the language for combinatorial models, in particular 
 Test seeds allow a tester to force the inclusion of certain test cases in the generated test suite \cite{BRYCE2006960}. Test seeds may be complete or partial. 
 Test goals are extra-constraints: relations among parameters to be satisfied by at least one test in the generated test suites.
 
-Some CIT approaches \cite{Segall2011} introduce weights for parameter values. Weights reflect the importance of different values for a given parameter. The user can express further requirements over the solution involving weights. Even if the same constraints may be expressed in our language, it may become impractical. We plan to extend the \ctwedge language in order to include user defined functions depending on parameter values. A possible function could be the weight of a parameter. Constraints and test goals could use such functions to express complex testing requirements.
+Some CIT approaches \cite{segall_using_2011} introduce weights for parameter values. Weights reflect the importance of different values for a given parameter. The user can express further requirements over the solution involving weights. Even if the same constraints may be expressed in our language, it may become impractical. We plan to extend the \ctwedge language in order to include user defined functions depending on parameter values. A possible function could be the weight of a parameter. Constraints and test goals could use such functions to express complex testing requirements.
 
 \paragraph{Combinatorial model editor}
 To make the transition to \ctwedge easier, a possible direction for future improvement is an importer that translates models written in other generator formats, into \ctwedge language format.
 
 Secondly, although \ctwedge already follows the SaaS approach, there are still several features that could be added in order to offer new cloud-based services. 
 The web site could offer a storage and persistence service, and the logged user could save his/her models on the \ctwedge server and later recall the saved files and export/import them in other formats.
-The \ctwedge could offer analysis services, like those presented in~\cite{iwct2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also coverage measurement and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
+The \ctwedge could offer analysis services, like those presented in~\cite{Arcaini2014}, able to find modeling faults. The user could use such techniques to check that the constraints are consistent, that there is no constraint implied by other constraints, and that the parameters and their values are really necessary. Also coverage measurement and analysis on the generated tests could be useful in order to check that they actually cover all the testing requirements. 
 
 Another future direction is the visualization of the individual t-tuples, as covered by each test in the test suite.
 \end{tikzborder}
@@ -5621,7 +5619,7 @@ Another direction for future work regards test case generation. The server is co
 The server could have performance issues due to overloading in case for example there are many requests with large models. The web service could be improved by attaching a process scheduler and a load balancer. Test suite generation becomes therefore asynchronous also on the server, which queues the requests and makes the test suites available as soon as they are generated.
 
 \paragraph{External generation tool support}
-An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{Nie2006}, Medici \cite{Gargantini2014}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
+An additional feature direction consists in the expansion of the support for test case generators, as PROW \cite{2015:PROW}, PICT \cite{pictmaster}, HSST\footnote{HSST: Heuristic based on solution space tree} \cite{Nie2006}, Medici \cite{hvc14}, as well as an expansion on the customizations of each selected test generator tool, such as the selection of the test generation algorithm inside ACTS: IPOG
 \cite{ipog}, IPOG-D \cite{ipog}, IPOG-F \cite{forbes2008refining}, IPOG-F2 \cite{forbes2008refining} and PaintBall \cite{318466}. 
 The possibility to download the translated input file along with the executable command parameters for each of the generators allows further customization and therefore can be an interesting future extension of the tool.
 
@@ -5647,7 +5645,7 @@ To offer a complete SaaS environment for CIT, we have developed and deployed \ct
 
 \begin{tikzborder}{\cite{iwct19}}	
 %Rationale
-Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn2002a}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
+Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
 
 While test generation for CIT is a well-studied topic, fault detection and localization is still an open problem, although there are now some works targeting diagnosis and bug characterization~\cite{satapathy_approaches_2018}. When a failing test has been found, it remains unclear which combination in the failing test is responsible for the failure, since a test contains many combinations of different sizes. Knowing the interaction (and, therefore, also all the input configurations) that trigger failures is of help not only in correcting bugs, but also in understanding the impact of them. The particular interacting configuration that induces a failure, often directly reflects a use case scenario, which can be traced back from the input configuration. Knowing only the test that causes a fault, instead, often makes it impossible to trace back to the general use-case scenario (maybe involving several other input configurations) that caused the fault.
 

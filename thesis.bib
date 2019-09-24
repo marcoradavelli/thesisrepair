@@ -1,7 +1,22 @@
 % Encoding: UTF-8
 
-@Preamble{"\newcommand{\LNCS}{Lecture Notes in Computer Science (LNCS)}"}
+@Preamble{"\newcommand{\CCIS}{Communications in Computer and Information Science}"}
+@Preamble{"\newcommand{\ENTCS}{Electronic Notes in Theoretical Computer Science}"}
+@Preamble{"\newcommand{\FI}{Fundamenta Informormaticae}"}
+@Preamble{"\newcommand{\FMSD}{Formal Methods in System Design}"}
+@Preamble{"\newcommand{\IJFCS}{International Journal of Foundations of Computer Science}"}
+@Preamble{"\newcommand{\IJSSE}{International Journal of Secure Software Engineering}"}
+@Preamble{"\newcommand{\JLAP}{Journal of Logic and Algebraic Programming}"}
+@Preamble{"\newcommand{\JLC}{Journal of Logic and Computation}"}
+@Preamble{"\newcommand{\LMCS}{Logical Methods in Computer Science}"}
+@Preamble{"\newcommand{\LNCS}{Lecture Notes in Computer Science}"}
+@Preamble{"\newcommand{\RESS}{Reliability Engineering \& System Safety}"}
+@Preamble{"\newcommand{\STTT}{International Journal on Software Tools for Technology Transfer}"}
+@Preamble{"\newcommand{\TCS}{Theoretical Computer Science}"}
+@Preamble{"\newcommand{\ToPNoC}{Transactions on Petri Nets and Other Models of Concurrency}"}
+@Preamble{"\newcommand{\TSE}{IEEE Transactions on Software Engineering}"}
 
+ 
 @article{Hawthorn_2001,
 	Author = {C. J. Hawthorn and K. P. Weber and R. E. Scholten},
 	Doi = {10.1063/1.1419217},
@@ -820,21 +835,6 @@
 	Year = {2007},
 	Bdsk-Url-1 = {https://doi.org/10.1109/ECBS.2007.47}}
 
-@article{Cohen_1997,
-	Author = {D.M. Cohen and S.R. Dalal and M.L. Fredman and G.C. Patton},
-	Doi = {10.1109/32.605761},
-	Issn = {0098-5589},
-	Journal = {{IEEE} Transactions on Software Engineering},
-	Keywords = {open systems;program testing;software cost estimation;software tools;AETG system;combinatorial design;high-level test plans;interoperability testing;n-way parameter combination;pairwise parameter combination;software testing;system configuration parameters;system test parameters;system testing;test scenarios;test set generation;triple parameter combination;unit testing;user inputs;Application software;Asynchronous transfer mode;Computer Society;Costs;Design for experiments;Monitoring;Programming;Software testing;System testing;Telephony},
-	Month = {Jul},
-	Number = {7},
-	Pages = {437-444},
-	Publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
-	Title = {The {AETG} system: an approach to testing based on combinatorial design},
-	Volume = {23},
-	Year = {1997},
-	Bdsk-Url-1 = {https://doi.org/10.1109/32.605761}}
-
 @inproceedings{318466,
 	Author = {P. Ammann and J. Offutt},
 	Booktitle = {Computer Assurance, 1994. COMPASS '94 Safety, Reliability, Fault Tolerance, Concurrency and Real Time, Security. Proceedings of the Ninth Annual Conference on},
@@ -1298,9 +1298,24 @@
 
 @inproceedings{Temple16:using,
 	Author = {Temple, Paul and Duarte, Jos{\'e} Angel Galindo and Acher, Mathieu and J{\'e}z{\'e}quel, Jean-Marc},
-	Booktitle = {Software Product Line Conference (SPLC)},
 	Title = {Using Machine Learning to Infer Constraints for Product Lines},
-	Year = {2016}}
+	booktitle  = {Proceedings of the 20th International Systems and Software Product Line Conference},
+	year       = {2016},
+	series     = {SPLC '16},
+	pages      = {209--218},
+	address    = {New York, NY, USA},
+	publisher  = {ACM},
+	acmid      = {2934472},
+	bdsk-url-1 = {http://doi.acm.org/10.1145/2934466.2934472},
+	bdsk-url-2 = {https://doi.org/10.1145/2934466.2934472},
+	doi        = {10.1145/2934466.2934472},
+	isbn       = {978-1-4503-4050-2},
+	keywords   = {constraints and variability mining, machine learning, software product lines, software testing, variability modeling},
+	location   = {Beijing, China},
+	numpages   = {10},
+	url        = {http://doi.acm.org/10.1145/2934466.2934472},
+	urldate    = {2017-08-07}
+}
 
 @misc{McDowella,
 	Author = {A. McDowell},
@@ -1339,16 +1354,6 @@
 	Title = {http://www.burtleburtle.net/bob/math/jenny.html},
 	Url = {http://www.burtleburtle.net/bob/math/jenny.html},
 	Bdsk-Url-1 = {http://www.burtleburtle.net/bob/math/jenny.html}}
-
-@misc{Pairwisea,
-	Author = {{Pairwise web site}},
-	Title = {http://www.pairwise.org/},
-	Url = {http://www.pairwise.org/},
-	Bdsk-Url-1 = {http://www.pairwise.org/}}
-
-@misc{TestCovera,
-	Author = {{TestCover tool}},
-	Title = {http://www.testcover.com/}}
 
 @misc{Hartmana,
 	Author = {Alan Hartman},
@@ -1682,19 +1687,21 @@
 	Title = {A Fault-Driven Combinatorial Process for Model Evolution in {XSS} Vulnerability Detection},
 	Year = {2019}}
 
-@inproceedings{andre_tap_2019,
-	Author = {Andr{\'e}, {\'E}tienne and Arcaini, Paolo and Gargantini, Angelo and Radavelli, Marco},
-	Booktitle = {Proceedings of 13th International Conference on Tests and Proofs (TAP 2019)},
-	Note = {(to appear)},
-	Publisher = {Springer International Publishing},
-	Title = {Repairing Timed Automata Clock Guards through Abstraction and Testing},
-	Year = {2019}}
-
-@article{andre2019repairing,
-	Author = {Andr{\'e}, {\'E}tienne and Arcaini, Paolo and Gargantini, Angelo and Radavelli, Marco},
-	Journal = {arXiv preprint arXiv:1907.02133},
-	Title = {Repairing Timed Automata Clock Guards through Abstraction and Testing},
-	Year = {2019}}
+@InProceedings{andre_tap_2019,
+	author="Andr{\'e}, {\'E}tienne
+	and Arcaini, Paolo
+	and Gargantini, Angelo
+	and Radavelli, Marco",
+	editor="Beyer, Dirk
+	and Keller, Chantal",
+	title="Repairing Timed Automata Clock Guards through Abstraction and Testing",
+	booktitle="Tests and Proofs",
+	year="2019",
+	publisher="Springer International Publishing",
+	address="Cham",
+	pages="129--146",
+	isbn="978-3-030-31157-5"
+}
 
 @inproceedings{Abukwaik_2016,
 	Author = {Hadil Abukwaik and Mohammed Abujayyab and Shah Rukh Humayoun and Dieter Rombach},
@@ -2383,27 +2390,6 @@
   urlcommented = {http://ieeexplore.ieee.org/document/7899061/},
 }
 
-@InProceedings{Temple:2016:UML:2934466.2934472,
-  author     = {Temple, Paul and Galindo, Jos{\'e} A. and Acher, Mathieu and J{\'e}z{\'e}quel, Jean-Marc},
-  title      = {Using Machine Learning to Infer Constraints for Product Lines},
-  booktitle  = {Proceedings of the 20th International Systems and Software Product Line Conference},
-  year       = {2016},
-  series     = {SPLC '16},
-  pages      = {209--218},
-  address    = {New York, NY, USA},
-  publisher  = {ACM},
-  acmid      = {2934472},
-  bdsk-url-1 = {http://doi.acm.org/10.1145/2934466.2934472},
-  bdsk-url-2 = {https://doi.org/10.1145/2934466.2934472},
-  doi        = {10.1145/2934466.2934472},
-  isbn       = {978-1-4503-4050-2},
-  keywords   = {constraints and variability mining, machine learning, software product lines, software testing, variability modeling},
-  location   = {Beijing, China},
-  numpages   = {10},
-  url        = {http://doi.acm.org/10.1145/2934466.2934472},
-  urldate    = {2017-08-07},
-}
-
 @InProceedings{ben_2015,
   author     = {Ghandehari, Laleh Sh and Chandrasekaran, Jaganmohan and Lei, Yu and Kacker, Raghu and Kuhn, D. Richard},
   title      = {{BEN}: {A} combinatorial testing-based fault localization tool},
@@ -2495,26 +2481,9 @@
   url    = {http://www.burtleburtle.net/bob/math/jenny.html},
 }
 
-@Misc{Pairwise,
-  author = {{Pairwise web site}},
-  title  = {http://www.pairwise.org/},
-  url    = {http://www.pairwise.org/},
-}
-
-@Misc{TestCover,
-  author = {{TestCover tool}},
-  title  = {http://www.testcover.com/},
-}
-
 @Misc{Hartmanb,
   author = {Alan Hartman},
   title  = {IBM Intelligent Test Case Handler: {Whitch}, http://www.alphaworks.ibm.com/tech/whitch},
-}
-
-@Misc{Xtext,
-  author = {Xtext},
-  title  = {http://www.eclipse.org/Xtext/},
-  url    = {http://www.eclipse.org/Xtext/},
 }
 
 @ARTICLE{ieeeterminology, 
@@ -3247,6 +3216,7 @@ Held as Part of the European Joint Conferences on Theory and Practice of Softwar
   author  = {D. M. Cohen and S. R. Dalal and M. L. Fredman and G. C. Patton},
   title   = {The {AETG} System: An Approach to Testing Based on Combinatorial Design},
   journal = {IEEE Transactions On Software Engineering},
+  Month = {Jul},
   year    = {1997},
   volume  = {23},
   number  = {7},
@@ -3336,16 +3306,6 @@ Held as Part of the European Joint Conferences on Theory and Practice of Softwar
   address   = {Montego Bay, Jamaica},
   owner     = {garganti},
   timestamp = {2012.01.16},
-}
-
-@Article{Jia:mutation,
-  author  = {Yue Jia and Mark Harman},
-  title   = {An Analysis and Survey of the Development of Mutation Testing},
-  journal = {{IEEE} Trans. Software Eng.},
-  year    = {2011},
-  volume  = {37},
-  number  = {5},
-  pages   = {649--678},
 }
 
 @InProceedings{Perrouin010a,
@@ -4378,22 +4338,6 @@ Held as Part of the European Joint Conferences on Theory and Practice of Softwar
   url        = {http://dx.doi.org/10.1007/978-3-642-02949-3},
 }
 
-@InProceedings{Czerwonka2006,
-  author    = {J. Czerwonka},
-  title     = {Pairwise Testing in Real World},
-  booktitle = {24th Pacific Northwest Software Quality Conference},
-  year      = {2006},
-  volume    = {82},
-}
-
-@InProceedings{HenardPPKT04,
-  author    = {Christopher Henard and Mike Papadakis and Gilles Perrouin and Jacques Klein and Yves Le Traon},
-  title     = {Towards automated testing and fixing of re-engineered feature models},
-  booktitle = {35th International Conference on Software Engineering, {ICSE} '13, San Francisco, CA, USA, May 18-26, 2013},
-  year      = {2013},
-  pages     = {1245--1248},
-}
-
 @Book{testingbook,
   title     = {Introduction to software testing},
   publisher = {Cambridge University Press},
@@ -4654,7 +4598,7 @@ Held as Part of the European Joint Conferences on Theory and Practice of Softwar
 	keywords={}, 
 	doi={}, 
 	ISSN={}, 
-	publisher={Morgan & Claypool}, 
+	publisher={Morgan \& Claypool}, 
 	isbn={9781608458837}, 
 	url={https://ieeexplore.ieee.org/document/6813569},}
 
@@ -5027,6 +4971,21 @@ file = {Egyed et al. - 2008 - Generating and Evaluating Choices for Fixing Incon
 	year = {2003},
 	pages = {199--215},
 	file = {Medvidovic et al. - 2003 - Bridging models across the software lifecycle.pdf:/Users/marcoradavelli/Zotero/storage/IP37S9HN/Medvidovic et al. - 2003 - Bridging models across the software lifecycle.pdf:application/pdf}
+}
+
+@inproceedings{Zhang2012FII,
+	author= {Zhang, Jian
+	and Ma, Feifei
+	and Zhang, Zhiqiang},
+	editor={Cimatti, Alessandro
+	and Sebastiani, Roberto},
+	title={Faulty Interaction Identification via Constraint Solving and Optimization},
+	booktitle={Theory and Applications of Satisfiability Testing -- SAT 2012},
+	year={2012},
+	publisher={Springer Berlin Heidelberg},
+	address={Berlin, Heidelberg},
+	pages={186--199},
+	isbn={978-3-642-31612-8}
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
