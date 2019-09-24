@@ -1,3 +1,4 @@
+%\begin{tikzborder}{\cite{Gargantini16:validation}}
 \documentclass [a4paper, 12pt, twoside]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -744,7 +745,7 @@ EnumerativeType, Number, Range, TestGoals,
 }
 \renewcommand{\lstlistingname}{Code}% Listing -> Code
 
-\newcounter{researchquestionCount}
+\newcounter{researchquestionCount}[chapter]
 \newcommand{\researchquestion}[1]{\stepcounter{researchquestionCount}\begin{itemize}\item [\textbf{RQ\arabic{researchquestionCount}:}] \emph{#1}\end{itemize}}
 
 %\usepackage{algorithmic}
@@ -1082,16 +1083,17 @@ The goal of this thesis is to study how software testing techniques can be appli
 The thesis is divided into seven chapters, and each of these chapters (introduction excluded) tries to answer to a research question (RQ).
 \researchquestion{What are the main techniques and applications of software testing and program repair?}
 This is shown in Chapter \ref{ch:background} in which relevant books, papers and standards are analysed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
-Different types of software models are presented (namely software product lines, combinatorial models, and timed automata), and currently available techniques to support engineers in automatically update and repair programs and models are analyzed. In particular, techniques such as mutation together with evolutionary algorithms, and a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
+Different types of software models are presented (namely software product lines, combinatorial models, and timed automata), and currently available techniques to support engineers in automatically update and repair programs and models are analyzed. In particular, techniques such as mutation together with evolutionary algorithms are discussed, as well as a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
+
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
 \researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
 Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter \ref{ch:automatedrepair} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
-\red{add also the one that simplifies constraints among features}
+In addition, academic tools to improve engineers perform the different phases of this repair process are within the scope of this thesis. %\red{add also the one that simplifies constraints among features}
 
 \researchquestion{How to repair feature models?}
 A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. Although feature models are not used in every such configurable software, there are many companies, in particular in the automotive industry, that use feature models to represent domain knowledge over SPLs (see this list \cite{deJong2001} of some companies using feature models), and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
-Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now currently 13000 features \todo{cite}.
+Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has now currently 18 000 features \cite{thum_towards_2019}.
 Chapter \ref{ch:fmrepair} presents two approaches for automated repair of feature models: the first is targeted to repair the hierarchical relations among features and the simple constraints of type \textit{requires} and \textit{excludes}, the second is targeted to repair arbitrary constraints among features.
 
 \researchquestion{How to repair configuration constraints?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
@@ -1100,7 +1102,7 @@ Chapther \ref{ch:constraintrepair} describes a possible approach to automaticall
 %By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
 
 \researchquestion{How to repair timed automata clock guards?}
-Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata.\todo{cite} They can range from electrical automated machines such as coffee machines and washing machines (where time models the time up to an inserted coin has to be given back to the user, if no operation is selected, for instance), to protocol implementation in the railway, automotive and aerospace industry.
+Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata~\cite{ACEF09,AD94,AFKS12}. They can range from electrical automated machines such as coffee machines and washing machines (where time models the time up to an inserted coin has to be given back to the user, if no operation is selected, for instance), to protocol implementation in the railway, automotive and aerospace industry.
 Chapter \ref{ch:tarepair} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating and executing test cases (i.e., sequences in the automata), and iteratively repair inconsistencies between the model and the system.
 
 \researchquestion{How combinatorial testing editing and generation can be made easy to perform?}
@@ -1109,7 +1111,7 @@ Chapter \ref{ch:ctwedge} presents a comparative study among the existing tools f
 
 \researchquestion{How can the detection of failure-inducing combinations be improved?}
 One of the steps of the test-driven processes to automatically repair models is the detection of the combinations of parameters that cause inconsistencies between the model and the system: the failure-inducing combinations (\fccs).
-There are tools for failure-inducing combination detection, such as BEN \cite{ben_2015} \todo{cite others}, but they have limitations, in particular regarding accuracy.
+There are tools for failure-inducing combination detection, such as BEN \cite{ben_2015,ghandehari2018combinatorial}, IterAIFL~\cite{wang_adaptive_2010}, AIFL~\cite{shi_software_nodate}, FIC~\cite{zhang_characterizing_2011}, SOFOT~\cite{nie_2011}, and ICT~\cite{Niu2018interleaving}.
 In Chapter \ref{ch:mix} we present \mix, a new method to detect failure-inducing combinations guaranteeing to achieve complete accuracy up to a certain strength $t$.
 This tool could be used not only to improve the constraint repair method devised (in Chapter \ref{ch:constraintrepair}), but also as an alternative fault localization technique.
 	
@@ -1143,7 +1145,7 @@ The list is in chronological order, and for each paper is shown a short summary 
 	\item \cite{IWCTGargantini2018} \bibentry{IWCTGargantini2018}
 	
 	This paper presents \ctwedge, a novel tool that offers a complete SaaS (Software as a Service) environment for combinatorial testing modeling and generation. This tool is installation-free and download-free, easy to use, and extensible to support more generators.
-	M. Radavelli contributed in the discussion towards this paper, in the tool implementation using Xtext Web \todo{cite}, in the comparison with existing tools, and in writing the paper.
+	M. Radavelli contributed in the discussion towards this paper, in the tool implementation using Xtext Web \cite{Eysholdt:2010,xtext}, in the comparison with existing tools, and in writing the paper.
 	The co-author further contributed in discussions, writing the paper, and proof reading.
 
 	\item \cite{arcaini2019achieving} \bibentry{arcaini2019achieving}	
@@ -1251,6 +1253,55 @@ A trade-off should be found, but models remain covering an important function in
 In the rest of the section, we describe the three model types that we chose as target for the repair operations identified in this thesis: combinatorial contraints, feature models, and timed automata.
 
 \subsection{Combinatorial Constraints}
+\begin{tikzborder}{\cite{Gargantini16:validation}}
+Combinatorial Interaction Testing (CIT), or simply combinatorial testing, 
+aims to test the software
+or the system with selected combinations of parameter values. 
+There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11},
+while an introduction to CIT and its efficacy in practice can be found
+in~\cite{kuhncomputer09,Petke15:practical}. 
+
+A model for a combinatorial problem consists of several parameters %(at least 2) 
+which can take several domain values. 
+In most configurable systems, dependencies exist between parameters. 
+Such constraints may be introduced for several reasons, e.g., to model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply design choices~\cite{CohenTSE08}. 
+In our approach, tests that do not satisfy the constraints in the CIT model are considered \emph{invalid}.
+
+CIT problems can be formally defined as follows.
+
+\begin{defn}
+	Let $P=\{p_{1},\dots,p_{m}\}$ be the
+	set of parameters. Every parameter $p_{i}$ assumes values in the domain $D_{i}=\{v_{1}^{i},\ldots,v_{o_{i}}^{i}\}$. 
+	Every parameter has its name (it can have also a type with its own name) and every enumerative value has an explicit name. We denote with $C=\{c_{1},\ldots,c_{n}\}$
+	the set of constraints.
+\end{defn}
+
+%\begin{defn}
+%	The objective of a CIT test suite is to cover all parameter interactions between any set of $t$ parameters. $t$ is called the strength of the CIT test suite. For example, a pairwise test suite covers all combinations of values between any 2 parameters.
+%\end{defn}
+
+Constraints $c_i$ are given in general form, using the language of propositional logic with equality and arithmetic. 
+%Fig.~\ref{fig:washerexample} shows the \citlab{} model of a simple washing machine consisting of 3 parameters. The user can select if the machine has \texttt{HalfLoad}, the desired \texttt{Rinse}, and the \texttt{Spin} cycle speed.
+%There are two constraints, including,  if \texttt{HalfLoad} is set then the speed of spin cycle cannot exceed \texttt{maxSpinHL}.
+
+Software systems can be configured by setting specific parameter values at different stages of the software testing process.
+
+\noindent {\bf Compile time}
+Configurations can be set at compile time. An example is shown in Figure~\ref{fig:compiletimeConf}. Depending on the value settings of the Boolean variables \texttt{HELLO} and \texttt{BYE} different messages will be displayed when the program is run.
+
+\noindent {\bf Design time}
+Configurations can also be set at design time. For example, in case of a SPL, a configurability model is built during the design. 
+
+%\item 
+\noindent {\bf Runtime}
+%\red{something that one can customize at run time via conf file}
+Another way of setting parameter configurations is at runtime. This can be usually done by means of a graphical user interface (GUI). In a chat client, e.g., you can change your availability status as the program is running. 
+
+\noindent {\bf Launch time}
+We also differentiate the case where parameters are read from a separate configuration file or given as program arguments, \emph{before} the system is run. We say that these parameters are set at launch time of the given application. They decide which features of the system should be activated at startup. Examples of such systems include chat clients, web browsers and others. 
+\be
+
+\begin{comment}
 \todo{cite from constraintsrepair}
 A model for a combinatorial problem consists of several parameters (at least 2) which can take various domain values. 
 In most configurable systems, constraints (or dependencies) exist between parameters. 
@@ -1263,13 +1314,10 @@ described as being important to combinatorial testing in~\cite{AETG}
 and were introduced in the AETG system. In our approach tests that
 do not satisfy the constraints in the CIT model are considered \emph{invalid}.
 
-
-
 In classical combinatorial interaction testing, only valid tests are generated, since the focus is on assessing if the system under test produces valid outputs. 
 %testing the software implementation. 
 However, we believe that invalid tests are also useful.  In particular, a combinatorial model can be overconstrained, that is, it might restrict generation of test cases that are valid in the system, yet not be generated due to the constraints in the given model. Furthermore, critical safety systems should be tested if they failed safely in case an invalid configuration is entered. Moreover, creation of a CIT model for a large real-world software system is usually a tedious, error-prone task. Therefore, invalid configurations generated by the model at hand can help reveal constraints within the system under test and help refine the combinatorial model.
-
-
+\end{comment}
 
 
 \subsection{Feature Models}
@@ -1305,7 +1353,7 @@ Timed automata have academic and industrial applications for the modeling and ve
 Timed automata are equipped with of clock variables that record the passage of time since they have been reset. All clocks are synchronized and they run at the same speed. 
 The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
 
-An example of time automaton is given in Fig. \ref{fig:time}.\todo{figura}
+An example of time automaton is given in Fig. \ref{fig:time}.%\todo{figura}
 
 A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
@@ -1327,7 +1375,7 @@ software and to reduce the risk of software failure in operation.
 Software testing is expensive and labor intensive. Software testing requires up to 50\% of software development costs, and even more for safety-critical applications \cite{testingbook}.
 
 Therefore, software testing has been an active area both in research and in industry.
-There are several studies and techniques to adapt software testing to specific scenarios and applications, to improve test suite generation and execution, and to apply testing techniques to various tasks in software engineering, such as program repair and model inference and repair. \todo{add citations}
+There are several studies and techniques to adapt software testing to specific scenarios and applications, to improve test suite generation and execution, and to apply testing techniques to various tasks in software engineering, such as program repair and model inference and repair. \cite{le_goues_systematic_2012,chiang_unified_2011,Duchene:2012,Xuan_2017}
 
 One of the goals of software testing is to automate as much as possible, thereby significantly reducing its cost, minimizing human error, and making regression testing easier. \cite{testingbook}
 
@@ -1343,27 +1391,54 @@ CIT is used in a variety of applications for unit, system, and interoperability 
 It has generated both high-level test plans and detailed test cases. In several applications, it greatly reduced the cost of test plan development. Testers can base their input on detailed development requirements or on a system's high-level functional requirements.
 
 \subsection{The Oracle Problem}
-TODO to copy from Tonella e Jahangirova papers...
-It is important to our repair process because it depends on an oracle to assess non conformancies between the model and the system.
+
+In software testing, while test case generation, execution and fault localization have considerably advanced, the quality of the oracle remains an important bottleneck \cite{jahangirova_empirical_2019}.
+
+The effectiveness of testing depends both on the quality of the test cases and on the quality of the oracle \cite{barr_oracle_2015,staats_programs_2011,weyuker_testing_1982}. 
+The Oracle Problem is the problem of defining accurate oracles, capable of detecting all and only faulty behaviours exercised during testing [12], [18], [25], [36], [37], [38]. Without a (good) oracle to determine whether the test output is correct, test inputs that satisfy the strictest adequacy criteria remain useless and testing is ineffective.
+The quality of the oracle can be evaluated based on two properties: \textit{completeness} (no false positives), and soundness (no false negatives: all faults should be rejected by the oracle).
+
+%Oracle assessment must thus identify and report false positives or false negatives (or both), so as to support the developer in improving the oracle soundness and completeness.
+
+
+%TODO to copy from Tonella e Jahangirova papers...
+With respect to our proposed model repair process, we assume the existence of an oracle to assess non-conformancies between the model and the system.
 In one case we automated the oracle (we used the implicit oracle), in other cases, the oracle could be set by the user or predicted.
-It is often the longest phase in software testing, and a bottleneck in testing automation, because it is where human plays an important role, as it is intimately related to domain knowledge representation, and to requirements engineering.
+Oracle evaluation is often the longest phase in software testing, and a bottleneck in testing automation. Indeed, it is where domain knowledge expertise is needed, and often only human intervention is reliable, as the oracle is intimately related to domain knowledge representation, and to requirements engineering.
 
 %\section{Manipulation Techniques}
 \subsection{SAT and SMT solvers}
-\todo{We use SAT and SMT solvers to determine if a test is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints.}
-
 
 In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. 
 In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula "a AND NOT b" is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, "a AND NOT a" is unsatisfiable.
 
 SAT is the first problem that was proven to be NP-complete.
-Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols,[1] which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving.
+Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving.
+
+SAT and SMT solvers are employed in various applications in software engineering, especially in model checking, program verification, and static analysis \cite{sat2008}.
+In presence of constraints in propositional logic, they allow to determine if a particular assignment of values to parameters is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints.
+
+By definition, the SAT problem takes as input a propositional formula in Conjunctive Normal Form (CNF), normally as DIMACS format, and a variable assignment, and tells whether it is satisfiable or not.
+
+Although the SAT solver is very fast, transforming a propositional formula in an arbitrary format into CNF, although always possible, can be computationally expensive, and lead to an exponential grow in formula size.
+
+This is one of the practical reasons why for some applications in software engineering, BDDs are preferred over SAT/SMT solvers.
 
 %\subsection{Search-based Software Engineering}
 %\subsection{Model Checkers}
 
 \subsection{BDDs and MDDs}
 
+A binary decision diagram (BDD) or branching program is a data structure that is used to represent a Boolean function. On a more abstract level, BDDs can be considered as a compressed representation of sets or relations. Unlike other compressed representations, operations are performed directly on the compressed representation, i.e. without decompression. Other data structures used to represent Boolean functions include negation normal form (NNF), Zhegalkin polynomials, and propositional directed acyclic graphs (PDAG).
+
+BDDs are extensively used in CAD software to synthesize circuits (logic synthesis) and in formal verification. There are several lesser known applications of BDD, including fault tree analysis, Bayesian reasoning, product configuration, and private information retrieval.
+
+Although building a BDD is normally computationally more expensive than solving a SAT problem with a state-of-the-art SAT solver, it allows for a deeper analysis over the propositional formula that leads to the BDD, in particular:
+\begin{itemize}
+	\item Using the BDD representation, it is easy to count the number of satisfiable configurations. This may be useful in certain contexts such when this number is a part of a fitness function of a process, or is needed for evaluation.
+	\item BDDs do not need the input formula (or set of constraints) to be in a CNF representation, therefore avoiding the potentially exponential complexity of the CNF transformation.
+	\item BDDs can be more convenient, and potentially faster, when multiple assignments are to be evaluated over the same propositional formula, because the tree is built only once (building the BDD is the complex operation), and then just traversed many times to check for satisfiability.
+\end{itemize} 
 
 
 
@@ -1387,14 +1462,24 @@ Sometimes an engineer also wants to detect which is a model of a current aspect 
 The main hypothesis of this research project is that testing techniques can be used not only for fault detection and localization, but also for model repair.
 \be
 
+\subsection{Further Assumptions}
+The applicability of the proposed failure-driven model repair framework is subject to the following assumptions, that we identified:
+\begin{itemize}
+	\item prescriptive model: there should be an initial prescriptive model of the system, from which tests can be then generated.
+	\item traceability: it should be always possible to translate an abstract configuration (i.e., a test), into a concrete test
+	\item oracle definition: there should be the possibility to execute a test towards the system, and obtain a \textit{pass}/\textit{fail} result, e.g., depending if the system compiles correctly, doesn't crash, doesn't expose a vulnerability, etc.
+\end{itemize}
+
 \section{Contribution}\label{sec:contribution}
 \bb
 The contribution of this PhD project is the proposal and evaluation of testing techniques to repair models of software systems.
 The methodology aims at changing the model \textit{with less impact as possible} (to preserve domain knowledge) to \textit{repair} the non-conformance w.r.t. the \textit{solution space} (it can be the current implementation, a new specification, or an available \textit{oracle}).
-
-In the rest of this PhD proposal, we present the research methodology, and the already evaluated application in the scenarios of (1) combinatorial models, and (2) feature models in software product line enginnering.
-We then discuss other possible scenarios in which model repair can be employed.
 \be
+
+From the initial prescriptive model, (1) we generate and execute tests (test generation), (2) we detect failing interactions (fault localization), and (3) we repair the model accordingly (model repair), obtaining a \textit{descriptive} model of the system, that we assume to \textit{accurately} represent the new \textit{prescriptive} model of the system.
+
+%\bb In the rest of this PhD proposal, we present the research methodology, and the already evaluated application in the scenarios of (1) combinatorial models, and (2) feature models in software product line enginnering.
+%We then discuss other possible scenarios in which model repair can be employed. \be
 
 \section{Research Approach}\label{sec:relatedwork1}
 \bb
@@ -1435,6 +1520,7 @@ The model is then repaired \textit{logically}, by translating such failure-induc
 We also developed a tool to make it easier the editing of such combinatorial models, and the test suite generation, called CTWedge \cite{IWCTGargantini2018}.
 %We also developed a tool to edit such combinatorial models, and generate tests, called CTWedge \cite{IWCTGargantini2018}.
 \be
+Chapter \ref{ch:constraintrepair} presents results in detail.
 
 \subsection{Repair of Feature Models}\label{sec:fmrepair}
 
@@ -1450,6 +1536,12 @@ The method is based on an evolutionary algorithm that iteratively mutates the or
 The approach has been evaluated on real-world feature models: although it does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, %and since the process is based on small mutations, 
 with minimal edits, helping in preserving domain knowledge.% from previous models.
 \be
+Chapter \ref{ch:fmrepair} presents results in detail.
+
+\subsection{Repair of Timed Automata}
+We apply the repair framework also to timed automata clock guards. In this case, a test is a timed sequence (i.e., actions associated to an absolute time) that can be exercised on the real system.
+Our approach generates an abstraction of the initial TA in terms of a PTA, generates some tests, and then refines the abstraction by identifying only those TAs contained in the PTA that correctly evaluate all the tests.
+Chapter \ref{ch:tarepair} presents results in detail.
 
 \chapter{Repair of Feature Models}\label{ch:fmrepair}
 
@@ -1470,7 +1562,7 @@ The method is based on an evolutionary algorithm that iteratively mutates the or
 We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini_evolutionary_2018}.
 We generate faults between two real versions of feature models of the {\tt MobileMedia}, {\tt HelpSystem},  {\tt SmartHome}, and {\tt ERP\_SPL} systems in the SPLOT repository\footnote{\url{http://52.32.1.180:8080/SPLOT/feature_model_repository.html}}, and we notice that although our approach does not guarantee to completely update all the possible feature models, on average, around 89\% of requested changes are applied, with minimal edits.%, helping in preserving domain knowledge.
 
-\section{Basic definitions}\label{sec:basicDef}
+\subsection{Basic definitions}\label{sec:basicDef}
 
 \begin{tikzborder}{\cite{arcaini_evolutionary_2018}}
 In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
@@ -1529,7 +1621,7 @@ Let's consider the feature model shown in Fig.~\ref{fig:fmExample}.
 It is the third version of the CAR SPL described in~\cite{Pleuss2012}. It is composed of eight features $F$ = \{\CarBody, \MultimediaDevices, \OtherFeatures, \Radio, \Navigation, \MonochromeRadioDisplay, \MonochromeNavigationDisplay, \ColorNavigationDisplay{}\}. \CarBody is the root feature; its children \MultimediaDevices and \OtherFeatures are respectively optional and mandatory. \MultimediaDevices has two optional children: \Radio that is the father of the mandatory feature \MonochromeRadioDisplay, and \Navigation that is the father of the alternative group between \MonochromeNavigationDisplay and \ColorNavigationDisplay.\be
 \end{exmp}
 
-\section{Specifying an update request}\label{sec:updateRequest}
+\subsection{Specifying an update request}\label{sec:updateRequest}
 
 \bb We suppose that the product line engineer wants to update an existing feature model \initFm ({\it initial feature model}); although (s)he knows which are the desired updates in terms of products and features to add or remove, (s)he does not know how to write a feature model \fmp that satisfies all these updates.
 
@@ -1583,7 +1675,7 @@ The meaning of \CFrelax and \CFrem is to modify the set of valid products, as de
 
 If the user wants to include/exclude a specific configuration $c$, then (s)he simply adds $\fmToBool(c)$ to \CFrelax/\CFrem.\footnote{This is what we actually do in the experiments in Sect.~\ref{sec:experiments} where update requests are computed as differences between different versions of feature models, and \CFrelax and \CFrem can only be identified in terms of sets of configurations.}\be
 
-\subsection{Well-formedness of an update request}\label{sec:wfUpdReq}
+\subsubsection{Well-formedness of an update request}\label{sec:wfUpdReq}
 
 \bb We impose some constraints on the update request to be sure that the different change requirements are not contradictory and useful (i.e., they actually affect the product set):
 %
@@ -1619,7 +1711,7 @@ Given the CAR SPL model shown in Fig.~\ref{fig:fmExample} and described in Ex.~\
 \end{exmp}
 \be
 
-\subsection{Update request semantics}\label{sec:target}
+\subsubsection{Update request semantics}\label{sec:target}
 
 \bb We here precisely define the semantics of an update request \UR. In order to do this, we define a formula that accepts and rejects configurations as the updated feature model should do.
 
@@ -1674,14 +1766,14 @@ First of all, we check that the target accepts at least one product (i.e., it is
 
 Moreover, we also check that each feature $f \in F^\prime$ can be actually selected in at least one product; it this is not possible, it means that $f$ is required to be dead in the final model. If this is the case, we warn the user about this and, if this is the intended behavior, we move $f$ in \Frem, so that we can directly try to remove it during the repairing process.\be
 
-\section{Evolutionary updating process}\label{sec:process}
+\subsection{Evolutionary updating process}\label{sec:process}
 
 \bb Modifying the initial feature model \initFm such that it satisfies the update request as specified by the target is a challenging task. Note that, in general, there could be no \fmp that exactly adds and removes the specified configurations and features, unless {\it complex} cross-tree constraints are used. However, we claim that the usage of these constraints should be discouraged. Urli et al.~\cite{visualSupport} observe that ``they make FMs complex to understand and maintain'', Reinhartz-Berger et al.~\cite{ComprehendingFeatureModels} experimentally assessed that they are more difficult to understand than parent-child relationships (at least, by modelers who are unfamiliar with feature modeling), and Berger et al.~\cite{Berger2013} report that ``they are known to critically influence reasoners''. Also the authors of FeatureIDE noted that cross-tree constraints ``are harder to comprehend than simple tree constraints" and that ``relations among features should be rather expressed using the tree structure if possible''~\cite{FeatureIDEbook}. In this paper, we therefore avoid the addition of complex cross-tree constraints, as we not only aim at correctness (i.e., full achievement of the update request), but also at readability of the final model.
 Some approaches that aim at simplifying complex constraints exist~\cite{knuppel_is_2017,vonRhein2015}, but they may diminish readability and other qualities, such as compactness, traceability, and maintainability.\footnote{In Sect.~\ref{sec:conclusions1}, we discuss how complex cross-tree constraints could be used to achieve all the change requirements and the issues that could be related to that approach.}
 
 This paper proposes a heuristic approach that tries to achieve the update request {\it as much as possible}. In order to do this, we use the target as {\it oracle} to compute the {\it fault ratio}. The fault ratio tells how close we are to the correct solution. In Sect.~\ref{sec:correctness}, we give the definition of fault ratio and then, in Sect.~\ref{sec:updatingProcess}, we describe the updating process we propose.\be
 
-\subsection{Correctness}\label{sec:correctness}
+\subsubsection{Correctness}\label{sec:correctness}
 
 We can use the target to evaluate whether a feature model \fmp captures the desired change requirements, i.e., \fmp is equivalent to the target ($\models t \leftrightarrow \fmToBool(\fmp, F_U)$). In the following, we will only compare feature models \fmp whose features $F_{\fmp}$ are, at most, those in $F_U$, i.e., $F_{\fmp} \subseteq F_U$.
 
@@ -1747,7 +1839,7 @@ legend style={at={(6.5, 0.5)},font=\footnotesize}] % <= to define position and f
 \bb Note that the fault ratio of the initial renamed feature model \initFm w.r.t. to the target $t$ (that corresponds to the final feature model) is $\frac{20}{2^9}$, as \initFm wrongly accepts all its 7 products and wrongly rejects all the 13 products of the target.\be
 \end{exmp}
 
-\subsection{Updating process}\label{sec:updatingProcess}
+\subsubsection{Updating process}\label{sec:updatingProcess}
 
 \bb
 The process we propose to update an initial feature model \initFm, given an update request \UR, is depicted in Fig.~\ref{fig:approach}.
@@ -1903,13 +1995,13 @@ Although we allow feature models with constraints also in general form, we decid
 
 In general, we cannot evaluate a priori if a mutant introduces an anomaly; therefore, for each mutant, we check if it is infeasible, it contains redundant constraints, or it has dead features. If it has any of these anomalies, we do not select it.\be
 
-\section{Experiments}\label{sec:experiments}
+\subsection{Experiments}\label{sec:experiments}
 
 \bb The process\footnote{The code is available at \url{https://github.com/fmselab/eafmupdate}} has been implemented in Java by using Watchmaker\footnote{\url{https://watchmaker.uncommons.org/}} as evolutionary framework, FeatureIDE~\cite{FeatureIDEbook} to represent and mutate feature models, and JavaBDD for BDDs manipulation. 
 
 We conducted a set of experiments to evaluate the proposed evolutionary approach; they have been executed on a Windows 10 system with an Intel i7-3770 3.40GHz processor, and 16 GB RAM.\be
 
-\subsection{Benchmarks}\label{sec:benchmarks1}
+\subsubsection{Benchmarks}\label{sec:benchmarks1}
 
 \bb For the experiments, we used two sets of benchmarks, both shown in Table~\ref{tab:benchmarks}.\be
 %
@@ -1982,7 +2074,7 @@ In order to detect renamed features in \Ftbr, we manually inspected the two feat
 
 Table~\ref{tab:benchmarks} reports, for all the benchmarks, the size of the input and target models in terms of number of features, and the number of requirements of the update request. For the SPLs in \benchReal having more than one couple of feature models, the reported values are aggregated by distance; for each SPL in \benchMut, the values are aggregated among its 100 input models. For these aggregated models, we report the average, minimum, and maximum number of elements in the update request. In \benchMut, since we did not add or remove features for producing the input models, their size is the same of that of the target model and so \Fadd and \Frem are empty; moreover, we do not even rename features and so also \Ftbr is empty.\be
 
-\subsection{Analysis}\label{sec:analysis}
+\subsubsection{Analysis}\label{sec:analysis}
 
 \bb We now evaluate the proposed approach by a series of research questions. In these experiments, we set the parameters of the termination conditions as follows: \thF to $1 - \frac{\mathit{ctc}(\initFm)}{{2^{|F_U|} \times 2|F_U|^2}}$, \thNI to 15, \thI to 25, and \thT to 30 minutes. Note that the value chosen for \thF requires to have a totally correct model, with at most the same number of cross-tree constraints of the starting feature model. The parameter $H$ used to determine the maximum population size $M$ (as defined in Sect.~\ref{sec:prodBasedChangeReqs}) has been set to 5, and the parameter $p$ of the selection phase has been set to $\nicefrac{M}{2}$. All the reported data are the averages of 30 runs.
 
@@ -2103,11 +2195,11 @@ As explained in Sect.~\ref{sec:prodBasedChangeReqs}, our fitness function (see E
 
 \bb For easing the comparison, we also report the same data of the results obtained with the previous experiment (already reported in Table~\ref{tab:processPerformance}). In order to check whether the consideration of cross-tree constraints has some effect on the final results, we have applied to the data the classical hypothesis testing by performing the Wilcoxon signed-rank test\footnote{We performed a non-parametric test as we found, with the Shapiro-Wilk test, that the distributions are not normal.}~\cite{Wohlin2012} between the results with the two versions of fitness. The null hypothesis that considering $\mathit{ctc}$ has no impact of the final model cannot be rejected for the percentage of totally updated models (i.e., semantically equivalent), but it is rejected for the syntactical equivalence with $p$-value equal to 0.0038. This confirms that penalizing  the usage of cross-tree constraints in the fitness improves the quality (readability) of the final model without compromising the ability of the approach in achieving the update request.\be
 
-\section{Threats to validity}\label{sec:threats1}
+\subsection{Threats to validity}\label{sec:threats1}
 
 \bb We discuss the threats to the validity of our results along two dimensions, \emph{external} and \emph{internal} validity~\cite{Wohlin2012}.\be
 
-\subsection{External validity}\label{sec:externalValidity}
+\subsubsection{External validity}\label{sec:externalValidity}
 
 \bb Regarding external validity, a threat is that the obtained results could be not generalizable to real-world (industrial) feature models having specific update requests. However, as first benchmark, we have selected 9 couples of models showing the evolution of real SPLs~\cite{multimediaPaper,helpSystemPaper,smartHomePaper} taken from the SPLOT repository, and other 27 couples from the evolution of other two real SPLs described in literature~\cite{Burdek2016,Pleuss2012} (see Sect.~\ref{sec:benchmarks1}); moreover, in order to enlarge the set of evaluated models, we generated 400 input models by randomly mutating other 4 feature models (acting as target). We believe that this way of selecting the benchmarks reduces the bias w.r.t. other real models this process may be applied to in the future.
 
@@ -2115,10 +2207,15 @@ Another threat to the external validity could be that the proposed process does 
 
 Another threat to the external validity is that the update requests that we use in the experiments could be different by those written by SPL designers. However, update requests have been obtained by computing the difference of consecutive versions of feature models written by SPL designers. While change requirements \Ftbr, \Fadd, and \Frem are guaranteed to be the same as those specified by SPL designers, \CFrelax and \CFrem are only semantically equivalent. However, this is not a threat, as the evolutionary approach only considers the semantics of the \CFrelax and \CFrem, not their structure.\be
 
-\subsection{Internal validity}\label{sec:internalValidity}
+\subsubsection{Internal validity}\label{sec:internalValidity}
 \bb Regarding internal validity, a threat is that the obtained results could depend on the values chosen for the parameters of the evolutionary process (parameters of termination conditions, and parameters of the selection and evolution phases) and that, with some other values, the results would have been different (e.g., a given selection strategy could perform better); although we kept all the parameters fixed, we believe that the overall result that our approach is able to actually update the feature model is not affected. However, as future work, we plan to perform a wider set of experiments in which the effect of each single parameter is evaluated. For finding the best parameter setting, we could use a parameter-tuning framework as irace~\cite{irace}.\be
 
-\section{Basic Definitions}\label{sec:basic}
+\section{A Process for Fault-Driven Repair of Constraints Among Features}\label{sec:arcaini2019varivolution}
+In order to detect discrepancies between the problem space and the solution space, classical techniques for testing of propositional formulas (as the constraints of a variability model) can be used: the classical decision and condition coverage, the MCDC~\cite{sej.1994.0025}, fault based criteria~\cite{compj15}, and also combinatorial testing~\cite{icst15}. In this paper, we assume that some tests have been generated according to some coverage criterion and some \emph{faults} (i.e., non-conformances of the model w.r.t. the solution space acting as oracle) have been detected; our aim is to \emph{repair} the constraints of the variability model in order to remove the faults. We propose an automated process that, upon some failing tests, is able to \emph{automatically} correct the constraints in such a way that they maintain their original validity for all the configurations, except for those found failing.
+
+The rest of the paper is organized as follows. Sect.~\ref{sec:basic} presents some basic definitions. Sect.~\ref{sec:repair} presents the basic repair process and some possible optimizations. Sect.~\ref{sec:experiments} shows the empirical results. Threats to validity are tackled in Sect.~\ref{sec:threats}, whereas an overview of the related work is given in Sect.~\ref{sec:relatedwork}. Sect.~\ref{sec:conclusions} concludes the paper and proposes lines for future research.
+
+\subsection{Basic Definitions}\label{sec:basic}
 
 \begin{tikzborder}{\cite{arcaini2019varivolution}}
 	\begin{mydef}[Variability Model]\label{def:varModel}
@@ -2228,7 +2325,7 @@ Another threat to the external validity is that the update requests that we use 
 		Consider now a faulty version \mfO of the model in Fig.~\ref{fig:problSolSpaces}, characterized by $\Gamma = \{A\rightarrow B, C\}$. Given the test suite shown Table~\ref{table:overConstrFault}, we detect two \overConstr faults identified by the complete \fcc $c = \neg A$.
 	\end{exmp} \be
 
-	\section{Fault-driven Repair}\label{sec:repair}
+	\subsection{Fault-driven Repair}\label{sec:repair}
 		
 	\bb We here propose a process to {\it repair} the constraints of a variability model, based on the detection of conformance faults between the model and the system, represented as failure-containing combinations. Fig.~\ref{fig:splrepair} shows the context in which our process is applied. \be
 	%
@@ -2245,7 +2342,7 @@ Another threat to the external validity is that the update requests that we use 
 	We first describe a na{\"i}ve implementation of the repair process in Sect.~\ref{sec:naiveAppr}, and we then introduce some optimizations in Sect.~\ref{sec:optimizedApproach}.
 	\be
 	
-	\subsection{Na{\"i}ve repair approach}\label{sec:naiveAppr}
+	\subsubsection{Na{\"i}ve repair approach}\label{sec:naiveAppr}
 		
 	\bb
 	In Def.~\ref{def:fcc}, we distinguish between two types of failure-containing combinations (i.e., \underConstr and \overConstr \fcc), depending on how the model fails with respect to the oracle.
@@ -2304,7 +2401,7 @@ Another threat to the external validity is that the update requests that we use 
 	\end{proof}
 	\be
 
-	\subsection{Optimized repair approach}\label{sec:optimizedApproach}
+	\subsubsection{Optimized repair approach}\label{sec:optimizedApproach}
 		
 	\bb The na{\"i}ve repair approach described in Sect.~\ref{sec:naiveAppr} could generate some redundancy, as shown in Ex.~\ref{ex:example_rep2}. Therefore, we introduce techniques for constraint selection and simplification to reduce the potential redundancy generated by the na{\"i}ve approach. The goal is to make fewer edits as possible to the model, since we assume that a model with fewer edits better preserves domain knowledge.
 	
@@ -2382,11 +2479,11 @@ Another threat to the external validity is that the update requests that we use 
 		\end{compactitem}
 	\end{proof}\be
 
-	\section{Evaluation}\label{sec:repairevaluation}
+	\subsection{Evaluation}\label{sec:repairevaluation}
 		
 	\bb In order to apply our process, we need a faulty variability model \m, a set of failure-containing combinations \fccSet, and an {\it oracle}. For the sake of experiments, we take as oracle another variability model \mO, instead of the real oracle; in this way, we can also extract the set \fccSet by comparing \m and \mO. \be
 
-	\subsection{Benchmarks}
+	\subsubsection{Benchmarks}
 		
 	\bb We have built two sets of benchmarks: \benchMut with seeded faults, and \benchReal with versioned models.\be
 	
@@ -2448,7 +2545,7 @@ Another threat to the external validity is that the update requests that we use 
 	%
 \bb 	For the constraints and literals of \benchMut, it reports the average number across the 30 mutants and the minimum and maximum number between parentheses (the number of features is the same across the mutants).\be
 	
-	\subsection{Failure-containing combinations}
+	\subsubsection{Failure-containing combinations}
 		
 	\bb For the sake of experiments, we obtain the set \fccSet from the faulty model \m (having constraints $\Gamma$) and the model we use as oracle \mO (having constraints $\Gamma_o$), using the following process:
 	%
@@ -2463,7 +2560,7 @@ Another threat to the external validity is that the update requests that we use 
 	%
 	This way we can obtain \fccs that are as minimal as possible, and complete (i.e., the oracle is always true in case of \overConstr \fcc, and always false in case of an \underConstr \fcc).\be
 	
-	\subsection{Repair quality metrics}\label{sec:qualityMetrics}
+	\subsubsection{Repair quality metrics}\label{sec:qualityMetrics}
 		
 	\bb We want to assess the quality of a repair w.r.t. two goals:
 	%
@@ -2480,7 +2577,7 @@ Another threat to the external validity is that the update requests that we use 
 	\end{compactitem}
 \be
 
-	\subsection{Experiments}\label{sec:evaluation}
+	\subsubsection{Experiments}\label{sec:evaluation}
 		
 	\bb We run experiments on the two benchmark sets \benchMut and \benchReal: namely, we applied the na{\"i}ve approach (see Sect.~\ref{sec:naiveAppr}), the optimized approach (see Sect.~\ref{sec:optimizedApproach}) without the \textsf{simplification} phase (\textsf{\onlySelection}), and with the \textsf{simplification} phase (employing the \atgt, \espresso, \jbool and \qm methods). Experiment code was written in Java and experiments were executed on a Linux PC with Intel(R) i7-3770 CPU (3.4 GHz) and 16 GB of RAM. All reported results are the average of 10 runs with a timeout for a single repair of 1 hour. The code and the benchmarks are available at \url{https://github.com/fmselab/VMConstraintsRepair}.
 	
@@ -2574,7 +2671,7 @@ Another threat to the external validity is that the update requests that we use 
 	
 	Regarding the simplification phase, there is no significant difference between the two types of repairs.\be 
 	
-	\section{Threats to Validity}\label{sec:threats}
+	\subsection{Threats to Validity}\label{sec:threats}
 	\bb We discuss the threats to the validity of our results along two dimensions.
 	
 	\paragraph{External Validity}
@@ -2594,7 +2691,7 @@ Another threat to the external validity is that the update requests that we use 
 	The second threat regards the assumption of the \fccs completeness. In general, we may find some conformance faults, but it may be not enough, since our process assumes that the \fccs are complete. However, we can notice that every failing test is a complete \fcc regardless of the test suite. Trying to extract a smaller failing combination from a failing test possibly requires new tests, but there already exist several techniques for fault localization that efficiently can do that~\cite{ben_2015}.	
 	\be
 
-	\section{Related Work}\label{sec:relatedwork}
+	\section{Related Work}\label{sec:fmrelated}
 	\bb There exist methods to statistically infer constraints from sampled configurations~\cite{chiang_unified_2011,Abukwaik_2016, temple_towards_2018,temple_learning_2017,Temple16:using,amand_towards_2019}: they use a classifier to infer the conditions among parameter values, that determine a particular property, either a parameter above/below a certain threshold (like in~\cite{temple_learning_2017}), or directly the configuration being accepted or rejected by the system (as in~\cite{Temple16:using}). These machine-learning based methods are well-documented and supported by application studies to real scenarios, such as learning constraints among parameters in SCAD programs that may cause defects of configurable objects to 3D print~\cite{amand_towards_2019}; and, in the case of \LaTeX, showing that it is possible to obtain constraints among Boolean or numerical values, to format the paper to meet desired properties, such as a defined page limit~\cite{acher_varylatex:_2018}. Another interesting application of inferring constraints using machine learning is the case of mining temporal and value constraints from rich logs, for event-based monitoring in industrial SoS (Systems of Systems)~\cite{krismayer_mining_2017}. The approach, integrated also with techniques from process mining and specification mining, was applied to the automation system of a metallurgical company, and it consists of a \textit{ranking} phase, based on some validity ratio metrics on the classification tree outcome, in which constraints that are more likely to be accepted by the users appear first.
 	
 	The constraints learned (or \textit{mined}) with such machine learning methods achieve a good accuracy (greater than 80\% on average~\cite{temple_learning_2017}), and they are able to completely \textit{infer} constraints from scratch, or to \textit{specialize} the model by adding the new inferred constraints to the existing ones. Our approach, however, is focused on performing any kind of repair to an existing set of constraints, and is also able to \textit{generalize} the model, or apply \textit{arbitrary edits} (as described in the classification in~\cite{thum_reasoning_2009}). Moreover, our proposed method focuses only on the \textit{manipulation} of existing constraints, and not on the actual detection of the failure-containing combinations, that we assume as input of our process. Unlike our approach, that takes the failure-containing combinations as input, those ML processes also include automatic detection of such \fccs (in the form of constraints), given a sample of configurations classified as valid or non-valid~\cite{temple_learning_2017}. For these reasons, the approaches are not alternative but complementary, as our approach is not comparable to those ML methods; however, as future work, we believe that it could be interesting to combine our process with those machine learning approaches, to have a more complete process for real case scenarios.
@@ -2611,7 +2708,7 @@ Another threat to the external validity is that the update requests that we use 
 	
 	Repair of constraints has usage also in other contexts, such as the repair of parameter values of timed automata clock guards, by applying tests and specializing the constraints~\cite{andre_tap_2019}; and in the detection of constraints among parameters that let the built attack string trigger an XSS vulnerability in the system~\cite{garn2019}.\be
 
-	\section{Conclusion}\label{sec:conclusions1}
+	\section{Conclusion}\label{sec:fmconclusion}
 
 	\bb We proposed a process that, given a (faulty or outdated) variability model, and the faults in terms of failure-containing combinations, identifies the constraints involved in the fault, repairs them according to the oracle value, and simplifies them to make the edit minimal. We conducted an empirical evaluation on 7 models of different sizes, and found that the process of selecting only some constraints is indeed more effective than the na{\"i}ve approach that modifies all of them. Moreover, we observed that simplification approaches can further improve the quality of the repair. However, their applicability is limited by the model size, as most of them do not scale on big models.
 	
@@ -2950,7 +3047,7 @@ printf(msg);
 	\CCi requires the introduction of a new Boolean variable $\mathsf{validity}_i$ for every constraint, and replacing every constraint $c_i$ with $\mathsf{validity}_i \Leftrightarrow c_{i}$.
 	\be
 	
-	\section{Experiments}
+	\subsection{Experiments}
 	\label{sec:validation_experiments}
 	
 	\bb In order to test our proposed approach we conducted the following experiments.
@@ -3136,28 +3233,11 @@ printf(msg);
 	
 	Overall \CCi was the best in terms of fault detection, even with test suites as big as those for \ic. However, it missed one of the injected faults (L6).  
 	\CCi was the only one to find the fault H7 (\emph{HeartBleed}).  The HeartBleed fault simulates the famous Heartbleed security bug of the OpenSSH implementation of the TLS protocol. It results from improper input validation (due to a missing bounds check) in the implementation of the TLS Heartbeat extension. In detail, the implementation built the payload length of message to be returned based on the length field in the requesting message, without regard to the actual size of that message's payload. In our implementation, the faulty \TLSChecker missed to check that \lstinline[language=comb]$REQ_Length==RES_Length$. This proves that testing how parameters can interact with single constraints increases the fault detection capability of combinatorial testing. Our new policies may thus prove useful in detecting faults missed by standard approaches due to the so-called \emph{masking effects} \cite{YilmazDCP14}. \be
-	
-	\section{Related Work}
-	\label{sec:validation_relatedwork}
-	
-	\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,HenardPPKT04,YilmazDCP14}.
-	For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
-	A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
-	
-	Testing configurable systems in the presence of constraints is tackled in \cite{CohenTSE08} and \cite{Petke15:practical}. In these papers, authors argue that CIT is a very efficient technique and that constraints among parameters should be taken into account in order to generate only valid configurations. This allows to reduce the cost of testing. Also in \cite{jar10}, authors have shown how to successfully deal with the constraints by solving them by using a constraint solver such as a Boolean satisfiability solver (SAT). However, the emphasis of that research is more on testing of the final system not its model of configurability. CIT is also widely used to test SPLs \cite{Perrouin010a}.
-	
-	In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
-	
-	\section{Conclusions}
-	\label{sec:validation_conclusions}
-	
-	\bb We proposed a novel approach that extends CIT and aims to automatically check the validity of the configurability model of the system under test. In particular, we described how combinatorial interaction testing techniques can be utilised for this purpose. We devised four  original policies that can help software testers discover faults in the model of system configurations as well as faults in the software implementation that the model describes. Several experiments conducted show the efficacy of our approach.   We confirm that constraints play an important role in configurability testing, but the experiments show that also invalid configurations should be considered in order to avoid some problems (like over-specification) and to detect a wider range of faults. 
-	Our experiments suggest that techniques including both valid and invalid tests (as \cucv) have a better fault detection capability than techniques including only valid (as \ccit) or invalid tests (as \cv). However, producing invalid tests may be not feasible. In these cases we would suggest the tester to use \CCi instead of \ic and \ccit. The experiments suggest that \CCi is not very expensive and it offers a superior fault detection capability. The techniques presented should significantly help software developers in the modelling and testing process of software systems configurations.
-\end{tikzborder}
 
 
+\section{Combinatorial Interaction Testing for Automated Constraint Repair}\label{sec:constr}
 
-\section{Introduction}
+\subsection{Introduction}
 \label{sec:constr_intro}
 
 %%% RATIONALE
@@ -3219,7 +3299,7 @@ In order to evaluate the efficiency of our approach, we measure the time taken t
 
 The paper is structured as follows: Section \ref{sec:citmodels} gives a brief overview of the field of combinatorial interaction testing; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout our paper; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; Section \ref{sec:relatedwork} presents related work and Section \ref{sec:conclusions} concludes the paper.\be
 
-\section{Combinatorial Models and Testing of Configurable Systems}
+\subsection{Combinatorial Models and Testing of Configurable Systems}
 \label{sec:citmodels}
 
 \bb Combinatorial Interaction Testing (CIT), often called combinatorial
@@ -3229,7 +3309,7 @@ There exist several tools and techniques for CIT. Good surveys of ongoing resear
 while an introduction to CIT and its efficacy in practice can be found
 in~\cite{kuhncomputer09,Petke15:practical}. \be
 
-\subsection{Combinatorial models and \citlab{}\label{sec:citAndCitlab}}
+\subsubsection{Combinatorial models and \citlab{}\label{sec:citAndCitlab}}
 
 \bb A model for a combinatorial problem
 consists of several parameters (at least 2) which can take various domain values. 
@@ -3303,7 +3383,7 @@ In the \textsf{Constraints} section there are two constraints: if \textsf{HalfLo
 \end{figure}
 
 
-\subsection{Combinatorial Testing Policies}
+\subsubsection{Combinatorial Testing Policies}
 \label{sec:citpolicies}
 
 \bb
@@ -3334,7 +3414,7 @@ This approach produces only the tests violating the constraints, i.e. the produc
 
 \be
 
-\section{Definitions}
+\subsection{Definitions}
 \label{sec:defs}
 
 \bb
@@ -3500,7 +3580,7 @@ In order to measure the faithfulness of the given model $M$ with respect to the 
 
 \bb Taking the exhaustive test suite as $T$, we can compute an absolute failure index ($\mathsf{afi}$) as measure of the quality of a model. However, computing the absolute failure index $\mathsf{afi}$ is infeasible in general. In the experiments, we will be able to compute the models $\mathsf{afi}$ by assuming that we know the exact model of the system. We use multi-valued decision diagrams (MDDs) \cite{hvc14} in order to calculate the number of tests that are permitted by the constraints in the model.\be
 
-\section{The constraint repair process}\label{sec:constr_repair}
+\subsection{The constraint repair process}\label{sec:constr_repair}
 
 \bb In this section we present the proposed process for constraint repair in CIT models. In our previous work \cite{Gargantini16:validation} we devised a way of finding conformance faults. We use these techniques to find faults and extend them by proposing an automated way of fixing the faults found.  
 Figure \ref{fig:repair} presents an overview of the constraint repair process.
@@ -3548,12 +3628,12 @@ The final constraints produced by our process can be further simplified. Since c
 
 Another enhancement would be identification of constraints to which $comb$s from the relaxing set need to be added. However, identification of the set of constraints that violate a $comb$ is a non-trivial task. It can be reduced to the problem of finding minimum unsatisfiable sets in Boolean satisfiability solving (SAT). We leave this step as future work.\be
 
-\section{Experiments}\label{sec:constr_experiments}
+\subsection{Experiments}\label{sec:constr_experiments}
 
 \bb In order to test our approach we conducted the following two experiments\footnote{All the experiments have been executed on a Linux PC with two Intel(R) i7-3930K CPU  (3.2 GHz) and 16 GB of RAM.}. In the first experiment, we applied mutation to a set of models taken from the literature. In the second experiment, we used a configurable software system, namely Django, in order to test our framework on a real case study.\be
 
 
-\subsection{Mutation Analysis}
+\subsubsection{Mutation Analysis}
 
 \bb
 We gathered a set of combinatorial models taken from several papers and applied our process to mutated versions of these models. In particular, for every model $m$ in the benchmarks we derived a set $M$ of mutants.
@@ -3563,7 +3643,7 @@ We have applied simple mutation operators to the constraints in the model under 
 We considered all CIT policies presented Section \ref{sec:citpolicies}. We applied our repair starting with combinatorial strength set to 1 and increase it up to 3 (i.e., we are only concerned with finding failure-inducing combinations of size 1,2 and 3). We included combinatorial tests of strength 1 since some faults can be already detected by a single parameter assignment.
 \be
 
-\subsection{Benchmarks}
+\subsubsection{Benchmarks}
 
 \bb We used 5 case studies to evaluate our proposed approach:
 
@@ -3720,7 +3800,7 @@ We can observe that the number of tests generated at the beginning of each repai
 Regarding the repair capability, the TRM is rather small for big specifications, and using more powerful testing policy (like CuCV) does not help much (Fig.~\ref{fig:TRM}). Using our process to obtain a completely bug-free model seems unrealistic for big models: CIT likely provides an insufficient coverage for this. 
 However, if we consider  the FID in Fig.~\ref{fig:FID}, we can say that almost always our technique and CIT improve the model except when using CC. The overall minimum average for FID when using strong policies like CuCV and ValC is 29\%. For big models, there are cases in which we are unable to improve the constraints, but on average we can still remove around 35\% of the faults with CuCV and ValC. As already observed in \cite{Gargantini16:validation}, the CC policy (that generates only valid tests) detects fewer conformance faults, and for this reason has the lowest FID. The average FID over all the mutants is around 37\%. The average FID when using CuCV is 49\%: half of faults can be repaired on average if the user chooses this policy.\be
 
-\subsection{Repairing the model of Django parameters}
+\subsubsection{Repairing the model of Django parameters}
 
 \bb \textbf{Django} is a free and open source web application framework, written in Python, that supports the creation of complex, database-driven websites, emphasizing reusability of components\footnote{\url{https://www.djangoproject.com/}}. Each Django project has a configuration file. 
 
@@ -3874,7 +3954,20 @@ The constraints obtained in the final models are still readable, making a human 
 \end{figure}
 
 
-\section{Related Work}
+	\subsection{Related Work}
+\label{sec:validation_relatedwork}
+
+\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,HenardPPKT04,YilmazDCP14}.
+For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
+A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
+
+Testing configurable systems in the presence of constraints is tackled in \cite{CohenTSE08} and \cite{Petke15:practical}. In these papers, authors argue that CIT is a very efficient technique and that constraints among parameters should be taken into account in order to generate only valid configurations. This allows to reduce the cost of testing. Also in \cite{jar10}, authors have shown how to successfully deal with the constraints by solving them by using a constraint solver such as a Boolean satisfiability solver (SAT). However, the emphasis of that research is more on testing of the final system not its model of configurability. CIT is also widely used to test SPLs \cite{Perrouin010a}.
+
+In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
+
+
+
+\subsection{Related Work}
 \label{sec:constr_relatedwork}
 
 %%%%%% Added by Justyna
@@ -3897,14 +3990,7 @@ Testing configurable systems in the presence of constraints is tackled in \cite{
 In SPL the validation and extraction of constraints between features is generally given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. applied feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. 
 
 
-\section{Conclusions}
 
-\bb We propose a novel approach for automatically finding and fixing faults in models of parameter configurations of software systems. 
-In particular, we described how combinatorial testing techniques can be utilised for this purpose. 
-
-We used novel CIT policies introduced in our previous work \cite{Gargantini16:validation} that can help software testers discover faults in the model of system configurations as well as faults in the software implementation that the model describes. We call these conformance faults.
-
-In this paper we present a process for finding and fixing conformance faults. We conduct several experiments on five software systems to validate our approach. We show that we can successfully repair existing combinatorial models. Furthermore, we also show how our approach can be utilised to derive constraints between parameters of large complex software systems. The technique presented should help software developers derive and fix combinatorial testing models by automating this often purely manual and thus time-consuming and highly error-prone task.\be
 
 
 \section{Using Iterative Constraint Repair to Detect XSS Vulnerabilities}
@@ -4167,6 +4253,22 @@ a flawed sanitization function.
 As future work, we plan to improve the process by reducing the required tests, using information from previous step, and evaluating alternatives to BEN, such as MixTgTe \cite{iwct19}. We believe that this approach can be extended to other security vulnerabilities related to sanitization functions, and to detect discrepancies between a functional system specification and its implementation.
 Another direction is to further simplify the detected constraints, to reduce them in number and present them to the user in a more readable way.
 \end{tikzborder}
+
+\section{Conclusions}
+\label{sec:validation_conclusions}
+
+\bb We proposed a novel approach that extends CIT and aims to automatically check the validity of the configurability model of the system under test. In particular, we described how combinatorial interaction testing techniques can be utilised for this purpose. We devised four  original policies that can help software testers discover faults in the model of system configurations as well as faults in the software implementation that the model describes. Several experiments conducted show the efficacy of our approach.   We confirm that constraints play an important role in configurability testing, but the experiments show that also invalid configurations should be considered in order to avoid some problems (like over-specification) and to detect a wider range of faults. 
+Our experiments suggest that techniques including both valid and invalid tests (as \cucv) have a better fault detection capability than techniques including only valid (as \ccit) or invalid tests (as \cv). However, producing invalid tests may be not feasible. In these cases we would suggest the tester to use \CCi instead of \ic and \ccit. The experiments suggest that \CCi is not very expensive and it offers a superior fault detection capability. The techniques presented should significantly help software developers in the modelling and testing process of software systems configurations.
+\end{tikzborder}
+
+\section{Conclusions}
+
+\bb We propose a novel approach for automatically finding and fixing faults in models of parameter configurations of software systems. 
+In particular, we described how combinatorial testing techniques can be utilised for this purpose. 
+
+We used novel CIT policies introduced in our previous work \cite{Gargantini16:validation} that can help software testers discover faults in the model of system configurations as well as faults in the software implementation that the model describes. We call these conformance faults.
+
+In this paper we present a process for finding and fixing conformance faults. We conduct several experiments on five software systems to validate our approach. We show that we can successfully repair existing combinatorial models. Furthermore, we also show how our approach can be utilised to derive constraints between parameters of large complex software systems. The technique presented should help software developers derive and fix combinatorial testing models by automating this often purely manual and thus time-consuming and highly error-prone task.\be
 
 \chapter{Repair of Timed Automata}\label{ch:tarepair}
 \begin{tikzborder}{\cite{andre_tap_2019}}
@@ -5230,7 +5332,7 @@ The tool is written in Java and Xtext, and can be deployed on any Web-applicatio
 
 \begin{figure}[bt!]
 	\centering
-	\includegraphics[width=\columnwidth]{images/architecture.png}
+	\includegraphics[width=.8\columnwidth]{images/architecture.png}
 	\caption{\ctwedge architecture}\label{fig:architecture}
 \end{figure}
 
@@ -5290,7 +5392,7 @@ The test generator acts as a \textit{driver} between \ctwedge and the various th
 \begin{table}[!htb]
 	\caption{Request parameters to \ctwedge generation service}
 	\centering
-	\small
+	\footnotesize
 	\resizebox{0.8\textwidth}{!}{%
 		\centering
 		\begin{tabular}{l l p{2.55cm} p{3.35cm}}
@@ -6330,7 +6432,7 @@ FIC is the fastest method, as it only requires, on average, around 6ms per bench
 \section{Related Work}\label{sec:related}
 \begin{tikzborder}{}	
 
-Identifying the real failure inducing combinations is an area of active research in combinational testing~\cite{nie_2011, kuhn_practical_2010}.
+Identifying the real failure inducing combinations is an area of active research in combinatorial testing~\cite{nie_2011, kuhn_practical_2010}.
 
 Previous works in detecting failure-inducing interactions are based on post-analysis of the test results of covering arrays (CAs), or on adaptive or non-adaptive test generation techniques. Yilmaz et al.~\cite{CohenTSE06} applied a post-analysis classification tree technique to analyze the result of CAs to find the differences between passing and failing tests. However, CA is not suitable to detect \mfics precisely. Among non-adaptive methods, there is an approach based on pseudo-Boolean constraint solving and optimization, but its accuracy is highly affected by the chosen test suite~\cite{Zhang2012FII}.
 Locating and detecting arrays (LDAs)~\cite{colbourn_locating_2008}, 
@@ -6339,13 +6441,6 @@ and error locating arrays (ELAs)~\cite{martinez_locating_2010} are other non-ada
 While InterAIFL, FIC and SOFOT may not correctly identify multiple \mfics in a system, since they may be overlapping or there is a masking effect, the two adaptive algorithms of Martinez work better but they can only locate \mfics up to size 2. The ICT approach by Niu et al.~\cite{Niu2018interleaving}, still derived from SOFOT, overcomes its limitations, making a significant improvement in the accuracy of the detected combinations. BEN~\cite{ghandehari2018combinatorial} is tailored to locate faults in the code, but in the first phase it provides an algorithm to detect \textit{suspicious} combinations and, with some heuristics, \textit{failure-inducing} combinations. However, as implemented so far, it is not very accurate with the initial test suites provided as input: an initial test suite of higher strength could improve accuracy of the detected \mfics. Unlike the other methods, \mix does not distinguish between the two phases of the input test generation and additional adaptive test, but it merges those phases into one single process, that keeps track of the status of all the possible t-way tuples throughout the process. This way, \mix has shown to correctly detect all the \mfics of a system, up to a certain strength $t$ decided by the user, and it guarantees them to be correct under the assumption that there are no faults caused by an interaction of strength higher than $t$.
 
 %\red{da citare \cite{Zhang2012FII}}
-
-\end{tikzborder}
-\section{Conclusions}\label{sec:conclusions}
-\begin{tikzborder}{}	
-The paper proposes an approach for finding minimal failure-inducing combinations (\mfics), that alternates test generation and test execution. Under the assumption that the maximum strength of \truemfics is limited to $t$, running the process till strength $t$ guarantees to find all and only the \truemfics; experimental comparison with state of the art approaches confirmed this fact. Achieving this total correctness does not affect too much the test suite size and the execution time: w.r.t. the second best approach (ICT) in terms of accuracy, \mix produces slightly fewer tests in reasonable time.
-
-The current work does not support constraints in the combinatorial model; their handling is planned as future work.
 
 \end{tikzborder}
 
