@@ -1583,7 +1583,7 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 
 
 \section{Validation of Constraints Among Configuration Parameters Using Search-Based Combinatorial Interaction Testing}
-\begin{tikzborder}{\cite{Gargantini16:validation}}
+%\begin{tikzborder}{\cite{Gargantini16:validation}}
 	The appeal of highly-configurable software systems lies in their adaptability to users' needs. 
 	Search-based Combinatorial Interaction Testing (CIT) techniques have been specifically developed to drive the systematic testing of such highly-configurable systems. In order to apply these, it is paramount to devise a model of parameter configurations which conforms to the software implementation. This is a non-trivial task. Therefore, we extend traditional search-based CIT by devising 4 new testing policies able to check if the model correctly identifies constraints among the various software parameters. Our experiments show that 
 	one of our new policies is able to detect faults both in the model and the software implementation that are missed by the standard approaches.
@@ -1604,7 +1604,7 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 	Constructing a CIT model of a large software system is a hard, usually manual task.  Therefore, discovering constraints among parameters is highly error prone. One might run into the problem of not only producing an incomplete CIT model, but also one that is over-constrained. Even if the CIT model only allows for valid configurations to be generated, it might miss important system faults if one of the constraints is over-restrictive. Moreover, even if the system is not \emph{supposed} to run under certain configurations, if there's a fault, a test suite generated from a CIT model that correctly mimics only desired system behaviour will not find that error. In such situations tests that exercise those corner cases are desirable. 
 	
 	\textbf{\emph{The objective of this work is to use CIT techniques to validate constraints of the model of the system under test (SUT). We extend traditional CIT by devising a set of six policies for generating tests that can be used to detect faults in the CIT model as well as the SUT.}}
-	\be
+%	\be
 	
 	\subsection{Combinatorial Models of Configurable Systems}
 	
@@ -1891,9 +1891,9 @@ printf(msg);
 		\begin{center}
 			\begin{minipage}{.9\linewidth}%
 				\begin{lstlisting}[frame=single,basicstyle={\scriptsize\ttfamily}]
-				TLSserver: <IP>
-				TLS1_REQUEST Length: <n1> PayloadData: <data1>
-				TLS1_RESPONSE Length: <n2> PayloadData: <data2>
+	TLSserver: <IP>
+	TLS1_REQUEST Length: <n1> PayloadData: <data1>
+	TLS1_RESPONSE Length: <n2> PayloadData: <data2>
 				\end{lstlisting}
 			\end{minipage}
 		\end{center}
@@ -1903,21 +1903,21 @@ printf(msg);
 		
 		\begin{figure}[h]
 			\begin{lstlisting}[language=comb,basicstyle=\sffamily\footnotesize]
-			Model Heartbeat
-			Parameters:
-			Range REQ_Length [ 0 .. 65535 ] step 4369;
-			Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
-			Range RES_Length [ 0 .. 65535 ] step 4369;
-			Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
-			end
-			Constraints:
-			// the declared length in the REQUEST is correct
-			# REQ_Length==REQ_PayloadData_length #
-			// the declared length in the RESPONSE is correct
-			# RES_Length==RES_PayloadData_length #
-			// the RESPONSE has the same length as the REQUEST
-			# REQ_Length==RES_Length #	
-			end
+	Model Heartbeat
+	Parameters:
+	Range REQ_Length [ 0 .. 65535 ] step 4369;
+	Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
+	Range RES_Length [ 0 .. 65535 ] step 4369;
+	Range REQ_PayloadData_length [ 0 .. 65535 ] step 4369;
+	end
+	Constraints:
+	// the declared length in the REQUEST is correct
+	# REQ_Length==REQ_PayloadData_length #
+	// the declared length in the RESPONSE is correct
+	# RES_Length==RES_PayloadData_length #
+	// the RESPONSE has the same length as the REQUEST
+	# REQ_Length==RES_Length #	
+	end
 			\end{lstlisting}
 			\caption{\TLSChecker CIT model}
 			\label{fig:TLSChecker}
@@ -2061,6 +2061,18 @@ printf(msg);
 	\CCi was the only one to find the fault H7 (\emph{HeartBleed}).  The HeartBleed fault simulates the famous Heartbleed security bug of the OpenSSH implementation of the TLS protocol. It results from improper input validation (due to a missing bounds check) in the implementation of the TLS Heartbeat extension. In detail, the implementation built the payload length of message to be returned based on the length field in the requesting message, without regard to the actual size of that message's payload. In our implementation, the faulty \TLSChecker missed to check that \lstinline[language=comb]$REQ_Length==RES_Length$. This proves that testing how parameters can interact with single constraints increases the fault detection capability of combinatorial testing. Our new policies may thus prove useful in detecting faults missed by standard approaches due to the so-called \emph{masking effects} \cite{YilmazDCP14}. \be
 
 
+\subsection{Related Work}
+\label{sec:validation_relatedwork}
+
+\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,henard_towards_2013,YilmazDCP14}.
+For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
+A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
+
+Testing configurable systems in the presence of constraints is tackled in \cite{CohenTSE08} and \cite{Petke15:practical}. In these papers, authors argue that CIT is a very efficient technique and that constraints among parameters should be taken into account in order to generate only valid configurations. This allows to reduce the cost of testing. Also in \cite{jar10}, authors have shown how to successfully deal with the constraints by solving them by using a constraint solver such as a Boolean satisfiability solver (SAT). However, the emphasis of that research is more on testing of the final system not its model of configurability. CIT is also widely used to test SPLs \cite{Perrouin010a}.
+
+In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
+
+
 \section{Combinatorial Interaction Testing for Automated Constraint Repair}\label{sec:constr}
 
 %%% RATIONALE
@@ -2119,7 +2131,7 @@ We present a case study that shows that our approach can be used to derive const
 In order to evaluate the efficiency of our approach, we measure the time taken to repair constraints in CIT models as well as the number of tests needed for the repair. On the five systems evaluated, the mutated models were repaired within seconds.
 \vspace{0.2em}
 
-This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout our paper; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:relatedx} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
+This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout our paper; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:constr_relatedwork} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
 
 \subsection{Combinatorial Models and Testing of Configurable Systems}
 \label{sec:citmodels}
@@ -2776,18 +2788,6 @@ The constraints obtained in the final models are still readable, making a human 
 \end{figure}
 
 
-	\subsection{Related Work}
-\label{sec:validation_relatedwork}
-
-\bb The problem of modelling and testing the configurability of complex systems is non-trivial. There has been much research done in extracting constraints among parameter configurations from real systems (problem space) and modelling system configurability \cite{ShiCD12,henard_towards_2013,YilmazDCP14}.
-For instance, the importance of having a model of variability and having the constraints in the model aligned with the implementation is discussed in \cite{NadiBKC14}. However, in that paper, authors try to identify the sources of configuration constraints and to automatically extract the variability model. Our approach is oriented towards the validation of a variability model that already exists. Moreover, they target C-based systems that realise configurability with their build system and the C preprocessor. 
-A similar approach is presented in \cite{Tartler:2011}, where authors extract the compile-time configurability from its various implementation sources and examine for inconsistencies (e.g., dead features and infeasible options). We believe that our approach is more general (not only compile-time and C-code) and can be complementary used to validate and improve automatically extracted models. 
-
-Testing configurable systems in the presence of constraints is tackled in \cite{CohenTSE08} and \cite{Petke15:practical}. In these papers, authors argue that CIT is a very efficient technique and that constraints among parameters should be taken into account in order to generate only valid configurations. This allows to reduce the cost of testing. Also in \cite{jar10}, authors have shown how to successfully deal with the constraints by solving them by using a constraint solver such as a Boolean satisfiability solver (SAT). However, the emphasis of that research is more on testing of the final system not its model of configurability. CIT is also widely used to test SPLs \cite{Perrouin010a}.
-
-In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
-
-
 
 \subsection{Related Work}
 \label{sec:constr_relatedwork}
@@ -3094,7 +3094,7 @@ Another direction is to further simplify the detected constraints, to reduce the
 \chapter{Repair of Feature Models}\label{ch:fmrepair}
 
 Feature are a widely used modeling notation for variability management in software product line (SPL) engineering. 
-The goal of this chapter is to propose an answer to the research question RQ4 introduced in Sect. \ref{sec:}: "How to repair feature models?".
+The goal of this chapter is to propose an answer to the research question RQ4 introduced in Sect. \ref{sec:rq}: "How to repair feature models?".
 We present two different techniques to repair feature models.
 The first approach allows to repair feature models represented in the hierarchical tree-like structure, as well as \textit{simple} constraints (i.e., only in the form of \textit{requires} and \textit{excludes} between couple of features) in propositional logic.
 The second approach, instead, applies to feature models represented as arbitrarily \textit{complex} constraints, expressed in propositional logic.
@@ -4514,7 +4514,7 @@ Given~$\pval$, we denote by $\valuate{\A}{\pval}$ the non-parametric structure w
 
 We denote as a \emph{timed automaton} any such structure $\valuate{\A}{\pval}$.
 
-The \emph{synchronous product} (using strong broadcast, \ie{} synchronization on a given set of actions), or \emph{parallel composition}, of several PTAs gives a PTA (see \ref{appendix:parallel} for a common formal definition).
+The \emph{synchronous product} (using strong broadcast, \ie{} synchronization on a given set of actions), or \emph{parallel composition}, of several PTAs gives a PTA. % (see \ref{appendix:parallel} for a common formal definition).
 
 %----------------------------------------------------------
 \begin{definition}[Concrete semantics of a TA]
@@ -4591,7 +4591,7 @@ By extension, we say that $\loc$ is reachable in~$\valuate{\A}{\pval}$; and by e
 \subsection{Reachability synthesis}
 
 \begin{tikzborder}{}
-We will use reachability synthesis to solve the problem in \ref{ss:problem}.
+We will use reachability synthesis to solve the problem in \ref{sec:proposedApproachSingle}.
 This procedure, called \EFsynth{}, takes as input a PTA~$\A$ and a set of target locations~$\somelocs$, and attempts to synthesize all parameter valuations~$\pval$ for which~$\somelocs$ is reachable in~$\valuate{\A}{\pval}$.
 $\EFsynth(\A, \somelocs)$ was formalized in \eg{} \cite{JLR15} and is a procedure that traverses the parametric zone graph of~$\A$;
 \EFsynth{} may not terminate (because of the infinite nature of the graph), but computes an exact result (sound and complete) if it terminates.
@@ -4730,6 +4730,43 @@ This can be easily obtained from the parametric zone graph by adding an extra cl
 %----------------------------------------------------------
 \begin{example}\label{example:structure}
 	Consider again the PTA~$\A$ in \ref{figure:example-PTA} and its parametric zone graph in \ref{figure:example-PTA:PZG}. The parameter constraints associated to each of the symbolic states, and the possible absolute reachable times, are given in \ref{table:extended-PZG}.
+	
+	\begin{figure}[tb]
+		
+		\centering
+		\footnotesize
+		\begin{subfigure}[c]{0.25\textwidth}
+			\resizebox{\textwidth}{!}{\begin{tikzpicture}[scale=1, xscale=1.1, yscale=.8, auto, ->, >=stealth']
+				
+				\node[location, initial] at (0, 0) (l1) {$\symbstate_1$};
+				
+				\node[location] at (1, 0) (l2) {$\symbstate_2$};
+				
+				\node[location] at (2, 0) (l3) {$\symbstate_3$};
+				
+				\node[location] at (1, -1) (l4) {$\symbstate_4$};
+				
+				\node[location] at (2, -1) (l5) {$\symbstate_5$};
+				
+				\path (l1) edge node[align=center]{$\edge_1$} (l2);
+				\path (l2) edge node[align=center]{$\edge_2$} (l3);
+				\path (l1) edge[bend right] node[below left, align=center]{$\edge_3$} (l4);
+				\path (l4) edge node[align=center]{$\edge_4$} (l5);
+				
+				\end{tikzpicture}}
+		\end{subfigure}~~\begin{subfigure}[c]{0.74\textwidth}
+			\noindent\resizebox{\textwidth}{!}{\begin{tabular}{r @{ } l @{ }c @{ }l @{ }l}
+					$\symbstate_1 =($ & $\loc_1$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq 4 \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
+					$\symbstate_2 =($ & $\loc_2$ & $,$ & $0 \leq \styleclock{x} = \styleclock{y} \leq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
+					$\symbstate_3 =($ & $\loc_3$ & $,$ & $\styleclock{x} = \styleclock{y} \geq \parami{3} \land \parami{2} \geq 0 \land \param_3 \geq 4 \land \param_4 \geq 0 $ & $)$\\
+					$\symbstate_4 =($ & $\loc_4$ & $,$ & $\parami{2} < \styleclock{x} \leq 6 \land \styleclock{y} \geq 0 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land \param_4 \geq 0 $ & $)$\\
+					$\symbstate_5 =($ & $\loc_5$ & $,$ & $\parami{2} < \styleclock{x} \land \parami{4} < \styleclock{x} \land \styleclock{y} > 1 \land \parami{2} < \styleclock{x} - \styleclock{y} \leq 4 \land 4 > \parami{2} \geq 0 \land \param_3 \geq 0 \land 6 > \param_4 \geq 0 $ & $)$
+			\end{tabular}}
+		\end{subfigure}
+		\caption{Parametric zone graph of \ref{figure:example-PTA}}
+		\label{figure:example-PTA:PZG}
+		
+	\end{figure}
 	
 	\begin{table}[!htb]
 		\caption{Description of the states of the extended parametric zone graph}
@@ -5738,7 +5775,7 @@ The contribution of this paper is therefore twofold:
 
 During test generation, our approach collects tuples that seem to cause failures and tries to \emph{isolate} them by finding those tuples that instead are \emph{passing}. By using this information, tests are generated and immediately executed, and the knowledge base of the system updated accordingly.
 
-The paper is structured as follows. Sect.~\ref{sec:background} introduces the necessary background and Sect.~\ref{sec:definitions} explains the definitions we need in our approach. Then, Sect.~\ref{sec:proposedApproach} presents the iterative process we propose that combines test generation, test execution, and identification of failure inducing combinations. Sect.~\ref{sec:theorems} discusses about the assumptions of the process and introduces some theorems about its capabilities. Finally, Sect.~\ref{sec:evaluation3} describes some experiments we performed to evaluate the process, Sect.~\ref{sec:related} reviews some related work, and Sect.~\ref{sec:conclusions} concludes the paper.
+The chapter reflects the content of the paper \cite{iwct19}, and it is structured as follows. Sect.~\ref{sec:background} introduces the necessary background, Sect.~\ref{sec:definitions} explains the definitions we need in our approach, Sect.~\ref{sec:proposedApproach} presents the iterative process we propose that combines test generation, test execution, and identification of failure inducing combinations. Sect.~\ref{sec:theorems} discusses about the assumptions of the process and introduces some theorems about its capabilities. Finally, Sect.~\ref{sec:evaluation3} describes some experiments we performed to evaluate the process, Sect.~\ref{sec:related} reviews some related work, and Sect.~\ref{sec:conclusions} concludes the chapter.
 \end{tikzborder}
 
 \section{Background}\label{sec:background}
@@ -6514,6 +6551,11 @@ While InterAIFL, FIC and SOFOT may not correctly identify multiple \mfics in a s
 %\red{da citare \cite{Zhang2012FII}}
 
 \end{tikzborder}
+
+\subsection{Conclusions}\label{sec:conclusions}
+In this chapter we propose an approach for finding minimal failure-inducing combinations (\mfics), that alternates test generation and test execution. Under the assumption that the maximum strength of \truemfics is limited to $t$, running the process till strength $t$ guarantees to find all and only the \truemfics; experimental comparison with state of the art approaches confirmed this fact. Achieving this total correctness does not affect too much the test suite size and the execution time: w.r.t. the second best approach (ICT) in terms of accuracy, \mix produces slightly fewer tests in reasonable time.
+
+The current work does not support constraints in the combinatorial model; their handling is planned as future work.
 
 \bookmarksetup{startatroot}
 \chapter{Conclusions}\
