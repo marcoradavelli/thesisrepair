@@ -1059,7 +1059,7 @@ We then discuss future work of applying testing to repair models for other scena
 %\include{Chapters/Chapter4} 
 %\include{Chapters/Chapter5} 
 
-\chapter{Introduction}
+\chapter{Introduction}\label{ch:introduction}
 
 %\section{Software Testing}
 %\subsection{Black-box software testing}
@@ -1091,7 +1091,7 @@ Often during software development lifecycle, models may become non-conformant w.
 Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter \ref{ch:automatedrepair} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
 In addition, academic tools to improve engineers perform the different phases of this repair process are within the scope of this thesis. %\red{add also the one that simplifies constraints among features}
 
-\researchquestion{How to repair configuration constraints?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
+\researchquestion{How to repair configuration constraints using software testing?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
 Another goal is the application of model repair technique directly to constraints, they can be configuration constraints, i.e., constraints under which (and only under which) the system is supposed to work correctly, or shows a certain property. 
 Chapther \ref{ch:constraintrepair} describes a possible approach to automatically repair constraints using combinatorial testing, and a case study on the application of this method to software security, for the detection of XSS vulnerabilities in web applications.
 %By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
@@ -1117,7 +1117,7 @@ This tool could be used not only to improve the constraint repair method devised
 	
 %To each of the questions corresponds a chapter, referring to one or more published papers.
 
-\section{Contributions}
+\section{Contributions}\label{sec:papers}
 
 We give below an overview of the contributions of this PhD thesis in terms of published or accepted peer-reviewed papers, in international conferences or scientific journals.
 The list is in chronological order, and for each paper is shown a short summary and a description of the role of M. Radavelli in the work.
@@ -1448,7 +1448,7 @@ This methodology aims at changing the model \textit{with less impact as possible
 The applied repairs are local and little, based on the \textit{competent modeler} assumption, that the model is \textit{a little} outdated, and minimal changes are enough. 
 
 
-\section{Research Hypothesis}
+\section{Research Hypothesis}\label{sec:hypothesis}
 %\begin{tikzborder}{\cite{radavelli2019using}}
 By making the assumption that the fault resides in the model, and the implementation is correct, the rationale that drives this PhD proposal is the investigation of software testing techniques to automatically \textit{repair} models.
 Model \textit{repair} can be useful whenever the model is outdated w.r.t. the implementation, or a defined oracle or the specification.
@@ -1496,7 +1496,7 @@ Benchmarks should be selected for evaluation, and tools to implement the repair 
 	\label{fig:researchapproach}
 \end{figure}
 
-\section{Results}
+\section{Results}\label{sec:researchresults}
 %\bb
 In the initial stage of the research project we applied the repair process to \textit{configurable} models.
 Configurable models can model, for example, system features decided at \textit{compile time} such as preprocessor directives, or decided at \textit{operation time} such as configuration files, and also constraints among parameters in a running system.
@@ -1545,7 +1545,8 @@ Chapter \ref{ch:tarepair} presents results in detail.
 \chapter{Repair of Constraints Among Parameters}\label{ch:constraintrepair}
 %\begin{tikzborder}{\cite{arcaini2019varivolution}}
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
-The devised iterative approach uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and CIT policies introduced in \cite{Gargantini16:validation} to find failure-inducing combinations of parameter values.
+
+In this chapter we describe an iterative approach that we devised to repair combinatorial models. It uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and combinatorial test generation policies to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations into expressions in propositional logic.
 The repairs are of two types, depending on whether the model is true and the system (i.e., the oracle) false for a given test case (in this case, the model is \textit{under-constrained}) or vice-versa (in this case, the model is \textit{over-constrained}). Tab. \ref{table:testsandfaults} reports possible scenarios in which such condition may occur in a system with three boolean parameters A, B, C, that map to directives in a C program in which both B and C can be enabled only if also A is activated.
 \begin{table}[!hb]
@@ -1581,8 +1582,10 @@ The repairs are of two types, depending on whether the model is true and the sys
 
 Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency, and Django) show that our approach can repair on average 37\% of conformance faults. Moreover, we also notice that it can infer and repair parameter constraints for the configurations that lead to a successful startup of Django, a well-known open source web application framework written in Python.
 
+This chapter gives an answer to research question RQ3 in \ref{sec:rq}: \textit{How to repair configuration constraints using software testing?}. To answer this question, we consider combinatorial models as notation to express configuration constraints, and we investigate a possible to solution 
 
-\section{Validation of Constraints Among Configuration Parameters Using Search-Based Combinatorial Interaction Testing}
+
+\section{Validation of Constraints Among Configuration Parameters Using Search-Based Combinatorial Interaction Testing}\label{sec:Gargantini16validation}
 %\begin{tikzborder}{\cite{Gargantini16:validation}}
 	The appeal of highly-configurable software systems lies in their adaptability to users' needs. 
 	Search-based Combinatorial Interaction Testing (CIT) techniques have been specifically developed to drive the systematic testing of such highly-configurable systems. In order to apply these, it is paramount to devise a model of parameter configurations which conforms to the software implementation. This is a non-trivial task. Therefore, we extend traditional search-based CIT by devising 4 new testing policies able to check if the model correctly identifies constraints among the various software parameters. Our experiments show that 
@@ -1626,14 +1629,14 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 	combinatorial problems, and an eclipse-based editor with a rich set of features. %(like syntax highlighting, autocompletion, and outline view). 
 	\citlab{} does not have its own test generators, but it can utilise, for example, the search-based combinatorial test generator  CASA\footnote{\url{http://cse.unl.edu/~citportal/}}\cite{CASASSBSE09}. CIT problems can be formally defined as follows.
 	
-	\begin{defn}
+	\begin{defn}[Constrained Model]\label{def:citmodel1}
 		Let $P=\{p_{1},\dots,p_{m}\}$ be the
 		set of parameters. Every parameter $p_{i}$ assumes values in the domain $D_{i}=\{v_{1}^{i},\ldots,v_{o_{i}}^{i}\}$. 
 		Every parameter has its name (it can have also a type with its own name) and every enumerative value has an explicit name. We denote with $C=\{c_{1},\ldots,c_{n}\}$
 		the set of constraints.
-	\end{defn}
+	\end{defn}	
 	
-	\begin{defn}\label{def:citstrength}
+	\begin{defn}[Strength of a test suite]\label{def:citstrength}
 		The objective of a CIT test suite is to cover all parameter interactions between any set of $t$ parameters. $t$ is called the strength of the CIT test suite. For example, a pairwise test suite covers all combinations of values between any 2 parameters.
 	\end{defn}
 	\be
@@ -2073,7 +2076,7 @@ Testing configurable systems in the presence of constraints is tackled in \cite{
 In SPL the validation and extraction of constraints between features is generally  given in terms of feature models (FMs). Synthesis of FMs can be performed by identifying patterns among features in products and in invalid configurations and build hierarchies and constraints (in limited form) among them. For instance, Davril et al. apply feature mining and feature associations mining to informal product descriptions~\cite{Davril13}. There exist several papers that apply search based techniques, which generally give better results~\cite{SBSEforSPLsurvey,LopezHerrejon201533,FerreiraVQ13,lopez-herrejon_reverse_2012}. However, checking and maintaining the consistency between a SPL and its feature model is still an open problem. A preliminary proposal is presented in \cite{icst2016}, which however does not use CIT but a more complex logic based approach. We plan to compare our approach with \cite{icst2016} in order to check if CIT can provide benefits in terms of easiness in test generation and shorter  generation times.\be
 
 
-\section{Combinatorial Interaction Testing for Automated Constraint Repair}\label{sec:constr}
+\section{Combinatorial Interaction Testing for Automated Constraint Repair}\label{sec:gargantini_combinatorial_2017}
 
 %%% RATIONALE
 
@@ -2174,17 +2177,13 @@ that contains the whole model. To formally describe
 a combinatorial problem, the user has to identify at least 2 parameters
 and their possible values. 
 
-\begin{defn}[Constrained Model] 
+\begin{defn}[Constrained Model]\label{def:citmodel2}
 	Let $P=\{p_{1},\dots,p_{m}\}$ be the
 	set of parameters. Every parameter $p_{i}$ can take a value from the
 	domain $D_{i}=\{v_{1}^{i},\ldots,v_{o_{i}}^{i}\}$. Every parameter
 	has a name (it can have also a type with its own name) and every
 	enumerative value has an explicit name. We denote with $\mathit{Constr}=\{c_{1},\ldots,c_{n}\}$
 	the set of constraints. $P$ and $\mathit{Constr}$ constitute the CIT model.
-\end{defn}
-
-\begin{defn}[Strength of a test suite]\label{def:citstrength}
-	The objective of a CIT test suite is to cover all parameter interactions between any set of $t$ parameters. $t$ is called the strength of the CIT test suite. For example, a pairwise test suite covers all combinations of values between any 2 parameters.
 \end{defn}
 
 \citlab{} adopts the language of propositional logic with equality
@@ -2537,7 +2536,7 @@ Table \ref{tab:constr_benchmarks} reports the number of mutants we generated for
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
-		\includegraphics[width=0.98\textwidth]{data/oraclecalls.pdf}
+		\includegraphics[width=0.98\textwidth]{data/oraclecalls.png}
 		\caption{Oracle (number of oracle calls)}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -2815,20 +2814,21 @@ In SPL the validation and extraction of constraints between features is generall
 
 
 
-\section{Using Iterative Constraint Repair to Detect XSS Vulnerabilities}
-\begin{tikzborder}{\cite{garn2019}}
+\section{Using Iterative Constraint Repair to Detect XSS Vulnerabilities}\label{sec:garn2019}
+
 We consider the case where a knowledge base consists of interactions among parameter values in an input parameter model for web application security testing.
 The input model gives rise to attack strings to be used for exploiting XSS vulnerabilities, a critical threat towards the security of web applications.
 Testing results are then annotated with a vulnerability triggering or non-triggering classification, and such security knowledge findings are added back to the knowledge base, making the resulting attack capabilities superior for newly requested input models.
 We present our approach as an iterative process that evolves an input model for security testing.
 Empirical evaluation on six real-world web application shows that the process effectively evolves a knowledge base for XSS vulnerability detection, achieving on average 78.8\% accuracy.
-\be
+%\be
 
-\subsection{Introduction} \label{sec:intro}
+%\subsection{Introduction} \label{sec:intro}
 %%% RATIONALE
 %%% the rationale provides suf?cient context to justify everything that was done
 %\red{RATIONALE: Importance of detecting vulnerability an din particular vulnerability conditions} \blue{partially copied and modified from previous paper}
-\bb Computer users of today often interact via web-applications with services offered by various parties.
+%\bb 
+Computer users of today often interact via web-applications with services offered by various parties.
 This new way of connecting the client and server side with each other has brought about a multitude of novel security challenges, both for the client and the server~\cite{catteddu2010cloud}.
 One major threat to web applications is posed by Cross-Site Scripting (XSS), which continues to be included in the OWASP Top 10 most critical web application security risks~\cite{owasp17}.
 Security testing is a vital and expensive part of the software development lifecycle.
@@ -2844,10 +2844,12 @@ Evaluation shows that the process is able to evolve the knowledge base to achiev
 The rest of the paper is structured as follows. In Sect. \ref{sec:xssbasic} we give basic definitions,
 in Sect. \ref{sec:xssprocess} we discuss our proposed process, and Sect. \ref{sec:xssexperiments} presents the results of our case study experiments. We provide a brief overview over related work in Sect. \ref{sec:xssrelatedwork},
 and we conclude the paper with further research directions in Sect \ref{sec:conclusion-future-work}.
-\be
+%\be
 
 \subsection{Preliminaries}\label{sec:xssbasic}
-\bb In the course of \emph{combinatorial security testing} (cf.~\cite{SKVKS2016:IEEEComp}), attack models have appeared in the
+\begin{tikzborder}{\cite{garn2019}}
+%\bb 
+In the course of \emph{combinatorial security testing} (cf.~\cite{SKVKS2016:IEEEComp}), attack models have appeared in the
 form of a BNF grammar, e.g.~\cite{bozic2015attack},~\cite{wotawa_combinatorial_2016}. 
 In this paper, we will follow this established terminology for designing XSS attack models to be used in conjunction with combinatorial methods.  
 We denote with $K_{i}$ a knowledge base at time $i$, encoded as an abstract attack model (IPM, see Fig. \ref{fig:model1}).
@@ -2891,7 +2893,7 @@ translated test case $\tau(f)$ against the SUT triggers an XSS vulnerability or 
 We denote also the function $eval(f):= oracle(\tau(f))$, that is $true$ if the test case $f$ triggered an XSS vulnerability (i.e., $f$ is a \emph{vulnerability triggering} test case).
 The generated test vectors aim at producing valid JavaScript code when these are executed against SUTs.
 A description of parameters that appear in the attack model is mentioned  in~\cite{bozic2015attack,garn2014applicability,wotawa_combinatorial_2016}. 
-At any time point $i$, the knowledge base $K_{i}$ may be used to create test cases, \red{and to classify an abstract test case as either vulnerability-triggering or not, depending on whether the \textit{constraints} are satisfied}. %TODO the reviewer said it was not clear
+At any time point $i$, the knowledge base $K_{i}$ may be used to create test cases, and to classify an abstract test case as either vulnerability-triggering or not, depending on whether the \textit{constraints} are satisfied. %TODO the reviewer said it was not clear
 This capability of the knowledge base is denoted as a $model$ function, which takes as input an abstract test case, and gives as output a ``best guess'' that may or may not be correct w.r.t. the actual result of the function $eval$. 
 The attack model initially contains only combinatorial parameters and no constraints. During the process, the knowledge base is enriched by the conditions used to identify the vulnerabilities.
 
@@ -3099,12 +3101,12 @@ We present two different techniques to repair feature models.
 The first approach allows to repair feature models represented in the hierarchical tree-like structure, as well as \textit{simple} constraints (i.e., only in the form of \textit{requires} and \textit{excludes} between couple of features) in propositional logic.
 The second approach, instead, applies to feature models represented as arbitrarily \textit{complex} constraints, expressed in propositional logic.
 The two approaches can be combined, as to fully represent variability, unless complicating the model with a large number of abstract feature, it is normally more convenient to use \textit{general} (i.e., \textit{complex}) constraints, besides the hierarchical tree-like structure of feature dependencies.
-In the rest of the chapter, Sect. \ref{sec:fm1} covers the first approach reporting from paper \cite{arcaini2019achieving}, which includes and extends the previous paper \cite{arcaini_evolutionary_2018}, and Sect. \ref{sec:arcaini2019varivolution} covers the second approach, i.e., the repair of relations among features in the form of constraints in propositional logic, reflecting the content of the paper \cite{arcaini2019varivolution}.
+In the rest of the chapter, Sect. \ref{sec:arcaini2019achieving} covers the first approach reporting from paper \cite{arcaini2019achieving}, which includes and extends the previous paper \cite{arcaini_evolutionary_2018}, and Sect. \ref{sec:arcaini2019varivolution} covers the second approach, i.e., the repair of relations among features in the form of constraints in propositional logic, reflecting the content of the paper \cite{arcaini2019varivolution}.
 
 Conclusions on these works are reported jointly in Sect. \ref{sec:fmconclusion}, together with lines for future research on this topic.
 
 
-\section{Achieving change requirements of feature models by an evolutionary approach}\label{sec:fm1}
+\section{Achieving change requirements of feature models by an evolutionary approach}\label{sec:arcaini2019achieving}
 We developed an approach that \textit{repairs} a feature model w.r.t. a given update request in the form of combinations representing a set of configurations to be accepted or rejected, that may be detected by \textit{failing} test cases, or directly by engineer domain knowledge. % from a change in the specification.
 The method is based on an evolutionary algorithm that iteratively mutates the original feature models and checks if the update request is semantically fulfilled.
 We employ mutations such as switching an optional feature to mandatory, or changing an \emph{or} group to an \emph{and} group, based on \cite{arcaini_evolutionary_2018}.
@@ -3112,7 +3114,7 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 
 \subsection{Basic definitions}\label{sec:basicDef}
 
-\begin{tikzborder}{\cite{arcaini_evolutionary_2018}}
+\begin{tikzborder}{\cite{arcaini2019achieving}}
 	In software product line engineering, feature models are a special type of information model representing all possible products of an SPL in terms of features and relations among them. Specifically, a feature model \fm is a hierarchically arranged set of features $F$, where each parent-child relation between them is a constraint of one of the following types\footnote{As done by FeatureIDE~\cite{FeatureIDEbook}, we assume that each feature can be the father of only one group (either {\it Or}, {\it Alternative}, or {\it And}). This is not a limitation, as having different groups as children can be obtained by using abstract features~\cite{thum_abstract_2011}.}:
 	%
 	\begin{compactitem}
@@ -3784,22 +3786,22 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 			\begin{tabular}[t]{p{25mm}p{45mm}}
 				Model \m & Implementation (System $\mathcal{S}$):\\\hline 
 				\begin{minipage}{25mm}
-					$A \rightarrow B$ \\
-					$A \rightarrow C$
+$A \rightarrow B$ \\
+$A \rightarrow C$
 				\end{minipage}
 				&\begin{minipage}{45mm}
 					\lstset{basicstyle=\linespread{0.8}\ttfamily\footnotesize,breaklines = true,columns=flexible}
 					\begin{lstlisting}[language=C]
-					#ifdef C //Hello
-					char* msg = "Hello !";
-					#endif 
-					#ifdef B // Bye 
-					char* bye = "Bye";
-					#endif 
-					#ifdef A // lowercase 
-					msg [0] = 'h';
-					bye [0] = 'b'; 
-					#endif
+#ifdef C //Hello
+char* msg = "Hello !";
+#endif 
+#ifdef B // Bye 
+char* bye = "Bye";
+#endif 
+#ifdef A // lowercase 
+msg [0] = 'h';
+bye [0] = 'b'; 
+#endif
 					\end{lstlisting}
 				\end{minipage}
 				\\
@@ -5215,19 +5217,19 @@ In addition, we address in our work the full class of timed automata, for which 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{tikzborder}{}
-This paper proposes an approach for automatically repairing timed automata, notably in the case where clock guards shall be repaired.
-Our approach generates an abstraction of the initial TA in terms of a PTA, generates some tests, and then refines the abstraction by identifying only those TAs contained in the PTA that correctly evaluate all the tests.
+%\begin{tikzborder}{}
+In this section we propose an approach for automatically repairing timed automata clock guards.
+Our approach first parameterizes the initial timed automata, abstracting it into a PTA, generates some tests, and then refines the abstraction by identifying only those TAs contained in the PTA that correctly evaluate all the tests.
 
 As future work, we plan to adopt also other formalisms to build the abstraction where to look for the repaired timed automata;
 The CoPtA model~\cite{luthmann2019minimum}, for example, extends timed automata with feature models and allows to specify additional/alternative states and transitions.
 In addition, when the oracle acts as a white-box, \ie{} when the oracle is able to test language equivalence, we could also make use of learning techniques for timed automata despite the undecidability of the language inclusion problem, using the almost-always terminating procedure for language inclusion in~\cite{WSLWL14}.
 
-\end{tikzborder}
+%\end{tikzborder}
 
 \part{Tools to Support Model Repair}
 \chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}\label{ch:ctwedge}
-\begin{tikzborder}{\cite{IWCTGargantini2018}}
+%\begin{tikzborder}{\cite{IWCTGargantini2018}}
 Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 The presence of tools for CIT is of fundamental importance because performing CIT activities manually can be error prone and time consuming. The site pairwise.org\footnote{See \url{http://www.pairwise.org/tools.asp}} lists at least 43 tools supporting several CIT activities while the paper~\cite{NieL11} reviewed the CIT literature and found around 20 tools. 
 
@@ -5247,12 +5249,12 @@ However, as we will discuss in the related work section, each tool has its own s
 For this reason, starting from our experience with \citlab~\cite{citlab12}, we have worked on a web based application that allows the user to write CIT models in a similar way he/she would do in a classical IDE and it offers test suite generation by means of   server using known and community evaluated test generation algorithms. 
 Our system, called \ctwedge (Combinatorial Testing Web EDiting and GEneration), introduces a rich language for combinatorial models, offers a powerful web editor, and allows the user to generate the CIT test suites on a server. The only software needed to use \ctwedge is a modern web browser.
 
-The paper is organized as follows. In Sect. \ref{sec:language} we present the modeling language (in an abstract way) we use to define CIT models. In Sect. \ref{sec:ctwedge} we introduce our tool, its architecture, its web editing capabilities, and the generator engine. A detailed comparison with other similar web based tools is presented in  Sect. \ref{sec:related2}. Future works and possible directions of extension are presented in Sect. \ref{sec:futurework}. Sect. \ref{sec:conclusions3} concludes the paper.
-\end{tikzborder}
+The chapter reflects the content of the paper \cite{IWCTGargantini2018} and it is organized as follows. In Sect. \ref{sec:language} we present the modeling language (in an abstract way) we use to define CIT models. In Sect. \ref{sec:ctwedge} we introduce our tool, its architecture, its web editing capabilities, and the generator engine. A detailed comparison with other similar web based tools is presented in  Sect. \ref{sec:related2}. Future works and possible directions of extension are presented in Sect. \ref{sec:futurework}. Conclusions are reported in Sect. \ref{sec:conclusions3}.
+%\end{tikzborder}
 
 \section{A simple language for CIT models}\label{sec:language}
 
-\begin{tikzborder}{}
+\begin{tikzborder}{\cite{IWCTGargantini2018}}
 We have devised a simple textual language for CIT models which is suitable to be used in web editors. It allows the definition of parameters, each with its name and (finite) domain, and it is based on our previous language defined for \citlab \cite{citlab12}. We allow the following parameter types: 
 
 \begin{enumerate}
@@ -5738,7 +5740,7 @@ Combinatorial test case generation is used as a part of an automated process for
 Xtext, already generates an eclipse-based development environment providing editing experience known from modern IDEs, featuring a content assist, quick fixes, a project wizard, template proposal, outline view, hyperlinking, and syntax coloring.
 \end{tikzborder}
 
-\section{Conclusion} \label{sec:conclusions3}
+\section{Conclusions} \label{sec:conclusions3}
 
 \begin{tikzborder}{}
 Generation of combinatorial test suites via web offers great advantages w.r.t. classical desktop applications. It is nowadays supported by a pool of tools, both open source and commercial. However, to the best of our knowledge, none of them has an integrated web editor support and a complete support of constraints. To work, they have their own language, with often just examples as unique description, and expect the user to write a file locally before uploading to the web-based tool. This process requires the test engineer to use another tool, may it be just a stand-alone text editor, with no auto-completion for that particular language, or a custom stand-alone editor with some grade of code recommendation.
@@ -6552,22 +6554,48 @@ While InterAIFL, FIC and SOFOT may not correctly identify multiple \mfics in a s
 
 \end{tikzborder}
 
-\subsection{Conclusions}\label{sec:conclusions}
+\section{Conclusions}\label{sec:conclusions}
 In this chapter we propose an approach for finding minimal failure-inducing combinations (\mfics), that alternates test generation and test execution. Under the assumption that the maximum strength of \truemfics is limited to $t$, running the process till strength $t$ guarantees to find all and only the \truemfics; experimental comparison with state of the art approaches confirmed this fact. Achieving this total correctness does not affect too much the test suite size and the execution time: w.r.t. the second best approach (ICT) in terms of accuracy, \mix produces slightly fewer tests in reasonable time.
 
 The current work does not support constraints in the combinatorial model; their handling is planned as future work.
 
 \bookmarksetup{startatroot}
-\chapter{Conclusions}\
-We illustrated the research project of using software testing techniques to drive the inference and repair of models of software systems.
+\chapter{Conclusion}
+In this thesis, we have proposed a method consisting in using software testing techniques to drive the inference and repair of models of software systems.
 It is a novel application of software testing that goes beyond detecting and localizing faults in code, and that performs little repairs to preserves domain knowledge and support engineers in maintaining consistency between all the software artifacts, and localizing faults also in the model. 
-We presented applications to combinatorial and feature models. As future work, we plan to apply test-driven repair of other model types, namely timed automata, and abstract state machines. Furthermore, we plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.
+We presented applications to combinatorial models, feature models, and timed automata. 
+The works presented in this thesis have been published in different forms in a journal paper, and in conference papers. The list of publications is reported in Sect. \ref{sec:papers}.
+In the next sections, we summarize the contribution of the thesis and describe some possible future lines of research.
 
-\section{Future Work}
-TODO: apply the repair process to more kind of models, if necessary through an abstraction and parametrization process (as in Timed Automata, see Chapter. \ref{ch:tarepair}).
-Improve each paper by doing what described as future work.
-Although these contributions have also been implemented, the program is tailored towards producing experiments table on the benchmarks proposed in the paper, and an easy-to-use tool publicly available could further promote the usage of the finding of our research. 
-In some cases the process is not fully automated, manual intervention (even if just to move, rename some files, or translate language formats) for certain tasks is needed (especially for timed automata repair, and for xss detection), so make a tool out of it, although expensive, would promote the usage of the devised processes.
+\subsubsection{Contributions of the thesis}
+We introduced the goal of this thesis, summarized the contributions, and gave a list of the published papers, in Chapter \ref{ch:introduction}.
+In Chapter \ref{ch:background}, we described the state of the art of the main techniques in software engineering to support solutions to the problem of model repair.
+
+In Chapter \ref{ch:automatedrepair}, we presented our novel iterative, test-driven automated approach to repair software models. It is composed by three main operations: test generation, fault localization, and model repair.
+
+This framework has been applied for three different types of software model, each of them is treated in a different chapter.
+In Chapter \ref{ch:constraintrepair} describe the application of the automated approach to combinatorial models, having configuration constraints. Specifically, in Sect. \ref{sec:Gargantini16validation} we evaluated the quality of combinatorial test generation policies, we described the actual CIT model repair process in Sect. \ref{sec:gargantini_combinatorial_2017}, and in Sect. \ref{sec:garn2019} we showed an application of it to detect constraints among parameters in XSS attack strings, that trigger vulnerability.
+Empirical evaluation shows that the process achieves on average 37\% on the combinatorial model benchmarks, and 78.8\% accuracy for XSS vulnerability condition detection.
+
+In Chapter \ref{ch:fmrepair} we presented the application of the repairing process to feature models, in the context of software product line engineering.
+Specifically, the process is applied to the hierarchical and simple cross-tree constraints in Sect. \ref{sec:arcaini2019achieving} using mutations, and to arbitrarily complex constraints among features in Sect. \ref{sec:arcaini2019varivolution} using logical manipulation of propositional formulas.
+Due to the complexity of the repair phase on its own, both techniques focus only on the model repair part, assuming an \textit{update request} is given in input. Such \textit{update request} can potentially obtained by a fault localization technique, or can come directly from a change in the requirements.
+Empirical analysis on the devised process that uses mutations to update feature models shows that, on average, around 89\% of the requested changes are applied.
+
+Chapter \ref{ch:constraintrepair} presents the application of the devised repair approach to the scenario of timed automata. By parametrizing the clock guards of the timed automata, and exercising the real-time system with timed words as tests, we can constrain the clock-guards values into ranges, and pick a value inside these ranges to obtain the repaired timed automata. The approach has been evaluated on systems with up to 16 locations and 10 parameters, achieving almost 100\% accuracy in most of the cases.
+
+Finally, in Chapter \ref{ch:ctwedge} and Chapter \ref{ch:mix} we presented two tools to support the first two phases of our process for model repair, respectively testing (\ctwedge) and fault localization (more precisely, \textit{failure-inducing combinations} detection: \mix).
+
+\subsubsection{Future Work}
+As future work, we plan to apply test-driven repair of other model types, if necessary through an abstraction and parametrization process (as did in Timed Automata, see Chapter. \ref{ch:tarepair}). A possible model is abstract state machines. 
+In addition to following the future directions given in the single chapters, we also plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.
+
+Although these contributions have also been implemented, the tools are tailored towards producing experiments table on the benchmarks proposed in the paper, and need a revision to make them user-friendly. Apart from CTWedge (Chapter \ref{ch:ctwedge}), which is even hosted and usable as a SaaS, the rest, although the code is accessible on Github, have room for improvement to make them more user-friendly for researchers and engineers: this step could further promote the further development of the findings of our research. 
+
+Another future work direction consists in making the processes more automated. 
+In some cases, in fact, manual intervention is needed (to asses the oracle, to decide process parameters, and even just for moving, renaming some files, or translating between file formats), especially for timed automata repair (Chapter \ref{ch:tarepair}) and for XSS vulnerabilities conditions detection (Sect. \ref{sec:garn2019}). 
+
+Finally, further work needs to be done to improve scalability of the approch. So far, evaluation shows that these methods terminate in an \textit{acceptable} amount of time with models having up to 100 parameters, and with small numbers in other parameter values (such as maximum test suite strength, or population size for the evolutionary approach of feature models). Further studies and improvements are needed to extend the approach to models of larger size.
 
 %\chapter{Bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
