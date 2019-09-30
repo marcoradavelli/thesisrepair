@@ -1023,9 +1023,11 @@ EnumerativeType, Number, Range, TestGoals,
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to its specification.
 While most of the techniques in software testing are applied to debugging, fault-localization, and repair of code, to the best of our knowledge there are fewer works regarding the application of software testing to locating faults in models and to the automated repair of such faults.
-The goal of this PhD project proposal is to study how testing can be applied to repair models. %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
-We describe the research approach and discuss the application cases of combinatorial and feature models.
-We then discuss future work of applying testing to repair models for other scenarios, such as timed automata.
+The goal of this PhD thesis is to study how testing can be applied to repair models of software systems. %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
+We describe the research approach and discuss the application cases of configuration constraints in combinatorial models, feature models, and clock guards in timed automata. In addition to evaluating the process on different versions of real-world systems, we show an application of repair of configuration constraints for the detection of security vulnerability conditions among parameters of XSS attack vectors.
+Empirical evaluation shows that, on average, the process achieves around 37\% accuracy in combinatorial model repair, 79\% accuracy in XSS vulnerability detection, 89\% accuracy for the feature model repair through mutations, and 100\% accuracy on variability constraints and timed automata clock-guards repair, although these values have been obtained in the optimal conditions for fault localization, that is an important factor influencing accuracy.% that have not been considered in the experiments.
+We also present \ctwedge and \mix, two tools developed to support combinatorial testing and failure-inducing combination detection respectively, that are two important preliminary activities for the actual model repair.
+We then discuss future work to overcome the current limitations of the approach, and for applying testing to repair other types of models of software systems.
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
@@ -1082,7 +1084,7 @@ Outcomes of this project may have an impact in reducing the effort of software m
 The goal of this thesis is to study how software testing techniques can be applied to drive automatic repair of software models.
 The thesis is divided into seven chapters, and each of these chapters (introduction excluded) tries to answer to a research question (RQ).
 \researchquestion{What are the main techniques and applications of software testing and program repair?}
-This is shown in Chapter \ref{ch:background} in which relevant books, papers and standards are analysed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
+This is shown in Chapter \ref{ch:background} in which relevant books and papers are analyzed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
 Different types of software models are presented (namely software product lines, combinatorial models, and timed automata), and currently available techniques to support engineers in automatically update and repair programs and models are analyzed. In particular, techniques such as mutation together with evolutionary algorithms are discussed, as well as a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
 
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
@@ -1372,7 +1374,8 @@ There are several studies and techniques to adapt software testing to specific s
 
 One of the goals of software testing is to automate as much as possible, thereby significantly reducing its cost, minimizing human error, and making regression testing easier. \cite{testingbook}
 
-\subsection{Combinatorial Testing}
+\subsection{Combinatorial Interaction Testing}
+Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. 
 Combinatorial Interaction Testing (CIT) aims at covering the interactions of parameters in a system under test (SUT), while some combinations may be forbidden by given constraints (forbidden tuples) \cite{yamada_greedy_2016}.
 It explores t-way feature interactions inside a given system, by effectively combining all t-tuples of parameter assignments in the smallest possible number of test cases.
 This allows to budget-constrain the costs of testing while still having a testing process driven by an effective and exhaustive coverage metric \cite{AETG,KuhnTSE04}. 
@@ -2134,7 +2137,7 @@ We present a case study that shows that our approach can be used to derive const
 In order to evaluate the efficiency of our approach, we measure the time taken to repair constraints in CIT models as well as the number of tests needed for the repair. On the five systems evaluated, the mutated models were repaired within seconds.
 \vspace{0.2em}
 
-This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout our paper; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:constr_relatedwork} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
+This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout the section; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:constr_relatedwork} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
 
 \subsection{Combinatorial Models and Testing of Configurable Systems}
 \label{sec:citmodels}
@@ -2161,8 +2164,12 @@ described as being important to combinatorial testing in~\cite{AETG}
 and were introduced in the AETG system. In our approach tests that
 do not satisfy the constraints in the CIT model are considered \emph{invalid}.
 
-In this paper we assume that the models are specified using \citlab{}~\cite{citlab12,citlab13ttt}.
-This is a framework for combinatorial testing which provides
+In this section we assume that the models are specified using \citlab{}~\cite{citlab12,citlab13ttt}. 
+\be
+For the later work presented in Section \ref{sec:garn2019}, instead, we use the successor of \citlab{}: \ctwedge (described in Chapter \ref{ch:ctwedge}).
+
+\bb
+\citlab{} is a framework for combinatorial testing which provides
 a rich abstract language with precise formal semantics for specifying
 combinatorial problems, an eclipse-based editor with a rich set of
 features (syntax highlighting, autocompletion, outline view, and others),
@@ -2172,7 +2179,7 @@ strength. \citlab{} does not have its own test generators, but it
 relies on other off-the-shelf tools, namely 
 ACTS\footnote{\url{http://csrc.nist.gov/groups/SNS/acts/}} and CASA\footnote{\url{http://cse.unl.edu/~citportal/}}.
 
-In \citlab parameters and constraints are given in a unique file
+Parameters and constraints are given in a unique file
 that contains the whole model. To formally describe
 a combinatorial problem, the user has to identify at least 2 parameters
 and their possible values. 
@@ -2366,7 +2373,12 @@ A conformance fault might occur if $val_{M}(t)$ is $\mathit{True}$ and $\mathit{
 \end{defn}
 
 When a failure-inducing combination is found, one needs to modify the model $M$, i.e. \emph{repair} the model, so that it faithfully represents the system $S$ that it models. 
-The technique we present in this paper tries to repair the constraints of a combinatorial model whenever a failure-inducing combination is found. There are two types of repairs, depending on the type of the failure-inducing combination:
+\be
+
+The technique we present tries to repair the constraints of a combinatorial model whenever a failure-inducing combination is found. 
+
+\bb
+There are two types of repairs, depending on the type of the failure-inducing combination:
 %The type of repair must be applied to the model accordingly with the type of failure-inducing comb:
 \begin{itemize}
 	\item If a combination $comb$ is over-constraining, the model must be modified in order to include also the configurations identified by $comb$. This can be done by \emph{relaxing} the constraints by adding $comb$ to each constraint that currently prohibits $comb$ by means of a Boolean $\textit{OR}$ (i.e., $\mathit{Constr} \leftarrow \mathit{Constr} \vee comb$).
@@ -2836,14 +2848,14 @@ An effective testing technique applied to security testing is \emph{Combinatoria
 (SUT), made of parameters with a finite list of possible values, called \textit{input parameter model} (IPM), and given an
 interaction strength $t$, CT creates a test suite guaranteeing the appearance of all $t$-way interactions of parameter values, for any selection of $t$ parameters~\cite{kuhn2013introductionbook}. 
 In the case for testing for exploiting XSS vulnerabilities, the IPM specifies an attack grammar and is also called \textit{(abstract) attack model}.
-The aim of this paper is to present a way to evolve knowledge bases for security testing. 
+The aim of this work is to present a way to evolve knowledge bases for security testing. 
 In our approach, the evolution of a knowledge base consists in the integration of learned constraints, using BEN~\cite{ghandehari2018combinatorial}, into the IPM. 
 In particular, the contribution of this paper consists in an automated technique to detect all the conditions under which vulnerabilities are triggered, by using combinatorial testing.
 Evaluation shows that the process is able to evolve the knowledge base to achieve, on average over all the benchmarks, 78.8\% accuracy, in 14 minutes computation time.
 
-The rest of the paper is structured as follows. In Sect. \ref{sec:xssbasic} we give basic definitions,
+The rest of the section is structured as follows. In Sect. \ref{sec:xssbasic} we give basic definitions,
 in Sect. \ref{sec:xssprocess} we discuss our proposed process, and Sect. \ref{sec:xssexperiments} presents the results of our case study experiments. We provide a brief overview over related work in Sect. \ref{sec:xssrelatedwork},
-and we conclude the paper with further research directions in Sect \ref{sec:conclusion-future-work}.
+and the conclusions are discussed at the end of the chapter, in Sect \ref{sec:conclusion-future-work}.
 %\be
 
 \subsection{Preliminaries}\label{sec:xssbasic}
@@ -3318,10 +3330,14 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 	
 	\subsection{Evolutionary updating process}\label{sec:process}
 	
-	\bb Modifying the initial feature model \initFm such that it satisfies the update request as specified by the target is a challenging task. Note that, in general, there could be no \fmp that exactly adds and removes the specified configurations and features, unless {\it complex} cross-tree constraints are used. However, we claim that the usage of these constraints should be discouraged. Urli et al.~\cite{visualSupport} observe that ``they make FMs complex to understand and maintain'', Reinhartz-Berger et al.~\cite{ComprehendingFeatureModels} experimentally assessed that they are more difficult to understand than parent-child relationships (at least, by modelers who are unfamiliar with feature modeling), and Berger et al.~\cite{Berger2013} report that ``they are known to critically influence reasoners''. Also the authors of FeatureIDE noted that cross-tree constraints ``are harder to comprehend than simple tree constraints" and that ``relations among features should be rather expressed using the tree structure if possible''~\cite{FeatureIDEbook}. In this paper, we therefore avoid the addition of complex cross-tree constraints, as we not only aim at correctness (i.e., full achievement of the update request), but also at readability of the final model.
+	\bb Modifying the initial feature model \initFm such that it satisfies the update request as specified by the target is a challenging task. Note that, in general, there could be no \fmp that exactly adds and removes the specified configurations and features, unless {\it complex} cross-tree constraints are used. However, we claim that the usage of these constraints should be discouraged. Urli et al.~\cite{visualSupport} observe that ``they make FMs complex to understand and maintain'', Reinhartz-Berger et al.~\cite{ComprehendingFeatureModels} experimentally assessed that they are more difficult to understand than parent-child relationships (at least, by modelers who are unfamiliar with feature modeling), and Berger et al.~\cite{Berger2013} report that ``they are known to critically influence reasoners''. Also the authors of FeatureIDE noted that cross-tree constraints ``are harder to comprehend than simple tree constraints" and that ``relations among features should be rather expressed using the tree structure if possible''~\cite{FeatureIDEbook}. 
+	\be
+	
+	In this work, we therefore avoid the addition of complex cross-tree constraints, as we not only aim at correctness (i.e., full achievement of the update request), but also at readability of the final model.
+	
 	Some approaches that aim at simplifying complex constraints exist~\cite{knuppel_is_2017,vonRhein2015}, but they may diminish readability and other qualities, such as compactness, traceability, and maintainability.\footnote{In Sect.~\ref{sec:fmconclusion}, we discuss how complex cross-tree constraints could be used to achieve all the change requirements and the issues that could be related to that approach.}
 	
-	This paper proposes a heuristic approach that tries to achieve the update request {\it as much as possible}. In order to do this, we use the target as {\it oracle} to compute the {\it fault ratio}. The fault ratio tells how close we are to the correct solution. In Sect.~\ref{sec:correctness}, we give the definition of fault ratio and then, in Sect.~\ref{sec:updatingProcess}, we describe the updating process we propose.\be
+	In this section, we propose a heuristic approach that tries to achieve the update request {\it as much as possible}, by using the target as {\it oracle} to compute the {\it fault ratio}. The \textit{fault ratio} tells how close we are to the correct solution. In Sect.~\ref{sec:correctness}, we give the definition of fault ratio and then, in Sect.~\ref{sec:updatingProcess}, we describe the updating process we propose.%\be
 	
 	\subsubsection{Correctness}\label{sec:correctness}
 	
@@ -3821,7 +3837,7 @@ bye [0] = 'b';
 		\label{fig:problem_solution}
 	\end{figure}
 	
-	In order to detect discrepancies between the problem space and the solution space, classical techniques for testing of propositional formulas (as the constraints of a variability model) can be used: the classical decision and condition coverage, the MCDC~\cite{sej.1994.0025}, fault based criteria~\cite{compj15}, and also combinatorial testing~\cite{icst2015}. In this paper, we assume that some tests have been generated according to some coverage criterion and some \emph{faults} (i.e., non-conformances of the model w.r.t. the solution space acting as oracle) have been detected; our aim is to \emph{repair} the constraints of the variability model in order to remove the faults. We propose an automated process that, upon some failing tests, is able to \emph{automatically} correct the constraints in such a way that they maintain their original validity for all the configurations, except for those found failing.
+	In order to detect discrepancies between the problem space and the solution space, classical techniques for testing of propositional formulas (as the constraints of a variability model) can be used: the classical decision and condition coverage, the MCDC~\cite{sej.1994.0025}, fault based criteria~\cite{compj15}, and also combinatorial testing~\cite{icst2015}. In this work, we assume that some tests have been generated according to some coverage criterion and some \emph{faults} (i.e., non-conformances of the model w.r.t. the solution space acting as oracle) have been detected; our aim is to \emph{repair} the constraints of the variability model in order to remove the faults. We propose an automated process that, upon some failing tests, is able to \emph{automatically} correct the constraints in such a way that they maintain their original validity for all the configurations, except for those found failing.
 	
 	The rest of the section reflects the content of the paper \cite{arcaini2019varivolution}, and it is organized as follows. Sect.~\ref{sec:basic} presents some basic definitions in addition to the ones introduced previously in the chapter. Sect.~\ref{sec:repair} presents the basic repair process and some possible optimizations. Sect.~\ref{sec:experiments} shows the empirical results. Threats to validity are tackled in Sect.~\ref{sec:threats}, whereas an overview of the related work is given in Sect.~\ref{sec:fmrelatedwork2}. The conclusions, together with lines for future research, are given jointly at the end of the chapter, in Sect.~\ref{sec:fmconclusion}.
 	
@@ -4306,8 +4322,12 @@ bye [0] = 'b';
 		
 		The constraints learned (or \textit{mined}) with such machine learning methods achieve a good accuracy (greater than 80\% on average~\cite{temple_learning_2017}), and they are able to completely \textit{infer} constraints from scratch, or to \textit{specialize} the model by adding the new inferred constraints to the existing ones. Our approach, however, is focused on performing any kind of repair to an existing set of constraints, and is also able to \textit{generalize} the model, or apply \textit{arbitrary edits} (as described in the classification in~\cite{thum_reasoning_2009}). Moreover, our proposed method focuses only on the \textit{manipulation} of existing constraints, and not on the actual detection of the failure-containing combinations, that we assume as input of our process. Unlike our approach, that takes the failure-containing combinations as input, those ML processes also include automatic detection of such \fccs (in the form of constraints), given a sample of configurations classified as valid or non-valid~\cite{temple_learning_2017}. For these reasons, the approaches are not alternative but complementary, as our approach is not comparable to those ML methods; however, as future work, we believe that it could be interesting to combine our process with those machine learning approaches, to have a more complete process for real case scenarios.
 		
-		A quality-based model refactoring framework assessing the quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents another approach to model repair, although it is not focused on repairing constraints in propositional logic. There is a comprehensive general work on repair of models by Reder et al.~\cite{reder_computing_2012}, with a method to detect inconsistencies using a validator, and to generate a repair tree representing in a compact way all the different viable actions to repair the model. This approach has been evaluated on UML models and OCL design rules, and is currently integrated in the Model/Analyzer plug-in for the IBM Rational Software Architect (RSA). We believe that our approach, instead, is a particular case of such repair framework in which the repair actions are fixed and determined by the selection and simplification algorithms (i.e., \espresso, \qm, etc.), whereas the inconsistency detection is left to the engineer, who has to provide a set of failure-containing combinations in input to our process. However, despite our process has a fixed repair type and in this paper we evaluated its application, it may be possible to integrate the idea of~\cite{reder_computing_2012} and build a sort of repair-action tree in which the \fccs are applied in different order, for example, or with a different simplification method for each \fcc, and we believe that the result of following another path in that repair-action tree could give slightly different results (that could be better or could also be worse).
+		A quality-based model refactoring framework assessing the quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents another approach to model repair, although it is not focused on repairing constraints in propositional logic. There is a comprehensive general work on repair of models by Reder et al.~\cite{reder_computing_2012}, with a method to detect inconsistencies using a validator, and to generate a repair tree representing in a compact way all the different viable actions to repair the model. This approach has been evaluated on UML models and OCL design rules, and is currently integrated in the Model/Analyzer plug-in for the IBM Rational Software Architect (RSA). 
+		\be
 		
+		We believe that our approach, instead, is a particular case of such repair framework in which the repair actions are fixed and determined by the selection and simplification algorithms (i.e., \espresso, \qm, etc.), whereas the inconsistency detection is left to the engineer, who has to provide a set of failure-containing combinations in input to our process. However, despite our process has a fixed repair type and in this work we evaluated its application, it may be possible to integrate the idea of~\cite{reder_computing_2012} and build a sort of repair-action tree in which the \fccs are applied in different order, for example, or with a different simplification method for each \fcc, and we believe that the result of following another path in that repair-action tree could give slightly different results (that could be better or could also be worse).
+		
+		\bb
 		Program repair techniques, such as SemFix~\cite{Nguyen_2013}, GenProg~\cite{le_goues_systematic_2012}, and Par~\cite{kim_automatic_2013} already apply successive patch transformations, but to repair single faults in the code directly.
 		
 		A process to detect and repair feature models from \textit{conformance faults} with respect to another model has been presented in~\cite{icst2016}. Our work, however, is able to handle arbitrary constraints of a variability model, and adds also the simplification of such modified constraints. The need for a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but no experiments were yet performed.
@@ -4614,8 +4634,9 @@ $\EFsynth(\A, \somelocs)$ was formalized in \eg{} \cite{JLR15} and is a procedur
 
 \section{A repairing process using abstraction and testing}\label{sec:proposedApproachSingle}
 
-\begin{tikzborder}{}
-In this paper, we address the \emph{guard-repair} problem of timed automata.
+In this work, we address the \emph{guard-repair} problem of timed automata.
+
+\bb
 Given a reference TA~$\initTa$ and an oracle~$\oracleTa$ knowing an unknown timed language~$\TLoracle$, our goal is to modify (``repair'') the timing constants in the clock guards of~$\A$ such that the repaired automaton matches the timed language~$\TLoracle$.
 %
 The setting assumes that the oracle \oracleTa can be queried for acceptance of timed words by~$\TLoracle$; that is, $\oracleTa$ can decide whether a timed word belongs to~$\TLoracle$, but the internal structure of the object leading to~$\TLoracle$ (\eg{} an unknown timed automaton) is unknown.
@@ -4628,7 +4649,7 @@ This setting makes practical sense when testing black-box systems.
 {Repair the constants in the clock guards of~$\initTa$ so as to obtain a TA~$\repTa$ such that $\Lg(\repTa) = \TLoracle$}
 
 While the ultimate goal is to solve this problem, in practice the best we can hope for is to be \emph{as close as possible} to the unknown oracle TA, notably due to the undecidability of language equivalence of timed automata~\cite{AD94} (\eg{} if~$\TLoracle$ was generated by another TA).
-\end{tikzborder}
+\be
 
 \subsection{Overview of the method}
 
@@ -4688,9 +4709,9 @@ From now on, we describe the process we propose to automatically repair an initi
 	\label{algo:genConstr}
 \end{algorithm}
 
-\begin{tikzborder}{}
-For step \ding{197}, instead, different approaches could be adopted: in the paper, we discuss a possible one. We describe each phase in details in the following sections.
-\end{tikzborder}
+%\begin{tikzborder}{}
+For step \ding{197}, instead, different approaches could be adopted: in this work, we discuss a possible one. We describe each phase in details in the following sections.
+%\end{tikzborder}
 
 \subsection{Step \ding{192}: Abstraction}\label{sec:abstraction}
 
@@ -5228,7 +5249,7 @@ In addition, when the oracle acts as a white-box, \ie{} when the oracle is able 
 %\end{tikzborder}
 
 \part{Tools to Support Model Repair}
-\chapter{CTWedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}\label{ch:ctwedge}
+\chapter{\ctwedge: Migrating Combinatorial Interaction Test Modeling and Generation to the Web}\label{ch:ctwedge}
 %\begin{tikzborder}{\cite{IWCTGargantini2018}}
 %Combinatorial Interaction Testing (CIT) is becoming a widespread practice for software testing.
 This chapter presents a tool to support combinatorial interaction testing (CIT) generation. Our model repair process can be performed only when faults are localized, and testing, in particular combinatorial testing, is a way to generate highly informational tests (i.e., it allows to achieve high coverage with very few tests) for configurable models, in an automated way.
@@ -5755,11 +5776,15 @@ To offer a complete SaaS environment for CIT, we have developed and deployed \ct
 
 \chapter{MixTgTe: Efficient and Guaranteed Detection of t-Way Failure-Inducing Combinations}\label{ch:mix}
 
-\section{Introduction}
+%\section{Introduction}
 
-\begin{tikzborder}{\cite{iwct19}}	
+%	
 %Rationale
-Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
+This chapter presents a tool to support our model repair process by improving the fault localization effectiveness, namely the failure-inducing combination detection.
+
+% moved in the introduction:
+% Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. 
+By testing all the interactions till a given strength $t$, we can validate the system or discover if it contains parameter combinations that cause failure. An interaction of size $t$ (or $t$-way interaction) is an assignment of a specific value to each of the selected $t$ parameters. Although the size of combinations causing faults is almost always unknown, experiments show that generally even a low degree of interaction is enough to discover faults~\cite{kuhncomputer09}. One of the main goal of CIT research is to find techniques that are able to cover all the interactions of a given strength with as few tests as possible. In this way, the faults can be found by running only a possibly small number of tests.
 
 While test generation for CIT is a well-studied topic, fault detection and localization is still an open problem, although there are now some works targeting diagnosis and bug characterization~\cite{satapathy_approaches_2018}. When a failing test has been found, it remains unclear which combination in the failing test is responsible for the failure, since a test contains many combinations of different sizes. Knowing the interaction (and, therefore, also all the input configurations) that trigger failures is of help not only in correcting bugs, but also in understanding the impact of them. The particular interacting configuration that induces a failure, often directly reflects a use case scenario, which can be traced back from the input configuration. Knowing only the test that causes a fault, instead, often makes it impossible to trace back to the general use-case scenario (maybe involving several other input configurations) that caused the fault.
 
@@ -5770,7 +5795,7 @@ Classically, test generation and fault localization are done \emph{sequentially}
 Most works do not guarantee to detect the real failure inducing combinations. Most approaches show that they are able to identify very suspicious combinations that are likely to be failure inducing~\cite{ben_2015}, but no guarantee is given. However, under some precise assumptions, also testing can locate bugs. For instance, if one knows the maximum number and maximum strength of failure inducing interactions in advance~\cite{colbourn_locating_2008}, also particular combinatorial test suites statically generated (called {\it locating arrays}) can be used to identify those interactions. Our approach follows this trend as well: under some rather general assumptions, we are able to (dynamically) generate test suites that guarantee the detection of failure-inducing combinations.
 
 %Objectives
-The contribution of this paper is therefore twofold:
+The contribution is therefore twofold:
 %
 \begin{compactenum}
 	\item detect and identify \textit{all} the failure-inducing interactions in a system, up to a certain size $t$, if they exist;
@@ -5780,11 +5805,11 @@ The contribution of this paper is therefore twofold:
 During test generation, our approach collects tuples that seem to cause failures and tries to \emph{isolate} them by finding those tuples that instead are \emph{passing}. By using this information, tests are generated and immediately executed, and the knowledge base of the system updated accordingly.
 
 The chapter reflects the content of the paper \cite{iwct19}, and it is structured as follows. Sect.~\ref{sec:background} introduces the necessary background, Sect.~\ref{sec:definitions} explains the definitions we need in our approach, Sect.~\ref{sec:proposedApproach} presents the iterative process we propose that combines test generation, test execution, and identification of failure inducing combinations. Sect.~\ref{sec:theorems} discusses about the assumptions of the process and introduces some theorems about its capabilities. Finally, Sect.~\ref{sec:evaluation3} describes some experiments we performed to evaluate the process, Sect.~\ref{sec:related} reviews some related work, and Sect.~\ref{sec:conclusions} concludes the chapter.
-\end{tikzborder}
+%\end{tikzborder}
 
 \section{Background}\label{sec:background}
 
-\begin{tikzborder}{}
+\begin{tikzborder}{\cite{iwct19}}
 We assume that the software under test (SUT) has $m$ input parameters that are described by a combinatorial model defined as follows.
 
 \begin{defn}[\textbf{Combinatorial Model}]\label{def:combModel}
@@ -6577,7 +6602,7 @@ In Chapter \ref{ch:automatedrepair}, we presented our novel iterative, test-driv
 
 This framework has been applied for three different types of software model, each of them is treated in a different chapter.
 In Chapter \ref{ch:constraintrepair} describe the application of the automated approach to combinatorial models, having configuration constraints. Specifically, in Sect. \ref{sec:Gargantini16validation} we evaluated the quality of combinatorial test generation policies, we described the actual CIT model repair process in Sect. \ref{sec:gargantini_combinatorial_2017}, and in Sect. \ref{sec:garn2019} we showed an application of it to detect constraints among parameters in XSS attack strings, that trigger vulnerability.
-Empirical evaluation shows that the process achieves on average 37\% on the combinatorial model benchmarks, and 78.8\% accuracy for XSS vulnerability condition detection.
+Empirical evaluation shows that the process achieves on average 37\% accuracy on the combinatorial model benchmarks, and 78.8\% accuracy for XSS vulnerability condition detection.
 
 In Chapter \ref{ch:fmrepair} we presented the application of the repairing process to feature models, in the context of software product line engineering.
 Specifically, the process is applied to the hierarchical and simple cross-tree constraints in Sect. \ref{sec:arcaini2019achieving} using mutations, and to arbitrarily complex constraints among features in Sect. \ref{sec:arcaini2019varivolution} using logical manipulation of propositional formulas.
@@ -6592,7 +6617,7 @@ Finally, in Chapter \ref{ch:ctwedge} and Chapter \ref{ch:mix} we presented two t
 As future work, we plan to apply test-driven repair of other model types, if necessary through an abstraction and parametrization process (as did in Timed Automata, see Chapter. \ref{ch:tarepair}). A possible model is abstract state machines. 
 In addition to following the future directions given in the single chapters, we also plan to improve the process of combinatorial models repair by improving the accuracy of the fault localization strategy.
 
-Although these contributions have also been implemented, the tools are tailored towards producing experiments table on the benchmarks proposed in the paper, and need a revision to make them user-friendly. Apart from CTWedge (Chapter \ref{ch:ctwedge}), which is even hosted and usable as a SaaS, the rest, although the code is accessible on Github, have room for improvement to make them more user-friendly for researchers and engineers: this step could further promote the further development of the findings of our research. 
+Although these contributions have also been implemented, the tools are tailored towards producing experiments tables on the benchmarks proposed in the different papers: they need a revision to make them user-friendly. Apart from CTWedge (Chapter \ref{ch:ctwedge}), which is even hosted and usable as a SaaS, the rest, although the code is accessible on Github, have room for improvement to make them more user-friendly for researchers and engineers: this step could further promote the further development of the findings of our research. 
 
 Another future work direction consists in making the processes more automated. 
 In some cases, in fact, manual intervention is needed (to asses the oracle, to decide process parameters, and even just for moving, renaming some files, or translating between file formats), especially for timed automata repair (Chapter \ref{ch:tarepair}) and for XSS vulnerabilities conditions detection (Sect. \ref{sec:garn2019}). 
