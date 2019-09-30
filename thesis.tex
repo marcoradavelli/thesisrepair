@@ -1011,13 +1011,14 @@ EnumerativeType, Number, Range, TestGoals,
 
 
 \clearpage
-
+\clearpage
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
 \clearpage
+
 \begin{abstract}
 %\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
@@ -1033,9 +1034,9 @@ We then discuss future work to overcome the current limitations of the approach,
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %----------------------------------------------------------------------------------------
-
+% try \cleardoublepage instead
 \newenvironment{acknowledgements}%
-{\cleardoublepage\thispagestyle{empty}\null\vfill\begin{center}%
+{\clearpage\thispagestyle{empty}\null\vfill\begin{center}%
 		\bfseries Acknowledgements\end{center}}%
 {\vfill\null}
 \begin{acknowledgements}
@@ -1254,7 +1255,10 @@ For the application level, such mappings can be from model to artifacts (\textit
 	\label{fig:mdse}
 \end{figure}
 
-There is a literature on how to design high quality models \cite{Krogstie:2012:MDE:2331118}, however keeping all the different models conformant while code-base evolves, is one of the main challenges in model-based software engineering.
+There is a literature on how to design high quality models \cite{Krogstie:2012:MDE:2331118}, however keeping all the different models conformant to specification and implementation while code-base evolves, is one of the main challenges in model-based software engineering.
+
+There are different ways to reach this goal of conformance: methods to check model validity \cite{parizek2006model,arcaini2018modelling}, tools to detect and visualize, and in some cases automaticaly fix, inconsistent models \cite{egyed_scenario-driven_2003,egyed_fixing_2007,egyed_scalable_2001}, even inconsistency directly in requirements \cite{egyed_identifying_2004,egyed_automating_2002}, reliability analysis, are examples of such methods.
+
 The model repair approaches proposed in this thesis try to improve the state of the art for model repair, by giving more tools or methods for software engineers to apply in the industrial practice, or to further extend.
 
 %\subsection{Models in the Software Development Lifecycle}
@@ -1344,8 +1348,8 @@ According to IEEE a feature is a distinguishing characteristic of a software ite
 The central aspect of systematic reuse is the concept of variability. This concept provides the possibility to define particular artifacts (features) for the entire SPL as not necessarily being part of each product. Variability specifies the point at which features are selected in combination with other features \cite{CE00}. The stakeholders of the SPL generally define where variability occurs and decide which features are variable e.g. optional or alternate.
 % Variability leads to a combinatorial explosion of possible products from one SPL. % For instance, an SPL with around 200 optional features may lead to over 1060 different products.
 
-Feature models represent variability in software product lines, and are employed in various domains, in particular in the IoT and in the automotive sector.
-However, variability model repair, in the context of systematic variability management in software, is still challenging and a relatively new problem.
+Feature models represent variability in software product lines, and are employed in various domains, in particular for cyber-physical systems, in the IoT and in the automotive sectors \cite{hinterreiter2018feature}.
+However, variability model consistency checking, and repair, in the context of systematic variability management in software, is still challenging and a relatively new problem \cite{kretschmer2017abstract}.
 One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia,oster_feature_2011}.
 
 %The concept of Product Lines is not new and engineers in various domains, such as the automotive sector, have adopted this concept of development for the last few decades, to benefit from the advantages that SPL engineering offers. However, with regard to software, systematic reuse, including variability concepts, is still challenging and a relatively new problem for the automotive sector. One main reason for the increasing need of systematic variability management in software is the fact that the majority of modern features in a car are based on software. Thus, variability moves from mechanics and hardware to software \cite{bosch_spl_nokia}.
@@ -1423,7 +1427,7 @@ Oracle evaluation is often the longest phase in software testing, and a bottlene
 \subsection{SAT and SMT solvers}
 
 In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula \cite{biere1999symbolic}. 
-In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is $\bot$ for all possible variable assignments and the formula is unsatisfiable. For example, the formula $a \wedge \neg b$ is satisfiable because one can find the values $a = \top \wedge b = \bot$, which make $(a \wedge \neg b) = \top$. In contrast, $a \wedge \neg a$ is unsatisfiable.
+In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE ($\top$) or FALSE ($\bot$) in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is $\bot$ for all possible variable assignments and the formula is unsatisfiable. For example, the formula $a \wedge \neg b$ is satisfiable because one can find the values $a = \top \wedge b = \bot$, which make $(a \wedge \neg b) = \top$. In contrast, $a \wedge \neg a$ is unsatisfiable.
 
 SAT is the first problem that was proven to be NP-complete. \cite{biere2009handbook}.
 Nevertheless, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving \cite{lagniez_factoring_2013}.
@@ -1456,11 +1460,11 @@ Although building a BDD is normally computationally more expensive than solving 
 	\item BDDs can be more convenient, and potentially faster, when multiple assignments are to be evaluated over the same propositional formula, because the tree is built only once (building the BDD is the complex operation), and then just traversed many times to check for satisfiability.
 \end{itemize} 
 
-\subsection{Techniques to Support Model Evolution}
-Apart from model repair, there are other ways to help engineers in the non trivial task of evolving models of software systems guaranteeing that they are not only relevant and useful, but also conformant to the actual state of the system implementation.
-Model validity checking \cite{parizek2006model}, model inconsistency detection and on-line fix, and reliability analysis, are examples of such methods.
-Their aim is to support the modeler during the task of model update. 
-An interesting line of research 
+%\subsection{Techniques to Support Model Evolution}
+%Apart from model repair, there are other ways to help engineers in the non trivial task of evolving models of software systems guaranteeing that they are not only relevant and useful, but also conformant to the actual state of the system implementation.
+%Model validity checking \cite{parizek2006model}, model inconsistency detection and on-line fix, and reliability analysis, are examples of such methods.
+%Their aim is to support the modeler during the task of model update. 
+%An interesting line of research 
 
 \part{Test-Driven Model Repair Approach}
 \chapter{Automated Model Repair}\label{ch:automatedrepair}
