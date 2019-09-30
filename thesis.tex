@@ -1034,6 +1034,23 @@ We then discuss future work to overcome the current limitations of the approach,
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %----------------------------------------------------------------------------------------
 
+\newenvironment{acknowledgements}%
+{\cleardoublepage\thispagestyle{empty}\null\vfill\begin{center}%
+		\bfseries Acknowledgements\end{center}}%
+{\vfill\null}
+\begin{acknowledgements}
+	I would like to thank my supervisor Prof. Angelo Gargantini, for his patient guidance, support and help during my PhD. 
+	I also wish to thank Prof. Paolo Arcaini for his patient support and guidance, and for inviting me to work with him for two months at ERATO Metamathematics for Systems Design Project, at NII in Tokyo. I thank also Prof. Ichiro Hasuo for accepting my visit and for his suggestions and kindness while being there in Tokyo.
+
+	Special thanks go to my family for the endless support, and to all the co-authors and colleagues at university for their contribution throughout my PhD, not only scientifically, but also on a human point of view.
+	A special thank I wish to give to Yu Lei, his family and his team at University of Texas at Arlington for the encouragement and the support in research activities.
+	Thanks to Dimitris Simos and his team at SBA Research in Vienna, for his guidance and openness in collaborating with me.
+	
+	Finally, I wish to thank the many very kind, fantastic people (researchers and not) who I had the pleasure to interact with during this journey.
+	
+	I would like to thank the University of Bergamo for making it possible.
+\end{acknowledgements}
+
 \clearpage
 
 \tableofcontents % Prints the main table of contents
@@ -1441,7 +1458,9 @@ Although building a BDD is normally computationally more expensive than solving 
 
 \subsection{Techniques to Support Model Evolution}
 Apart from model repair, there are other ways to help engineers in the non trivial task of evolving models of software systems guaranteeing that they are not only relevant and useful, but also conformant to the actual state of the system implementation.
-Model validity checking \cite{parizek2006model}, model inconsistency detection and on-line fix, reliability analysis, and many others
+Model validity checking \cite{parizek2006model}, model inconsistency detection and on-line fix, and reliability analysis, are examples of such methods.
+Their aim is to support the modeler during the task of model update. 
+An interesting line of research 
 
 \part{Test-Driven Model Repair Approach}
 \chapter{Automated Model Repair}\label{ch:automatedrepair}
