@@ -1335,6 +1335,8 @@ One main reason for the increasing need of systematic variability management in 
 
 %Due to variability, we are increasingly encountering a situation in the automotive sector where a single electronic control unit (ECU) may be instantiated in at least 10,000 different ways, and the software running on a network of more than 50 ECUs in a single car may exist in millions of different configurations. As a result, we are confronted with a world where any instance of a certain brand of car possesses a unique configuration of the embedded software of all its ECUs. At a first glance, this situation seems to result in a major benefit for the automotive sector and other industrial domains, allowing the combination of mass customization and the ability to produce individual, customer-specific configurations.
 
+An example of feature model is given in Fig. \ref{fig:fmExample}, and, although there exist multiple, slightly different, formal definitions for feature and feature models, one is given in Section \ref{sec:fmrepair}.
+
 \subsection{Timed Automata}
 
 Timed automata is proposed by Alur and Dill \cite{AD94} in the early nineties as an extension to the classical automata, which is extended with clock variables. 
@@ -1349,18 +1351,17 @@ Timed automata are equipped with of clock variables that record the passage of t
 The transitions from one state to another are assumed to be instantaneous; in other words, time passes only in states, not on edges.
 
 An example of time automaton is given in Fig. \ref{figure:example-TA}.%\todo{figura}
-
 A formal definition of timed automata is given in Sect. \ref{sec:definitions1}.
 
 \subsection{Model Repair and Program Repair}
 To the best of our knowledge, few studies address the problem of repairing the \textit{model} artifacts, instead of the implementation code, and the problem of repair \textit{automatically} existing models of software systems w.r.t. the implementation is still an open issue. 
-There are, however, several works on automated repair of programs \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}.
+Example of works on automated repair of programs are in \cite{Nguyen_2013,le_goues_systematic_2012,ARCURI20113494}.
+
 In model-driven engineering, there are approaches aiming at repairing inconsistencies between models \cite{Macedo_2013}; Tran et al. show a way to address the problem \textit{manually} for the Linux Kernel \cite{Tran:1999:FRR:781995.782007}; Nadi et al. present a method to automatically \textit{mine} conditions under which a system behaves in a certain way \cite{NadiBKC14}, and there are methods to statistically infer constraints from data~\cite{chiang_unified_2011,Abukwaik_2016}, but they are not directly applicable to repair existing models made of sets of constraints and they do not guarantee complete accuracy. 
 A quality-based model refactoring framework assessing quality of merging operations among SPL models, expressed in UML~\cite{rubin_quality_2013}, supports maintainability of models describing relations among features. It represents an approach to model repair, although it is specific to one kind of models.
 The need of a fault-driven constraint repair process was already envisioned in~\cite{henard_towards_2013}, but any empirical experiment were yet performed.
 
-
-\section{Software Testing for Model Repair}\label{sec:testing}
+\section{Software Engineering Techniques for Model Repair}\label{sec:testing}
 Software systems are an integral part of life, from business applications (e.g., banking) to consumer
 products (e.g., cars). Most people have had an experience with software that did not work as expected.
 Software that does not work correctly can lead to many problems, including loss of money, time, or
@@ -1368,7 +1369,6 @@ business reputation, and even injury or death. Software testing is a way to asse
 software and to reduce the risk of software failure in operation.
 
 Software testing is expensive and labor intensive. Software testing requires up to 50\% of software development costs, and even more for safety-critical applications \cite{testingbook}.
-
 Therefore, software testing has been an active area both in research and in industry.
 There are several studies and techniques to adapt software testing to specific scenarios and applications, to improve test suite generation and execution, and to apply testing techniques to various tasks in software engineering, such as program repair and model inference and repair. \cite{le_goues_systematic_2012,chiang_unified_2011,Duchene:2012,Xuan_2017}
 
@@ -1376,7 +1376,7 @@ One of the goals of software testing is to automate as much as possible, thereby
 
 \subsection{Combinatorial Interaction Testing}
 Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. 
-Combinatorial Interaction Testing (CIT) aims at covering the interactions of parameters in a system under test (SUT), while some combinations may be forbidden by given constraints (forbidden tuples) \cite{yamada_greedy_2016}.
+Combinatorial Interaction Testing (CIT) is a particular type of model-based, black-box testing that aims at covering the interactions of parameters in a system under test (SUT), while some combinations may be forbidden by given constraints (forbidden tuples) \cite{yamada_greedy_2016}.
 It explores t-way feature interactions inside a given system, by effectively combining all t-tuples of parameter assignments in the smallest possible number of test cases.
 This allows to budget-constrain the costs of testing while still having a testing process driven by an effective and exhaustive coverage metric \cite{AETG,KuhnTSE04}. 
 The most commonly applied combinatorial testing technique is pairwise testing, which consists in applying the smallest possible test suite covering all pairs of input values (each pair in at least one test case). 
@@ -1405,20 +1405,20 @@ Oracle evaluation is often the longest phase in software testing, and a bottlene
 %\section{Manipulation Techniques}
 \subsection{SAT and SMT solvers}
 
-In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. 
-In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula "a AND NOT b" is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, "a AND NOT a" is unsatisfiable.
+In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula \cite{biere1999symbolic}. 
+In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is $\bot$ for all possible variable assignments and the formula is unsatisfiable. For example, the formula $a \wedge \neg b$ is satisfiable because one can find the values $a = \top \wedge b = \bot$, which make $(a \wedge \neg b) = \top$. In contrast, $a \wedge \neg a$ is unsatisfiable.
 
-SAT is the first problem that was proven to be NP-complete.
-Nevertheless, as of 2007, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving.
+SAT is the first problem that was proven to be NP-complete. \cite{biere2009handbook}.
+Nevertheless, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving \cite{lagniez_factoring_2013}.
 
-SAT and SMT solvers are employed in various applications in software engineering, especially in model checking, program verification, and static analysis \cite{sat2008}.
-In presence of constraints in propositional logic, they allow to determine if a particular assignment of values to parameters is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints.
+SAT and SMT solvers are employed in various applications in software engineering, especially in model checking, program verification, and static analysis \cite{CalvagnaG09,sat2008}.
+In presence of constraints in propositional logic, they allow to determine if a particular assignment of values to parameters is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints \cite{Zhang2012FII}.
 
 By definition, the SAT problem takes as input a propositional formula in Conjunctive Normal Form (CNF), normally as DIMACS format, and a variable assignment, and tells whether it is satisfiable or not.
 
-Although the SAT solver is very fast, transforming a propositional formula in an arbitrary format into CNF, although always possible, can be computationally expensive, and lead to an exponential grow in formula size.
+Although the SAT solver is very fast, transforming a propositional formula in an arbitrary format into CNF, although always possible, can be computationally expensive, and may lead to an exponential grow in formula size \cite{sheridan2004optimality}.
 
-This is one of the practical reasons why for some applications in software engineering, BDDs are preferred over SAT/SMT solvers.
+This is one of the practical reasons for which for some applications in software engineering, in certain cases, BDDs are preferred over SAT/SMT solvers.
 
 %\subsection{Search-based Software Engineering}
 %\subsection{Model Checkers}
@@ -1430,7 +1430,7 @@ Binary Decision Diagrams (BDD) and Multi-Valued Decisions Diagrams (MDD) are com
 %A binary decision diagram (BDD) or branching program is a data structure that is used to represent a Boolean function. 
 On a more abstract level, BDDs can be considered as a compressed representation of sets or relations. Unlike other compressed representations, operations are performed directly on the compressed representation, i.e. without decompression. Other data structures used to represent Boolean functions include negation normal form (NNF), Zhegalkin polynomials, and propositional directed acyclic graphs (PDAG).
 
-BDDs are extensively used in CAD software to synthesize circuits (logic synthesis) and in formal verification. There are several lesser known applications of BDD, including fault tree analysis, Bayesian reasoning, product configuration, and private information retrieval.
+BDDs are extensively used in CAD software to synthesize circuits (logic synthesis) and in formal verification \cite{bryant2018binary}. There are several lesser known applications of BDD, including fault tree analysis, Bayesian reasoning, product configuration, and information retrieval \cite{ge2015quantitative}.
 
 Although building a BDD is normally computationally more expensive than solving a SAT problem with a state-of-the-art SAT solver, it allows for a deeper analysis over the propositional formula that leads to the BDD, in particular:
 \begin{itemize}
@@ -1439,6 +1439,9 @@ Although building a BDD is normally computationally more expensive than solving 
 	\item BDDs can be more convenient, and potentially faster, when multiple assignments are to be evaluated over the same propositional formula, because the tree is built only once (building the BDD is the complex operation), and then just traversed many times to check for satisfiability.
 \end{itemize} 
 
+\subsection{Techniques to Support Model Evolution}
+Apart from model repair, there are other ways to help engineers in the non trivial task of evolving models of software systems guaranteeing that they are not only relevant and useful, but also conformant to the actual state of the system implementation.
+Model validity checking \cite{parizek2006model}, model inconsistency detection and on-line fix, reliability analysis, and many others
 
 \part{Test-Driven Model Repair Approach}
 \chapter{Automated Model Repair}\label{ch:automatedrepair}
@@ -1505,7 +1508,7 @@ In the initial stage of the research project we applied the repair process to \t
 Configurable models can model, for example, system features decided at \textit{compile time} such as preprocessor directives, or decided at \textit{operation time} such as configuration files, and also constraints among parameters in a running system.
 
 In the following subsections we briefly describe the results obtained from the application of test-driven repair in three kinds of configurable models: combinatorial models, feature models, and timed automata.
-Results are then reported in details in Chapter \ref{ch:constraintrepair} for combinatorial models, Chapter \ref{ch:fmrepair} for feature models, and \ref{ch:tarepair} for timed automata.
+Results are then reported in details in Chapter \ref{ch:constraintrepair} for combinatorial models, Chapter \ref{ch:fmrepair} for feature models, and Chapter \ref{ch:tarepair} for timed automata.
 %\be
 
 \subsection{Repair of Configuration Constraints}\label{sec:constraintrepair}
@@ -1549,7 +1552,7 @@ Chapter \ref{ch:tarepair} presents results in detail.
 %\begin{tikzborder}{\cite{arcaini2019varivolution}}
 A model for a combinatorial problem consists of parameters which can take various domain values. Combinatorial models may have also constraints among parameter values to, for example, model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply because of design choices \cite{gargantini_combinatorial_2017}.
 
-In this chapter we describe an iterative approach that we devised to repair combinatorial models. It uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and combinatorial test generation policies to find failure-inducing combinations of parameter values.
+In this chapter we try to answer the research question RQ3 from Section \ref{sec:rq}: \textit{How to repair configuration constraints using software testing?}. To answer this question, we consider combinatorial models as notation to express configuration constraints, and we describe an iterative approach to repair combinatorial models that uses a fault-localization tool based on combinatorial testing, called BEN \cite{ghandehari2018combinatorial}, and combinatorial test generation policies to find failure-inducing combinations of parameter values.
 The model is then repaired \textit{logically}, by translating such failure-inducing combinations into expressions in propositional logic.
 The repairs are of two types, depending on whether the model is true and the system (i.e., the oracle) false for a given test case (in this case, the model is \textit{under-constrained}) or vice-versa (in this case, the model is \textit{over-constrained}). Tab. \ref{table:testsandfaults} reports possible scenarios in which such condition may occur in a system with three boolean parameters A, B, C, that map to directives in a C program in which both B and C can be enabled only if also A is activated.
 \begin{table}[!hb]
@@ -1585,7 +1588,7 @@ The repairs are of two types, depending on whether the model is true and the sys
 
 Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency, and Django) show that our approach can repair on average 37\% of conformance faults. Moreover, we also notice that it can infer and repair parameter constraints for the configurations that lead to a successful startup of Django, a well-known open source web application framework written in Python.
 
-This chapter gives an answer to research question RQ3 in \ref{sec:rq}: \textit{How to repair configuration constraints using software testing?}. To answer this question, we consider combinatorial models as notation to express configuration constraints, and we investigate a possible to solution 
+%This chapter gives an answer to research question RQ3 in \ref{sec:rq}: \textit{How to repair configuration constraints using software testing?}
 
 
 \section{Validation of Constraints Among Configuration Parameters Using Search-Based Combinatorial Interaction Testing}\label{sec:Gargantini16validation}
@@ -2929,7 +2932,7 @@ For the purposes of this work, we assume that the constraints are in conjunctive
 
 \begin{figure}[!hbt]
 \centering
-\includegraphics[width=.81\textwidth]{metaprocess.png}
+\includegraphics[width=.91\textwidth]{metaprocess.png}
 \caption{Condition detection meta-process}\label{fig:metaprocess}
 \end{figure}
 
@@ -3148,7 +3151,7 @@ We generate faults between two real versions of feature models of the {\tt Mobil
 		\item A {\it excludes} B: A and B cannot be part of the same product. We also indicate it as $A \rightarrow \neg B$.
 	\end{compactitem}
 	
-	Some frameworks for feature models also support {\it complex} cross-tree constraints~\cite{knuppel_is_2017} through \textit{general} propositional formulas. In our approach, we allow feature models to contain complex cross-tree constraints.
+	Some frameworks for feature models also support {\it complex} cross-tree constraints \cite{knuppel_is_2017} through \textit{general} propositional formulas. In our approach, we allow feature models to contain complex cross-tree constraints.
 	
 	Feature models can be visually represented by means of feature diagrams, and their semantics can be expressed by using propositional logic~\cite{batory2005feature,benavides2010automated}: features are represented by propositional variables, and relations among features by propositional formulae. We identify with $\fmToBool(\fm)$ the \textsc{BO}olean \textsc{F}ormula representing a feature model \fm.
 	
@@ -6622,7 +6625,7 @@ Although these contributions have also been implemented, the tools are tailored 
 Another future work direction consists in making the processes more automated. 
 In some cases, in fact, manual intervention is needed (to asses the oracle, to decide process parameters, and even just for moving, renaming some files, or translating between file formats), especially for timed automata repair (Chapter \ref{ch:tarepair}) and for XSS vulnerabilities conditions detection (Sect. \ref{sec:garn2019}). 
 
-Finally, further work needs to be done to improve scalability of the approch. So far, evaluation shows that these methods terminate in an \textit{acceptable} amount of time with models having up to 100 parameters, and with small numbers in other parameter values (such as maximum test suite strength, or population size for the evolutionary approach of feature models). Further studies and improvements are needed to extend the approach to models of larger size.
+Finally, further work needs to be done to improve scalability of the approch. So far, evaluation shows that these methods terminate in a \textit{reasonable} amount of time with models having up to 100 parameters, and with small numbers in other parameter values (such as maximum test suite strength, or population size for the evolutionary approach of feature models). Further studies and improvements are needed to extend the approach to models of larger size.
 
 %\chapter{Bibliography}
 \addcontentsline{toc}{chapter}{Bibliography}
