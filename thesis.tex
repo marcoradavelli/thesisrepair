@@ -1426,16 +1426,19 @@ Oracle evaluation is often the longest phase in software testing, and a bottlene
 %\section{Manipulation Techniques}
 \subsection{SAT and SMT solvers}
 
-In computer science, the Boolean satisfiability problem (sometimes called propositional satisfiability problem and abbreviated SATISFIABILITY or SAT) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula \cite{biere1999symbolic}. 
-In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE ($\top$) or FALSE ($\bot$) in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is $\bot$ for all possible variable assignments and the formula is unsatisfiable. For example, the formula $a \wedge \neg b$ is satisfiable because one can find the values $a = \top \wedge b = \bot$, which make $(a \wedge \neg b) = \top$. In contrast, $a \wedge \neg a$ is unsatisfiable.
+In computer science, the Boolean satisfiability problem (abbreviated with \textit{SAT}) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula \cite{biere1999symbolic}. 
+It asks whether the variables of a given Boolean formula can be consistently replaced by the values \textit{true} ($\top$) or \textit{false} ($\bot$) in such a way that the formula evaluates to \textit{true}, i.e., the formula is \textit{satisfiable}. 
+If no such assignment exists, the formula is unsatisfiable.
 
-SAT is the first problem that was proven to be NP-complete. \cite{biere2009handbook}.
-Nevertheless, heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving \cite{lagniez_factoring_2013}.
+For example, the formula $a \wedge \neg b$ is satisfiable because one can find the values $a = \top \wedge b = \bot$, which make $(a \wedge \neg b) = \top$. In contrast, $a \wedge \neg a$ is unsatisfiable.
 
-SAT and SMT solvers are employed in various applications in software engineering, especially in model checking, program verification, and static analysis \cite{CalvagnaG09,sat2008}.
-In presence of constraints in propositional logic, they allow to determine if a particular assignment of values to parameters is satisfiable or not. It is related to the oracle problem. These techniques are also used to identify redundant constraints, and for constraints simplification. They also allow to obtain failure-inducing combinations between two sets of constraints \cite{Zhang2012FII}.
+The  SAT problem is NP-complete, but heuristic SAT-algorithms are able to solve problem instances involving tens of thousands of variables and formulas consisting of millions of symbols, which is sufficient for many practical SAT problems from, e.g., artificial intelligence, circuit design, and automatic theorem proving \cite{lagniez_factoring_2013,biere2009handbook}.
 
-By definition, the SAT problem takes as input a propositional formula in Conjunctive Normal Form (CNF), normally as DIMACS format, and a variable assignment, and tells whether it is satisfiable or not.
+SAT and SMT (Satisfiability Modulo Theories) solvers are employed in various applications in software engineering, especially in model checking, program verification, and static analysis \cite{CalvagnaG09,sat2008}.
+%In presence of constraints in propositional logic, they allow to determine if a particular assignment of values to parameters is satisfiable or not. %It is related to the oracle problem. 
+In the context of model repair, these techniques can also be used to identify redundant constraints, for constraints simplification, and to obtain failure-inducing combinations between two sets of constraints \cite{Zhang2012FII}.
+
+By definition, the SAT solver needs as input a propositional formula in Conjunctive Normal Form (CNF), normally as DIMACS format, and a variable assignment, and tells whether it is satisfiable or not.
 
 Although the SAT solver is very fast, transforming a propositional formula in an arbitrary format into CNF, although always possible, can be computationally expensive, and may lead to an exponential grow in formula size \cite{sheridan2004optimality}.
 
