@@ -1049,7 +1049,7 @@ We then discuss future work to overcome the current limitations of the approach,
 	
 	Thanks also to the \textit{de-facto} supervisor of my M.Sc. thesis, Prof. Sarah Nadi, for having solicited in me a curiosity for the topics in software product lines, and giving me many clues on how to approach research.
 	
-	Finally, I wish to thank the many very kind, fantastic people (researchers and not) who I had the pleasure to interact with during this journey.
+	Finally, I wish to thank the many very kind, fantastic people (researchers and not) who I had the pleasure to interact with during this \textit{journey}.
 	
 	I would like to thank the University of Bergamo for making it possible.
 \end{acknowledgements}
@@ -1277,18 +1277,31 @@ A trade-off should be found, but models remain covering an important function in
 
 In the rest of the section, we describe the three model types that we chose as target for the repair operations identified in this thesis: combinatorial contraints, feature models, and timed automata.
 
-\subsection{Combinatorial Constraints}
+\subsection{Combinatorial Models}
 
-Combinatorial Interaction Testing (CIT), or simply combinatorial testing, aims to test the software or the system with selected combinations of parameter values. 
-There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11}, while an introduction to CIT and its efficacy in practice can be found in~\cite{kuhncomputer09,Petke15:practical}. 
+%Combinatorial Interaction Testing (CIT), or simply combinatorial testing, aims to test the software or the system with selected combinations of parameter values. 
+%There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11}, while an introduction to CIT and its efficacy in practice can be found in~\cite{kuhncomputer09,Petke15:practical}. 
 
-A model for a combinatorial problem consists of several parameters %(at least 2) 
-which can take several domain values. 
-In most configurable systems, dependencies exist between parameters. 
+%A model for a combinatorial problem consists of several parameters %(at least 2) which can take several domain values. 
+In most configurable systems, dependencies exist between configuration parameters. 
 Such constraints may be introduced for several reasons, e.g., to model inconsistencies between certain hardware components, limitations of the possible system configurations, or simply design choices~\cite{CohenTSE08}. 
-In our approach, tests that do not satisfy the constraints in the CIT model are considered \emph{invalid}.
+%In our approach, tests that do not satisfy the constraints in the CIT model are considered \emph{invalid}.
+Software systems can be configured by setting specific parameter values also at different stages of the software testing process.
+\begin{itemize}
+	\item {\bf Compile time}
+	Configurations can be set at compile time. An example is shown in Figure~\ref{fig:compiletimeConf}. Depending on the value settings of the Boolean variables \texttt{HELLO} and \texttt{BYE} different messages will be displayed when the program is run.
+	\item {\bf Design time}
+	Configurations can also be set at design time. For example, in case of a SPL, a configurability model is built during the design. 
+	\item {\bf Runtime}
+	%\red{something that one can customize at run time via conf file}
+	Another way of setting parameter configurations is at runtime. This can be usually done by means of a graphical user interface (GUI). In a chat client, e.g., you can change your availability status as the program is running. 
+	\item  {\bf Launch time}
+	We also differentiate the case where parameters are read from a separate configuration file or given as program arguments, \emph{before} the system is run. We say that these parameters are set at launch time of the given application. They decide which features of the system should be activated at startup. Examples of such systems include chat clients, web browsers and others. 
+\end{itemize}
 
-CIT problems can be formally defined as follows.
+A combinatorial model $M$ is composed by a set $P$ of parameters, and a set $C$ of constraints among them. 
+$M$ can be formally defined as follows.
+%CIT problems can be formally defined as follows.
 
 \begin{defn}
 	Let $P=\{p_{1},\dots,p_{m}\}$ be the
@@ -1304,22 +1317,6 @@ CIT problems can be formally defined as follows.
 Constraints $c_i$ are given in general form, using the language of propositional logic with equality and arithmetic. 
 %Fig.~\ref{fig:washerexample} shows the \citlab{} model of a simple washing machine consisting of 3 parameters. The user can select if the machine has \texttt{HalfLoad}, the desired \texttt{Rinse}, and the \texttt{Spin} cycle speed.
 %There are two constraints, including,  if \texttt{HalfLoad} is set then the speed of spin cycle cannot exceed \texttt{maxSpinHL}.
-
-Software systems can be configured by setting specific parameter values at different stages of the software testing process.
-
-\noindent {\bf Compile time}
-Configurations can be set at compile time. An example is shown in Figure~\ref{fig:compiletimeConf}. Depending on the value settings of the Boolean variables \texttt{HELLO} and \texttt{BYE} different messages will be displayed when the program is run.
-
-\noindent {\bf Design time}
-Configurations can also be set at design time. For example, in case of a SPL, a configurability model is built during the design. 
-
-%\item 
-\noindent {\bf Runtime}
-%\red{something that one can customize at run time via conf file}
-Another way of setting parameter configurations is at runtime. This can be usually done by means of a graphical user interface (GUI). In a chat client, e.g., you can change your availability status as the program is running. 
-
-\noindent {\bf Launch time}
-We also differentiate the case where parameters are read from a separate configuration file or given as program arguments, \emph{before} the system is run. We say that these parameters are set at launch time of the given application. They decide which features of the system should be activated at startup. Examples of such systems include chat clients, web browsers and others. 
 
 \begin{comment}
 \todo{cite from constraintsrepair}
