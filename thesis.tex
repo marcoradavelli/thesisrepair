@@ -1394,7 +1394,7 @@ There are several studies and techniques to adapt software testing to specific s
 
 One of the goals of software testing is to automate as much as possible, thereby significantly reducing its cost, minimizing human error, and making regression testing easier. \cite{testingbook}
 
-\subsection{Combinatorial Interaction Testing}
+\subsection{Combinatorial Interaction Testing}\label{sec:cit}
 Experiments and industrial evidence suggest that software failures are usually caused by interactions among inputs or parameters of the system~\cite{Kuhn02}. For this reason, combinatorial interaction testing (CIT), which consists in testing all the interactions of a given strength, is widely used and efficient in detecting bugs. 
 Combinatorial Interaction Testing (CIT) is a particular type of model-based, black-box testing that aims at covering the interactions of parameters in a system under test (SUT), while some combinations may be forbidden by given constraints (forbidden tuples) \cite{yamada_greedy_2016}.
 It explores t-way feature interactions inside a given system, by effectively combining all t-tuples of parameter assignments in the smallest possible number of test cases.
@@ -1641,8 +1641,8 @@ Experiments for five real-world systems (Libssh, Telecom, Aircraft, Concurrency,
 %	\be
 	
 	\subsection{Combinatorial Models of Configurable Systems}
-	
-	\bb Combinatorial Interaction Testing (CIT), or simply combinatorial testing, 
+	\begin{tikzborder}{\cite{Gargantini16:validation}}
+	Combinatorial Interaction Testing (CIT), or simply combinatorial testing, 
 	aims to test the software
 	or the system with selected combinations of parameter values. 
 	There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11},
@@ -2111,30 +2111,35 @@ In SPL the validation and extraction of constraints between features is generall
 
 %%% RATIONALE
 
-Most software systems can be configured in order to improve their capability to address users' needs. Configuration of such systems is generally performed by setting system parameters. These options, or \emph{features}, can be created during design time. For instance, in the case of a \emph{software product line}, the designer identifies the features unique to individual products and features common to all products in its category.
+This section presents a process to automatically \textit{repair} constraints of a combinatorial model, using combinatorial interaction testing, and reflects the content of paper \cite{gargantini_combinatorial_2017}.
+
+Combinatorial models can represent an aspect of configurable systems, and constraints may be used to encode interactions among those parameters: allowed interactions, or forbidden interactions.
+It is a fact that most software systems have the possibility to be configured in order to improve their capability to address users' needs. Configuration of such systems is generally performed by setting system parameters. These options, or \emph{features}, can be created during design time. For instance, in the case of a \emph{software product line}, the designer identifies the features unique to individual products and features common to all products in its category.
 %the designer models the features of the products that are in common and the features that can vary among the several products belonging to the same family. 
 
 Such options can also be decided during compilation time, in order to improve some characteristics of the compiled code (scalability, efficiency, etc.). For example, in case of preprocessor directives, the programmer can decide which libraries to use, what code to execute and what to ignore etc. Software configurations can also be modified during operation time, when the system is already running and the user wants to switch on/off a particular feature or functionality. In this case, for example, the parameters can be saved in a configuration file and modified if necessary. Such a configuration file can also be used to decide which features to load at startup.
 %Justyna: the model is unreadable, hence I removed the figure
 %An example is depicted in Figure \ref{fig:problemsolution}. The picture presents a washing machine and model of its configurations. 
-The \emph{problem space} described by the model of its configurations shows its supported features and
-their dependencies, while the \emph{solution space} is the technical realisation of the system \cite{NadiBKC14}, i.e., its implementation.
+In this scenario, we distinguish between \emph{problem space} to represent the modeling of the system configuration parameters and
+their dependencies, while the \emph{solution space} is the technical realization of the system \cite{NadiBKC14}, i.e., its implementation.
 
+We use combinatorial interaction testing (CIT) because it showed a high fault coverage with very few tests, even for a high amount (dozens, or a few hundreds) of configuration parameters \cite{kuhn2013introductionbook}.
+Large configurable systems and software product lines, in fact, can have hundreds of features. It is infeasible in practice to test all the possible configurations.  Consider, for example, a system with only 20 Boolean parameters. One would have to check over one million configurations in order to test them all. 
 
-Large configurable systems and software product lines can have hundreds of features. It is infeasible in practice to test all the possible configurations.  Consider, for example, a system with only 20 Boolean parameters. One would have to check over one million configurations in order to test them all. 
+\noindent Furthermore, the time cost of running one test could range from fraction of a second to hours if not days. %In order to address this combinatorial explosion problem, combinatorial interaction testing (CIT) has been proposed for testing configurable systems \cite{CohenISSTA07}.
 
-\noindent Furthermore, the time cost of running one test could range from fraction of a second to hours if not days. In order to address this combinatorial explosion problem, combinatorial interaction testing (CIT) has been proposed for testing configurable systems \cite{CohenISSTA07}. It is a very popular black-box testing technique that tests all interactions between any set of $t$ parameters.  There have been several studies showing the successful efficacy and efficiency of the approach \cite{KuhnTSE04,Kuhn06:pseudo,Petke15:practical,Petke2013a}.  
+CIT, as introduced in Sect. \ref{sec:cit}, is a very popular black-box testing technique that tests all interactions between any set of $t$ parameters.  There have been several studies showing the successful efficacy and efficiency of the approach \cite{KuhnTSE04,Kuhn06:pseudo,Petke15:practical,Petke2013a}.  
 
 %\red{CIT has been proposed for testing configurable systems, especially in the presence of constraints \cite{CohenISSTA07}}.
 
-Moreover, certain tests could prove to be infeasible to run, because the system being modelled can prohibit certain interactions between parameters. 
+Moreover, certain tests could prove to be infeasible to run, because the system being modeled can prohibit certain interactions between parameters. 
 %Besides identifying the parameters and their possible values, there can be constraints among these parameters. 
 Designers, developers, and testers can greatly benefit from modelling parameters and constraints among them by significantly reducing modelling and testing effort \cite{Petke15:practical} as well as identifying corner cases of the system under test. 
 Constraints play a very important role, since they identify parameter interactions that need not be tested, hence they can significantly reduce the testing effort.
 Certain constraints are defined to prohibit generation of test configurations under which the system simply should not be able to run.  
 Other constraints can prohibit system configurations that are valid, but need not be tested for other reasons. For example, there's no point in testing the \emph{find} program on an empty file by supplying all possible strings. %\red{elaborate one this - the importance about constraints} 
 
-Constructing a CIT model of a large software system is a hard, usually manual task.  Therefore, discovering constraints among parameters is highly error prone. One might run into the problem of not only producing an incomplete CIT model, but also one that is over-constrained. Even if the CIT model only allows for valid configurations to be generated, it might miss important system faults if one of the constraints is over-restrictive. Moreover, even if the system is not \emph{supposed} to run under certain configurations, if there's a fault, a test suite generated from a CIT model that correctly mimics only desired system behaviour will not find that error. In such situations tests that exercise those corner cases are desirable. 
+Constructing a CIT model of a large software system is a hard, usually manual task.  Therefore, discovering constraints among parameters is highly error prone. One might run into the problem of not only producing an incomplete CIT model, but also one that is over-constrained. Even if the CIT model only allows for valid configurations to be generated, it might miss important system faults if one of the constraints is over-restrictive. Moreover, even if the system is not \emph{supposed} to run under certain configurations, if there's a fault, a test suite generated from a CIT model that correctly mimics only desired system behavior will not find that error. In such situations tests that exercise those corner cases are desirable. 
 
 %\red{Reviewer: an important obvious use case for our method is software evolution. The initial model can conform with the system, but when the system or its configuration space undergo changes, the model becomes non-conforming and needs to be repaired. There is a clear motivation for automated repair in this use case.}
 
@@ -2165,12 +2170,13 @@ We present a case study that shows that our approach can be used to derive const
 In order to evaluate the efficiency of our approach, we measure the time taken to repair constraints in CIT models as well as the number of tests needed for the repair. On the five systems evaluated, the mutated models were repaired within seconds.
 \vspace{0.2em}
 
-This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout the section; Section \ref{sec:repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:constr_relatedwork} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
+This section reports the content of the paper \cite{gargantini_combinatorial_2017}, and it is structured as follows: Section \ref{sec:citmodels} gives a brief overview of combinatorial interaction testing activities with the \citlab tool; Section \ref{sec:citpolicies} briefly describes CIT policies used in our approach; Section \ref{sec:defs} presents definitions and notation used throughout the section; Section \ref{sec:constr_repair} presents our approach to fixing conformance faults between a software system and its combinatorial model; Section \ref{sec:constr_experiments} contains experimental results and answers to research questions posed; and Section \ref{sec:constr_relatedwork} presents related work. Conclusions and future work are discussed jointly at the end of the chapter, in Section \ref{sec:conclusion-future-work}.
 
 \subsection{Combinatorial Models and Testing of Configurable Systems}
 \label{sec:citmodels}
 
-\bb Combinatorial Interaction Testing (CIT), often called combinatorial
+\begin{tikzborder}{\cite{gargantini_combinatorial_2017}}
+Combinatorial Interaction Testing (CIT), often called combinatorial
 testing or combinatorial testing design, aims to test 
 configurable software systems under the various combinations of its parameter values. 
 There exist several tools and techniques for CIT. Good surveys of ongoing research in CIT can be found in~\cite{GrindalSTVR05,NieL11},
@@ -2251,7 +2257,7 @@ In the \textsf{Constraints} section there are two constraints: if \textsf{HalfLo
 \end{figure}
 
 
-\subsubsection{Combinatorial Testing Policies}
+\subsection{Combinatorial Testing Policies}
 \label{sec:citpolicies}
 
 \bb
@@ -2856,10 +2862,12 @@ In SPL the validation and extraction of constraints between features is generall
 
 \section{Using Iterative Constraint Repair to Detect XSS Vulnerabilities}\label{sec:garn2019}
 
+In this Section, we apply model repair to a software security scenario. 
 We consider the case where a knowledge base consists of interactions among parameter values in an input parameter model for web application security testing.
+
 The input model gives rise to attack strings to be used for exploiting XSS vulnerabilities, a critical threat towards the security of web applications.
 Testing results are then annotated with a vulnerability triggering or non-triggering classification, and such security knowledge findings are added back to the knowledge base, making the resulting attack capabilities superior for newly requested input models.
-We present our approach as an iterative process that evolves an input model for security testing.
+Our approach is an iterative process that \textit{evolves} (i.e., \textit{repairs}) an input model for security testing.
 Empirical evaluation on six real-world web application shows that the process effectively evolves a knowledge base for XSS vulnerability detection, achieving on average 78.8\% accuracy.
 %\be
 
@@ -2868,8 +2876,8 @@ Empirical evaluation on six real-world web application shows that the process ef
 %%% the rationale provides suf?cient context to justify everything that was done
 %\red{RATIONALE: Importance of detecting vulnerability an din particular vulnerability conditions} \blue{partially copied and modified from previous paper}
 %\bb 
-Computer users of today often interact via web-applications with services offered by various parties.
-This new way of connecting the client and server side with each other has brought about a multitude of novel security challenges, both for the client and the server~\cite{catteddu2010cloud}.
+%Computer users of today often interact via web-applications with services offered by various parties.
+%This new way of connecting the client and server side with each other has brought about a multitude of novel security challenges, both for the client and the server~\cite{catteddu2010cloud}.
 One major threat to web applications is posed by Cross-Site Scripting (XSS), which continues to be included in the OWASP Top 10 most critical web application security risks~\cite{owasp17}.
 Security testing is a vital and expensive part of the software development lifecycle.
 An effective testing technique applied to security testing is \emph{Combinatorial Testing} (CT), for the capability of detecting failures and fail conditions with a small amount of tests that need to be executed compared to the whole input space~\cite{SKVKS2016:IEEEComp}. Given a discrete finite model of the \textit{system under test}
@@ -3135,7 +3143,7 @@ Another direction is to further simplify the detected constraints, to reduce the
 
 \chapter{Repair of Feature Models}\label{ch:fmrepair}
 
-Feature are a widely used modeling notation for variability management in software product line (SPL) engineering. 
+Feature models are a widely used modeling notation for variability management in software product line (SPL) engineering. 
 The goal of this chapter is to propose an answer to the research question RQ4 introduced in Sect. \ref{sec:rq}: "How to repair feature models?".
 We present two different techniques to repair feature models.
 The first approach allows to repair feature models represented in the hierarchical tree-like structure, as well as \textit{simple} constraints (i.e., only in the form of \textit{requires} and \textit{excludes} between couple of features) in propositional logic.
@@ -4391,8 +4399,13 @@ bye [0] = 'b';
 
 \chapter{Repair of Timed Automata}\label{ch:tarepair}
 %\begin{tikzborder}{\cite{andre_tap_2019}}
+
+In this Chapter, we present the application of the envisioned repair process to timed automata.
 Timed automata (TAs) \cite{AD94} are a widely used formalism to specify systems having temporal requirements. However, exactly specifying the system may be difficult, as the user may not know the exact clock constraints triggering state transitions. In this work, we assume the user already specified a \ta, and (s)he wants to validate it against an oracle that can be queried for acceptance. Under the assumption that the user only wrote wrong guard transitions (\ie{} the structure of the TA is correct), the search space for the correct TA can be represented by a Parametric Timed Automaton (PTA), \ie{} a TA in which some constants are parametrized.
-This chapter presents the content of the paper \cite{andre_tap_2019}, that introduces a process that
+
+We selected to repair only an aspect of timed automata, namely clock guards, as they have a direct impact that can be revealed by testing (using \textit{timed words} as tests, as described later in the chapter), tests are meaningful because only one aspect is supposed to change (the structure of the timed automata is assumed to remain the same, although we also perform an experiment on a small structure change), and we believe they are in reality subject to change in system evolution, together with the number of locations and transitions.
+
+This chapter reflects the content of the paper \cite{andre_tap_2019}, that introduces a process that
 %
 \begin{inparaenum}[(i)]
 	\item abstracts the initial (faulty) TA \initTa in a PTA \ptaProc;
@@ -4409,6 +4422,7 @@ Experiments show that the approach is successfully able to partially repair the 
 
 %\begin{tikzborder}{}	
 %Timed automata (\ta)~\cite{AD94} represent a widely used formalism for modeling and verifying concurrent timed systems.
+\fakeparagraph{Problem}
 A common usage of timed automata
  is to develop a \ta describing the running system and then apply analysis techniques to it (\eg{} \cite{BY03}). However, exactly specifying the system under analysis may be difficult, as the user may not know the exact clock constraints that trigger state transitions, or may perform errors at design time. Therefore, validating the produced \ta against the real system is extremely important to be sure that we are analyzing a faithful representation of the system. Different testing techniques have been proposed for timed automata, based on different coverage criteria as, \eg{} transition coverage~\cite{springintveld2001testing} and fault-based coverage~\cite{Aichernig2015MMT,aichernig2013time}, and they can be used for \ta validation. However, once some failing tests have been identified, it remains the problem of detecting and removing ({\it repair}) the fault from the \ta under validation. How to do this in an automatic way is challenging. One possible solution could be to use mutation-based approaches~\cite{Aichernig2015MMT,aichernig2013time} in which mutants are considered as possible repaired versions of the original \ta; however, due to the continuous nature of timed automata, the number of possible mutants (\ie{} repair actions) is too big also for small \tas and, therefore, such approaches do not appear to be feasible. We here propose to use a {\it symbolic representation} of the possible repaired \tas and we reduce the problem of repairing to finding an assignment of this symbolic representation.
 
@@ -4430,6 +4444,7 @@ We propose a framework for automatic repair of \tas that takes as input a \ta \i
 To evaluate the feasibility of the approach, we performed some preliminary experiments showing that the approach is able to (partially) repair a faulty \ta. 
 
 \fakeparagraph{Outline}
+In the rest of the chapter, Sect. 
 \ref{sec:definitions1} explains the definitions we need in our approach.
 Then \ref{sec:proposedApproachSingle} presents the process we propose that combines model abstraction, test generation, constraint generation, and constraint solving.
 \ref{sec:evaluation2} describes experiments we performed to evaluate our process.
@@ -4438,7 +4453,7 @@ Finally, \ref{sec:related1} reviews some related work, and \ref{sec:conclusions2
 
 \section{Definitions}\label{sec:definitions1}
 
-\begin{tikzborder}{}
+\begin{tikzborder}{\cite{andre_tap_2019}}
 A \emph{timed word}~\cite{AD94} over an alphabet of actions~$\Actions$ is a possibly infinite sequence of the form
 $(\action_0 , d_0) (\action_1, d_1) \cdots$
 such that, for all integer $i \geq 0$, $\action_i \in \Actions$ and $d_i \leq d_{i+1}$.
@@ -5026,7 +5041,7 @@ In order to find the closest values of the clock guards that respect the constra
 \end{compactenum}
 \end{tikzborder}
 
-\subsection{Discussing \ref{assumption:oracle-in-pta}}\label{ss:discussion-abstraction}
+\subsubsection{Discussing \ref{assumption:oracle-in-pta}}\label{ss:discussion-abstraction}
 
 \begin{tikzborder}{}
 \ref{assumption:oracle-in-pta} assumes that the user provides a PTA \ptaProc that contains the oracle.
@@ -5844,7 +5859,7 @@ We assume that the software under test (SUT) has $m$ input parameters that are d
 	Let $P = \{p_1, \dots , p_m\}$ be the set of parameters. Every parameter $p_i$ assumes values in the domain $D_i = \{v^i_1, \dots , v^i_{o_i}\}$.
 \end{defn}
 
-In order to model and manipulate combinatorial models, we use the tool CTWedge~\cite{IWCTGargantini2018}. Note that a combinatorial model may also contain constraints that, however, are not considered in this work.
+In order to model and manipulate combinatorial models, we use the tool CTWedge \cite{IWCTGargantini2018}. Note that a combinatorial model may also contain constraints that, however, are not considered in this work.
 
 \begin{example}\label{ex:model}
 	Let's consider the combinatorial model (originally proposed by Ghandehari et al.~\cite{ghandehari_applying_2013}) of the \textsf{totinfo} program from the Siemens Suite in the Software Infrastructure Repository (SIR)~\cite{doESE05}; the model has $m$=6 parameters, namely $P$=\{tables, row, column, table\_attribute, input\_attribute, maxline\}, having enumerative values. Code~\ref{fig:totinfoModel} shows the representation of such model in CTWedge. In the following, for presentation purposes, we consider as running example a simpler combinatorial model $M$ having 3 boolean parameters $P$=$\{A, B, C\}$.
