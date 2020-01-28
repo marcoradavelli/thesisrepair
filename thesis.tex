@@ -1104,21 +1104,21 @@ Sometimes an engineer also wants to detect which is a model of a current aspect 
 Outcomes of this project may have an impact in reducing the effort of software maintenance, which is one of the costliest phases in software life cycle \cite{zarnekow2005distribution}.
 
 \section{Research Questions and Objective}\label{sec:rq}
-The goal of this thesis is to study how software testing techniques can be applied to drive automatic repair of software models.
-The thesis is divided into seven chapters, and each of these chapters (introduction excluded) tries to answer to a research question (RQ).
+The goal of this thesis is to study how software testing techniques \red{, and in particular combinatorial interaction testing (CIT)}, can be applied to drive automatic repair of models of software variability.
+The thesis is divided into seven chapters. Each of these chapters (introduction excluded) tries to answer a research question (RQ).
 \researchquestion{What are the main techniques and applications of software testing and program repair?}
 This is shown in Chapter \ref{ch:background} in which relevant books and papers are analyzed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
-Different types of software models are presented (namely software product lines, combinatorial models, and timed automata), and currently available techniques to support engineers in automatically update and repair programs and models are analyzed. In particular, techniques such as mutation together with evolutionary algorithms are discussed, as well as a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
+Different types of software models are presented (namely software product lines and combinatorial models, with a reference to timed automata), and currently available techniques to support engineers in automatically updating and repairing programs and models are analyzed. In particular, techniques such as mutation, together with evolutionary algorithms, are discussed, as well as a background on ways to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
 
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
 \researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
 Often during software development lifecycle, models may become non-conformant w.r.t. the system implementation.
-Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of the approach. Chapter \ref{ch:automatedrepair} describes an approach to this repair problem using information coming from tests on the real system. The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
-In addition, academic tools to improve engineers perform the different phases of this repair process are within the scope of this thesis. %\red{add also the one that simplifies constraints among features}
+Automatically repair the model in order to maintain conformance, by applying small edits to it, is the goal of \red{the approach presented in Chapter \ref{ch:automatedrepair}. The devised process uses information coming from tests on the real system, and it represents the \textit{framework} shared by all the \textit{specific} methods described in the following chapters. %The contribution of this thesis is a framework for the development of approaches to repair different types of models. 
+Chapter \ref{ch:automatedrepair} answers this research question, and discusses how also academic tools can improve engineers perform the different phases of this model repair process}.% are within the scope of this thesis. %\red{add also the one that simplifies constraints among features}
 
 \researchquestion{How to repair configuration constraints using software testing?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
-Another goal is the application of model repair technique directly to constraints, they can be configuration constraints, i.e., constraints under which (and only under which) the system is supposed to work correctly, or shows a certain property. 
-Chapther \ref{ch:constraintrepair} describes a possible approach to automatically repair constraints using combinatorial testing, and a case study on the application of this method to software security, for the detection of XSS vulnerabilities in web applications.
+\red{Another goal of the thesis} is the application of model repair technique directly \red{to \textit{configuration constraints}, i.e., constraints under which} (and only under which) the system is supposed to work correctly, or shows a certain property. 
+Chapther \ref{ch:constraintrepair} describes a possible approach to automatically repair constraints using combinatorial \red{interaction} testing, and a case study on the application of this method to software security, for the detection of XSS vulnerabilities in web applications.
 %By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
 
 \researchquestion{How to repair feature models?}
@@ -2277,7 +2277,8 @@ In the \textsf{Constraints} section there are two constraints: if \textsf{HalfLo
 \subsection{Combinatorial Testing Policies}
 \label{sec:citpolicies}
 
-\bb
+\begin{tikzborder}{\cite{gargantini_combinatorial_2017}}
+%\bb
 In our previous work \cite{Gargantini16:validation} we proposed to use combinatorial interaction testing techniques to verify the validity of CIT models, which is the approach we use in this work. 
 
 In particular, given a CIT model, we modify it according to one of the policies briefly described below. 
