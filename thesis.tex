@@ -32,6 +32,9 @@
 % Original Title:
 % Using Software Testing to Repair Models
 
+% Chosen title by Angelo and me:
+% Using Model-Based Testing to Repair Models of Configurable Software Systems
+
 % Recommended title by me:
 % Using Black-Box Testing to Repair Configurable Models of Software Systems
 
@@ -59,7 +62,7 @@
 % Black-box testing for Repair of Configurable Software Models
 % Combinatorial Interaction Testing for Repair of Configurable Software Models
 
-\def \ttitle {Using Black-Box Testing to Repair Configurable Models of Software Systems} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\def \ttitle {Using Model-Based Testing to Repair Models of Configurable Software Systems} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
 %\def \ttitle {Using Software Testing to Repair Configurable Models of Software Systems} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
 
 \def \supname {Prof. Angelo \textsc{Gargantini}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
@@ -1055,9 +1058,10 @@ EnumerativeType, Number, Range, TestGoals,
 %\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 Software testing is an important phase in the software development process, aiming at locating faults in artifacts, in order to achieve a degree of confidence that the software behaves according to its specification.
-While most of the techniques in software testing are applied to debugging, fault-localization, and repair of code, to the best of our knowledge there are fewer works regarding the application of software testing, \red{specifically black-box testing, and in particular a technique known as \textit{combinatorial interaction testing}} to locating faults in models, and to the automated repair of such faults.
-The goal of this PhD thesis is to study how testing can be applied to repair \red{\textit{configurable} models of software systems, i.e., models having some parts that can be mapped to logical constraints, that can then be manipulated in order to repair the semantic meaning of the entire model.} %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
-We describe the research approach and discuss the application cases of configuration constraints in combinatorial models, feature models, and clock guards in timed automata. 
+While most of the techniques in software testing are applied to debugging, fault-localization, and repair of code, to the best of our knowledge there are fewer works regarding the application of software testing to locate faults in models, and to the automated repair of such faults.
+The goal of this PhD thesis is to study how testing, \red{and specifically model-box testing,} % and in many cases a technique known as \textit{combinatorial interaction testing},
+can be applied to repair models of \red{configurable} software systems. %, i.e., models having some parts that can be mapped to logical constraints, that can then be manipulated in order to repair the semantic meaning of the entire model.} %of configurable systems. %, using software testing to obtain a set of failing test cases to drive the repair process.
+We describe the research approach, and discuss the application cases of configuration constraints in combinatorial models, feature models, and clock guards in timed automata. 
 %\red{These models have in common the property of having some parts that can be mapped to logical constraints (for instance, constraints in combinatorial models and feature models, and clock guards in timed automata),, and these parts can then be manipulated to repair the model. For our purposes, we call these kind of models, \textit{configurable} models.}
 In addition to evaluating the process on different versions of real-world systems, we show an application of repair of configuration constraints for the detection of security vulnerability conditions among parameters of XSS attack vectors.
 Empirical evaluation shows that, on average, the process achieves around 37\% accuracy in combinatorial model repair, 79\% accuracy in XSS vulnerability detection, 89\% accuracy for the feature model repair through mutations, and 100\% accuracy on variability constraints and timed automata clock-guards repair, although these values have been obtained in the optimal conditions for fault localization, that is an important factor influencing accuracy.% that have not been considered in the experiments.
@@ -1137,11 +1141,11 @@ Sometimes an engineer also wants to detect which is \red{the \textit{correct}} m
 Outcomes of this project may have an impact in reducing the effort of software maintenance, which is one of the costliest phases in software life cycle \cite{zarnekow2005distribution}.
 
 \section{Research Questions and Objective}\label{sec:rq}
-The goal of this thesis is to study how software testing techniques \red{, and in particular a black-box testing techniques known as combinatorial interaction testing (CIT)}, can be applied to drive automatic repair of models of software variability.
+The goal of this thesis is to study how \red{model-based software testing, and in particular \textit{combinatorial interaction testing} (CIT)}, can be applied to drive automatic repair of models of software variability.
 The thesis is divided into seven chapters. Each of these chapters (introduction excluded) tries to answer a research question (RQ).
 \researchquestion{What are the main techniques and applications of software testing and program repair?}
 This is shown in Chapter \ref{ch:background} in which relevant books and papers are analyzed. %The standard IEC 62304 is an international standard that describes the life cycle activities of the software development without giving any information about the method to be applied.
-Different types of software models are presented (namely software product lines and combinatorial models, with a reference to timed automata), and currently available techniques to support engineers in automatically updating and repairing programs and models are analyzed. In particular, techniques such as mutation, together with evolutionary algorithms, are discussed. \red{In this Chapter is also given a background on existing ways} to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
+Different types of software models are presented (namely software product lines and combinatorial models, with a reference to timed automata), and currently available techniques to support engineers in automatically updating and repairing programs and models are analyzed. In particular, techniques such as mutation, together with evolutionary algorithms, are discussed. \red{In this chapter is also given a background on existing ways} to encode and reason on configuration space, such as SAT and SMT solvers, and binary decision diagrams.
 
 %\researchquestion{What are the main applications and tools for program repair and model repair?} This is shown in Chapter 3 in which 
 \researchquestion{How to increase software engineer productivity by automatically repair non-conformant models?}
@@ -1150,20 +1154,20 @@ Automatically repair the model in order to maintain conformance, by applying sma
 Chapter \ref{ch:automatedrepair} answers this research question, and discusses how also academic tools can improve engineers perform the different phases of this model repair process}.% are within the scope of this thesis. %\red{add also the one that simplifies constraints among features}
 
 \researchquestion{How to repair configuration constraints using software testing?} %molto specifica Can it be applied to detect XSS vulnerabilities?}
-\red{Another goal of the thesis} is the application of model repair technique directly \red{to \textit{configuration constraints}, i.e., constraints under which} (and only under which) the system is supposed to work correctly, or shows a certain property. 
+\red{Part of the goal of the thesis} is the application of model repair technique directly \red{to \textit{configuration constraints}, i.e., constraints under which} (and only under which) the system is supposed to work correctly, or shows a certain property. 
 Chapther \ref{ch:constraintrepair} describes a possible approach to automatically repair constraints using combinatorial \red{interaction} testing, and a case study on the application of this method to software security, for the detection of XSS vulnerabilities in web applications.
 %By executing tests, when a test identifies a discrepancy between the system and its constrained model, the process tries to automatically detect the smallest possible \textit{failure-inducing combination}, applies repairs to the model, and tries to simplify the model. 
 
 \researchquestion{How to repair feature models?}
 A widely used notation to model software variability is \textit{feature model}. Feature models are used in software product lines (SPL) engineering. Many software products have configuration files with parameter-value pairs, and such configuration files can be, for example, modeled by feature models. \red{Although feature models are not yet widely used to model %such 
-configurable software application, there are many companies, in particular in the automotive sector, that use feature models to represent domain knowledge for SPLs (see this list \cite{deJong2001} of some companies using feature models).}
+configurable software applications, there are many companies, in particular in the automotive sector, that use feature models to represent domain knowledge for SPLs (see this list \cite{deJong2001} of some companies using feature models).}
 % and a technique to check for conformance and automatically repair such feature models, can be of ease for SPL engineers. 
 Model repair is a challenging problem as the number of configurations grows exponentially with the number of modeled features (i.e., parameters), and some software have hundreds or even thousands of features: the Linux Kernel, for instance, has \red{currently over} 18 000 features \cite{thum_towards_2019}.
 Chapter \ref{ch:fmrepair} presents two approaches for automated repair of feature models: the first is targeted {towards repairing} the hierarchical relations among features and the simple constraints of type \textit{requires} and \textit{excludes}, \red{while the second is targeted towards repairing} arbitrary constraints among features.
 
 \researchquestion{How to repair timed automata clock guards?}
-Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata~\cite{ACEF09,AD94,AFKS12}. They can range from electrical automated machines such as coffee machines and washing machines (where time models the time up to an inserted coin has to be given back to the user, if no operation is selected, for instance), to protocol implementation in the railway, automotive and aerospace industry.
-Chapter \ref{ch:tarepair} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating and executing test cases (i.e., sequences in the automata), and iteratively repair inconsistencies between the model and the system.
+\red{Many software systems have a behavior that involves timed constraints, and can be modeled by timed automata (TA), and parametric timed automata (PTA)~\cite{ACEF09,AD94,AFKS12}. They can range from electrical automated machines such as coffee machines and washing machines (where time automata model, e.g., the maximum amount of seconds after which, if the user has not selected any type of coffee, the inserted coins have to be given back to the user), to protocol implementation in the railway, automotive and aerospace industry.}
+Chapter \ref{ch:tarepair} describes a process to automatically repair this particular types of model, i.e., timed automata, by generating \red{(from that initial model)} and executing test cases (i.e., sequences in the automata), and iteratively repair \red{the potential} inconsistencies between the model and the system.
 
 \researchquestion{How combinatorial testing editing and generation can be made easy to perform?}
 As part of the thesis, we have also the goal to investigate a tool that supports the activity of combinatorial test generation, that is often used in the presented processes for model repair.
@@ -1188,7 +1192,7 @@ The list is in chronological order, and for each paper is shown a short summary 
 	
 	In this paper, we study the effectiveness of different combinatorial test generation criteria in detecting faults in system whose combinatorial model contains constraints among parameters.
 	M. Radavelli contributed in the discussion of ideas between co-authors, in implementing part of the experiments (in particular, the evaluation with the benchmark \textit{Django}), and in writing about it.
-	The co-authors further contributed in writing the paper, implementing the approach, \red{in writing the code to report the data from evaluation, and in further discussions and proof reading.}
+	The co-authors further contributed in writing the paper, implementing the approach, \red{in writing the code to report data from evaluation, and in further discussions and proof reading.}
 
 	\item \cite{gargantini_combinatorial_2017} \bibentry{gargantini_combinatorial_2017}
 
@@ -1220,7 +1224,7 @@ The list is in chronological order, and for each paper is shown a short summary 
 	This kind of fault localization is used in the processes for model repair devised in our papers \cite{gargantini_combinatorial_2017,IWCTGargantini2018,garn2019}, and the \red{method}
 	%process 
 	described in this paper could be used to improve those processes.
-	\red{M. Radavelli contributed in the discussions between co-authors, in writing the paper (all sections, although in particular the experiments and the related work), implemented the process and performed the evaluation.
+	\red{M. Radavelli contributed in the discussions between co-authors, in writing the paper (all sections, although in particular the experiments and the related work), implemented the process, and performed the evaluation.
 	The co-authors further contributed in discussions, writing the paper, and proof reading.}
 	
 	
@@ -1252,7 +1256,7 @@ The list is in chronological order, and for each paper is shown a short summary 
 \subsection{Other publications}
 
 Aside the papers that characterize the contributions of this thesis, two extended abstracts that present the overall contents of this thesis have been accepted for presentation in two software engineering conferences (A and B in the list below).
-Furthermore, M. Radavelli contributed to a paper that we here only mention, as goes beyond the scope of this thesis. It presents a framework for testing a medical protocol using ASM model refinement (paper C in the list below), and it is the fruit of a collaboration between the FMSE lab at the University of Bergamo \footnote{Formal Methods and Software Engineering Lab at University of Bergamo: \url{https://foselab.unibg.it/}}, and the  team of Prof. Yu Lei at University of Texas at Arlington.
+Furthermore, M. Radavelli contributed to a paper that we here only mention, as \red{it} goes beyond the scope of this thesis. It presents a framework for testing a medical protocol using ASM model refinement (paper C in the list below), and it is the fruit of a collaboration between the FMSE lab at the University of Bergamo \footnote{Formal Methods and Software Engineering Lab at University of Bergamo: \url{https://foselab.unibg.it/}}, and the  team of Prof. Yu Lei at University of Texas at Arlington.
 
 \begin{enumerate}
 	\renewcommand{\theenumi}{\Alph{enumi}} % https://tex.stackexchange.com/questions/2291/how-do-i-change-the-enumerate-list-format-to-use-letters-instead-of-the-defaul
@@ -2614,7 +2618,7 @@ We considered all CIT policies presented Section \ref{sec:citpolicies}. We appli
 
 \smallskip
 
-Table \ref{tab:constr_benchmarks} presents various benchmark data: number of variables, number of constraints (including the number of clauses when converted to conjunctive normal form (CNF)), the size of the state space (the total number of possible configurations), and the percentage of configurations that are valid  (i.e. the ratio of valid configurations)\red{, and the number of mutants we generated for each model}. Note that a low ratio indicates that there are only few valid configurations. We tried to collect models from different domains, with a good level of diversity (in terms of size, constraints, and so on) in order to increase the validity of our findings.
+Table \ref{tab:constr_benchmarks} presents various benchmark data: number of variables, number of constraints (including the number of clauses when converted to conjunctive normal form (CNF)), the size of the state space (the total number of possible configurations), the percentage of configurations that are valid  (i.e. the ratio of valid configurations)\red{, and the number of mutants we generated for each model}. Note that a low ratio indicates that there are only few valid configurations. We tried to collect models from different domains, with a good level of diversity (in terms of size, constraints, and so on) in order to increase the validity of our findings.
 
 We ran each constraint repair process 10 times and report averages. We used the ACTS tool for CIT test suite generation.
 
@@ -6521,7 +6525,7 @@ The second benchmark set, \benchReal, represents real systems: \texttt{aircraft}
 In Table~\ref{table:benchmarks}, column \textit{size} reports the size of model $M$, presented in the abbreviated form $k^{\# \mathit{params}_k} \times \ldots$, where $k$$\in$$N^+$ and $\mathit{params}_k$ are the parameters having $k$ values; for example, $2^8$$3^1$$4^1$ indicates that the SUT has 8 parameters that can take 2 values, one parameter taking 3 values, and one parameter taking 4 values. Column \trueMficsSet reports the number and size of \truemfics in $M_f$; we report each possible size with the number of \mfics of that size in parentheses. We also mark in bold face the maximum strength of the \truemfic; in the experiments, we assume Assumption~\ref{assu:maxStrength}, and so we apply the approach only up to the known maximal strength (according to Thm.~\ref{thm:trueMficsFound}, this guarantees to find all the \mfics).
 \end{tikzborder}
 
-\red{Note that we introduced a set of artificial benchmarks, \benchArt, as part of our evaluation process, for different reasons, namely: (1) to study the behavior of our process, \mix, on models known to have a single \fic, while vary the size of the \mfic and of the model; (2) to have a fair comparison with other existing methods (in particular FIC and SOFOT, which will be presented below, in Sect. \ref{sec:processes}), that work accurately only when there is a single \mfic; (3) to have a view on how does the behavior of \mix change in models of \textit{gradually increasing complexity}, from the very small one (i.e., the running example, included in \benchArt), till a slightly smaller model than the ones in \benchReal.}
+\red{Note that we introduced a set of artificial benchmarks, \benchArt, as part of our evaluation process, for different reasons, namely: (1) to study the behavior of our process, \mix, on models known to have a single \truemfic, while varying the size of the \truemfic and of the model; (2) to have a fair comparison with other existing methods (in particular FIC and SOFOT, which will be presented below, in Sect. \ref{sec:processes}), that work accurately only when there is a single \mfic; (3) to observe the behavior of \mix when applied to models of \textit{gradually increasing complexity}, from models as simple as the running example, till slightly smaller models than the ones in \benchReal; (4) to collect and show experiment results on the different behavior of \mix with models made only by boolean parameters (and \truemfic of different sizes), w.r.t. models with multi-value parameters, but a single \truemfic.} 
 
 \subsection{Compared approaches}\label{sec:processes}
 
